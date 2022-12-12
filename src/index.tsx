@@ -1,0 +1,206 @@
+/**
+ * index.tsx
+ *
+ * This is the entry file for the application, only setup and boilerplate
+ * code.
+ */
+
+import 'react-app-polyfill/ie11';
+import 'react-app-polyfill/stable';
+
+import * as React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
+// Use consistent styling
+import 'sanitize.css/sanitize.css';
+
+// Import root app
+import { App } from 'app/App';
+
+import { HelmetProvider } from 'react-helmet-async';
+
+import { configureAppStore } from 'store/configureStore';
+
+import reportWebVitals from 'reportWebVitals';
+
+// Initialize languages
+import './locales/i18n';
+import { ButtonStylesParams, MantineProvider } from '@mantine/core';
+import GlobalStyles from 'app/components/GlobalStyles/GlobalStyles';
+
+const store = configureAppStore();
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+
+root.render(
+  <Provider store={store}>
+    <HelmetProvider>
+      <React.StrictMode>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            globalStyles: theme => ({
+              ':root': {
+                '--fz-40': '40px',
+                '--border-width': '1px',
+                '--boder-radius': '8px',
+                // Color
+                '--primary-1': '#E46125',
+                '--primary-2': '#D65473',
+                '--primary-3':
+                  'linear-gradient(2.17deg, #A12FA3 -2.91%, #F96724 88.05%)',
+                '--primary-4': '#FF9565',
+                '--primary-5': '#FFE0D2',
+                '--primary-6': '#FFDBEF',
+                '--green': '#36CA68',
+                '--red': '#FF0000',
+                '--brown': '#FFA800',
+                '--dark-blue': '#336CFF',
+                '--purple': '#36CA68',
+                '--blue': '#3FC6FF',
+                '--white': '#FFFFFF',
+                '--white-light': '#F3F3F3',
+                '--light': '#EAEAEA',
+                '--grey': '#A9A9A9',
+                '--grey-light': '#D6D6D6',
+                '--grey-medium': '#BFBFBF',
+                '--grey-dark': '#929292',
+                '--grey-black': '#424242',
+                '--black': '#000000',
+              },
+              '*, *::before, *::after': {
+                margin: 0,
+                padding: 0,
+                boxSizing: 'border-box',
+              },
+
+              body: {},
+            }),
+            defaultGradient: {
+              from: '#E46125 -0.01%',
+              to: '#A12FA3 100%',
+              deg: 90,
+            },
+
+            components: {
+              Button: {
+                styles: (theme, params: ButtonStylesParams) => ({
+                  root: {
+                    position: 'relative',
+                    zIndex: 1,
+
+                    color:
+                      params.variant === 'outline'
+                        ? '#E46125'
+                        : params.variant === 'filled'
+                        ? 'var(--primary-2)'
+                        : '#FFFFFF',
+                    border: params.variant === 'outline' ? 'none' : 'inherit',
+                    borderRadius: 'var(--boder-radius)',
+                    backgroundColor:
+                      params.variant === 'filled'
+                        ? 'var(--primary-2)'
+                        : params.variant === 'default'
+                        ? 'var(--primary-2)'
+                        : params.variant === 'outline'
+                        ? '#FFFFFF'
+                        : '#FFFFFF',
+                    backgroundImage:
+                      params.variant === 'outline'
+                        ? 'linear-gradient(90deg, #E46125 -0.01%, #A12FA3 100%)'
+                        : params.variant === 'gradient'
+                        ? 'linear-gradient(90deg, #E46125 -0.01%, #A12FA3 100%)'
+                        : 'none',
+                    '::before': {
+                      content: '""',
+                      display:
+                        params.variant === 'outline'
+                          ? 'block'
+                          : params.variant === 'filled'
+                          ? 'block'
+                          : 'none',
+                      position: 'absolute',
+                      top: 'var(--border-width)',
+                      left: 'var(--border-width)',
+                      backgroundColor: 'var(--white)',
+                      borderRadius:
+                        'calc(var(--boder-radius) - var(--border-width))',
+                      height: 'calc(100% - calc(var(--border-width)*2))',
+                      width: 'calc(100% - calc(var(--border-width)*2))',
+                      zIndex: -1,
+                    },
+                    ':hover': {
+                      backgroundColor:
+                        params.variant === 'filled'
+                          ? 'var(--primary-2)'
+                          : params.variant === 'default'
+                          ? 'var(--primary-2)'
+                          : params.variant === 'outline'
+                          ? '#FFFFFF'
+                          : '#FFFFFF',
+                    },
+                    '& span': {
+                      overflow: 'visible',
+                    },
+                  },
+                }),
+              },
+              InputWrapper: {
+                styles: () => ({
+                  error: {
+                    color: 'var(--red)',
+                    marginTop: '4px',
+                  },
+                  label: {
+                    fontWeight: 600,
+                    fontSize: '18px',
+                    lineHeight: '22.5px',
+                  },
+                }),
+              },
+              Input: {
+                styles: () => ({
+                  input: {
+                    height: '55px',
+                    borderRadius: '8px',
+                    marginTop: '8px',
+                    padding: '6px',
+                    fontSize: '18px',
+                    '[type="password"]': {
+                      width: '100%',
+                      height: '100%',
+                      fontSize: '18px',
+                    },
+                    '[type="text"]': {
+                      height: '100%',
+                      fontSize: '18px',
+                    },
+                  },
+                  innerInput: {},
+                }),
+              },
+            },
+          }}
+        >
+          <GlobalStyles />
+          <App />
+        </MantineProvider>
+      </React.StrictMode>
+    </HelmetProvider>
+  </Provider>,
+);
+
+// Hot reloadable translation json files
+if (module.hot) {
+  module.hot.accept(['./locales/i18n'], () => {
+    // No need to render the App again because i18next works with the hooks
+  });
+}
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
