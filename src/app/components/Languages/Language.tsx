@@ -1,54 +1,43 @@
-import React, { useState } from 'react';
-import { forwardRef } from 'react';
-import { IconChevronDown } from '@tabler/icons';
-import { Group, Text, Select } from '@mantine/core';
-import { ReactComponent as Vi } from 'assets/icons/vi.svg';
-import { ReactComponent as En } from 'assets/icons/en.svg';
+// import React from 'react';
+// import { Menu, createStyles, Button } from '@mantine/core';
+// import { useSelector } from 'react-redux';
 
-const data = [
-  {
-    image: <Vi />,
-    label: `VIE`,
-    value: 'vi',
-  },
+// import { useUserSlice } from 'store/app/user';
+// import { selectUser } from 'store/app/user/selector';
+// import { ListMenu } from './ListMenu';
 
-  {
-    image: <En />,
-    label: 'ENG',
-    value: 'en',
-  },
-];
+// import { ReactComponent as Vn } from 'assets/icons/vn.svg';
+// import { ReactComponent as En } from 'assets/icons/en.svg';
+// import { ReactComponent as Arrow } from 'assets/icons/arrow-bottom.svg';
 
-interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-  image: string;
-  label: string;
-  description: string;
-}
+// const useStyles = createStyles(theme => ({
+//   button: {
+//     background: theme.colors.neutral[1],
+//     borderRadius: '27px',
+//     color: theme.black,
+//     height: '32px',
+//   },
+// }));
 
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ image, label, description, ...others }: ItemProps, ref) => (
-    <div ref={ref} {...others}>
-      <Group noWrap>
-        {image}
-        <div>
-          <Text size="sm">{label}</Text>
-        </div>
-      </Group>
-    </div>
-  ),
-);
-
-export default function Language() {
-  const [value, setValue] = useState<string | null>(null);
-  return (
-    <Select
-      value={value}
-      onChange={setValue}
-      placeholder="Pick one"
-      itemComponent={SelectItem}
-      data={data}
-      maxDropdownHeight={400}
-      rightSection={<IconChevronDown size={14} />}
-    />
-  );
+export default function Languages() {
+  // const { actions } = useUserSlice();
+  // const user = useSelector(selectUser);
+  // const { classes } = useStyles();
+  // return (
+  //   <Menu withArrow>
+  //     <Menu.Target>
+  //       <Button
+  //         className={classes.button}
+  //         leftIcon={user.language === 'vi' ? <Vn /> : <En />}
+  //         rightIcon={<Arrow />}
+  //         fs={'12px'}
+  //         fw={500}
+  //         style={{ color: '#000000', fontFamily: 'Poppins Medium' }}
+  //       >
+  //         {user.language === 'vi' ? 'Vie' : 'Eng'}
+  //       </Button>
+  //     </Menu.Target>
+  //     <ListMenu />
+  //   </Menu>
+  // );
 }

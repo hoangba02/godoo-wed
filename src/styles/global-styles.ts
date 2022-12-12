@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
+import '../font.css';
 export const GlobalStyle = createGlobalStyle`
   html,
   body {
@@ -8,7 +8,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family:  'Lexend', sans-serif;
   }
 
   #root {
@@ -16,9 +16,9 @@ export const GlobalStyle = createGlobalStyle`
     min-width: 100%;
   }
 
-  p,
+  p,div,
   label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-family:  'Lexend', sans-serif;
     line-height: 1.5em;
   }
 

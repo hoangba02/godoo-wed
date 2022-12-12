@@ -12,6 +12,7 @@ import {
 
 import { useForm } from '@mantine/form';
 import { IconEyeOff, IconEye } from '@tabler/icons';
+import { Link } from 'react-router-dom';
 function SignIn() {
   const { classes } = useStyles();
   const form = useForm({
@@ -62,9 +63,11 @@ function SignIn() {
           />
           <Text className={classes.save}>Lưu mật khẩu</Text>
         </Flex>
-        <Text className={clsx(classes.forgot, classes.save)}>
-          Quên mật khẩu?
-        </Text>
+        <Link to="/forgot">
+          <Text className={clsx(classes.forgot, classes.save)}>
+            Quên mật khẩu?
+          </Text>
+        </Link>
       </Flex>
 
       <Flex justify="center">
@@ -86,6 +89,7 @@ const useStyles = createStyles(() => ({
     marginTop: '16px',
   },
   save: {
+    color: 'var(--black)',
     margin: '10px 0 0 10px',
     fontSize: '16px',
     fontWeight: 500,
@@ -98,6 +102,13 @@ const useStyles = createStyles(() => ({
     fontWeight: 500,
     marginTop: '42px',
     padding: '16px 19px 16px 19px',
+
+    [`@media (max-width:575px)`]: {
+      width: '200px',
+      height: '45px',
+      fontSize: '20px',
+      marginTop: '26px',
+    },
   },
   forgot: { textDecoration: 'underline' },
 }));

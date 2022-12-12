@@ -27,7 +27,6 @@ import reportWebVitals from 'reportWebVitals';
 // Initialize languages
 import './locales/i18n';
 import { ButtonStylesParams, MantineProvider } from '@mantine/core';
-import GlobalStyles from 'app/components/GlobalStyles/GlobalStyles';
 
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
@@ -79,19 +78,21 @@ root.render(
 
               body: {},
             }),
+            fontFamily: 'Lexend, sans-serif',
             defaultGradient: {
               from: '#E46125 -0.01%',
               to: '#A12FA3 100%',
               deg: 90,
             },
-
             components: {
               Button: {
                 styles: (theme, params: ButtonStylesParams) => ({
                   root: {
+                    height: '55px',
+                    width: '269px',
                     position: 'relative',
+                    padding: '16px 19px 16px 19px',
                     zIndex: 1,
-
                     color:
                       params.variant === 'outline'
                         ? '#E46125'
@@ -158,6 +159,11 @@ root.render(
                     fontWeight: 600,
                     fontSize: '18px',
                     lineHeight: '22.5px',
+                    [`@media (max-width:575px)`]: {
+                      fontWeight: 600,
+                      fontSize: '16px',
+                      lineHeight: '20px',
+                    },
                   },
                 }),
               },
@@ -178,6 +184,19 @@ root.render(
                       height: '100%',
                       fontSize: '18px',
                     },
+                    [`@media (max-width:575px)`]: {
+                      marginTop: '4px',
+                      height: '45px',
+                      '[type="text"]': {
+                        height: '100%',
+                        fontSize: '16px',
+                      },
+                      '[type="password"]': {
+                        width: '100%',
+                        height: '100%',
+                        fontSize: '16px',
+                      },
+                    },
                   },
                   innerInput: {},
                 }),
@@ -185,7 +204,6 @@ root.render(
             },
           }}
         >
-          <GlobalStyles />
           <App />
         </MantineProvider>
       </React.StrictMode>

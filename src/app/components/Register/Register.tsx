@@ -11,8 +11,10 @@ import {
 
 import { useForm } from '@mantine/form';
 import { IconEyeOff, IconEye } from '@tabler/icons';
+import { useMediaQuery } from '@mantine/hooks';
 function Register() {
   const { classes } = useStyles();
+  const phone = useMediaQuery('(max-width: 575px)');
   const form = useForm({
     initialValues: {
       name: '',
@@ -76,7 +78,7 @@ function Register() {
       />
       <Flex align="center">
         <Checkbox
-          mt="md"
+          mt={phone ? '7px' : 'md'}
           color="orange.7"
           {...form.getInputProps('termsOfService', { type: 'checkbox' })}
         />
@@ -136,6 +138,9 @@ const useStyles = createStyles(() => ({
       textDecoration: 'underline',
       cursor: 'pointer',
     },
+    [`@media (max-width:575px)`]: {
+      margin: '10px 0 0 10px',
+    },
   },
   registerBtn: {
     width: '269px',
@@ -144,5 +149,11 @@ const useStyles = createStyles(() => ({
     fontWeight: 500,
     marginTop: '42px',
     padding: '16px 19px 16px 19px',
+    [`@media (max-width:575px)`]: {
+      width: '200px',
+      height: '45px',
+      fontSize: '20px',
+      marginTop: '26px',
+    },
   },
 }));
