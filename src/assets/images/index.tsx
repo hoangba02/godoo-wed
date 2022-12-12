@@ -5,6 +5,7 @@ export const images = {
   google: require('assets/images/google.svg').default,
   apple: require('assets/images/apple.svg').default,
   gbLogin: require('assets/images/bgLogin.svg').default,
+  gbLoginTop: require('assets/images/bgLoginTop.svg').default,
   gbLoginBig: require('assets/images/bgLoginBig.svg').default,
   gbLoginUnder: require('assets/images/bgLoginUnder.svg').default,
 };

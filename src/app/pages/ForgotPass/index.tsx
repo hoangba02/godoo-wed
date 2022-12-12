@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Avatar,
   Box,
   Button,
   Container,
@@ -18,13 +17,13 @@ import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
 import { useNavigate } from 'react-router-dom';
 import { ForgotPassStyles } from './ForgotPassStyles';
-import { useInterval } from '@mantine/hooks';
+import { useInterval, useMediaQuery } from '@mantine/hooks';
 import Logo from 'app/components/Logo/Logo';
 
 function ForgotPass() {
   const { classes } = ForgotPassStyles();
+  const phone = useMediaQuery('(max-width:575px)');
   const [next, setNext] = useState('');
-  console.log(next);
   const navigate = useNavigate();
 
   const handleComeBack = () => {
@@ -35,8 +34,8 @@ function ForgotPass() {
     <Container>
       <div className={classes.wrapper}>
         <Box className={classes.card}>
-          <Logo />
-          <Flex>
+          <Logo className={classes.logo} />
+          <Flex className={classes.header}>
             <button className={classes.back} onClick={handleComeBack}>
               <IconArrowLeft />
             </button>
@@ -44,8 +43,10 @@ function ForgotPass() {
           </Flex>
           {next === 'method' ? (
             <MethodOTP setNext={setNext} />
-          ) : next === 'code' ? (
-            <Code setNext={setNext} />
+          ) : next === 'codeMess' ? (
+            <Code setNext={setNext} status="Messenger" />
+          ) : next === 'codeTele' ? (
+            <Code setNext={setNext} status="Telegram" />
           ) : next === 'change' ? (
             <ChangePass />
           ) : (
@@ -61,6 +62,8 @@ export default ForgotPass;
 
 export function InputName({ setNext }) {
   const { classes } = ForgotPassStyles();
+  const phone = useMediaQuery('(max-width:575px)');
+
   const form = useForm<{ name: string }>({
     initialValues: { name: '' },
     validate: values => ({
@@ -76,14 +79,21 @@ export function InputName({ setNext }) {
   return (
     <>
       <form onSubmit={form.onSubmit(values => handleNext(values))}>
+        {phone && (
+          <Text className={classes.desc}>
+            Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.
+          </Text>
+        )}
         <TextInput
           className={classes.input}
           label="Tên đăng nhập"
           {...form.getInputProps('name')}
         />
-        <Text className={classes.desc}>
-          Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.{' '}
-        </Text>
+        {!phone && (
+          <Text className={classes.desc}>
+            Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.
+          </Text>
+        )}
         <Group position="center" mt="md">
           <Button type="submit" variant="gradient">
             Tiếp theo
@@ -97,11 +107,13 @@ export function MethodOTP({ setNext }) {
   const { classes } = ForgotPassStyles();
   return (
     <>
-      <Text mt={16}>Vui lòng chọn cách thức nhận mã OTP.</Text>
+      <Text mt={16} className={classes.desc}>
+        Vui lòng chọn cách thức nhận mã OTP.
+      </Text>
       <div>
         <Text className={classes.guide}>Nhận mã OTP qua:</Text>
         <Button
-          onClick={() => setNext('code')}
+          onClick={() => setNext('codeMess')}
           styles={{
             inner: {
               justifyContent: 'flex-start',
@@ -115,6 +127,7 @@ export function MethodOTP({ setNext }) {
           <Text ml={16}>Nguyễn Thư</Text>
         </Button>
         <Button
+          onClick={() => setNext('codeTele')}
           styles={{
             inner: {
               justifyContent: 'flex-start',
@@ -132,8 +145,13 @@ export function MethodOTP({ setNext }) {
   );
 }
 
-export function Code({ setNext }) {
+interface CodeProps {
+  setNext: any;
+  status: 'Messenger' | 'Telegram';
+}
+export function Code({ setNext, status }: CodeProps) {
   const { classes } = ForgotPassStyles();
+  const phone = useMediaQuery('(max-width:575px)');
   const [seconds, setSeconds] = useState(10);
   const interval = useInterval(() => setSeconds(s => s - 1), 1000);
 
@@ -151,7 +169,9 @@ export function Code({ setNext }) {
   }, [seconds]);
   return (
     <>
-      <Text mt={16}>Nhập mã OTP vừa được gửi qua Messenger của bạn:</Text>
+      <Text mt={16} className={classes.desc}>
+        Nhập mã OTP vừa được gửi qua {status} của bạn:
+      </Text>
       <Flex justify="space-between" my={16}>
         <NumberInput
           styles={{
@@ -274,8 +294,15 @@ export function Code({ setNext }) {
           hideControls
         />
       </Flex>
-      <Flex align="center">
-        <Text className={classes.desc} mt={0}>
+      <Flex align="center" justify={phone ? 'center' : 'flex-start'}>
+        <Text
+          sx={{
+            [`@media (max-width:575px)`]: {
+              marginTop: 0,
+            },
+          }}
+          className={classes.desc}
+        >
           Mã OTP có hiệu lực trong ({seconds})s!
         </Text>
         <Button className={classes.senTo} variant="subtle">
@@ -318,6 +345,11 @@ export function ChangePass() {
         onSubmit={form.onSubmit(values => console.log(values))}
       >
         <PasswordInput
+          styles={{
+            rightSection: {
+              right: 10,
+            },
+          }}
           label="Mật khẩu mới"
           placeholder="Nhập mật khẩu"
           visibilityToggleIcon={({ reveal }) =>
@@ -331,6 +363,11 @@ export function ChangePass() {
         />
 
         <PasswordInput
+          styles={{
+            rightSection: {
+              right: 10,
+            },
+          }}
           mt="sm"
           label="Xác nhận mật khẩu"
           placeholder="Xác nhận mật khẩu"
@@ -344,7 +381,7 @@ export function ChangePass() {
           {...form.getInputProps('confirmPassword')}
         />
 
-        <Group position="center" mt="md">
+        <Group position="center" mt={48}>
           <Button type="submit" variant="gradient">
             Lưu
           </Button>

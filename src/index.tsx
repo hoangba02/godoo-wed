@@ -146,6 +146,12 @@ root.render(
                     '& span': {
                       overflow: 'visible',
                     },
+                    [`@media (max-width:575px)`]: {
+                      width: 200,
+                      height: 45,
+                      fontSize: 20,
+                      lineHeight: 25,
+                    },
                   },
                 }),
               },
@@ -167,6 +173,7 @@ root.render(
                   },
                 }),
               },
+
               Input: {
                 styles: () => ({
                   input: {

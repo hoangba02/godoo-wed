@@ -5,16 +5,51 @@ export const ForgotPassStyles = createStyles(() => ({
   wrapper: {
     position: 'absolute',
     inset: 0,
+    [`@media (max-width:575px)`]: {
+      display: 'flex',
+      alignItems: 'flex-end',
+    },
   },
   card: {
     width: '50%',
-    height: '613px',
+    height: 'max-content',
     maxWidth: '720px',
     borderRadius: '30px',
     padding: '30px 75px 75px ',
     margin: '120px auto 0',
     background: 'var(--white)',
-    border: '1px solid #000',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '60%',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '70%',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '80%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      width: '90%',
+    },
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+      height: '72%',
+      padding: '16px 16px 0px ',
+      margin: ' 0px',
+    },
+  },
+  logo: {
+    [`@media (max-width:575px)`]: {
+      position: 'absolute',
+      top: '70px',
+    },
+  },
+  header: {
+    marginTop: '60px',
+    [`@media (max-width:575px)`]: {
+      position: 'relative',
+      marginTop: '0px',
+      justifyContent: 'center',
+    },
   },
   back: {
     width: '44px',
@@ -23,22 +58,42 @@ export const ForgotPassStyles = createStyles(() => ({
     cursor: 'pointer',
     backgroundColor: 'transparent',
     textAlign: 'left',
+    [`@media (max-width:575px)`]: {
+      position: 'absolute',
+      top: '-10px',
+      left: '5px',
+    },
   },
   title: {
     fontSize: '32px',
     fontWeight: 600,
     lineHeight: '40px',
+    [`@media (max-width:575px)`]: {
+      fontSize: '18px',
+      fontWeight: 500,
+      lineHeight: '22px',
+    },
   },
 
   //   Input Name
   input: {
-    marginTop: '40px',
+    marginTop: '64px',
+    marginBottom: '10px',
+    [`@media (max-width:575px)`]: {
+      marginTop: '10px',
+      lineHeight: '20px',
+    },
   },
   desc: {
     fontWeight: 400,
     fontSize: '16px',
     lineHeight: '20px',
     marginTop: '4px',
+    [`@media (max-width:575px)`]: {
+      fontSize: '14px',
+      lineHeight: '15px',
+      marginTop: '38px',
+    },
   },
 
   //MedthodOTP
@@ -48,9 +103,16 @@ export const ForgotPassStyles = createStyles(() => ({
     fontSize: '18px',
     fontWeight: 600,
     lineHeight: '22px',
+    [`@media (max-width:575px)`]: {
+      lineHeight: '20px',
+      marginTop: 10,
+    },
   },
   linkBtn: {
     width: '100%',
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
   },
 
   //   Code
@@ -59,12 +121,22 @@ export const ForgotPassStyles = createStyles(() => ({
     height: '78px',
     borderRadius: '8px',
     background: '#FFEADE',
+    [`@media (max-width:575px)`]: {
+      width: '46px',
+      height: '56px',
+    },
   },
   senTo: {
     width: 'max-content',
     padding: '0 8px',
     color: 'var(--black)',
     textDecoration: 'underline',
+    [`@media (max-width:575px)`]: {
+      width: 'max-content',
+      fontSize: '14px',
+      fontWeight: 600,
+      lineHeight: '17.5px',
+    },
   },
   forgotForm: {
     width: '100%',

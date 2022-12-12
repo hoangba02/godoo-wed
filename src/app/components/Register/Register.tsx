@@ -49,9 +49,9 @@ function Register() {
         placeholder="Mật khẩu"
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
-            <IconEyeOff size={19.69} color="#000000" />
-          ) : (
             <IconEye size={19.69} color="#000000" />
+          ) : (
+            <IconEyeOff size={19.69} color="#000000" />
           )
         }
         {...form.getInputProps('password')}
@@ -69,9 +69,9 @@ function Register() {
         placeholder="Xác nhận mật khẩu"
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
-            <IconEyeOff size={19.69} color="#000000" />
-          ) : (
             <IconEye size={19.69} color="#000000" />
+          ) : (
+            <IconEyeOff size={19.69} color="#000000" />
           )
         }
         {...form.getInputProps('confirmPassword')}

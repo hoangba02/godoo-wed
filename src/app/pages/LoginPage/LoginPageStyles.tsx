@@ -6,45 +6,35 @@ export const LoginPageStyles = createStyles(() => ({
     inset: 0,
     maxWidth: '100%',
     width: '100vw',
+    padding: 0,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    overflow: 'hidden',
+    // overflow: 'hidden',
+    zIndex: 1,
     [`@media (max-width:575px)`]: {
       alignItems: 'flex-end',
       padding: '0px',
     },
   },
   wrapper: {
-    position: 'relative',
     alignItems: 'center',
-    width: '50%',
+    width: '100%',
     maxWidth: '720px',
     height: '915px',
-    margin: '0 auto  0',
     padding: '25px 75px 35px',
-    backgroundColor: 'var(--white)',
     borderRadius: '20px',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      width: '60%',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      width: '60%',
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      width: '80%',
-      height: 'max-content',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      width: '80%',
-    },
     [`@media (max-width:575px)`]: {
       width: '100%',
-      // height: 'max-content',
-
-      height: 'calc(100% - 178px)',
+      height: '100%',
+      padding: 0,
       borderRadius: '20px 20px 0 0',
-      padding: '25px 16px 35px',
+    },
+  },
+  logo: {
+    [`@media (max-width:575px)`]: {
+      position: 'absolute',
+      top: '8%',
     },
   },
   registerBtn: {
