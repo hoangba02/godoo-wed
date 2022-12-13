@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Button,
-  Checkbox,
   createStyles,
   Flex,
   PasswordInput,
@@ -10,9 +9,11 @@ import {
 } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
-import { IconEyeOff, IconEye } from '@tabler/icons';
 import { useMediaQuery } from '@mantine/hooks';
+import { IconEyeOff, IconEye } from '@tabler/icons';
+import { useTranslation } from 'react-i18next';
 function Register() {
+  const { t } = useTranslation();
   const { classes } = useStyles();
   const phone = useMediaQuery('(max-width: 575px)');
   const form = useForm({
@@ -24,17 +25,30 @@ function Register() {
     },
 
     validate: {
-      name: value => (value.length < 2 ? 'Bao gồm chữ cái thường và số' : null),
-      password: value => (value.length < 8 ? 'Tối thiểu 8 ký tự' : null),
+      name: value => {
+        if (value.length < 2) {
+          return t(
+            'LoginPage.username.Contains only lowercase letters and numbers',
+          );
+        }
+      },
+      // value.length < 2
+      //   ? t('LoginPage.username.Contains only lowercase letters and numbers')
+      //   : null,
+      password: value =>
+        value.length < 8 ? t('LoginPage.error.At least 8 characters') : null,
       confirmPassword: (value, values) =>
-        value !== values.password ? 'Mật khẩu không trùng khớp' : null,
+        value !== values.password
+          ? t('LoginPage.password.Password incorrect')
+          : null,
     },
   });
   return (
     <form className={classes.form} onSubmit={form.onSubmit(console.log)}>
       <TextInput
-        label="Tên đăng nhập"
-        placeholder="Tên đăng nhập"
+        maxLength={16}
+        label={t('LoginPage.username.Username')}
+        placeholder={t('LoginPage.username.Username')}
         {...form.getInputProps('name')}
       />
 
@@ -45,8 +59,8 @@ function Register() {
           },
         }}
         className={classes.input}
-        label="Mật khẩu"
-        placeholder="Mật khẩu"
+        label={t('LoginPage.password.Password')}
+        placeholder={t('LoginPage.password.Password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
             <IconEye size={19.69} color="#000000" />
@@ -65,8 +79,8 @@ function Register() {
         }}
         className={classes.input}
         mt="sm"
-        label="Xác nhận mật khẩu"
-        placeholder="Xác nhận mật khẩu"
+        label={t('LoginPage.password.Confirm password')}
+        placeholder={t('LoginPage.password.Confirm password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
             <IconEye size={19.69} color="#000000" />
@@ -78,9 +92,13 @@ function Register() {
       />
       <Flex align="center">
         <Text className={classes.rules}>
-          Bằng việc nhấn <span>Đăng ký</span>, bạn đã đồng ý với{' '}
-          <span>Điều khoản dịch vụ </span> và <span> Chính sách bảo mật</span>{' '}
-          của GoDoo.
+          {t('LoginPage.text.By clicking')}{' '}
+          <span>{t('LoginPage.button.Sign up')}</span>{' '}
+          {t('LoginPage.text.you have agreed with')}{' '}
+          <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
+          {t('LoginPage.text.and')}{' '}
+          <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
+          {t('LoginPage.text.of GoDoo')}
         </Text>
       </Flex>
 
@@ -90,7 +108,7 @@ function Register() {
           variant="gradient"
           className={classes.registerBtn}
         >
-          Đăng ký
+          {t('LoginPage.button.Register')}
         </Button>
       </Flex>
     </form>

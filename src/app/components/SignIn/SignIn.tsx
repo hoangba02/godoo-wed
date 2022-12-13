@@ -10,17 +10,19 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { UserSlice } from 'store/slice/userSlice';
 import { IconEyeOff, IconEye } from '@tabler/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { useTranslation } from 'react-i18next';
 
 function SignIn() {
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { actions } = UserSlice();
   const { classes } = useStyles();
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const user = useSelector(getUserSelector);
   const [error, setError] = useState(false);
 
@@ -57,8 +59,8 @@ function SignIn() {
   return (
     <form className={classes.form} onSubmit={form.onSubmit(handleSubmitSignIn)}>
       <TextInput
-        label="Tên đăng nhập"
-        placeholder="Tên đăng nhập"
+        label={t('LoginPage.username.Username')}
+        placeholder={t('LoginPage.username.Username')}
         {...form.getInputProps('username')}
       />
 
@@ -69,8 +71,8 @@ function SignIn() {
           },
         }}
         className={classes.input}
-        label="Mật khẩu"
-        placeholder="Mật khẩu"
+        label={t('LoginPage.password.Password')}
+        placeholder={t('LoginPage.password.Password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
             <IconEye size={19.69} color="#000000" />
@@ -82,7 +84,7 @@ function SignIn() {
       />
       {error && (
         <Text className={classes.error}>
-          Tên đăng nhập hoặc mật khẩu không đúng
+          {t('LoginPage.error.Username or password incorrect')}
         </Text>
       )}
 
@@ -100,18 +102,20 @@ function SignIn() {
             color="orange.7"
             {...form.getInputProps('termsOfService', { type: 'checkbox' })}
           />
-          <Text className={classes.save}>Lưu mật khẩu</Text>
+          <Text className={classes.save}>
+            {t('LoginPage.password.Remember me')}
+          </Text>
         </Flex>
         <Link to="/forgot">
           <Text className={clsx(classes.forgot, classes.save)}>
-            Quên mật khẩu?
+            {t('LoginPage.password.Forgot password')}
           </Text>
         </Link>
       </Flex>
 
       <Flex justify="center">
         <Button type="submit" variant="gradient" className={classes.signinBtn}>
-          Đăng nhập
+          {t('LoginPage.button.Login')}
         </Button>
       </Flex>
     </form>

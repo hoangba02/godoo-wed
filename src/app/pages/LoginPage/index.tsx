@@ -9,18 +9,21 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
+
 import { images } from 'assets/images';
 import { LoginPageStyles } from './LoginPageStyles';
 import Languages from 'app/components/Languages/Language';
 import Register from 'app/components/Register/Register';
 import SignIn from 'app/components/SignIn/SignIn';
 import Logo from 'app/components/Logo/Logo';
-import { useMediaQuery } from '@mantine/hooks';
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const { classes } = LoginPageStyles();
-  const phone = useMediaQuery('(max-width:575px)');
   const [login, setLogin] = useState(true);
+  const phone = useMediaQuery('(max-width:575px)');
   return (
     <Container className={classes.container}>
       <Languages />
@@ -85,7 +88,7 @@ export function LoginPage() {
                 marginTop: '18px',
               },
             }}
-            label="Hoặc"
+            label={t('LoginPage.or')}
             labelPosition="center"
           />
           <Flex mt={38} className={classes.social}>
@@ -105,24 +108,24 @@ export function LoginPage() {
           </Flex>
           {login ? (
             <Text className={classes.ques}>
-              Bạn chưa có tài khoản?{' '}
+              {t("LoginPage.question.Don't have an accouint?")}
               <span
                 onClick={() => {
                   setLogin(false);
                 }}
               >
-                Đăng ký
+                {t('LoginPage.button.Sign up')}
               </span>
             </Text>
           ) : (
             <Text className={classes.ques}>
-              Bạn đã có tài khoản?{' '}
+              {t('LoginPage.question.Already had an account?')}
               <span
                 onClick={() => {
                   setLogin(true);
                 }}
               >
-                Đăng nhập
+                {t('LoginPage.button.Log in')}
               </span>
             </Text>
           )}

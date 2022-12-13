@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
 import { forwardRef } from 'react';
-import { IconChevronDown } from '@tabler/icons';
-import { Group, Avatar, Text, Select, createStyles, Flex } from '@mantine/core';
-import { images } from 'assets/images';
+import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@mantine/hooks';
+import { IconChevronDown } from '@tabler/icons';
+import React, { useEffect, useState } from 'react';
+import { Group, Avatar, Text, Select, createStyles, Flex } from '@mantine/core';
+
+import { images } from 'assets/images';
 
 const data = [
   {
@@ -53,11 +55,14 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
 );
 export default function Languages() {
   const { classes } = useStyles();
+  const [t, i18n] = useTranslation();
   const phone = useMediaQuery('(max-width:575px)');
   const [lang, setLang] = useState<string | null>('vi');
 
   console.log(lang);
-
+  useEffect(() => {
+    i18n.changeLanguage(`${lang}`);
+  }, [lang]);
   return (
     <Flex className={classes.wrapper}>
       <img

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import {
   BackgroundImage,
   Box,
@@ -11,24 +11,27 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { IconEyeOff, IconEye } from '@tabler/icons';
-import { IconArrowLeft } from '@tabler/icons';
-import { useInterval, useMediaQuery } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-
-import { ReactComponent as Mes } from 'assets/icons/mes.svg';
-import { ReactComponent as Tele } from 'assets/icons/tele.svg';
+import { IconArrowLeft } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
-import { ForgotPassStyles } from './ForgotPassStyles';
+import { useTranslation } from 'react-i18next';
+import { IconEyeOff, IconEye } from '@tabler/icons';
+import { useInterval, useMediaQuery } from '@mantine/hooks';
+
 import { images } from 'assets/images';
 import Logo from 'app/components/Logo/Logo';
+import { ForgotPassStyles } from './ForgotPassStyles';
+import { ReactComponent as Mes } from 'assets/icons/mes.svg';
+import { ReactComponent as Tele } from 'assets/icons/tele.svg';
+import { t } from 'i18next';
 
 function ForgotPass() {
-  const { classes } = ForgotPassStyles();
-  const phone = useMediaQuery('(max-width:575px)');
-  const [next, setNext] = useState('');
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const { classes } = ForgotPassStyles();
+  const [next, setNext] = useState('');
 
+  const phone = useMediaQuery('(max-width:575px)');
   const handleComeBack = () => {
     navigate(-1);
   };
@@ -52,7 +55,9 @@ function ForgotPass() {
             <button className={classes.back} onClick={handleComeBack}>
               <IconArrowLeft />
             </button>
-            <Text className={classes.title}>Đặt lại mật khẩu</Text>
+            <Text className={classes.title}>
+              {t('ForgotPage.title.Reset your password')}
+            </Text>
           </Flex>
           {next === 'method' ? (
             <MethodOTP setNext={setNext} />
@@ -74,13 +79,17 @@ function ForgotPass() {
 export default ForgotPass;
 
 export function InputName({ setNext }) {
+  const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
   const phone = useMediaQuery('(max-width:575px)');
 
   const form = useForm<{ name: string }>({
     initialValues: { name: '' },
     validate: values => ({
-      name: values.name.length < 2 ? 'Tên bao gồm chữ và số' : null,
+      name:
+        values.name.length < 2
+          ? t('ForgotPage.error.Contains only lowercase letters and numbers')
+          : null,
     }),
   });
   const handleNext = values => {
@@ -94,22 +103,26 @@ export function InputName({ setNext }) {
       <form onSubmit={form.onSubmit(values => handleNext(values))}>
         {phone && (
           <Text className={classes.desc}>
-            Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.
+            {t(
+              'ForgotPage.please.Please enter you Username in order to reset your password',
+            )}
           </Text>
         )}
         <TextInput
           className={classes.input}
-          label="Tên đăng nhập"
+          label={t('LoginPage.username.Username')}
           {...form.getInputProps('name')}
         />
         {!phone && (
           <Text className={classes.desc}>
-            Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.
+            {t(
+              'ForgotPage.please.Please enter you Username in order to reset your password',
+            )}
           </Text>
         )}
         <Group position="center" mt="md">
           <Button type="submit" variant="gradient">
-            Tiếp theo
+            {t('Next')}
           </Button>
         </Group>
       </form>
@@ -117,14 +130,17 @@ export function InputName({ setNext }) {
   );
 }
 export function MethodOTP({ setNext }) {
+  const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
   return (
     <>
       <Text mt={16} className={classes.desc}>
-        Vui lòng chọn cách thức nhận mã OTP.
+        {t('ForgotPage.please.Please choose one method to recieve OTP code')}
       </Text>
       <div>
-        <Text className={classes.guide}>Nhận mã OTP qua:</Text>
+        <Text className={classes.guide}>
+          {t('Forgot.text.Recieve OTP code via:')}
+        </Text>
         <Button
           onClick={() => setNext('codeMess')}
           styles={{
@@ -163,10 +179,11 @@ interface CodeProps {
   status: 'Messenger' | 'Telegram';
 }
 export function Code({ setNext, status }: CodeProps) {
+  const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
-  const phone = useMediaQuery('(max-width:575px)');
   const [seconds, setSeconds] = useState(10);
   const interval = useInterval(() => setSeconds(s => s - 1), 1000);
+  const phone = useMediaQuery('(max-width:575px)');
 
   useEffect(() => {
     if (seconds === 0) {
@@ -183,7 +200,9 @@ export function Code({ setNext, status }: CodeProps) {
   return (
     <>
       <Text mt={16} className={classes.desc}>
-        Nhập mã OTP vừa được gửi qua {status} của bạn:
+        {t(
+          `ForgotPage.please.Please enter OTP code just sent via your ${status}`,
+        )}
       </Text>
       <Flex justify="space-between" my={16}>
         <NumberInput
@@ -310,16 +329,18 @@ export function Code({ setNext, status }: CodeProps) {
       <Flex align="center" justify={phone ? 'center' : 'flex-start'}>
         <Text
           sx={{
+            marginTop: 0,
+            marginBottom: 2,
             [`@media (max-width:575px)`]: {
               marginTop: 0,
             },
           }}
           className={classes.desc}
         >
-          Mã OTP có hiệu lực trong ({seconds})s!
+          {t(`ForgotPage.text.OTP code is valid in`)} ({seconds})s!
         </Text>
         <Button className={classes.senTo} variant="subtle">
-          Gửi lại
+          {t('ForgotPage.button.Send back!')}
         </Button>
       </Flex>
       <Group position="center" mt="md">
@@ -330,7 +351,7 @@ export function Code({ setNext, status }: CodeProps) {
             setNext('change');
           }}
         >
-          Tiếp theo
+          {t('ForgotPage.button.Next')}
         </Button>
       </Group>
     </>
@@ -338,6 +359,7 @@ export function Code({ setNext, status }: CodeProps) {
 }
 
 export function ChangePass() {
+  const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
   const form = useForm({
     initialValues: {
@@ -347,12 +369,18 @@ export function ChangePass() {
 
     validate: {
       confirmPassword: (value, values) =>
-        value !== values.password ? 'Mật khẩu không trùng khớp' : null,
+        value !== values.password
+          ? t('ForgotPage.text.Password incorrect')
+          : null,
     },
   });
   return (
     <Box>
-      <Text mt={48}>Vui lòng không chia sẻ mật khẩu mới cho bất kỳ ai.</Text>
+      <Text mt={48}>
+        {t(
+          "ForgotPage.please.Please don't share this password to anyone else.",
+        )}
+      </Text>
       <form
         className={classes.forgotForm}
         onSubmit={form.onSubmit(values => console.log(values))}
@@ -363,7 +391,7 @@ export function ChangePass() {
               right: 10,
             },
           }}
-          label="Mật khẩu mới"
+          label={t('LoginPage.password.New password')}
           placeholder="Nhập mật khẩu"
           visibilityToggleIcon={({ reveal }) =>
             reveal ? (
@@ -382,8 +410,8 @@ export function ChangePass() {
             },
           }}
           mt="sm"
-          label="Xác nhận mật khẩu"
-          placeholder="Xác nhận mật khẩu"
+          label={t('LoginPage.password.Confirm password')}
+          placeholder={t('LoginPage.password.Confirm password')}
           visibilityToggleIcon={({ reveal }) =>
             reveal ? (
               <IconEyeOff size={19.69} color="#000000" />
@@ -396,7 +424,7 @@ export function ChangePass() {
 
         <Group position="center" mt={48}>
           <Button type="submit" variant="gradient">
-            Lưu
+            {t('ForgotPage.button.Save')}
           </Button>
         </Group>
       </form>

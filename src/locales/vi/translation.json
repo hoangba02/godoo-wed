@@ -1,53 +1,69 @@
 {
   "LoginPage": {
     "username": {
-      "label": "Username",
-      "placeholder": " Enter your username",
-      "validationEmpty": "You have not signed up yet",
-      "notWhiteSpaces": "Username cannot contain spaces",
-      "validation": "Include only lowercase letters and numbers"
+      "Username": "Tên đăng nhập",
+      "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Enter your password",
-      "validation": "At least 8 characters",
-      "validationEmpty": "You have not entered your password",
-      "forgot": "Forgot Password?",
-      "remember": "Remember Password",
-      "notWhiteSpaces": "Password cannot contain spaces"
-    },
-    "confirmPassword": {
-      "label": "Confirm password",
-      "placeholder": "Confirm your password",
-      "validation": "Password is incorrect"
-    },
-    "policy": {
-      "textAgree": "Agree to",
-      "TermsOfService": "Terms of Service",
-      "end": "and",
-      "PrivacyPolicy": "Privacy Policy"
+      "New password": "Mật khẩu mới",
+      "Password": "Mật khẩu",
+      "Enter your password": "Nhập mật khẩu",
+      "At least 8 characters": "Tối thiểu 8 ký tự",
+      "validationEmpty": "Bạn chưa nhập mật khẩu",
+      "Forgot password": "Quên mật khẩu?",
+      "Remember me": "Lưu mật khẩu",
+      "Confirm password": "Xác nhận mật khẩu",
+      "Enter the password": "Nhập lại mật khẩu",
+      "Password incorrect": "Mật khẩu không trùng khớp"
     },
     "button": {
-      "login": "Log In",
-      "register": "Sign Up"
-    },
-    "term": {
-      "label": "Agree with Terms of Service",
-      "error": "You have to agree with Terms of Service in order to register."
+      "Sign up": "Đăng ký",
+      "Log in": "Đăng nhập",
+      "Login": "Đăng nhập",
+      "Register": "Đăng Ký"
     },
     "error": {
-      "system_error": "There is something wrong. Please check your username and password again and retry after 30s.",
-      "invalid_username": "Username doesn't exist.",
-      "valid_username": "Username has already existed",
-      "invalid_password": "Your password is invalid.",
-      "invalid_general": "Username or password is incorrect."
+      "Username or password incorrect": "Tên đăng nhập hoặc mật khẩu không chính xác.",
+      "At least 8 characters": "Tối thiểu 8 kí tự"
     },
-    "textLink": {
-      "askRegister": "Already had an account?",
-      "askLogin": "Don’t have an account?",
-      "loginNow": "Log In now",
-      "registerNow": "Sign Up now"
+    "question": {
+      "Already had an account?": "Bạn đã có tài khoản? ",
+      "Don't have an accouint?": "Bạn chưa có tài khoản? "
     },
-    "divider": "Or"
+    "text": {
+      "By clicking": "Bằng việc nhấn",
+      "you have agreed with": "bạn đã đồng ý với",
+      "Terms of Service": "Điều khoản dịch vụ",
+      "and": "và",
+      "Privacy Policy": "chính sách bảo mật",
+      "of GoDoo": "của GoDoo"
+    },
+    "or": "Hoặc"
+  },
+  "ForgotPage": {
+    "title": {
+      "Reset your password": "Đặt lại  mật khẩu"
+    },
+    "please": {
+      "Please enter you Username in order to reset your password": "Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.",
+      "Please choose one method to recieve OTP code": "Vui lòng chọn cách thức nhận mã OTP.",
+      "Please enter OTP code just sent via your Messenger": "Nhập mã OTP vừa được gửi qua Messenger của bạn:",
+      "Please enter OTP code just sent via your Telegram": "Nhập mã OTP vừa được gửi qua Telegram của bạn:",
+      "Please don't share this password to anyone else.": "Vui lòng không chia sẻ mật khẩu mới cho bất kỳ ai."
+    },
+    "button": {
+      "Next": "Tiếp theo",
+      "Send back!": "Gửi lại!",
+      "Save": "Lưu"
+    },
+    "error": {
+      "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
+    },
+    "text": {
+      "Recieve OTP code via:": "Nhập mã OTP qua:",
+      "OTP code has expired": "Mã OTP đã hết hiệu lực",
+      "OTP code is valid in": "Mã OTP có hiệu lực trong",
+      "Password incorrect": "Mật khẩu không trùng khớp"
+    }
   }
 }

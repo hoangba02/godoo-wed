@@ -1,53 +1,69 @@
 {
   "LoginPage": {
     "username": {
-      "label": "Username",
-      "placeholder": " Enter your username",
-      "validationEmpty": "You have not signed up yet",
-      "notWhiteSpaces": "Username cannot contain spaces",
-      "validation": "Include only lowercase letters and numbers"
+      "Username": "Username",
+      "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
     },
     "password": {
-      "label": "Password",
-      "placeholder": "Enter your password",
-      "validation": "At least 8 characters",
-      "validationEmpty": "You have not entered your password",
-      "forgot": "Forgot Password?",
-      "remember": "Remember Password",
-      "notWhiteSpaces": "Password cannot contain spaces"
-    },
-    "confirmPassword": {
-      "label": "Confirm password",
-      "placeholder": "Confirm your password",
-      "validation": "Password is incorrect"
-    },
-    "policy": {
-      "textAgree": "Agree to",
-      "TermsOfService": "Terms of Service",
-      "end": "and",
-      "PrivacyPolicy": "Privacy Policy"
+      "New password": "New password",
+      "Password": "Password",
+      "Enter your password": "Enter your password",
+      "At least 8 characters": "At least 8 characters",
+      "validationEmpty": "validationEmpty",
+      "Forgot password": "Forgot password?",
+      "Remember me": "Remember me",
+      "Confirm password": "Confirm password",
+      "Enter the password": "Enter the password",
+      "Password incorrect": "Password incorrect"
     },
     "button": {
-      "login": "Log In",
-      "register": "Sign Up"
-    },
-    "term": {
-      "label": "Agree with Terms of Service",
-      "error": "You have to agree with Terms of Service in order to register."
+      "Sign up": "Sign up",
+      "Log in": "Log in",
+      "Login": "Login",
+      "Register": "Register"
     },
     "error": {
-      "system_error": "There is something wrong. Please check your username and password again and retry after 30s.",
-      "invalid_username": "Username doesn't exist.",
-      "valid_username": "Username has already existed",
-      "invalid_password": "Your password is invalid.",
-      "invalid_general": "Username or password is incorrect."
+      "Username or password incorrect": "Username or password incorrect.",
+      "At least 8 characters": "At least 8 characters"
     },
-    "textLink": {
-      "askRegister": "Already had an account?",
-      "askLogin": "Don’t have an account?",
-      "loginNow": "Log In now",
-      "registerNow": "Sign Up now"
+    "question": {
+      "Already had an account?": "Already had an account?",
+      "Don't have an accouint?": "Don't have an accouint?"
     },
-    "divider": "Or"
+    "text": {
+      "By clicking": "By clicking",
+      "you have agreed with": "you have agreed with",
+      "Terms of Service": "Terms of Service",
+      "and": "and",
+      "Privacy Policy": "Privacy Policy",
+      "of GoDoo": "of GoDoo"
+    },
+    "or": "or"
+  },
+  "ForgotPage": {
+    "title": {
+      "Reset your password": "Reset your password"
+    },
+    "please": {
+      "Please enter you Username in order to reset your password": "Please enter you Username in order to reset your password",
+      "Please choose one method to recieve OTP code": "Please choose one method to recieve OTP code.",
+      "Please enter OTP code just sent via your Messenger": "Please enter OTP code just sent via your Messenger:",
+      "Please enter OTP code just sent via your Telegram": "Please enter OTP code just sent via your Telegram:",
+      "Please don't share this password to anyone else.": "Please don't share this password to anyone else."
+    },
+    "button": {
+      "Next": "Next",
+      "Send back!": "Send back!",
+      "Save": "Save"
+    },
+    "error": {
+      "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
+    },
+    "text": {
+      "Recieve OTP code via:": "Recieve OTP code via:",
+      "OTP code has expired": "OTP code has expired",
+      "OTP code is valid in": "OTP code is valid in",
+      "Password incorrect": "Password incorrect"
+    }
   }
 }
