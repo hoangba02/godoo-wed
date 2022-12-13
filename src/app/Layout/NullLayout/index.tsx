@@ -11,10 +11,13 @@ function NullLayout({ children }: Props) {
     <Box
       className={classes.layout}
       sx={{
-        backgroundImage: `url(${images.gbLogin})`,
+        backgroundImage: `url(${images.bgLogin})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
+        [`@media (max-width:575px)`]: {
+          backgroundImage: `url(${images.bgLoginMobile})`,
+        },
       }}
     >
       {children}

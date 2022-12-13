@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  BackgroundImage,
   Box,
   Button,
   Container,
@@ -12,12 +13,14 @@ import {
 } from '@mantine/core';
 import { IconEyeOff, IconEye } from '@tabler/icons';
 import { IconArrowLeft } from '@tabler/icons';
+import { useInterval, useMediaQuery } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
+
 import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
 import { useNavigate } from 'react-router-dom';
 import { ForgotPassStyles } from './ForgotPassStyles';
-import { useInterval, useMediaQuery } from '@mantine/hooks';
+import { images } from 'assets/images';
 import Logo from 'app/components/Logo/Logo';
 
 function ForgotPass() {
@@ -33,6 +36,16 @@ function ForgotPass() {
   return (
     <Container>
       <div className={classes.wrapper}>
+        <BackgroundImage
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+          }}
+          src={phone ? images.bgLoginTopMobile : images.bgLoginTop}
+        ></BackgroundImage>
         <Box className={classes.card}>
           <Logo className={classes.logo} />
           <Flex className={classes.header}>

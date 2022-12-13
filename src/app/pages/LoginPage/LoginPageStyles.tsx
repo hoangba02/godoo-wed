@@ -51,6 +51,8 @@ export const LoginPageStyles = createStyles(() => ({
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '22.5px',
+    position: 'relative',
+    zIndex: 2,
     '& span': {
       color: 'var(--primary-1 )',
       fontWeight: 600,

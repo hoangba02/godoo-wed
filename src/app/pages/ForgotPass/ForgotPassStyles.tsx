@@ -11,6 +11,8 @@ export const ForgotPassStyles = createStyles(() => ({
     },
   },
   card: {
+    position: 'relative',
+    zIndex: 2,
     width: '50%',
     height: 'max-content',
     maxWidth: '720px',
@@ -33,14 +35,16 @@ export const ForgotPassStyles = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       width: '100%',
       height: '72%',
-      padding: '16px 16px 0px ',
       margin: ' 0px',
+      padding: '16px 16px 0px ',
+      borderRadius: '20px 20px 0 0',
     },
   },
   logo: {
     [`@media (max-width:575px)`]: {
       position: 'absolute',
-      top: '70px',
+      left: 0,
+      top: '-30%',
     },
   },
   header: {

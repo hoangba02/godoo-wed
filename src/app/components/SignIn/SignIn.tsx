@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Checkbox,
@@ -9,31 +9,57 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-
 import { useForm } from '@mantine/form';
 import { IconEyeOff, IconEye } from '@tabler/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserSlice } from 'store/slice/userSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+
 function SignIn() {
+  const { actions } = UserSlice();
   const { classes } = useStyles();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
+  const [error, setError] = useState(false);
+
   const form = useForm({
     initialValues: {
-      name: '',
+      username: '',
       password: '',
-      confirmPassword: '',
       termsOfService: false,
     },
-
-    validate: {
-      name: value => (value.length < 2 ? 'Bao gồm chữ cái thường và số' : null),
-      password: value => (value.length < 8 ? 'Tối thiểu 8 ký tự' : null),
-    },
   });
+  const handleSubmitSignIn = () => {
+    console.log(form.values);
+    if (!form.values.password || !form.values.password || user.login.error) {
+      setError(true);
+    } else {
+      setError(false);
+      dispatch(
+        actions.requestLogin({
+          username: form.values.username,
+          password: form.values.password,
+          login: { savePassword: form.values.termsOfService },
+        }),
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (user.username) {
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  }, [navigate, user]);
   return (
-    <form className={classes.form} onSubmit={form.onSubmit(console.log)}>
+    <form className={classes.form} onSubmit={form.onSubmit(handleSubmitSignIn)}>
       <TextInput
         label="Tên đăng nhập"
         placeholder="Tên đăng nhập"
-        {...form.getInputProps('name')}
+        {...form.getInputProps('username')}
       />
 
       <PasswordInput
@@ -54,7 +80,20 @@ function SignIn() {
         }
         {...form.getInputProps('password')}
       />
-      <Flex justify="space-between" align="center">
+      {error && (
+        <Text className={classes.error}>
+          Tên đăng nhập hoặc mật khẩu không đúng
+        </Text>
+      )}
+
+      <Flex
+        justify="space-between"
+        align="center"
+        sx={{
+          position: 'relative',
+          zUndex: 2,
+        }}
+      >
         <Flex align="center">
           <Checkbox
             mt="md"
@@ -87,6 +126,13 @@ const useStyles = createStyles(() => ({
   },
   input: {
     marginTop: '16px',
+  },
+  error: {
+    color: 'var(--red)',
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '15px',
+    marginTop: '4px',
   },
   save: {
     color: 'var(--black)',

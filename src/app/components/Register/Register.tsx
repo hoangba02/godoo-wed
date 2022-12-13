@@ -77,14 +77,10 @@ function Register() {
         {...form.getInputProps('confirmPassword')}
       />
       <Flex align="center">
-        <Checkbox
-          mt={phone ? '7px' : 'md'}
-          color="orange.7"
-          {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-        />
         <Text className={classes.rules}>
-          Đồng ý với <span>Điều khoản dịch vụ</span> và{' '}
-          <span>Chính sách bảo mật</span>
+          Bằng việc nhấn <span>Đăng ký</span>, bạn đã đồng ý với{' '}
+          <span>Điều khoản dịch vụ </span> và <span> Chính sách bảo mật</span>{' '}
+          của GoDoo.
         </Text>
       </Flex>
 
@@ -135,7 +131,6 @@ const useStyles = createStyles(() => ({
     lineHeight: '20px',
     '& span': {
       fontWeight: 600,
-      textDecoration: 'underline',
       cursor: 'pointer',
     },
     [`@media (max-width:575px)`]: {

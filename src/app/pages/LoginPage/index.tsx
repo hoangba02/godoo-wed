@@ -15,12 +15,15 @@ import Languages from 'app/components/Languages/Language';
 import Register from 'app/components/Register/Register';
 import SignIn from 'app/components/SignIn/SignIn';
 import Logo from 'app/components/Logo/Logo';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function LoginPage() {
   const { classes } = LoginPageStyles();
-  const [login, setLogin] = useState(false);
+  const phone = useMediaQuery('(max-width:575px)');
+  const [login, setLogin] = useState(true);
   return (
     <Container className={classes.container}>
+      <Languages />
       <Box
         sx={{
           width: '50%',
@@ -42,8 +45,6 @@ export function LoginPage() {
           },
           [`@media (max-width:575px)`]: {
             width: '100%',
-            // height: 'max-content',
-
             height: '76%',
             borderRadius: '20px 20px 0 0',
             padding: '25px 16px 35px',
@@ -58,7 +59,7 @@ export function LoginPage() {
             right: 0,
             bottom: 0,
           }}
-          src={images.gbLoginTop}
+          src={phone ? images.bgLoginTopMobile : images.bgLoginTop}
         ></BackgroundImage>
         <Stack spacing={0} className={classes.wrapper}>
           <Logo className={classes.logo} />

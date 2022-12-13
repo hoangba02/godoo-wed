@@ -1,15 +1,38 @@
-import { Container } from '@mantine/core';
-import * as React from 'react';
+import { Button, Container } from '@mantine/core';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { UserSlice } from 'store/slice/userSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export function HomePage() {
+  const { actions } = UserSlice();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector(getUserSelector);
+  console.log(user);
+  useEffect(() => {
+    if (!user.isLogin) {
+      navigate('/login');
+    }
+  });
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Container>HomePage</Container>
+      <Container>
+        <Button
+          onClick={() => {
+            dispatch(actions.logoutSuccess());
+          }}
+        >
+          Log out
+        </Button>
+      </Container>
     </>
   );
 }
