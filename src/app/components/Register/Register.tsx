@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   createStyles,
@@ -9,48 +9,102 @@ import {
 } from '@mantine/core';
 
 import { useForm } from '@mantine/form';
-import { useMediaQuery } from '@mantine/hooks';
-import { IconEyeOff, IconEye } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { IconEyeOff, IconEye } from '@tabler/icons';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { UserSlice } from 'store/slice/userSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+
+const REG_USERNAME = /^[a-z0-9]+$/;
 function Register() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const { actions } = UserSlice();
   const { classes } = useStyles();
-  const phone = useMediaQuery('(max-width: 575px)');
+  const user = useSelector(getUserSelector);
+
+  const [errName, setErrName] = useState(false);
+  const [errPass, setErrPass] = useState(false);
   const form = useForm({
+    // validateInputOnBlur: true,
     initialValues: {
-      name: '',
+      username: '',
       password: '',
       confirmPassword: '',
-      termsOfService: false,
     },
-
     validate: {
-      name: value => {
-        if (value.length < 2) {
-          return t(
-            'LoginPage.username.Contains only lowercase letters and numbers',
-          );
-        }
-      },
-      // value.length < 2
-      //   ? t('LoginPage.username.Contains only lowercase letters and numbers')
-      //   : null,
-      password: value =>
-        value.length < 8 ? t('LoginPage.error.At least 8 characters') : null,
       confirmPassword: (value, values) =>
         value !== values.password
           ? t('LoginPage.password.Password incorrect')
           : null,
     },
   });
+  // const errorUserName = () => {
+  //   if (user.register.message === 'user_exist') {
+  //     form.setErrors({
+  //       username: t('LoginPage.username.This username has already existed'),
+  //     });
+  //   }
+  // };
+  const handleBlurUser = () => {
+    form.setValues({ username: form.values.username.toLowerCase() });
+    if (!REG_USERNAME.test(form.values.username)) {
+      setErrName(true);
+      setErrPass(false);
+      form.setErrors({ username: t('LoginPage.username.Username incorrect') });
+    }
+  };
+  const handleBlurPass = () => {
+    if (form.values.password.length < 8) {
+      setErrName(false);
+      setErrPass(true);
+      form.setErrors({
+        password: t('LoginPage.password.At least 8 characters'),
+      });
+    }
+  };
+  const handleRegisterUser = () => {
+    dispatch(
+      actions.requestRegister({
+        username: form.values.username,
+        password: form.values.password,
+      }),
+    );
+  };
+  const handleClearSpace = e => {
+    if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
+      e.preventDefault();
+    }
+  };
   return (
-    <form className={classes.form} onSubmit={form.onSubmit(console.log)}>
+    <form className={classes.form} onSubmit={form.onSubmit(handleRegisterUser)}>
       <TextInput
         maxLength={16}
         label={t('LoginPage.username.Username')}
-        placeholder={t('LoginPage.username.Username')}
-        {...form.getInputProps('name')}
+        placeholder={t('LoginPage.username.Enter your username')}
+        error={form.errors.username}
+        {...form.getInputProps('username')}
+        onKeyDown={e => {
+          handleClearSpace(e);
+        }}
+        onBlur={() => {
+          handleBlurUser();
+        }}
+        onFocus={() => {
+          setErrName(false);
+          form.setErrors({ username: '' });
+        }}
+        onInput={() => setErrName(false)}
       />
+      {!errName && (
+        <Text className={classes.error}>
+          {t('LoginPage.username.Contains only lowercase letters and numbers')}
+        </Text>
+      )}
 
       <PasswordInput
         styles={{
@@ -60,16 +114,32 @@ function Register() {
         }}
         className={classes.input}
         label={t('LoginPage.password.Password')}
-        placeholder={t('LoginPage.password.Password')}
+        placeholder={t('LoginPage.password.Enter your password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
-            <IconEye size={19.69} color="#000000" />
+            <IconEye stroke={2.5} size={21} color="#000000" />
           ) : (
-            <IconEyeOff size={19.69} color="#000000" />
+            <IconEyeOff stroke={2.5} size={21} color="#000000" />
           )
         }
         {...form.getInputProps('password')}
+        onKeyDown={e => {
+          handleClearSpace(e);
+        }}
+        onBlur={() => {
+          handleBlurPass();
+        }}
+        onFocus={() => {
+          setErrPass(false);
+          form.setErrors({ password: '' });
+        }}
+        onInput={() => setErrPass(false)}
       />
+      {!errPass && (
+        <Text className={classes.error}>
+          {t('LoginPage.password.At least 8 characters')}
+        </Text>
+      )}
 
       <PasswordInput
         styles={{
@@ -83,13 +153,17 @@ function Register() {
         placeholder={t('LoginPage.password.Confirm password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
-            <IconEye size={19.69} color="#000000" />
+            <IconEye stroke={2.5} size={21} color="#000000" />
           ) : (
-            <IconEyeOff size={19.69} color="#000000" />
+            <IconEyeOff stroke={2.5} size={21} color="#000000" />
           )
         }
         {...form.getInputProps('confirmPassword')}
+        onKeyDown={e => {
+          handleClearSpace(e);
+        }}
       />
+
       <Flex align="center">
         <Text className={classes.rules}>
           {t('LoginPage.text.By clicking')}{' '}
@@ -104,11 +178,12 @@ function Register() {
 
       <Flex justify="center">
         <Button
+          // onClick={() => handleRegisterUser}
           type="submit"
           variant="gradient"
           className={classes.registerBtn}
         >
-          {t('LoginPage.button.Register')}
+          {t('LoginPage.button.Sign up')}
         </Button>
       </Flex>
     </form>
@@ -141,6 +216,13 @@ const useStyles = createStyles(() => ({
   },
   input: {
     marginTop: '16px',
+  },
+  error: {
+    fontSize: '12px',
+    lineHeight: 1.2,
+    display: 'block',
+    color: 'var(--grey-dark)',
+    marginTop: '4px',
   },
   rules: {
     margin: '6px 0 0 10px',

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BackgroundImage,
   Box,
@@ -11,6 +11,7 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
+import OtpInput from 'react-otp-input';
 import { useForm } from '@mantine/form';
 import { IconArrowLeft } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +24,6 @@ import Logo from 'app/components/Logo/Logo';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
-import { t } from 'i18next';
 
 function ForgotPass() {
   const navigate = useNavigate();
@@ -110,6 +110,7 @@ export function InputName({ setNext }) {
         )}
         <TextInput
           className={classes.input}
+          placeholder={t('LoginPage.username.Enter your username')}
           label={t('LoginPage.username.Username')}
           {...form.getInputProps('name')}
         />
@@ -121,7 +122,7 @@ export function InputName({ setNext }) {
           </Text>
         )}
         <Group position="center" mt="md">
-          <Button type="submit" variant="gradient">
+          <Button className={classes.next} type="submit" variant="gradient">
             {t('Next')}
           </Button>
         </Group>
@@ -135,41 +136,51 @@ export function MethodOTP({ setNext }) {
   return (
     <>
       <Text mt={16} className={classes.desc}>
-        {t('ForgotPage.please.Please choose one method to recieve OTP code')}
+        {t('ForgotPage.please.Please choose one method to receive OTP code')}
       </Text>
-      <div>
-        <Text className={classes.guide}>
-          {t('Forgot.text.Recieve OTP code via:')}
+      <Text className={classes.guide}>
+        {t('ForgotPage.text.Receive OTP code via:')}
+      </Text>
+      <Button
+        onClick={() => setNext('codeMess')}
+        styles={{
+          inner: {
+            justifyContent: 'flex-start',
+          },
+        }}
+        className={classes.linkBtn}
+        variant="filled"
+      >
+        <Mes />
+        <Text
+          sx={{
+            background:
+              'linear-gradient(81.84deg,#0099ff -9.4%,#a033ff 51.57%,#ff5280 84.07%,#ff7061 90.59%)',
+            WebkitBackgroundClip: 'text',
+            color: 'transparent',
+          }}
+          className={classes.text}
+        >
+          Nguyễn Thư
         </Text>
-        <Button
-          onClick={() => setNext('codeMess')}
-          styles={{
-            inner: {
-              justifyContent: 'flex-start',
-            },
-          }}
-          mt={16}
-          className={classes.linkBtn}
-          variant="outline"
-        >
-          <Mes />
-          <Text ml={16}>Nguyễn Thư</Text>
-        </Button>
-        <Button
-          onClick={() => setNext('codeTele')}
-          styles={{
-            inner: {
-              justifyContent: 'flex-start',
-            },
-          }}
-          mt={12}
-          className={classes.linkBtn}
-          variant="outline"
-        >
-          <Tele />
-          <Text ml={16}>Nguyễn Anh Thư</Text>
-        </Button>
-      </div>
+      </Button>
+      <Button
+        onClick={() => setNext('codeTele')}
+        styles={{
+          inner: {
+            justifyContent: 'flex-start',
+          },
+          label: {
+            color: 'var(--blue)',
+          },
+        }}
+        mt={12}
+        className={classes.linkBtn}
+        variant="filled"
+      >
+        <Tele />
+        <Text className={classes.text}>Nguyễn Anh Thư</Text>
+      </Button>
     </>
   );
 }
@@ -181,8 +192,11 @@ interface CodeProps {
 export function Code({ setNext, status }: CodeProps) {
   const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
-  const [seconds, setSeconds] = useState(10);
   const interval = useInterval(() => setSeconds(s => s - 1), 1000);
+
+  const [code, setCode] = useState('');
+  const [seconds, setSeconds] = useState(10);
+
   const phone = useMediaQuery('(max-width:575px)');
 
   useEffect(() => {
@@ -197,6 +211,7 @@ export function Code({ setNext, status }: CodeProps) {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seconds]);
+  const handleChange = code => setCode(code);
   return (
     <>
       <Text mt={16} className={classes.desc}>
@@ -204,128 +219,23 @@ export function Code({ setNext, status }: CodeProps) {
           `ForgotPage.please.Please enter OTP code just sent via your ${status}`,
         )}
       </Text>
-      <Flex justify="space-between" my={16}>
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-        <NumberInput
-          styles={{
-            wrapper: {
-              height: '100%',
-              width: '100%',
-            },
-            input: {
-              fontSize: '40px',
-              margin: 0,
-              height: '100%',
-              width: '100%',
-              border: 'none',
-              background: 'inherit',
-              textAlign: 'center',
-            },
-          }}
-          maxLength={1}
-          className={classes.inputCode}
-          hideControls
-        />
-      </Flex>
+      <OtpInput
+        className={classes.inputCode}
+        value={code}
+        onChange={handleChange}
+        numInputs={6}
+        separator={<span style={{ width: '8px' }}></span>}
+        isInputNum={true}
+        shouldAutoFocus={true}
+        containerStyle={{
+          justifyContent: 'space-between',
+        }}
+        inputStyle={classes.inputCode}
+        focusStyle={{
+          border: '1.8px solid var(--black)',
+          outline: 'none',
+        }}
+      />
       <Flex align="center" justify={phone ? 'center' : 'flex-start'}>
         <Text
           sx={{
@@ -345,6 +255,7 @@ export function Code({ setNext, status }: CodeProps) {
       </Flex>
       <Group position="center" mt="md">
         <Button
+          className={classes.next}
           type="submit"
           variant="gradient"
           onClick={() => {
@@ -423,7 +334,7 @@ export function ChangePass() {
         />
 
         <Group position="center" mt={48}>
-          <Button type="submit" variant="gradient">
+          <Button className={classes.next} type="submit" variant="gradient">
             {t('ForgotPage.button.Save')}
           </Button>
         </Group>

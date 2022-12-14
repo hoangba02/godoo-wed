@@ -59,9 +59,9 @@ export default function Languages() {
   const phone = useMediaQuery('(max-width:575px)');
   const [lang, setLang] = useState<string | null>('vi');
 
-  console.log(lang);
   useEffect(() => {
     i18n.changeLanguage(`${lang}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lang]);
   return (
     <Flex className={classes.wrapper}>
@@ -129,28 +129,23 @@ const useStyles = createStyles(() => ({
     alignItems: 'center',
     backgroundColor: 'var(--white)',
     position: 'absolute',
-    top: '9.38%',
-    right: '18.54%',
+    top: '0',
+    right: '-225px',
     zIndex: 2,
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      top: ' 5.5%',
-      right: '10.27%',
-      width: 132,
-    },
     [`@media (min-width:992px) and (max-width:1199px)`]: {
-      top: ' 4.06%',
-      right: '10.27%',
-      width: 132,
+      right: '-160px',
     },
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      top: ' 1.06%',
-      right: '10.27%',
-      width: 132,
+      top: '-60px',
+      right: '-0',
     },
-    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      top: '-60px',
+      right: '-0',
+    },
     [`@media (max-width:575px)`]: {
-      top: ' 4.06%',
-      right: '4.27%',
+      top: '4%',
+      right: '5%',
       width: 84,
     },
   },

@@ -2,6 +2,8 @@
   "LoginPage": {
     "username": {
       "Username": "Username",
+      "Enter your username": "Enter your username",
+      "This username has already existed": "This username has already existed",
       "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
     },
     "password": {
@@ -19,8 +21,7 @@
     "button": {
       "Sign up": "Sign up",
       "Log in": "Log in",
-      "Login": "Login",
-      "Register": "Register"
+      "Login": "Login"
     },
     "error": {
       "Username or password incorrect": "Username or password incorrect.",
@@ -28,7 +29,7 @@
     },
     "question": {
       "Already had an account?": "Already had an account?",
-      "Don't have an accouint?": "Don't have an accouint?"
+      "Don't have an account?": "Don't have an account?"
     },
     "text": {
       "By clicking": "By clicking",
@@ -46,7 +47,7 @@
     },
     "please": {
       "Please enter you Username in order to reset your password": "Please enter you Username in order to reset your password",
-      "Please choose one method to recieve OTP code": "Please choose one method to recieve OTP code.",
+      "Please choose one method to receive OTP code": "Please choose one method to receive OTP code.",
       "Please enter OTP code just sent via your Messenger": "Please enter OTP code just sent via your Messenger:",
       "Please enter OTP code just sent via your Telegram": "Please enter OTP code just sent via your Telegram:",
       "Please don't share this password to anyone else.": "Please don't share this password to anyone else."
@@ -60,7 +61,7 @@
       "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
     },
     "text": {
-      "Recieve OTP code via:": "Recieve OTP code via:",
+      "Receive OTP code via:": "Receive OTP code via:",
       "OTP code has expired": "OTP code has expired",
       "OTP code is valid in": "OTP code is valid in",
       "Password incorrect": "Password incorrect"

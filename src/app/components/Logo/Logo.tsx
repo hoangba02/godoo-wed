@@ -1,9 +1,14 @@
-import { Avatar, clsx, createStyles, Flex } from '@mantine/core';
+import { Avatar, createStyles, Flex } from '@mantine/core';
 import { images } from 'assets/images';
 import React from 'react';
 
-function Logo({ className }) {
+interface Props {
+  click?: any;
+  className?: string;
+}
+function Logo({ className, click }: Props) {
   const { classes } = useStyles();
+
   return (
     <Flex
       sx={{
@@ -12,7 +17,12 @@ function Logo({ className }) {
       }}
       className={className}
     >
-      <Avatar className={classes.logo} color="lime" src={images.logo} />
+      <Avatar
+        onClick={() => click()}
+        className={classes.logo}
+        color="lime"
+        src={images.logo}
+      />
     </Flex>
   );
 }
@@ -23,6 +33,7 @@ const useStyles = createStyles(() => ({
   logo: {
     width: '150px',
     height: '150px',
+    cursor: 'pointer',
     [`@media (max-width:575px)`]: {
       width: '100px',
       height: '100px',

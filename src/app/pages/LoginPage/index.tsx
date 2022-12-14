@@ -6,6 +6,7 @@ import {
   Container,
   Divider,
   Flex,
+  keyframes,
   Stack,
   Text,
 } from '@mantine/core';
@@ -24,9 +25,12 @@ export function LoginPage() {
   const { classes } = LoginPageStyles();
   const [login, setLogin] = useState(true);
   const phone = useMediaQuery('(max-width:575px)');
+
+  const handleClick = () => {
+    setLogin(true);
+  };
   return (
     <Container className={classes.container}>
-      <Languages />
       <Box
         sx={{
           width: '50%',
@@ -65,7 +69,8 @@ export function LoginPage() {
           src={phone ? images.bgLoginTopMobile : images.bgLoginTop}
         ></BackgroundImage>
         <Stack spacing={0} className={classes.wrapper}>
-          <Logo className={classes.logo} />
+          <Languages />
+          <Logo className={classes.logo} click={handleClick} />
           {login ? <SignIn /> : <Register />}
           <Divider
             styles={{
@@ -108,7 +113,7 @@ export function LoginPage() {
           </Flex>
           {login ? (
             <Text className={classes.ques}>
-              {t("LoginPage.question.Don't have an accouint?")}
+              {t("LoginPage.question.Don't have an account?")}{' '}
               <span
                 onClick={() => {
                   setLogin(false);
@@ -119,7 +124,7 @@ export function LoginPage() {
             </Text>
           ) : (
             <Text className={classes.ques}>
-              {t('LoginPage.question.Already had an account?')}
+              {t('LoginPage.question.Already had an account?')}{' '}
               <span
                 onClick={() => {
                   setLogin(true);

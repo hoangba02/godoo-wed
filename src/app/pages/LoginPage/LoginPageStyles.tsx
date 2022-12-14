@@ -10,7 +10,6 @@ export const LoginPageStyles = createStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    // overflow: 'hidden',
     zIndex: 1,
     [`@media (max-width:575px)`]: {
       alignItems: 'flex-end',
@@ -18,6 +17,7 @@ export const LoginPageStyles = createStyles(() => ({
     },
   },
   wrapper: {
+    position: 'relative',
     alignItems: 'center',
     width: '100%',
     maxWidth: '720px',
@@ -25,6 +25,8 @@ export const LoginPageStyles = createStyles(() => ({
     padding: '25px 75px 35px',
     borderRadius: '20px',
     [`@media (max-width:575px)`]: {
+      position: 'static',
+
       width: '100%',
       height: '100%',
       padding: 0,
@@ -47,7 +49,7 @@ export const LoginPageStyles = createStyles(() => ({
   },
   ques: {
     justifySelf: 'flex-end',
-    marginTop: '58px',
+    marginTop: '55px',
     fontSize: '18px',
     fontWeight: 400,
     lineHeight: '22.5px',
@@ -70,52 +72,13 @@ export const LoginPageStyles = createStyles(() => ({
     left: '764.98px',
     width: '1289.38px',
     height: '1843.88px',
-    // transform: 'rotate(-18deg)',
   },
   under: {
-    // filter: 'blur(8px)',
     position: 'absolute',
     top: '389.85px',
     left: '-265px',
     width: '418px',
     height: ' 589px',
-    // [`@media (min-width:1200px) and (max-width:1439px)`]: {
-    //   position: 'absolute',
-    //   top: '389.85px',
-    //   left: '-4px',
-    //   width: '773.3px',
-    //   height: '598.19px',
-    // },
-    // [`@media (min-width:992px) and (max-width:1199px)`]: {
-    //   position: 'absolute',
-    //   top: '362.85px',
-    //   left: ' -250px',
-    //   width: '773.3px',
-    //   height: '598.19px',
-    // },
-    // [`@media (min-width:768px) and (max-width:991px)`]: {
-    //   position: 'absolute',
-    //   top: '684.85px',
-    //   left: '-105px',
-    //   width: '506.3px',
-    //   height: '500.19px',
-    // },
-    // [`@media (min-width:576px) and (max-width:767px)`]: {
-    //   display: 'none',
-    //   position: 'absolute',
-    //   top: '389.85px',
-    //   left: '-4px',
-    //   width: '773.3px',
-    //   height: '598.19px',
-    // },
-    // [`@media (max-width:575px)`]: {
-    //   display: 'none',
-    //   position: 'absolute',
-    //   top: '389.85px',
-    //   left: '-4px',
-    //   width: '773.3px',
-    //   height: '598.19px',
-    // },
   },
   social: {
     width: '60%',

@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useForm } from '@mantine/form';
-import { NumberInput, TextInput, Button } from '@mantine/core';
+import { NumberInput, TextInput, Button, Checkbox } from '@mantine/core';
 
 export default function Demo() {
+  const [checked, setChecked] = useState(true);
   const form = useForm({
     initialValues: { name: '', email: '', age: 0 },
 
@@ -17,29 +18,12 @@ export default function Demo() {
   });
 
   return (
-    <form onSubmit={form.onSubmit(console.log)}>
-      <TextInput
-        label="Name"
-        placeholder="Name"
-        {...form.getInputProps('name')}
-      />
-      <TextInput
-        mt="sm"
-        label="Email"
-        placeholder="Email"
-        {...form.getInputProps('email')}
-      />
-      <NumberInput
-        mt="sm"
-        label="Age"
-        placeholder="Age"
-        min={0}
-        max={99}
-        {...form.getInputProps('age')}
-      />
-      <Button type="submit" mt="sm">
-        Submit
-      </Button>
-    </form>
+    <Checkbox
+      checked={checked}
+      onChange={event => setChecked(event.currentTarget.checked)}
+      mt="md"
+      color="orange.7"
+      {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+    />
   );
 }

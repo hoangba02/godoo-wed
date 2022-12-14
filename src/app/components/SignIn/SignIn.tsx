@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 
+const REG_USERNAME = /^[a-z0-9]+$/;
 function SignIn() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function SignIn() {
       termsOfService: false,
     },
   });
+
   const handleSubmitSignIn = () => {
     console.log(form.values);
     if (!form.values.password || !form.values.password || user.login.error) {
@@ -48,6 +50,11 @@ function SignIn() {
       );
     }
   };
+  const handleClearSpace = e => {
+    if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
+      e.preventDefault();
+    }
+  };
 
   useEffect(() => {
     if (user.username) {
@@ -60,8 +67,11 @@ function SignIn() {
     <form className={classes.form} onSubmit={form.onSubmit(handleSubmitSignIn)}>
       <TextInput
         label={t('LoginPage.username.Username')}
-        placeholder={t('LoginPage.username.Username')}
+        placeholder={t('LoginPage.username.Enter your username')}
         {...form.getInputProps('username')}
+        onKeyDown={e => {
+          handleClearSpace(e);
+        }}
       />
 
       <PasswordInput
@@ -72,15 +82,18 @@ function SignIn() {
         }}
         className={classes.input}
         label={t('LoginPage.password.Password')}
-        placeholder={t('LoginPage.password.Password')}
+        placeholder={t('LoginPage.password.Enter your password')}
         visibilityToggleIcon={({ reveal }) =>
           reveal ? (
-            <IconEye size={19.69} color="#000000" />
+            <IconEye stroke={2.5} size={21} color="#000000" />
           ) : (
-            <IconEyeOff size={19.69} color="#000000" />
+            <IconEyeOff stroke={2.5} size={21} color="#000000" />
           )
         }
         {...form.getInputProps('password')}
+        onKeyDown={e => {
+          handleClearSpace(e);
+        }}
       />
       {error && (
         <Text className={classes.error}>
@@ -93,11 +106,12 @@ function SignIn() {
         align="center"
         sx={{
           position: 'relative',
-          zUndex: 2,
+          zIndex: 2,
         }}
       >
         <Flex align="center">
           <Checkbox
+            checked
             mt="md"
             color="orange.7"
             {...form.getInputProps('termsOfService', { type: 'checkbox' })}
@@ -115,7 +129,7 @@ function SignIn() {
 
       <Flex justify="center">
         <Button type="submit" variant="gradient" className={classes.signinBtn}>
-          {t('LoginPage.button.Login')}
+          {t('LoginPage.button.Log in')}
         </Button>
       </Flex>
     </form>

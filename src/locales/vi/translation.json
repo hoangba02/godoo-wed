@@ -2,6 +2,9 @@
   "LoginPage": {
     "username": {
       "Username": "Tên đăng nhập",
+      "Enter your username": "Điền tên đăng nhập",
+      "Username incorrect": "Tên đăng nhập không đúng yêu cầu",
+      "This username has already existed": "Tên đăng nhập đã tồn tại",
       "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
     },
     "password": {
@@ -19,26 +22,25 @@
     "button": {
       "Sign up": "Đăng ký",
       "Log in": "Đăng nhập",
-      "Login": "Đăng nhập",
-      "Register": "Đăng Ký"
+      "Login": "Đăng nhập"
     },
     "error": {
       "Username or password incorrect": "Tên đăng nhập hoặc mật khẩu không chính xác.",
-      "At least 8 characters": "Tối thiểu 8 kí tự"
+      "At least 8 characters": "Tối thiểu 8 ký tự"
     },
     "question": {
-      "Already had an account?": "Bạn đã có tài khoản? ",
-      "Don't have an accouint?": "Bạn chưa có tài khoản? "
+      "Already had an account?": "Bạn đã có tài khoản?",
+      "Don't have an account?": "Bạn chưa có tài khoản? "
     },
     "text": {
       "By clicking": "Bằng việc nhấn",
       "you have agreed with": "bạn đã đồng ý với",
       "Terms of Service": "Điều khoản dịch vụ",
       "and": "và",
-      "Privacy Policy": "chính sách bảo mật",
+      "Privacy Policy": "Chính sách bảo mật",
       "of GoDoo": "của GoDoo"
     },
-    "or": "Hoặc"
+    "or": "hoặc"
   },
   "ForgotPage": {
     "title": {
@@ -46,7 +48,7 @@
     },
     "please": {
       "Please enter you Username in order to reset your password": "Vui lòng cung cấp Tên đăng nhập để lấy lại mật khẩu.",
-      "Please choose one method to recieve OTP code": "Vui lòng chọn cách thức nhận mã OTP.",
+      "Please choose one method to receive OTP code": "Vui lòng chọn cách thức nhận mã OTP.",
       "Please enter OTP code just sent via your Messenger": "Nhập mã OTP vừa được gửi qua Messenger của bạn:",
       "Please enter OTP code just sent via your Telegram": "Nhập mã OTP vừa được gửi qua Telegram của bạn:",
       "Please don't share this password to anyone else.": "Vui lòng không chia sẻ mật khẩu mới cho bất kỳ ai."
@@ -60,7 +62,7 @@
       "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
     },
     "text": {
-      "Recieve OTP code via:": "Nhập mã OTP qua:",
+      "Receive OTP code via:": "Nhập mã OTP qua:",
       "OTP code has expired": "Mã OTP đã hết hiệu lực",
       "OTP code is valid in": "Mã OTP có hiệu lực trong",
       "Password incorrect": "Mật khẩu không trùng khớp"

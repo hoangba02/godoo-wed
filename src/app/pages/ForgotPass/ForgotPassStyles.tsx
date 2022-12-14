@@ -55,6 +55,11 @@ export const ForgotPassStyles = createStyles(() => ({
       justifyContent: 'center',
     },
   },
+  next: {
+    fontWeight: 600,
+    fontSize: '20px',
+    lineHeight: '25px',
+  },
   back: {
     width: '44px',
     height: '44px',
@@ -118,15 +123,29 @@ export const ForgotPassStyles = createStyles(() => ({
       width: '100%',
     },
   },
-
+  text: {
+    fontWeight: 400,
+    fontSize: '18px',
+    lineHeight: '22px',
+    marginLeft: 16,
+    [`@media (max-width:575px)`]: {
+      fontSize: '14px',
+    },
+  },
   //   Code
   inputCode: {
+    margin: '24px 0',
+    border: '1px solid transparent',
+    borderRadius: '8px',
     width: '70px',
     height: '78px',
-    borderRadius: '8px',
-    background: '#FFEADE',
+    fontSize: '40px',
+    color: '#000',
+    fontWeight: 400,
+    caretColor: 'blue',
+    backgroundColor: 'var(--primary-5)',
     [`@media (max-width:575px)`]: {
-      width: '46px',
+      width: '46px !important',
       height: '56px',
     },
   },

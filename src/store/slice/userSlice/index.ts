@@ -42,12 +42,10 @@ const slice = createSlice({
       state.token = action.payload.token;
       state.isLogin = true;
       state.loading = false;
-      // Account user
+
       state.login = action.payload.login;
       state.username = action.payload.username;
       state.password = action.payload.password;
-      // localStorage.setItem('user', JSON.stringify(state));
-      // localStorage.setItem('token', JSON.stringify(action.payload.token));
     },
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
@@ -57,7 +55,6 @@ const slice = createSlice({
       state.loading = true;
     },
     registerSuccess(state: UserState, action: PayloadAction<UserState>) {
-      //Account
       state.id = action.payload.id;
       state.token = action.payload.token;
       state.loading = false;
@@ -65,17 +62,10 @@ const slice = createSlice({
       state.password = action.payload.password;
       state.createTime = action.payload.createTime;
       state.language = action.payload.language;
-      // Profile
-      state.nickname = action.payload.nickname;
-      state.picture = action.payload.picture;
-      state.data_of_birth = action.payload.data_of_birth;
-      state.introduction = action.payload.introduction;
-      state.relationship = action.payload.relationship;
-      // localStorage.setItem('user', JSON.stringify(state));
-      // localStorage.setItem('token', JSON.stringify(action.payload.token));
     },
-    registerFail(state: UserState) {
+    registerFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
+      state.register = action.payload.register;
     },
     requestLanguage(state: UserState, action: PayloadAction<UserState>) {
       state.language = action.payload.language;
