@@ -6,7 +6,6 @@ import {
   Container,
   Flex,
   Group,
-  NumberInput,
   PasswordInput,
   Text,
   TextInput,
@@ -24,6 +23,9 @@ import Logo from 'app/components/Logo/Logo';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { UserSlice } from 'store/slice/userSlice';
 
 function ForgotPass() {
   const navigate = useNavigate();
@@ -79,28 +81,46 @@ function ForgotPass() {
 export default ForgotPass;
 
 export function InputName({ setNext }) {
+  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const { actions } = UserSlice();
   const { classes } = ForgotPassStyles();
   const phone = useMediaQuery('(max-width:575px)');
-
   const form = useForm<{ name: string }>({
     initialValues: { name: '' },
     validate: values => ({
       name:
-        values.name.length < 2
-          ? t('ForgotPage.error.Contains only lowercase letters and numbers')
+        values.name.length <= 0
+          ? t('LoginPage.username.Username incorrect')
           : null,
     }),
   });
-  const handleNext = values => {
-    console.log(values);
-    if (values) {
-      setNext('method');
-    }
+  const handleNext = () => {
+    axios
+      .post('https://ttvnapi.com/v1/forgetpasswordsendusername', {
+        username: form.values.name,
+      })
+      .then(res => {
+        console.log(res);
+        if (res.data.error === 0) {
+          dispatch(
+            actions.getID({
+              id: res.data.data.id,
+            }),
+          );
+          setNext('method');
+        } else {
+          form.setErrors({ name: t('LoginPage.username.Username incorrect') });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
+
   return (
     <>
-      <form onSubmit={form.onSubmit(values => handleNext(values))}>
+      <form onSubmit={form.onSubmit(() => handleNext())}>
         {phone && (
           <Text className={classes.desc}>
             {t(
@@ -110,6 +130,7 @@ export function InputName({ setNext }) {
         )}
         <TextInput
           className={classes.input}
+          error={form.errors.name}
           placeholder={t('LoginPage.username.Enter your username')}
           label={t('LoginPage.username.Username')}
           {...form.getInputProps('name')}
@@ -123,7 +144,7 @@ export function InputName({ setNext }) {
         )}
         <Group position="center" mt="md">
           <Button className={classes.next} type="submit" variant="gradient">
-            {t('Next')}
+            {t('ForgotPage.button.Next')}
           </Button>
         </Group>
       </form>

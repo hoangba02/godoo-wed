@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 
-const REG_USERNAME = /^[a-z0-9]+$/;
 function SignIn() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -37,7 +36,7 @@ function SignIn() {
 
   const handleSubmitSignIn = () => {
     console.log(form.values);
-    if (!form.values.password || !form.values.password || user.login.error) {
+    if (!form.values.username || !form.values.password) {
       setError(true);
     } else {
       setError(false);

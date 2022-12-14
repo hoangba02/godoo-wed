@@ -27,8 +27,10 @@ function Register() {
   const { classes } = useStyles();
   const user = useSelector(getUserSelector);
 
-  const [errName, setErrName] = useState(false);
-  const [errPass, setErrPass] = useState(false);
+  const [errName, setErrName] = useState(true);
+  const [errPass, setErrPass] = useState(true);
+  console.log('errName', errName);
+  console.log('errPass', errPass);
   const form = useForm({
     // validateInputOnBlur: true,
     initialValues: {
@@ -37,6 +39,20 @@ function Register() {
       confirmPassword: '',
     },
     validate: {
+      username: value => {
+        if (value.length === 0) {
+          setErrName(false);
+          return t('LoginPage.username.Username incorrect');
+        }
+        return null;
+      },
+      password: value => {
+        if (value.length === 0) {
+          setErrPass(false);
+          return t('LoginPage.password.At least 8 characters');
+        }
+        return null;
+      },
       confirmPassword: (value, values) =>
         value !== values.password
           ? t('LoginPage.password.Password incorrect')
@@ -51,23 +67,24 @@ function Register() {
   //   }
   // };
   const handleBlurUser = () => {
+    // setErrPass(false);
     form.setValues({ username: form.values.username.toLowerCase() });
     if (!REG_USERNAME.test(form.values.username)) {
-      setErrName(true);
-      setErrPass(false);
+      setErrName(false);
       form.setErrors({ username: t('LoginPage.username.Username incorrect') });
     }
   };
   const handleBlurPass = () => {
+    // setErrName(false);
     if (form.values.password.length < 8) {
-      setErrName(false);
-      setErrPass(true);
+      setErrPass(false);
       form.setErrors({
         password: t('LoginPage.password.At least 8 characters'),
       });
     }
   };
   const handleRegisterUser = () => {
+    console.log(form.errors);
     dispatch(
       actions.requestRegister({
         username: form.values.username,
@@ -95,12 +112,13 @@ function Register() {
           handleBlurUser();
         }}
         onFocus={() => {
-          setErrName(false);
+          setErrPass(true);
+          setErrName(true);
           form.setErrors({ username: '' });
         }}
-        onInput={() => setErrName(false)}
+        onInput={() => setErrName(true)}
       />
-      {!errName && (
+      {errName && (
         <Text className={classes.error}>
           {t('LoginPage.username.Contains only lowercase letters and numbers')}
         </Text>
@@ -130,12 +148,13 @@ function Register() {
           handleBlurPass();
         }}
         onFocus={() => {
-          setErrPass(false);
+          setErrName(true);
+          setErrPass(true);
           form.setErrors({ password: '' });
         }}
-        onInput={() => setErrPass(false)}
+        onInput={() => setErrPass(true)}
       />
-      {!errPass && (
+      {errPass && (
         <Text className={classes.error}>
           {t('LoginPage.password.At least 8 characters')}
         </Text>

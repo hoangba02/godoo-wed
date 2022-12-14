@@ -3,7 +3,7 @@
     "username": {
       "Username": "Tên đăng nhập",
       "Enter your username": "Điền tên đăng nhập",
-      "Username incorrect": "Tên đăng nhập không đúng yêu cầu",
+      "Username incorrect": "Tên đăng nhập không chính xác",
       "This username has already existed": "Tên đăng nhập đã tồn tại",
       "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
     },

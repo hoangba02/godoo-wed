@@ -9,6 +9,7 @@ export const initialState: UserState = {
   token: '',
   isLogin: false,
   loading: false,
+  connect: '',
   register: {
     error: -1,
     message: '',
@@ -67,15 +68,18 @@ const slice = createSlice({
       state.loading = false;
       state.register = action.payload.register;
     },
-    requestLanguage(state: UserState, action: PayloadAction<UserState>) {
-      state.language = action.payload.language;
-    },
     logoutSuccess(state: UserState) {
-      state.id = 0;
+      state.id = -1;
       state.token = '';
       state.username = '';
       state.password = '';
       state.isLogin = false;
+    },
+    requestLanguage(state: UserState, action: PayloadAction<UserState>) {
+      state.language = action.payload.language;
+    },
+    getID(state: UserState, action: PayloadAction<UserState>) {
+      state.id = action.payload.id;
     },
   },
 });

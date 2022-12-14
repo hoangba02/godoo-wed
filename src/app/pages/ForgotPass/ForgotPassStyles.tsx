@@ -104,6 +104,13 @@ export const ForgotPassStyles = createStyles(() => ({
       marginTop: '38px',
     },
   },
+  error: {
+    color: 'var(--red)',
+    fontWeight: 400,
+    fontSize: '12px',
+    lineHeight: '15px',
+    marginTop: '4px',
+  },
 
   //MedthodOTP
 

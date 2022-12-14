@@ -2,6 +2,7 @@ export interface UserState {
   //Account
   id?: number;
   token?: string;
+  connect?: 'Telegram' | 'Messenger' | '';
   username?: string;
   password?: string | number;
   role?: string;
