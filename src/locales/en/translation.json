@@ -43,6 +43,7 @@
   },
   "ForgotPage": {
     "title": {
+      "Receive OTP code via": "Receive OTP code via",
       "Reset your password": "Reset your password"
     },
     "please": {
@@ -55,14 +56,15 @@
     "button": {
       "Next": "Next",
       "Send back!": "Send back!",
-      "Save": "Save"
+      "Save": "Save",
+      "Telegram account": "Telegram account",
+      "Messenger account": "Messenger account"
     },
     "error": {
       "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
     },
     "text": {
-      "Receive OTP code via:": "Receive OTP code via:",
-      "OTP code has expired": "OTP code has expired",
+      "OTP code has expired!": "OTP code has expired!",
       "OTP code is valid in": "OTP code is valid in",
       "Password incorrect": "Password incorrect"
     }

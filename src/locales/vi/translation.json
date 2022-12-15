@@ -44,6 +44,7 @@
   },
   "ForgotPage": {
     "title": {
+      "Receive OTP code via": "Nhận mã OTP qua",
       "Reset your password": "Đặt lại  mật khẩu"
     },
     "please": {
@@ -56,14 +57,15 @@
     "button": {
       "Next": "Tiếp theo",
       "Send back!": "Gửi lại!",
-      "Save": "Lưu"
+      "Save": "Lưu",
+      "Telegram account": "Tài khoản Telegram",
+      "Messenger account": "Tài khoản Messenger"
     },
     "error": {
       "Contains only lowercase letters and numbers": "Bao gồm chữ cái thường và số"
     },
     "text": {
-      "Receive OTP code via:": "Nhập mã OTP qua:",
-      "OTP code has expired": "Mã OTP đã hết hiệu lực",
+      "OTP code has expired!": "Mã OTP đã hết hiệu lực!",
       "OTP code is valid in": "Mã OTP có hiệu lực trong",
       "Password incorrect": "Mật khẩu không trùng khớp"
     }

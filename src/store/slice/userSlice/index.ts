@@ -6,10 +6,11 @@ import { UserState } from './type';
 
 export const initialState: UserState = {
   id: -1,
+  telegram_fullname: '',
+  messenger_fullname: '',
   token: '',
   isLogin: false,
   loading: false,
-  connect: '',
   register: {
     error: -1,
     message: '',
@@ -78,8 +79,12 @@ const slice = createSlice({
     requestLanguage(state: UserState, action: PayloadAction<UserState>) {
       state.language = action.payload.language;
     },
-    getID(state: UserState, action: PayloadAction<UserState>) {
+    // Lấy user id và tên tele hoặc tên mess khi quên mật khẩu
+    getUserForgotPass(state: UserState, action: PayloadAction<UserState>) {
       state.id = action.payload.id;
+      state.telegram_fullname = action.payload.telegram_fullname;
+      state.messenger_fullname = action.payload.messenger_fullname;
+      state.token = action.payload.token;
     },
   },
 });

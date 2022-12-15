@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BackgroundImage,
   Box,
@@ -6,7 +6,6 @@ import {
   Container,
   Divider,
   Flex,
-  keyframes,
   Stack,
   Text,
 } from '@mantine/core';
@@ -16,19 +15,25 @@ import { useTranslation } from 'react-i18next';
 import { images } from 'assets/images';
 import { LoginPageStyles } from './LoginPageStyles';
 import Languages from 'app/components/Languages/Language';
-import Register from 'app/components/Register/Register';
-import SignIn from 'app/components/SignIn/SignIn';
 import Logo from 'app/components/Logo/Logo';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { useNavigate } from 'react-router-dom';
 
-export function LoginPage() {
+export function LoginPage({ children, islogin }) {
   const { t } = useTranslation();
   const { classes } = LoginPageStyles();
-  const [login, setLogin] = useState(true);
+  const user = useSelector(getUserSelector);
+  const navigate = useNavigate();
   const phone = useMediaQuery('(max-width:575px)');
 
-  const handleClick = () => {
-    setLogin(true);
-  };
+  // useEffect(() => {
+  //   if (user.id < 0) {
+  //     setLogin(false);
+  //   } else {
+  //     setLogin(true);
+  //   }
+  // }, [user.id]);
   return (
     <Container className={classes.container}>
       <Box
@@ -70,8 +75,8 @@ export function LoginPage() {
         ></BackgroundImage>
         <Stack spacing={0} className={classes.wrapper}>
           <Languages />
-          <Logo className={classes.logo} click={handleClick} />
-          {login ? <SignIn /> : <Register />}
+          <Logo className={classes.logo} />
+          {children}
           <Divider
             styles={{
               label: {
@@ -111,12 +116,12 @@ export function LoginPage() {
               <img className={classes.img} src={images.apple} alt="apple" />
             </Button>
           </Flex>
-          {login ? (
+          {islogin ? (
             <Text className={classes.ques}>
               {t("LoginPage.question.Don't have an account?")}{' '}
               <span
                 onClick={() => {
-                  setLogin(false);
+                  navigate('/register');
                 }}
               >
                 {t('LoginPage.button.Sign up')}
@@ -127,7 +132,7 @@ export function LoginPage() {
               {t('LoginPage.question.Already had an account?')}{' '}
               <span
                 onClick={() => {
-                  setLogin(true);
+                  navigate('/login');
                 }}
               >
                 {t('LoginPage.button.Log in')}

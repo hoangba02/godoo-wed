@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   createStyles,
@@ -15,6 +15,7 @@ import { IconEyeOff, IconEye } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { UserSlice } from 'store/slice/userSlice';
+import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const REG_USERNAME = /^[a-z0-9]+$/;
@@ -29,8 +30,7 @@ function Register() {
 
   const [errName, setErrName] = useState(true);
   const [errPass, setErrPass] = useState(true);
-  console.log('errName', errName);
-  console.log('errPass', errPass);
+
   const form = useForm({
     // validateInputOnBlur: true,
     initialValues: {
@@ -97,115 +97,135 @@ function Register() {
       e.preventDefault();
     }
   };
+
+  useEffect(() => {
+    console.log(101, user.register.message);
+    if (user.register.message === 'user_exist') {
+      setErrName(false);
+      form.setErrors({
+        username: t('LoginPage.username.This username has already existed'),
+      });
+    } else {
+      setErrName(true);
+      return;
+    }
+  }, [user]);
   return (
-    <form className={classes.form} onSubmit={form.onSubmit(handleRegisterUser)}>
-      <TextInput
-        maxLength={16}
-        label={t('LoginPage.username.Username')}
-        placeholder={t('LoginPage.username.Enter your username')}
-        error={form.errors.username}
-        {...form.getInputProps('username')}
-        onKeyDown={e => {
-          handleClearSpace(e);
-        }}
-        onBlur={() => {
-          handleBlurUser();
-        }}
-        onFocus={() => {
-          setErrPass(true);
-          setErrName(true);
-          form.setErrors({ username: '' });
-        }}
-        onInput={() => setErrName(true)}
-      />
-      {errName && (
-        <Text className={classes.error}>
-          {t('LoginPage.username.Contains only lowercase letters and numbers')}
-        </Text>
-      )}
+    <LoginPage islogin={false}>
+      <form
+        className={classes.form}
+        onSubmit={form.onSubmit(handleRegisterUser)}
+      >
+        <TextInput
+          maxLength={16}
+          label={t('LoginPage.username.Username')}
+          placeholder={t('LoginPage.username.Enter your username')}
+          error={form.errors.username}
+          {...form.getInputProps('username')}
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+          onBlur={() => {
+            handleBlurUser();
+          }}
+          onFocus={() => {
+            setErrPass(true);
+            setErrName(true);
+            form.setErrors({ username: '' });
+          }}
+          onInput={() => setErrName(true)}
+        />
+        {errName && (
+          <Text className={classes.error}>
+            {t(
+              'LoginPage.username.Contains only lowercase letters and numbers',
+            )}
+          </Text>
+        )}
 
-      <PasswordInput
-        styles={{
-          rightSection: {
-            right: 10,
-          },
-        }}
-        className={classes.input}
-        label={t('LoginPage.password.Password')}
-        placeholder={t('LoginPage.password.Enter your password')}
-        visibilityToggleIcon={({ reveal }) =>
-          reveal ? (
-            <IconEye stroke={2.5} size={21} color="#000000" />
-          ) : (
-            <IconEyeOff stroke={2.5} size={21} color="#000000" />
-          )
-        }
-        {...form.getInputProps('password')}
-        onKeyDown={e => {
-          handleClearSpace(e);
-        }}
-        onBlur={() => {
-          handleBlurPass();
-        }}
-        onFocus={() => {
-          setErrName(true);
-          setErrPass(true);
-          form.setErrors({ password: '' });
-        }}
-        onInput={() => setErrPass(true)}
-      />
-      {errPass && (
-        <Text className={classes.error}>
-          {t('LoginPage.password.At least 8 characters')}
-        </Text>
-      )}
+        <PasswordInput
+          styles={{
+            rightSection: {
+              right: 10,
+            },
+          }}
+          className={classes.input}
+          label={t('LoginPage.password.Password')}
+          placeholder={t('LoginPage.password.Enter your password')}
+          visibilityToggleIcon={({ reveal }) =>
+            reveal ? (
+              <IconEye stroke={2.5} size={21} color="#000000" />
+            ) : (
+              <IconEyeOff stroke={2.5} size={21} color="#000000" />
+            )
+          }
+          {...form.getInputProps('password')}
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+          onBlur={() => {
+            handleBlurPass();
+          }}
+          onFocus={() => {
+            setErrName(true);
+            setErrPass(true);
+            form.setErrors({ password: '' });
+          }}
+          onInput={() => setErrPass(true)}
+        />
+        {errPass && (
+          <Text className={classes.error}>
+            {t('LoginPage.password.At least 8 characters')}
+          </Text>
+        )}
 
-      <PasswordInput
-        styles={{
-          rightSection: {
-            right: 10,
-          },
-        }}
-        className={classes.input}
-        mt="sm"
-        label={t('LoginPage.password.Confirm password')}
-        placeholder={t('LoginPage.password.Confirm password')}
-        visibilityToggleIcon={({ reveal }) =>
-          reveal ? (
-            <IconEye stroke={2.5} size={21} color="#000000" />
-          ) : (
-            <IconEyeOff stroke={2.5} size={21} color="#000000" />
-          )
-        }
-        {...form.getInputProps('confirmPassword')}
-        onKeyDown={e => {
-          handleClearSpace(e);
-        }}
-      />
+        <PasswordInput
+          styles={{
+            rightSection: {
+              right: 10,
+            },
+          }}
+          className={classes.input}
+          mt="sm"
+          label={t('LoginPage.password.Confirm password')}
+          placeholder={t('LoginPage.password.Confirm password')}
+          visibilityToggleIcon={({ reveal }) =>
+            reveal ? (
+              <IconEye stroke={2.5} size={21} color="#000000" />
+            ) : (
+              <IconEyeOff stroke={2.5} size={21} color="#000000" />
+            )
+          }
+          {...form.getInputProps('confirmPassword')}
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+        />
 
-      <Flex align="center">
-        <Text className={classes.rules}>
-          {t('LoginPage.text.By clicking')}{' '}
-          <span>{t('LoginPage.button.Sign up')}</span>{' '}
-          {t('LoginPage.text.you have agreed with')}{' '}
-          <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
-          {t('LoginPage.text.and')}{' '}
-          <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
-          {t('LoginPage.text.of GoDoo')}
-        </Text>
-      </Flex>
+        <Flex align="center">
+          <Text className={classes.rules}>
+            {t('LoginPage.text.By clicking')}{' '}
+            <span>{t('LoginPage.button.Sign up')}</span>{' '}
+            {t('LoginPage.text.you have agreed with')}{' '}
+            <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
+            {t('LoginPage.text.and')}{' '}
+            <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
+            {t('LoginPage.text.of GoDoo')}
+          </Text>
+        </Flex>
 
-      <Flex justify="center">
-        <Button
-          // onClick={() => handleRegisterUser}
-          type="submit"
-          variant="gradient"
-          className={classes.registerBtn}
-        >
-          {t('LoginPage.button.Sign up')}
-        </Button>
-      </Flex>
-    </form>
+        <Flex justify="center">
+          <Button
+            // onClick={() => handleRegisterUser}
+            type="submit"
+            variant="gradient"
+            className={classes.registerBtn}
+          >
+            {t('LoginPage.button.Sign up')}
+          </Button>
+        </Flex>
+      </form>
+    </LoginPage>
   );
 }
 

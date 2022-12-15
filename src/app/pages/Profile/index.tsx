@@ -1,17 +1,41 @@
-import { Button, Container } from '@mantine/core';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { UserSlice } from 'store/slice/userSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { BackgroundImage, Box, Button, Container } from '@mantine/core';
+import { ProfileStyle } from './ProfileStyles';
 
+const STEP = [
+  {
+    id: 1,
+    value: 'nickname',
+  },
+  {
+    id: 2,
+    value: 'picture',
+  },
+  {
+    id: 3,
+    value: 'birthday',
+  },
+  {
+    id: 4,
+    value: 'gender',
+  },
+
+  {
+    id: 5,
+    value: 'description',
+  },
+  {
+    id: 6,
+    value: 'mode',
+  },
+  {
+    id: 7,
+    value: 'tips',
+  },
+];
 export function Profile() {
-  const { actions } = UserSlice();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const user = useSelector(getUserSelector);
+  const { classes } = ProfileStyle();
   return (
     <>
       <Helmet>
@@ -19,15 +43,45 @@ export function Profile() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Container>
-        Profile
-        <Button
-          onClick={() => {
-            dispatch(actions.logoutSuccess());
-          }}
-        >
-          Log out
-        </Button>
+        <Box>
+          <BackgroundImage src=""></BackgroundImage>
+        </Box>
       </Container>
     </>
   );
+}
+
+export function NickNamePro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
+}
+
+export function PicturePro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
+}
+
+export function BirthPro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
+}
+
+export function GenderPro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
+}
+
+export function DescPro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
+}
+export function TipsPro() {
+  const { classes } = ProfileStyle();
+
+  return <></>;
 }

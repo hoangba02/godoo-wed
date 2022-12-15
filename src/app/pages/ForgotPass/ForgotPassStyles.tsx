@@ -144,7 +144,7 @@ export const ForgotPassStyles = createStyles(() => ({
     margin: '24px 0',
     border: '1px solid transparent',
     borderRadius: '8px',
-    width: '70px',
+    width: '70px !important',
     height: '78px',
     fontSize: '40px',
     color: '#000',

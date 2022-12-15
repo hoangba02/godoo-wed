@@ -99,6 +99,7 @@ root.render(
                         : params.variant === 'filled'
                         ? 'var(--primary-2)'
                         : '#FFFFFF',
+                    // borderWidth: params.variant === 'outline' ? 'none' : '1px',
                     border: params.variant === 'outline' ? 'none' : 'inherit',
                     borderRadius: 'var(--boder-radius)',
                     backgroundColor:
@@ -129,7 +130,7 @@ root.render(
                       backgroundColor: 'var(--white)',
                       borderRadius:
                         'calc(var(--boder-radius) - var(--border-width))',
-                      height: 'calc(100% - calc(var(--border-width)*2))',
+                      height: 'calc(100% - calc(var(--border-width)*2.2))',
                       width: 'calc(100% - calc(var(--border-width)*2))',
                       zIndex: -1,
                     },
@@ -142,6 +143,14 @@ root.render(
                           : params.variant === 'outline'
                           ? '#FFFFFF'
                           : '#FFFFFF',
+                    },
+                    ':disabled': {
+                      cursor: 'not-allowed',
+                      pointerEvents: 'unset',
+                    },
+                    ':disabled::before': {
+                      cursor: 'no-drop',
+                      backgroundColor: 'var(--grey-light)',
                     },
                     '& span': {
                       overflow: 'visible',

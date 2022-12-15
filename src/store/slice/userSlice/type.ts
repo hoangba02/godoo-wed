@@ -1,8 +1,9 @@
 export interface UserState {
   //Account
   id?: number;
+  telegram_fullname?: string;
+  messenger_fullname?: string;
   token?: string;
-  connect?: 'Telegram' | 'Messenger' | '';
   username?: string;
   password?: string | number;
   role?: string;

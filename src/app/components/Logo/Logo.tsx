@@ -1,13 +1,14 @@
 import { Avatar, createStyles, Flex } from '@mantine/core';
 import { images } from 'assets/images';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
-  click?: any;
   className?: string;
 }
-function Logo({ className, click }: Props) {
+function Logo({ className }: Props) {
   const { classes } = useStyles();
+  const navigate = useNavigate();
 
   return (
     <Flex
@@ -18,7 +19,9 @@ function Logo({ className, click }: Props) {
       className={className}
     >
       <Avatar
-        onClick={() => click()}
+        onClick={() => {
+          navigate('/login');
+        }}
         className={classes.logo}
         color="lime"
         src={images.logo}

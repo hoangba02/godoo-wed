@@ -16,6 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
+import { LoginPage } from 'app/pages/LoginPage/Loadable';
 
 function SignIn() {
   const { t } = useTranslation();
@@ -54,84 +55,101 @@ function SignIn() {
       e.preventDefault();
     }
   };
-
+  useEffect(() => {
+    if (
+      user.login.message === 'invalid_username' ||
+      user.login.message === 'invalid_password'
+    ) {
+      setError(true);
+    } else {
+      // setError(false);
+      return;
+    }
+  }, [user.login.message]);
   useEffect(() => {
     if (user.username) {
       navigate('/');
-    } else {
-      navigate('/login');
     }
   }, [navigate, user]);
   return (
-    <form className={classes.form} onSubmit={form.onSubmit(handleSubmitSignIn)}>
-      <TextInput
-        label={t('LoginPage.username.Username')}
-        placeholder={t('LoginPage.username.Enter your username')}
-        {...form.getInputProps('username')}
-        onKeyDown={e => {
-          handleClearSpace(e);
-        }}
-      />
-
-      <PasswordInput
-        styles={{
-          rightSection: {
-            right: 10,
-          },
-        }}
-        className={classes.input}
-        label={t('LoginPage.password.Password')}
-        placeholder={t('LoginPage.password.Enter your password')}
-        visibilityToggleIcon={({ reveal }) =>
-          reveal ? (
-            <IconEye stroke={2.5} size={21} color="#000000" />
-          ) : (
-            <IconEyeOff stroke={2.5} size={21} color="#000000" />
-          )
-        }
-        {...form.getInputProps('password')}
-        onKeyDown={e => {
-          handleClearSpace(e);
-        }}
-      />
-      {error && (
-        <Text className={classes.error}>
-          {t('LoginPage.error.Username or password incorrect')}
-        </Text>
-      )}
-
-      <Flex
-        justify="space-between"
-        align="center"
-        sx={{
-          position: 'relative',
-          zIndex: 2,
-        }}
+    <LoginPage islogin={true}>
+      <form
+        className={classes.form}
+        onSubmit={form.onSubmit(handleSubmitSignIn)}
       >
-        <Flex align="center">
-          <Checkbox
-            checked
-            mt="md"
-            color="orange.7"
-            {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-          />
-          <Text className={classes.save}>
-            {t('LoginPage.password.Remember me')}
-          </Text>
-        </Flex>
-        <Link to="/forgot">
-          <Text className={clsx(classes.forgot, classes.save)}>
-            {t('LoginPage.password.Forgot password')}
-          </Text>
-        </Link>
-      </Flex>
+        <TextInput
+          label={t('LoginPage.username.Username')}
+          placeholder={t('LoginPage.username.Enter your username')}
+          {...form.getInputProps('username')}
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+        />
 
-      <Flex justify="center">
-        <Button type="submit" variant="gradient" className={classes.signinBtn}>
-          {t('LoginPage.button.Log in')}
-        </Button>
-      </Flex>
-    </form>
+        <PasswordInput
+          styles={{
+            rightSection: {
+              right: 10,
+            },
+          }}
+          className={classes.input}
+          label={t('LoginPage.password.Password')}
+          placeholder={t('LoginPage.password.Enter your password')}
+          visibilityToggleIcon={({ reveal }) =>
+            reveal ? (
+              <IconEye stroke={2.5} size={21} color="#000000" />
+            ) : (
+              <IconEyeOff stroke={2.5} size={21} color="#000000" />
+            )
+          }
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+          {...form.getInputProps('password')}
+        />
+        {error && (
+          <Text className={classes.error}>
+            {t('LoginPage.error.Username or password incorrect')}
+          </Text>
+        )}
+
+        <Flex
+          justify="space-between"
+          align="center"
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
+          <Flex align="center">
+            <Checkbox
+              checked
+              mt="md"
+              color="orange.7"
+              {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+            />
+            <Text className={classes.save}>
+              {t('LoginPage.password.Remember me')}
+            </Text>
+          </Flex>
+          <Link to="/forgot">
+            <Text className={clsx(classes.forgot, classes.save)}>
+              {t('LoginPage.password.Forgot password')}
+            </Text>
+          </Link>
+        </Flex>
+
+        <Flex justify="center">
+          <Button
+            type="submit"
+            variant="gradient"
+            className={classes.signinBtn}
+          >
+            {t('LoginPage.button.Log in')}
+          </Button>
+        </Flex>
+      </form>
+    </LoginPage>
   );
 }
 
