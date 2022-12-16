@@ -4,6 +4,7 @@ import {
   Checkbox,
   clsx,
   createStyles,
+  Divider,
   Flex,
   PasswordInput,
   Text,
@@ -17,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
+import { images } from 'assets/images';
 
 function SignIn() {
   const { t } = useTranslation();
@@ -149,6 +151,41 @@ function SignIn() {
           </Button>
         </Flex>
       </form>
+      <Divider
+        styles={{
+          label: {
+            fontSize: '18px',
+            fontWeight: 600,
+            '&::after': {
+              width: '320px',
+            },
+            [`@media (max-width:575px)`]: {
+              '&::after': {
+                width: '250px',
+              },
+            },
+          },
+        }}
+        sx={{
+          marginTop: '40px',
+          [`@media (max-width:575px)`]: {
+            marginTop: '18px',
+          },
+        }}
+        label={t('LoginPage.or')}
+        labelPosition="center"
+      />
+      <Flex mt={38} className={classes.social}>
+        <Button variant="subtle" className={classes.socialBtn}>
+          <img className={classes.img} src={images.facebook} alt="facebook" />
+        </Button>
+        <Button variant="subtle" mx={20} className={classes.socialBtn}>
+          <img className={classes.img} src={images.google} alt="google" />
+        </Button>
+        <Button variant="subtle" className={classes.socialBtn}>
+          <img className={classes.img} src={images.apple} alt="apple" />
+        </Button>
+      </Flex>
     </LoginPage>
   );
 }
@@ -192,4 +229,25 @@ const useStyles = createStyles(() => ({
     },
   },
   forgot: { textDecoration: 'underline' },
+  social: {
+    width: '60%',
+    justifyContent: 'space-around',
+    [`@media (max-width:575px)`]: {
+      marginTop: '18px',
+    },
+  },
+  socialBtn: {
+    width: '64px',
+    height: '64px',
+    padding: '0',
+    borderRadius: '50%',
+    [`@media (max-width:575px)`]: {
+      width: '50px',
+      height: '50px',
+    },
+  },
+  img: {
+    width: '100%',
+    height: '100%',
+  },
 }));

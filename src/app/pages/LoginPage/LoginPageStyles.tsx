@@ -2,10 +2,11 @@ import { createStyles } from '@mantine/core';
 
 export const LoginPageStyles = createStyles(() => ({
   container: {
-    position: 'absolute',
-    inset: 0,
+    // position: 'absolute',
+    // inset: 0,
     maxWidth: '100%',
-    width: '100vw',
+    width: '100%',
+    height: '100%',
     padding: 0,
     display: 'flex',
     alignItems: 'center',
@@ -20,10 +21,16 @@ export const LoginPageStyles = createStyles(() => ({
     position: 'relative',
     alignItems: 'center',
     width: '100%',
-    maxWidth: '720px',
-    height: '915px',
+    maxWidth: 720,
+    height: 915,
     padding: '25px 75px 35px',
     borderRadius: '20px',
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '25px 35px 35px',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      padding: '25px 65px 35px',
+    },
     [`@media (max-width:575px)`]: {
       position: 'static',
       width: '100%',
@@ -61,6 +68,7 @@ export const LoginPageStyles = createStyles(() => ({
       userSelect: 'none',
       cursor: 'pointer',
     },
+
     [`@media (max-width:575px)`]: {
       marginTop: '18px',
     },
@@ -78,26 +86,5 @@ export const LoginPageStyles = createStyles(() => ({
     left: '-265px',
     width: '418px',
     height: ' 589px',
-  },
-  social: {
-    width: '60%',
-    justifyContent: 'space-around',
-    [`@media (max-width:575px)`]: {
-      marginTop: '18px',
-    },
-  },
-  socialBtn: {
-    width: '64px',
-    height: '64px',
-    padding: '0',
-    borderRadius: '50%',
-    [`@media (max-width:575px)`]: {
-      width: '50px',
-      height: '50px',
-    },
-  },
-  img: {
-    width: '100%',
-    height: '100%',
   },
 }));

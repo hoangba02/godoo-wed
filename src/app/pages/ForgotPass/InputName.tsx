@@ -35,7 +35,7 @@ export default function InputName({ setNext }) {
       })
       .then(res => {
         console.log(res);
-        if (res.data.error === 0) {
+        if (res.data.error === 10) {
           if (res.data.data.hasOwnProperty('telegram_fullname')) {
             dispatch(
               actions.getUserForgotPass({

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Button,
   createStyles,
+  Divider,
   Flex,
   PasswordInput,
   Text,
@@ -17,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { UserSlice } from 'store/slice/userSlice';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { images } from 'assets/images';
 
 const REG_USERNAME = /^[a-z0-9]+$/;
 function Register() {
@@ -225,6 +227,47 @@ function Register() {
           </Button>
         </Flex>
       </form>
+      <Divider
+        styles={{
+          label: {
+            fontSize: '18px',
+            fontWeight: 600,
+            '&::after': {
+              width: '320px',
+            },
+            [`@media (max-width:575px)`]: {
+              '&::after': {
+                width: '250px',
+              },
+            },
+          },
+        }}
+        sx={{
+          marginTop: '40px',
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            marginTop: '18px',
+          },
+          [`@media (min-width:576px) and (max-width:767px)`]: {
+            marginTop: '14px ',
+          },
+          [`@media (max-width:575px)`]: {
+            marginTop: '18px',
+          },
+        }}
+        label={t('LoginPage.or')}
+        labelPosition="center"
+      />
+      <Flex mt={38} className={classes.social}>
+        <Button variant="subtle" className={classes.socialBtn}>
+          <img className={classes.img} src={images.facebook} alt="facebook" />
+        </Button>
+        <Button variant="subtle" mx={20} className={classes.socialBtn}>
+          <img className={classes.img} src={images.google} alt="google" />
+        </Button>
+        <Button variant="subtle" className={classes.socialBtn}>
+          <img className={classes.img} src={images.apple} alt="apple" />
+        </Button>
+      </Flex>
     </LoginPage>
   );
 }
@@ -283,11 +326,45 @@ const useStyles = createStyles(() => ({
     fontWeight: 500,
     marginTop: '42px',
     padding: '16px 19px 16px 19px',
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      marginTop: '18px',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      marginTop: '14px ',
+    },
     [`@media (max-width:575px)`]: {
       width: '200px',
       height: '45px',
       fontSize: '20px',
       marginTop: '26px',
     },
+  },
+  social: {
+    width: '60%',
+    justifyContent: 'space-around',
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      marginTop: '18px ',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      marginTop: '14px ',
+    },
+    [`@media (max-width:575px)`]: {
+      marginTop: '18px',
+    },
+  },
+  socialBtn: {
+    width: '64px',
+    height: '64px',
+    padding: '0',
+    borderRadius: '50%',
+
+    [`@media (max-width:575px)`]: {
+      width: '50px',
+      height: '50px',
+    },
+  },
+  img: {
+    width: '100%',
+    height: '100%',
   },
 }));
