@@ -1,11 +1,20 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BackgroundImage, Box, Button, Container } from '@mantine/core';
+import {
+  BackgroundImage,
+  Box,
+  Button,
+  Card,
+  Container,
+  Flex,
+  Progress,
+} from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
 
-const STEP = [
+const STEPS = [
   {
     id: 1,
+    status: true,
     value: 'nickname',
   },
   {
@@ -42,10 +51,27 @@ export function Profile() {
         <title>Profile</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Container>
-        <Box>
+      <Container className={classes.container}>
+        <Card className={classes.wrapper}>
           <BackgroundImage src=""></BackgroundImage>
-        </Box>
+          <Box className={classes.card}>
+            <Flex className={classes.progress}>
+              {STEPS.map((step, index) => {
+                return (
+                  <Box
+                    sx={{
+                      backgroundColor: step.status
+                        ? 'var(--primary-4)'
+                        : 'var(--white-light)',
+                    }}
+                    key={index}
+                    className={classes.step}
+                  ></Box>
+                );
+              })}
+            </Flex>
+          </Box>
+        </Card>
       </Container>
     </>
   );

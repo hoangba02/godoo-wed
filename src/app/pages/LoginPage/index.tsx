@@ -26,14 +26,6 @@ export function LoginPage({ children, islogin }) {
   const user = useSelector(getUserSelector);
   const navigate = useNavigate();
   const phone = useMediaQuery('(max-width:575px)');
-
-  // useEffect(() => {
-  //   if (user.id < 0) {
-  //     setLogin(false);
-  //   } else {
-  //     setLogin(true);
-  //   }
-  // }, [user.id]);
   return (
     <Container className={classes.container}>
       <Box
