@@ -22,9 +22,9 @@ export const initialState: UserState = {
   },
   nickname: '',
   password: '',
-  picture: '',
-  data_of_birth: '',
-  zodiac: '',
+  picture: [],
+  data_of_birth: new Date(),
+  zodiac: [],
   gender: [],
   introduction: '',
   relationship: 0,
@@ -85,6 +85,17 @@ const slice = createSlice({
       state.telegram_fullname = action.payload.telegram_fullname;
       state.messenger_fullname = action.payload.messenger_fullname;
       state.token = action.payload.token;
+    },
+
+    // Create Information Profile User
+
+    createProfile(state: UserState, action: PayloadAction<UserState>) {
+      state.nickname = action.payload.nickname;
+      state.picture = action.payload.picture;
+      state.data_of_birth = action.payload.data_of_birth;
+      state.zodiac = action.payload.zodiac;
+      state.introduction = action.payload.introduction;
+      state.relationship = action.payload.relationship;
     },
   },
 });

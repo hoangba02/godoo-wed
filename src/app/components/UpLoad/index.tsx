@@ -9,7 +9,7 @@ import {
   createStyles,
 } from '@mantine/core';
 
-function UpLoad({ width, height }) {
+function UpLoad({ width, height, children }) {
   const { classes } = useStyles();
   const [urlImg, setUrlImg] = useState('');
 
@@ -17,13 +17,13 @@ function UpLoad({ width, height }) {
     setUrlImg(URL.createObjectURL(e.target.files[0]));
   };
   return (
-    <Card h={height} w={width} className={classes.card}>
+    <Card h={170} w={170} className={classes.picCard}>
       <BackgroundImage
         sx={{
           position: 'absolute',
           inset: 0,
         }}
-        src={urlImg}
+        src={''}
       ></BackgroundImage>
       <Box mt={42.5}>
         <Blink />
@@ -57,7 +57,7 @@ function UpLoad({ width, height }) {
 export default UpLoad;
 
 const useStyles = createStyles(() => ({
-  card: {
+  picCard: {
     padding: '0 !important',
     borderRadius: 30,
     position: 'relative',

@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  BackgroundImage,
-  Box,
-  Button,
-  Container,
-  Flex,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Box, Container, Stack, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
@@ -26,55 +18,32 @@ export function LoginPage({ children, islogin }) {
   const navigate = useNavigate();
   const phone = useMediaQuery('(max-width:575px)');
   return (
-    <Container className={classes.container}>
+    <Container fluid={true} className={classes.container}>
+      <Box
+        style={{
+          height: '100vh',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${
+            phone ? images.bgLoginTopMobile : images.bgLoginTop
+          })`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          zIndex: 2,
+        }}
+      ></Box>
       <Box
         sx={{
-          width: '100%',
-          height: '100%',
-          // display: 'flex',
-          // justifyContent: 'center',
-          // alignItems: 'center',
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          inset: 0,
+          overflowY: 'auto',
+          paddingTop: '20px',
         }}
       >
-        <Box
-          sx={{
-            width: '50%',
-            maxWidth: '720px',
-            borderRadius: '20px',
-            backgroundColor: 'var(--white)',
-            [`@media (min-width:1200px) and (max-width:1439px)`]: {
-              width: '60%',
-            },
-            [`@media (min-width:992px) and (max-width:1199px)`]: {
-              width: '60%',
-            },
-            [`@media (min-width:768px) and (max-width:991px)`]: {
-              width: '60%',
-              height: '85%',
-            },
-            [`@media (min-width:576px) and (max-width:767px)`]: {
-              width: '80%',
-              height: '82%',
-            },
-            [`@media (max-width:575px)`]: {
-              width: '100%',
-              height: '76%',
-              borderRadius: '20px 20px 0 0',
-              padding: '25px 16px 35px',
-            },
-          }}
-        >
-          <BackgroundImage
-            sx={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-            }}
-            src={phone ? images.bgLoginTopMobile : images.bgLoginTop}
-          ></BackgroundImage>
-          <Stack spacing={0} className={classes.wrapper}>
+        <Box className={classes.wrapper}>
+          <Stack spacing={0} className={classes.content}>
             <Languages />
             <Logo className={classes.logo} />
             {children}

@@ -6,7 +6,7 @@ import {
   createStyles,
   Image,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { images } from 'assets/images';
 import React, { ReactNode } from 'react';
 
@@ -15,30 +15,29 @@ interface Props {
 }
 function NullLayout({ children }: Props) {
   const { classes } = useStyles();
+  const { width, height } = useViewportSize();
   const phone = useMediaQuery('(max-width:575px)');
 
   return (
-    <Container className={classes.layout}>
-      {/* <img
-        // sx={{
-        //   // height: 'max-content',
-        //   position: 'absolute',
-        //   inset: 0,
-        // }}
-        src={phone ? images.bgLoginMobile : images.bgLogin}
-      ></img> */}
+    <Box
+      style={{
+        width: '100%',
+        paddingTop: `${(height / width) * 100}%`,
+        backgroundImage: `url(${
+          phone ? images.bgLoginMobile : images.bgLogin
+        })`,
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        overflow: 'hidden',
+      }}
+    >
       {children}
-    </Container>
+    </Box>
   );
 }
 
 export default NullLayout;
 
 const useStyles = createStyles(() => ({
-  layout: {
-    // position: 'relative',
-    width: '100%',
-    minHeight: '100%',
-    backgroundImage: `url(${images.bgLogin})`,
-  },
+  layout: {},
 }));

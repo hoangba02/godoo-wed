@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   createStyles,
@@ -19,6 +19,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { images } from 'assets/images';
+import { converLang } from '../ConvertLang';
 
 const REG_USERNAME = /^[a-z0-9]+$/;
 function Register() {
@@ -28,6 +29,7 @@ function Register() {
 
   const { actions } = UserSlice();
   const { classes } = useStyles();
+  const userNameRef = useRef<HTMLInputElement>(null);
   const user = useSelector(getUserSelector);
 
   const [errName, setErrName] = useState(true);
@@ -43,10 +45,12 @@ function Register() {
     validate: {
       username: value => {
         if (value.length === 0) {
-          setErrName(false);
-          return t('LoginPage.username.Username incorrect');
+          if (userNameRef.current !== null) {
+            userNameRef.current.focus();
+            setErrName(false);
+          }
+          return t('LoginPage.error.Please fill in this field');
         }
-        return null;
       },
       password: value => {
         if (value.length === 0) {
@@ -61,21 +65,6 @@ function Register() {
           : null,
     },
   });
-  // const errorUserName = () => {
-  //   if (user.register.message === 'user_exist') {
-  //     form.setErrors({
-  //       username: t('LoginPage.username.This username has already existed'),
-  //     });
-  //   }
-  // };
-  const handleBlurUser = () => {
-    // setErrPass(false);
-    form.setValues({ username: form.values.username.toLowerCase() });
-    if (!REG_USERNAME.test(form.values.username)) {
-      setErrName(false);
-      form.setErrors({ username: t('LoginPage.username.Username incorrect') });
-    }
-  };
   const handleBlurPass = () => {
     // setErrName(false);
     if (form.values.password.length < 8) {
@@ -86,13 +75,13 @@ function Register() {
     }
   };
   const handleRegisterUser = () => {
-    console.log(form.errors);
     dispatch(
       actions.requestRegister({
         username: form.values.username,
         password: form.values.password,
       }),
     );
+    navigate('/profile');
   };
   const handleClearSpace = e => {
     if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
@@ -100,6 +89,12 @@ function Register() {
     }
   };
 
+  const handleConvertEng = e => {
+    form.setValues({
+      ...form.values,
+      [e.target.name]: converLang(e.target.value.toLowerCase()),
+    });
+  };
   useEffect(() => {
     console.log(101, user.register.message);
     if (user.register.message === 'user_exist') {
@@ -120,22 +115,26 @@ function Register() {
       >
         <TextInput
           maxLength={16}
+          name="username"
           label={t('LoginPage.username.Username')}
           placeholder={t('LoginPage.username.Enter your username')}
           error={form.errors.username}
+          ref={userNameRef}
           {...form.getInputProps('username')}
           onKeyDown={e => {
             handleClearSpace(e);
-          }}
-          onBlur={() => {
-            handleBlurUser();
           }}
           onFocus={() => {
             setErrPass(true);
             setErrName(true);
             form.setErrors({ username: '' });
           }}
-          onInput={() => setErrName(true)}
+          onInput={() => {
+            setErrName(true);
+          }}
+          onKeyUp={e => {
+            handleConvertEng(e);
+          }}
         />
         {errName && (
           <Text className={classes.error}>
@@ -151,6 +150,7 @@ function Register() {
               right: 10,
             },
           }}
+          name="password"
           className={classes.input}
           label={t('LoginPage.password.Password')}
           placeholder={t('LoginPage.password.Enter your password')}
@@ -174,6 +174,9 @@ function Register() {
             form.setErrors({ password: '' });
           }}
           onInput={() => setErrPass(true)}
+          onKeyUp={e => {
+            handleConvertEng(e);
+          }}
         />
         {errPass && (
           <Text className={classes.error}>
@@ -189,6 +192,7 @@ function Register() {
           }}
           className={classes.input}
           mt="sm"
+          name="confirmPassword"
           label={t('LoginPage.password.Confirm password')}
           placeholder={t('LoginPage.password.Confirm password')}
           visibilityToggleIcon={({ reveal }) =>
@@ -201,6 +205,9 @@ function Register() {
           {...form.getInputProps('confirmPassword')}
           onKeyDown={e => {
             handleClearSpace(e);
+          }}
+          onKeyUp={e => {
+            handleConvertEng(e);
           }}
         />
 
@@ -244,12 +251,12 @@ function Register() {
         }}
         sx={{
           marginTop: '40px',
-          [`@media (min-width:768px) and (max-width:991px)`]: {
-            marginTop: '18px',
-          },
-          [`@media (min-width:576px) and (max-width:767px)`]: {
-            marginTop: '14px ',
-          },
+          // [`@media (min-width:768px) and (max-width:991px)`]: {
+          //   marginTop: '18px',
+          // },
+          // [`@media (min-width:576px) and (max-width:767px)`]: {
+          //   marginTop: '14px ',
+          // },
           [`@media (max-width:575px)`]: {
             marginTop: '18px',
           },
@@ -261,7 +268,7 @@ function Register() {
         <Button variant="subtle" className={classes.socialBtn}>
           <img className={classes.img} src={images.facebook} alt="facebook" />
         </Button>
-        <Button variant="subtle" mx={20} className={classes.socialBtn}>
+        <Button variant="subtle" mx={30} className={classes.socialBtn}>
           <img className={classes.img} src={images.google} alt="google" />
         </Button>
         <Button variant="subtle" className={classes.socialBtn}>
@@ -317,6 +324,7 @@ const useStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       margin: '10px 0 0 10px',
+      fontSize: '12px',
     },
   },
   registerBtn: {
@@ -327,10 +335,10 @@ const useStyles = createStyles(() => ({
     marginTop: '42px',
     padding: '16px 19px 16px 19px',
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      marginTop: '18px',
+      marginTop: '42px',
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {
-      marginTop: '14px ',
+      marginTop: '42px',
     },
     [`@media (max-width:575px)`]: {
       width: '200px',
@@ -340,13 +348,10 @@ const useStyles = createStyles(() => ({
     },
   },
   social: {
-    width: '60%',
-    justifyContent: 'space-around',
+    width: '100%',
+    justifyContent: 'center',
     [`@media (min-width:768px) and (max-width:991px)`]: {
       marginTop: '18px ',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      marginTop: '14px ',
     },
     [`@media (max-width:575px)`]: {
       marginTop: '18px',

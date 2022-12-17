@@ -18,8 +18,11 @@ export const images = {
   nicknamePro: require('assets/images/nicknamePro.svg').default,
   modePro: require('assets/images/modePro.svg').default,
   birthPro: require('assets/images/birthPro.svg').default,
+  birthProMobile: require('assets/images/birthProMobile.svg').default,
   descPro: require('assets/images/descPro.svg').default,
   genderPro: require('assets/images/genderPro.svg').default,
+  illustrating: require('assets/images/illustrating.svg').default,
+  tips: require('assets/images/tips.svg').default,
 
   // Zodiac
   libra: require('assets/images/libra.svg').default,

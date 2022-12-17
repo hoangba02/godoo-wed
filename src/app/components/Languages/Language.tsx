@@ -144,8 +144,8 @@ const useStyles = createStyles(() => ({
       right: '-0',
     },
     [`@media (max-width:575px)`]: {
-      top: '4%',
-      right: '5%',
+      top: '-36%',
+      right: '16px',
       width: 84,
     },
   },

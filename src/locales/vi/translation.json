@@ -26,7 +26,8 @@
     },
     "error": {
       "Username or password incorrect": "Tên đăng nhập hoặc mật khẩu không chính xác.",
-      "At least 8 characters": "Tối thiểu 8 ký tự"
+      "At least 8 characters": "Tối thiểu 8 ký tự",
+      "Please fill in this field": "Vui lòng nhập vào trường này"
     },
     "question": {
       "Already had an account?": "Bạn đã có tài khoản?",
@@ -68,6 +69,11 @@
       "OTP code has expired!": "Mã OTP đã hết hiệu lực!",
       "OTP code is valid in": "Mã OTP có hiệu lực trong",
       "Password incorrect": "Mật khẩu không trùng khớp"
+    }
+  },
+  "Profile": {
+    "error": {
+      "You have to be 15 years old or over to experience our App": "Bạn cần tử 15t trở lên để có thể trải nghiệm ứng dụng của chúng tôi"
     }
   }
 }

@@ -19,6 +19,7 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { images } from 'assets/images';
+import { converLang } from '../ConvertLang';
 
 function SignIn() {
   const { t } = useTranslation();
@@ -57,6 +58,13 @@ function SignIn() {
       e.preventDefault();
     }
   };
+
+  const handleConvertEng = e => {
+    form.setValues({
+      ...form.values,
+      [e.target.name]: converLang(e.target.value.toLowerCase()),
+    });
+  };
   useEffect(() => {
     if (
       user.login.message === 'invalid_username' ||
@@ -80,20 +88,24 @@ function SignIn() {
         onSubmit={form.onSubmit(handleSubmitSignIn)}
       >
         <TextInput
+          name="username"
           label={t('LoginPage.username.Username')}
           placeholder={t('LoginPage.username.Enter your username')}
           {...form.getInputProps('username')}
           onKeyDown={e => {
             handleClearSpace(e);
           }}
+          onKeyUp={e => {
+            handleConvertEng(e);
+          }}
         />
-
         <PasswordInput
           styles={{
             rightSection: {
               right: 10,
             },
           }}
+          name="password"
           className={classes.input}
           label={t('LoginPage.password.Password')}
           placeholder={t('LoginPage.password.Enter your password')}
@@ -106,6 +118,10 @@ function SignIn() {
           }
           onKeyDown={e => {
             handleClearSpace(e);
+          }}
+          onKeyUp={e => {
+            // const target = e.target as HTMLInputElement;
+            handleConvertEng(e);
           }}
           {...form.getInputProps('password')}
         />
@@ -179,7 +195,7 @@ function SignIn() {
         <Button variant="subtle" className={classes.socialBtn}>
           <img className={classes.img} src={images.facebook} alt="facebook" />
         </Button>
-        <Button variant="subtle" mx={20} className={classes.socialBtn}>
+        <Button variant="subtle" mx={30} className={classes.socialBtn}>
           <img className={classes.img} src={images.google} alt="google" />
         </Button>
         <Button variant="subtle" className={classes.socialBtn}>
@@ -230,8 +246,8 @@ const useStyles = createStyles(() => ({
   },
   forgot: { textDecoration: 'underline' },
   social: {
-    width: '60%',
-    justifyContent: 'space-around',
+    width: '100%',
+    justifyContent: 'center',
     [`@media (max-width:575px)`]: {
       marginTop: '18px',
     },

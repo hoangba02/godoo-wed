@@ -8,6 +8,7 @@ import {
   Checkbox,
   createStyles,
   Center,
+  BackgroundImage,
 } from '@mantine/core';
 import Modals from 'app/components/Modals';
 import { images } from 'assets/images';
@@ -17,12 +18,9 @@ export default function Demo() {
   const { classes } = useStyles();
   const [checked, setChecked] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const [urlImg, setUrlImg] = useState([]);
 
-  return (
-    <Center>
-      <UpLoad width={170} height={170} />
-    </Center>
-  );
+  return <></>;
 }
 
 const useStyles = createStyles(theme => ({

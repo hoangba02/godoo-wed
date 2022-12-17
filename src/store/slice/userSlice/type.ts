@@ -24,9 +24,9 @@ export interface UserState {
 
   // Profile
   nickname?: string;
-  picture?: string;
-  data_of_birth?: string;
-  zodiac?: string;
+  picture?: string[];
+  data_of_birth?: Date;
+  zodiac?: string[];
   gender?: number[];
   introduction?: string;
   relationship?: number;

@@ -14,7 +14,9 @@ export function HomePage() {
   const user = useSelector(getUserSelector);
   console.log(user);
   useEffect(() => {
-    if (!user.isLogin) {
+    if (user.id !== -1) {
+      navigate('/');
+    } else {
       navigate('/login');
     }
   });

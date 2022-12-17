@@ -1,5 +1,6 @@
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
+import { CounterState } from 'store/slice/counterSlice/type';
 import { UserState } from 'store/slice/userSlice/type';
 
 /* 
@@ -8,4 +9,7 @@ import { UserState } from 'store/slice/userSlice/type';
 */
 export interface RootState {
   user?: UserState;
+}
+export interface RootState {
+  counter?: CounterState;
 }

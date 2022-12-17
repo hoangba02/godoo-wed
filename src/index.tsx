@@ -32,7 +32,6 @@ const store = configureAppStore();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-
 root.render(
   <Provider store={store}>
     <HelmetProvider>
@@ -76,7 +75,9 @@ root.render(
                 boxSizing: 'border-box',
               },
 
-              body: {},
+              body: {
+                overflow: 'hidden',
+              },
             }),
             fontFamily: 'Lexend, sans-serif',
             defaultGradient: {
