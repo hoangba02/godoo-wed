@@ -40,6 +40,9 @@ export function LoginPage({ children, islogin }) {
           inset: 0,
           overflowY: 'auto',
           paddingTop: '20px',
+          [`@media (max-width:376px)`]: {
+            overflowX: 'hidden',
+          },
         }}
       >
         <Box className={classes.wrapper}>

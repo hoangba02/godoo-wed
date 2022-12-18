@@ -66,6 +66,7 @@ export default function Code({ setNext, status }: CodeProps) {
 
   const handleChangeOTP = OTP => {
     setOTP(OTP);
+    setErrorOTP(false);
   };
 
   useEffect(() => {
@@ -159,6 +160,7 @@ export default function Code({ setNext, status }: CodeProps) {
           onClick={() => {
             setErrorOTP(false);
             handleGetOTPByTele();
+            setSeconds(300);
           }}
         >
           {t('ForgotPage.button.Send back!')}

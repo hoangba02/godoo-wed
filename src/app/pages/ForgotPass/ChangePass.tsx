@@ -73,16 +73,16 @@ export default function ChangePass() {
       e.preventDefault();
     }
   };
-  //   useEffect(() => {
-  //     if (!openModal) {
-  //       return;
-  //     } else {
-  //       setTimeout(function () {
-  //         setOpenModal(false);
-  //         navigate('/login');
-  //       }, 2000);
-  //     }
-  //   }, [openModal]);
+  useEffect(() => {
+    if (!openModal) {
+      return;
+    } else {
+      setTimeout(function () {
+        setOpenModal(false);
+        navigate('/');
+      }, 2000);
+    }
+  }, [openModal]);
   return (
     <Box>
       <Modals

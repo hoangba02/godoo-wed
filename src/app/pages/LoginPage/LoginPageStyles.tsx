@@ -38,6 +38,9 @@ export const LoginPageStyles = createStyles(() => ({
       position: 'absolute',
       bottom: 0,
     },
+    [`@media (max-width:376px)`]: {
+      padding: 0,
+    },
   },
   content: {
     position: 'relative',
@@ -62,7 +65,13 @@ export const LoginPageStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       padding: '0px ',
+      height: 615,
+    },
+    [`@media (max-width:376px)`]: {
+      padding: '20px ',
+      borderRadius: '30px 30px 0 0',
       height: 634,
+      backgroundColor: 'var(--white)',
     },
   },
 
@@ -70,6 +79,9 @@ export const LoginPageStyles = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       position: 'absolute',
       top: '-30%',
+    },
+    [`@media (max-width:376px)`]: {
+      top: '-22%',
     },
   },
   registerBtn: {
