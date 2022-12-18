@@ -10,6 +10,7 @@ import { images } from 'assets/images';
 import Modals from 'app/components/Modals';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
+import { converLang } from 'app/components/ConvertLang';
 
 export default function InputName({ setNext }) {
   const dispatch = useDispatch();
@@ -63,7 +64,18 @@ export default function InputName({ setNext }) {
         console.log(err);
       });
   };
+  const handleClearSpace = e => {
+    if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
+      e.preventDefault();
+    }
+  };
 
+  const handleConvertEng = e => {
+    form.setValues({
+      ...form.values,
+      [e.target.name]: converLang(e.target.value.toLowerCase()),
+    });
+  };
   return (
     <>
       <Modals
@@ -86,11 +98,18 @@ export default function InputName({ setNext }) {
           </Text>
         )}
         <TextInput
+          name="name"
           className={classes.input}
           error={form.errors.name}
           placeholder={t('LoginPage.username.Enter your username')}
           label={t('LoginPage.username.Username')}
           {...form.getInputProps('name')}
+          onKeyDown={e => {
+            handleClearSpace(e);
+          }}
+          onKeyUp={e => {
+            handleConvertEng(e);
+          }}
         />
         {!phone && (
           <Text className={classes.desc}>

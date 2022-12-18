@@ -34,7 +34,7 @@ function SignIn() {
     initialValues: {
       username: '',
       password: '',
-      termsOfService: false,
+      termsOfService: true,
     },
   });
 
@@ -141,7 +141,7 @@ function SignIn() {
         >
           <Flex align="center">
             <Checkbox
-              checked
+              checked={true}
               mt="md"
               color="orange.7"
               {...form.getInputProps('termsOfService', { type: 'checkbox' })}

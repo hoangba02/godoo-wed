@@ -156,7 +156,10 @@ export default function Code({ setNext, status }: CodeProps) {
         <Button
           variant="subtle"
           className={classes.senTo}
-          onClick={handleGetOTPByTele}
+          onClick={() => {
+            setErrorOTP(false);
+            handleGetOTPByTele();
+          }}
         >
           {t('ForgotPage.button.Send back!')}
         </Button>

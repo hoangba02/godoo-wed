@@ -15,19 +15,16 @@ import { images } from 'assets/images';
 import UpLoad from 'app/components/UpLoad';
 
 export default function Demo() {
-  const { classes } = useStyles();
   const [checked, setChecked] = useState(true);
-  const [openModal, setOpenModal] = useState(false);
-  const [urlImg, setUrlImg] = useState([]);
-
-  return <></>;
+  console.log(checked);
+  return (
+    <Checkbox
+      sx={{
+        position: 'relative',
+        zIndex: 99,
+      }}
+      checked={checked}
+      onChange={event => setChecked(event.currentTarget.checked)}
+    />
+  );
 }
-
-const useStyles = createStyles(theme => ({
-  button: {
-    margin: 10,
-  },
-  input: {
-    display: 'none',
-  },
-}));

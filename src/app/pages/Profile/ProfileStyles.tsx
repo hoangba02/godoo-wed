@@ -13,6 +13,9 @@ export const ProfileStyle = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1,
+    [`@media (max-width:575px)`]: {
+      padding: 0,
+    },
   },
   wrapper: {
     width: '100%',
@@ -20,6 +23,18 @@ export const ProfileStyle = createStyles(() => ({
     height: '100%',
     borderRadius: '30px',
     padding: '0 32px 32px !important',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '60%',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '60%',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '70%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      width: '80%',
+    },
     [`@media (max-width:575px)`]: {
       alignItems: 'flex-end',
       padding: '0px !important',
@@ -71,26 +86,28 @@ export const ProfileStyle = createStyles(() => ({
   children: {
     width: '100%',
     height: '100%',
-    // position: 'relative',
   },
   imgPro: {
     position: 'absolute',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '60%',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '60%',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '70%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      width: '80%',
+    },
     [`@media (max-width:575px)`]: {
       width: '150%',
       left: '50%',
       transform: 'translateX(-50%)',
     },
   },
-  imgNickname: {
-    position: 'absolute',
-    bottom: 281,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    [`@media (max-width:575px)`]: {
-      width: '150%',
-      bottom: 255,
-    },
-  },
+
   box: {
     height: 518,
     bottom: 0,
@@ -132,14 +149,33 @@ export const ProfileStyle = createStyles(() => ({
   form: {
     position: 'relative',
   },
+  imgNickname: {
+    position: 'absolute',
+    bottom: 281,
+    left: '50%',
+    transform: 'translateX(-50%)',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '100%',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '100%',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '100%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      width: '100%',
+    },
+    [`@media (max-width:575px)`]: {
+      width: '140%',
+      bottom: 255,
+    },
+  },
   nicknameIcon: {
     position: 'absolute',
-    top: '34%',
-    left: 53,
+    top: '50%',
+    left: 10,
     transform: 'translateY(-50%)',
-    [`@media (max-width:575px)`]: {
-      top: '30.7%',
-    },
   },
   // Birday
   birthIcon: {
@@ -155,8 +191,20 @@ export const ProfileStyle = createStyles(() => ({
   picContent: {
     width: '100%',
     padding: '24px 44px 0',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      padding: '24px 44px 0',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      padding: '24px 20px 0',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '24px 10px 0',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      padding: '24px 0px 0',
+    },
     [`@media (max-width:575px)`]: {
-      padding: '120px 16px 20px',
+      padding: '100px 15px 0',
     },
   },
   picMain: {
@@ -176,14 +224,21 @@ export const ProfileStyle = createStyles(() => ({
     },
   },
   picCard: {
-    height: 170,
-    width: 170,
+    height: '100%',
+    width: '100%',
     padding: '0 !important',
     borderRadius: 30,
     position: 'relative',
     backgroundColor: 'var(--white-light)',
     display: 'flex',
     justifyContent: 'center',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {},
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      height: 160,
+      width: 160,
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
     [`@media (max-width:575px)`]: {
       height: 106,
       width: 106,
@@ -266,6 +321,7 @@ export const ProfileStyle = createStyles(() => ({
     fontWeight: 500,
     fontSize: 14,
     lineHeight: '18px',
+    zIndex: 3,
     [`@media (max-width:575px)`]: {
       right: 16,
       width: 61,

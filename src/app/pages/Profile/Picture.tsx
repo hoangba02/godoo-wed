@@ -47,13 +47,36 @@ export default function Picture() {
   return (
     <Box className={classes.children}>
       <Box className={classes.picContent}>
-        <Flex justify="space-between">
+        <Flex
+          sx={{
+            height: 370,
+            gap: '5%',
+            justifyContent: 'space-between',
+            [`@media (max-width:575px)`]: {
+              gap: 15,
+              height: 225,
+            },
+          }}
+        >
           <Card
             sx={{
-              height: 370,
-              width: 370,
+              minWidth: '65%',
+              height: '100%',
+              [`@media (min-width:1200px) and (max-width:1439px)`]: {
+                height: '100%',
+              },
+              [`@media (min-width:992px) and (max-width:1199px)`]: {
+                height: '100%',
+              },
+              [`@media (min-width:768px) and (max-width:991px)`]: {
+                height: '100%',
+                width: 350,
+              },
+              [`@media (min-width:576px) and (max-width:767px)`]: {
+                height: '100%',
+              },
               [`@media (max-width:575px)`]: {
-                height: 225,
+                height: '100%',
                 width: 225,
               },
             }}
@@ -92,6 +115,12 @@ export default function Picture() {
                     marginRight: 10,
                   },
                   root: {
+                    width: '233px',
+                    height: '38px',
+                    [`@media (min-width:768px) and (max-width:991px)`]: {
+                      width: '165px',
+                      height: '42px',
+                    },
                     [`@media (max-width:575px)`]: {
                       width: '145px',
                       height: '32px',
@@ -109,8 +138,14 @@ export default function Picture() {
               </Button>
             </label>
           </Card>
-          <Stack justify="space-between">
-            <Card h={170} w={170} className={classes.picCard}>
+          <Stack
+            sx={{
+              minWidth: '30%',
+              alignItems: 'flex-end',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Card className={classes.picCard}>
               <BackgroundImage
                 sx={{
                   position: 'absolute',
@@ -152,7 +187,7 @@ export default function Picture() {
                 </Button>
               </label>
             </Card>
-            <Card h={170} w={170} className={classes.picCard}>
+            <Card className={classes.picCard}>
               <BackgroundImage
                 sx={{
                   position: 'absolute',
@@ -196,8 +231,31 @@ export default function Picture() {
             </Card>
           </Stack>
         </Flex>
-        <Flex mt={30} justify="space-between">
-          <Card h={170} w={170} className={classes.picCard}>
+        <Flex
+          sx={{
+            height: 170,
+            gap: 30,
+            marginTop: 30,
+            justifyContent: 'space-between',
+            [`@media (min-width:1200px) and (max-width:1439px)`]: {
+              gap: 30,
+            },
+            [`@media (min-width:992px) and (max-width:1199px)`]: {
+              gap: 20,
+            },
+            [`@media (min-width:768px) and (max-width:991px)`]: {
+              gap: 10,
+            },
+            [`@media (min-width:576px) and (max-width:767px)`]: {
+              gap: 10,
+              marginTop: 20,
+            },
+            [`@media (max-width:575px)`]: {
+              gap: 0,
+            },
+          }}
+        >
+          <Card className={classes.picCard}>
             <BackgroundImage
               sx={{
                 position: 'absolute',
@@ -239,7 +297,7 @@ export default function Picture() {
               </Button>
             </label>
           </Card>
-          <Card h={170} w={170} className={classes.picCard}>
+          <Card className={classes.picCard}>
             <BackgroundImage
               sx={{
                 position: 'absolute',
@@ -281,7 +339,7 @@ export default function Picture() {
               </Button>
             </label>
           </Card>
-          <Card h={170} w={170} className={classes.picCard}>
+          <Card className={classes.picCard}>
             <BackgroundImage
               sx={{
                 position: 'absolute',

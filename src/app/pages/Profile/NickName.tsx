@@ -54,24 +54,30 @@ export default function NickName() {
       >
         <Text className={classes.titleChild}>NickName</Text>
         <form onSubmit={form.onSubmit(handleNickName)}>
-          <TextInput
-            styles={{
-              input: {
-                fontSize: 24,
-                fontWeight: 500,
-                lineHeight: '30px',
-                textAlign: 'right',
-                borderRadius: 8,
-                border: error ? '1px solid var(--red)' : 'none',
-              },
+          <Box
+            sx={{
+              position: 'relative',
             }}
-            maxLength={15}
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            {...form.getInputProps('nickname')}
-          />
-          <FaceName className={classes.nicknameIcon} />
+          >
+            <TextInput
+              styles={{
+                input: {
+                  fontSize: 24,
+                  fontWeight: 500,
+                  lineHeight: '30px',
+                  textAlign: 'right',
+                  borderRadius: 8,
+                  border: error ? '1px solid var(--red)' : 'none',
+                },
+              }}
+              maxLength={15}
+              onKeyDown={e => {
+                handleClearSpace(e);
+              }}
+              {...form.getInputProps('nickname')}
+            />
+            <FaceName className={classes.nicknameIcon} />
+          </Box>
           <Button type="submit" variant="gradient" className={classes.nextBtn}>
             <IconChevronRight width={40} height={40} stroke={2.5} />
           </Button>

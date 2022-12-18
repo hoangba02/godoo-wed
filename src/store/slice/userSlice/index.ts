@@ -53,6 +53,7 @@ const slice = createSlice({
       state.loading = false;
       state.login = action.payload.login;
     },
+
     requestRegister(state: UserState, action: PayloadAction<UserState>) {
       state.loading = true;
     },
@@ -64,11 +65,13 @@ const slice = createSlice({
       state.password = action.payload.password;
       state.createTime = action.payload.createTime;
       state.language = action.payload.language;
+      state.register = action.payload.register;
     },
     registerFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
       state.register = action.payload.register;
     },
+
     logoutSuccess(state: UserState) {
       state.id = -1;
       state.token = '';

@@ -21,7 +21,6 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { images } from 'assets/images';
 import { converLang } from '../ConvertLang';
 
-const REG_USERNAME = /^[a-z0-9]+$/;
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -36,7 +35,6 @@ function Register() {
   const [errPass, setErrPass] = useState(true);
 
   const form = useForm({
-    // validateInputOnBlur: true,
     initialValues: {
       username: '',
       password: '',
@@ -55,25 +53,26 @@ function Register() {
       password: value => {
         if (value.length === 0) {
           setErrPass(false);
+          return t('LoginPage.error.Please fill in this field');
+        }
+        if (value.length >= 1 && value.length < 8) {
+          setErrPass(false);
           return t('LoginPage.password.At least 8 characters');
         }
         return null;
       },
-      confirmPassword: (value, values) =>
-        value !== values.password
-          ? t('LoginPage.password.Password incorrect')
-          : null,
+      confirmPassword: (value, values) => {
+        if (value.length === 0) {
+          return t('LoginPage.error.Please fill in this field');
+        } else if (value.length >= 1 && value !== values.password) {
+          return t('LoginPage.password.Password incorrect');
+        } else {
+          return null;
+        }
+      },
     },
   });
-  const handleBlurPass = () => {
-    // setErrName(false);
-    if (form.values.password.length < 8) {
-      setErrPass(false);
-      form.setErrors({
-        password: t('LoginPage.password.At least 8 characters'),
-      });
-    }
-  };
+
   const handleRegisterUser = () => {
     dispatch(
       actions.requestRegister({
@@ -81,7 +80,6 @@ function Register() {
         password: form.values.password,
       }),
     );
-    navigate('/profile');
   };
   const handleClearSpace = e => {
     if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
@@ -96,17 +94,22 @@ function Register() {
     });
   };
   useEffect(() => {
-    console.log(101, user.register.message);
-    if (user.register.message === 'user_exist') {
+    if (user.register.error === -1) {
+      return;
+    } else if (user.register.error === 10) {
       setErrName(false);
       form.setErrors({
         username: t('LoginPage.username.This username has already existed'),
       });
+    } else if (user.register.error === 0) {
+      setErrName(false);
+      navigate('/profile');
     } else {
       setErrName(true);
       return;
     }
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.register.error]);
   return (
     <LoginPage islogin={false}>
       <form
@@ -165,9 +168,6 @@ function Register() {
           onKeyDown={e => {
             handleClearSpace(e);
           }}
-          onBlur={() => {
-            handleBlurPass();
-          }}
           onFocus={() => {
             setErrName(true);
             setErrPass(true);
@@ -225,7 +225,6 @@ function Register() {
 
         <Flex justify="center">
           <Button
-            // onClick={() => handleRegisterUser}
             type="submit"
             variant="gradient"
             className={classes.registerBtn}

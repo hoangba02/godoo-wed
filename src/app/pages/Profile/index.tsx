@@ -41,7 +41,7 @@ export function Profile() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <Container className={classes.container}>
-        {/* <Box
+        <Box
           style={{
             height: '100vh',
             position: 'absolute',
@@ -53,11 +53,11 @@ export function Profile() {
             backgroundSize: 'cover',
             zIndex: 2,
           }}
-        ></Box> */}
+        ></Box>
         <Card className={classes.wrapper}>
           <Box className={classes.card}>
-            {/* {Order} */}
-            <Tips />
+            {Order}
+            {/* <Picture /> */}
             <Flex className={classes.progress}>
               {STEPS.map((step, index) => {
                 return (
