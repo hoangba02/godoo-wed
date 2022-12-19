@@ -78,7 +78,7 @@ export const ProfileStyle = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       width: 65,
       height: 65,
-      bottom: '8%',
+      bottom: 56,
       right: 16,
     },
   },
@@ -180,12 +180,9 @@ export const ProfileStyle = createStyles(() => ({
   // Birday
   birthIcon: {
     position: 'absolute',
-    top: '28%',
-    left: 55,
+    top: '50%',
+    left: 10,
     transform: 'translateY(-50%)',
-    [`@media (max-width:575px)`]: {
-      left: 25,
-    },
   },
   //Picture Pro
   picContent: {

@@ -79,7 +79,7 @@ const slice = createSlice({
       state.password = '';
       state.isLogin = false;
     },
-    requestLanguage(state: UserState, action: PayloadAction<UserState>) {
+    setLanguage(state: UserState, action: PayloadAction<UserState>) {
       state.language = action.payload.language;
     },
     // Lấy user id và tên tele hoặc tên mess khi quên mật khẩu

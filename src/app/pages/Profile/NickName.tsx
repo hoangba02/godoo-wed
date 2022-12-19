@@ -71,6 +71,7 @@ export default function NickName() {
                 },
               }}
               maxLength={15}
+              placeholder="NickName"
               onKeyDown={e => {
                 handleClearSpace(e);
               }}

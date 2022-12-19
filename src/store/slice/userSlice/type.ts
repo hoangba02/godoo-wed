@@ -30,5 +30,5 @@ export interface UserState {
   gender?: number[];
   introduction?: string;
   relationship?: number;
-  language?: 'vi' | 'en';
+  language?: any;
 }

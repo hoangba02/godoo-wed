@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { IconAlertCircle, IconChevronRight } from '@tabler/icons';
 import { Box, Button, Center, Checkbox, Image, Text } from '@mantine/core';
@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { UserSlice } from 'store/slice/userSlice';
 import { useMediaQuery } from '@mantine/hooks';
+import { Zodiac } from 'app/components/Zodiac';
 
 export default function Birth() {
   const { classes } = ProfileStyle();
@@ -22,6 +23,7 @@ export default function Birth() {
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
   const phone = useMediaQuery('(max-width:575px)');
+
   const form = useForm({
     initialValues: { date: '' },
   });
@@ -47,6 +49,10 @@ export default function Birth() {
     }
     // console.log(form.values.date.getFullYear());
   };
+  useEffect(() => {
+    Zodiac(form.values.date || new Date());
+    console.log(Zodiac(form.values.date || new Date()));
+  }, [form.values.date]);
   return (
     <Box className={classes.children}>
       <Image
@@ -85,25 +91,32 @@ export default function Birth() {
           You cannot change this DOB later
         </Text>
         <form onSubmit={form.onSubmit(handleCreateBirthDay)}>
-          <DatePicker
-            styles={{
-              input: {
-                fontSize: 24,
-                fontWeight: 500,
-                lineHeight: '30px',
-                textAlign: 'right',
-                borderRadius: 8,
-                border: error ? '1px solid var(--red)' : 'none',
-              },
+          <Box
+            sx={{
+              position: 'relative',
             }}
-            error={form.errors.date}
-            clearable={false}
-            dropdownPosition="bottom-end"
-            inputFormat="MM/DD/YYYY"
-            placeholder="MM/DD/YYYY"
-            {...form.getInputProps('date')}
-          />
-          <DateBirth className={classes.birthIcon} />
+          >
+            <DatePicker
+              styles={{
+                input: {
+                  fontSize: 24,
+                  fontWeight: 500,
+                  lineHeight: '30px',
+                  textAlign: 'right',
+                  borderRadius: 8,
+                  border: error ? '1px solid var(--red)' : 'none',
+                },
+              }}
+              allowFreeInput
+              error={form.errors.date}
+              clearable={false}
+              dropdownPosition="bottom-end"
+              inputFormat="MM/DD/YYYY"
+              placeholder="MM/DD/YYYY"
+              {...form.getInputProps('date')}
+            />
+            <DateBirth className={classes.birthIcon} />
+          </Box>
           <Button type="submit" variant="gradient" className={classes.nextBtn}>
             <IconChevronRight width={40} height={40} stroke={2.5} />
           </Button>
@@ -124,15 +137,20 @@ export default function Birth() {
           Oh! You are a lovely Libra
         </Text>
         <Center mt={10}>
-          <Image width={180} height={180} src={images.libra} />
+          <Image
+            width={180}
+            height={180}
+            src={Zodiac(form.values.date || new Date())}
+          />
         </Center>
         <Checkbox
-          mt={68}
+          mt={48}
           styles={{
             label: {
               fontSize: 16,
               fontWeight: 500,
               lineHeight: '20px',
+              paddingLeft: 4,
             },
           }}
           color="orange.7"

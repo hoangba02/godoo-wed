@@ -6,6 +6,9 @@ import React, { useEffect, useState } from 'react';
 import { Group, Avatar, Text, Select, createStyles, Flex } from '@mantine/core';
 
 import { images } from 'assets/images';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 const data = [
   {
@@ -57,17 +60,19 @@ export default function Languages() {
   const { classes } = useStyles();
   const [t, i18n] = useTranslation();
   const phone = useMediaQuery('(max-width:575px)');
-  const [lang, setLang] = useState<string | null>('vi');
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
 
   useEffect(() => {
-    i18n.changeLanguage(`${lang}`);
+    i18n.changeLanguage(`${user.language}`);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lang]);
+  }, [user.language]);
   return (
     <Flex className={classes.wrapper}>
       <img
         className={classes.img}
-        src={lang === 'vi' ? images.vi : images.en}
+        src={user.language === 'vi' ? images.vi : images.en}
         alt="lang"
       />
       <Select
@@ -102,18 +107,24 @@ export default function Languages() {
             right: 10,
             zIndex: -1,
             [`@media (max-width:575px)`]: {
-              right: -6,
+              right: -3,
             },
           },
           item: {
             padding: '6px 0',
           },
         }}
-        onChange={value => setLang(value)}
+        onChange={value => {
+          dispatch(
+            actions.setLanguage({
+              language: value,
+            }),
+          );
+        }}
         itemComponent={SelectItem}
         data={data}
         maxDropdownHeight={400}
-        defaultValue={'vi'}
+        defaultValue={user.language}
         rightSection={
           <IconChevronDown width={phone ? 30 : 50} height={phone ? 20 : 30} />
         }
@@ -145,6 +156,11 @@ const useStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       top: '-36%',
+      right: '16px',
+      width: 84,
+    },
+    [`@media (max-width:375px)`]: {
+      top: '-28%',
       right: '16px',
       width: 84,
     },

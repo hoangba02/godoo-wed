@@ -25,5 +25,16 @@ export const images = {
   tips: require('assets/images/tips.svg').default,
 
   // Zodiac
-  libra: require('assets/images/libra.svg').default,
+  LibraZ: require('assets/images/LibraZ.svg').default,
+  AquariusZ: require('assets/images/AquariusZ.svg').default,
+  AriesZ: require('assets/images/AriesZ.svg').default,
+  CanerZ: require('assets/images/CanerZ.svg').default,
+  CapricornusZ: require('assets/images/CapricornusZ.svg').default,
+  GeminiZ: require('assets/images/GeminiZ.svg').default,
+  LeoZ: require('assets/images/LeoZ.svg').default,
+  PiscesZ: require('assets/images/PiscesZ.svg').default,
+  SagitariusZ: require('assets/images/SagitariusZ.svg').default,
+  ScorpioZ: require('assets/images/ScorpioZ.svg').default,
+  VirgoZ: require('assets/images/VirgoZ.svg').default,
+  TaurusZ: require('assets/images/TaurusZ.svg').default,
 };
