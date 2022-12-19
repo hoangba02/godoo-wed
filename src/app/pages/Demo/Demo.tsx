@@ -18,13 +18,6 @@ export default function Demo() {
   const [checked, setChecked] = useState(true);
   console.log(checked);
   return (
-    <Checkbox
-      sx={{
-        position: 'relative',
-        zIndex: 99,
-      }}
-      checked={checked}
-      onChange={event => setChecked(event.currentTarget.checked)}
-    />
+    <div></div>
   );
 }
