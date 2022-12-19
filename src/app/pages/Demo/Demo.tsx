@@ -18,6 +18,23 @@ export default function Demo() {
   const [checked, setChecked] = useState(true);
   console.log(checked);
   return (
-    <div></div>
+    <Button
+      sx={{
+        height: 30,
+        color: 'var(--black)',
+      }}
+      variant="subtle"
+      onClick={() => {
+        navigator.clipboard.readText().then(clipText => {
+          if (typeof clipText === 'number') {
+            console.log('copy');
+          } else {
+            console.log('no');
+          }
+        });
+      }}
+    >
+      Paste
+    </Button>
   );
 }

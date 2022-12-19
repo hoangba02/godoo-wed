@@ -21,96 +21,96 @@ export function Zodiac(date) {
         return { name: 'Aquarius', zodiac: images.AquariusZ };
       }
       if (day > 18 && day <= 28) {
-        return images.PiscesZ;
+        return { name: 'Pisces', zodiac: images.PiscesZ };
       }
       break;
 
     case 3:
       if (day <= 20 && day > 0) {
-        return images.PiscesZ;
+        return { name: 'Pisces', zodiac: images.PiscesZ };
       }
       if (day > 20 && day <= 31) {
-        return images.AriesZ;
+        return { name: 'Aries', zodiac: images.AriesZ };
       }
       break;
 
     case 4:
       if (day <= 19 && day > 0) {
-        return images.AriesZ;
+        return { name: 'Aries', zodiac: images.AriesZ };
       }
       if (day > 19 && day <= 30) {
-        return images.TaurusZ;
+        return { name: 'Taurus', zodiac: images.TaurusZ };
       }
       break;
 
     case 5:
       if (day <= 20 && day > 0) {
-        return images.TaurusZ;
+        return { name: 'Taurus', zodiac: images.TaurusZ };
       }
       if (day > 20 && day <= 31) {
-        return images.GeminiZ;
+        return { name: 'Gemini', zodiac: images.GeminiZ };
       }
       break;
 
     case 6:
       if (day <= 21 && day > 0) {
-        return images.GeminiZ;
+        return { name: 'Gemini', zodiac: images.GeminiZ };
       }
       if (day > 21 && day <= 30) {
-        return images.CanerZ;
+        return { name: 'Caner', zodiac: images.CanerZ };
       }
       break;
 
     case 7:
       if (day <= 22 && day > 0) {
-        return images.CanerZ;
+        return { name: 'Caner', zodiac: images.CanerZ };
       }
       if (day > 22 && day <= 31) {
-        return images.LeoZ;
+        return { name: 'Leo', zodiac: images.LeoZ };
       }
       break;
 
     case 8:
       if (day <= 22 && day > 0) {
-        return images.LeoZ;
+        return { name: 'Leo', zodiac: images.LeoZ };
       }
       if (day > 22 && day <= 31) {
-        return images.VirgoZ;
+        return { name: 'Virgo', zodiac: images.VirgoZ };
       }
       break;
 
     case 9:
       if (day <= 22 && day > 0) {
-        return images.VirgoZ;
+        return { name: 'Virgo', zodiac: images.VirgoZ };
       }
       if (day > 22 && day <= 30) {
-        return images.LibraZ;
+        return { name: 'Libra', zodiac: images.LibraZ };
       }
       break;
 
     case 10:
       if (day <= 23 && day > 0) {
-        return images.LibraZ;
+        return { name: 'Libra', zodiac: images.LibraZ };
       }
       if (day > 23 && day <= 31) {
-        return images.ScorpioZ;
+        return { name: 'Scorpio', zodiac: images.ScorpioZ };
       }
       break;
 
     case 11:
       if (day <= 21 && day > 0) {
-        return images.ScorpioZ;
+        return { name: 'Scorpio', zodiac: images.ScorpioZ };
       }
       if (day > 21 && day <= 30) {
-        return images.SagitariusZ;
+        return { name: 'Sagitarius', zodiac: images.SagitariusZ };
       }
       break;
 
     case 12:
       if (day <= 21 && day > 0) {
-        return images.SagitariusZ;
+        return { name: 'Sagitarius', zodiac: images.SagitariusZ };
       } else if (day > 21 && day <= 31) {
-        return images.CapricornusZ;
+        return { name: 'Capricornus', zodiac: images.CapricornusZ };
       }
       break;
 

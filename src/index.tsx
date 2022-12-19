@@ -190,7 +190,6 @@ root.render(
                     height: '55px',
                     borderRadius: '8px',
                     marginTop: '8px',
-                    padding: '6px',
                     fontSize: '18px',
                     '[type="password"]': {
                       width: '100%',
@@ -201,6 +200,10 @@ root.render(
                       height: '100%',
                       fontSize: '18px',
                     },
+                    '&:focus, &:focus-within': {
+                      borderColor: 'var(--primary-4)',
+                    },
+
                     [`@media (max-width:575px)`]: {
                       marginTop: '4px',
                       height: '45px',

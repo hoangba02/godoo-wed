@@ -56,8 +56,8 @@ export function Profile() {
         ></Box>
         <Card className={classes.wrapper}>
           <Box className={classes.card}>
-            {/* {Order} */}
-            <Birth />
+            {Order}
+            {/* <Birth /> */}
             <Flex className={classes.progress}>
               {STEPS.map((step, index) => {
                 return (

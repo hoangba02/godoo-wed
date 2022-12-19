@@ -90,7 +90,10 @@ function Register() {
   const handleConvertEng = e => {
     form.setValues({
       ...form.values,
-      [e.target.name]: converLang(e.target.value.toLowerCase()),
+      [e.target.name]:
+        e.target.name === 'username'
+          ? converLang(e.target.value.toLowerCase())
+          : converLang(e.target.value),
     });
   };
   useEffect(() => {

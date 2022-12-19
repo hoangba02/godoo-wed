@@ -134,13 +134,15 @@ export default function Birth() {
             },
           }}
         >
-          Oh! You are a lovely Libra
+          {`Oh! You are a lovely ${
+            Zodiac(form.values.date || new Date())?.name
+          }`}
         </Text>
         <Center mt={10}>
           <Image
             width={180}
             height={180}
-            src={Zodiac(form.values.date || new Date())}
+            src={Zodiac(form.values.date || new Date())?.zodiac}
           />
         </Center>
         <Checkbox
