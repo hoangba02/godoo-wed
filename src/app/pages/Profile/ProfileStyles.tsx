@@ -23,6 +23,7 @@ export const ProfileStyle = createStyles(() => ({
     height: '100%',
     borderRadius: '30px',
     padding: '0 32px 32px !important',
+    zIndex: 3,
     [`@media (min-width:1200px) and (max-width:1439px)`]: {
       width: '60%',
     },
@@ -145,6 +146,19 @@ export const ProfileStyle = createStyles(() => ({
       marginBottom: 18,
     },
   },
+  back: {
+    position: 'absolute',
+    padding: 10,
+    border: 'none',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+    textAlign: 'left',
+    zIndex: 4,
+    [`@media (max-width:575px)`]: {
+      top: '2%',
+      left: '5px',
+    },
+  },
   //NickName
   form: {
     position: 'relative',
@@ -201,7 +215,7 @@ export const ProfileStyle = createStyles(() => ({
       padding: '24px 0px 0',
     },
     [`@media (max-width:575px)`]: {
-      padding: '100px 15px 0',
+      padding: '87px 15px 0',
     },
   },
   picMain: {

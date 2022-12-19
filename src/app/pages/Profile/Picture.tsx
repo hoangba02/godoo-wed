@@ -252,6 +252,8 @@ export default function Picture() {
             },
             [`@media (max-width:575px)`]: {
               gap: 0,
+              height: 106,
+              marginBottom: 20,
             },
           }}
         >

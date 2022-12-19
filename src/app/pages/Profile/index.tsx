@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
-import { BackgroundImage, Box, Card, Container, Flex } from '@mantine/core';
+import { useDispatch, useSelector } from 'react-redux';
+import { IconArrowLeft } from '@tabler/icons';
+import { Box, Card, Container, Flex } from '@mantine/core';
 
 import Tips from './Tips';
 import Mode from './Mode';
@@ -14,6 +15,8 @@ import { ProfileStyle } from './ProfileStyles';
 import { getCounterSelector } from 'store/slice/counterSlice/selector';
 import { images } from 'assets/images';
 import { useMediaQuery } from '@mantine/hooks';
+import { UserSlice } from 'store/slice/userSlice';
+import { CounterSlice } from 'store/slice/counterSlice';
 
 const STEPS = [
   <NickName />,
@@ -30,10 +33,16 @@ export function Profile() {
   const phone = useMediaQuery('(max-width:575px)');
   const [Order, setOrder] = useState(<Fragment />);
   // Global
+  const dispatch = useDispatch();
+  const { counterActions } = CounterSlice();
   const counter = useSelector(getCounterSelector);
   useEffect(() => {
     setOrder(STEPS[counter]);
   }, [counter]);
+
+  const handleComeBack = () => {
+    dispatch(counterActions.decrease());
+  };
   return (
     <>
       <Helmet>
@@ -55,9 +64,14 @@ export function Profile() {
           }}
         ></Box>
         <Card className={classes.wrapper}>
+          {counter > 0 && counter < 6 ? (
+            <button className={classes.back} onClick={handleComeBack}>
+              <IconArrowLeft />
+            </button>
+          ) : null}
           <Box className={classes.card}>
             {Order}
-            {/* <Birth /> */}
+            {/* <Picture /> */}
             <Flex className={classes.progress}>
               {STEPS.map((step, index) => {
                 return (

@@ -15,7 +15,7 @@ export function HomePage() {
   console.log(user);
   useEffect(() => {
     if (user.token !== '') {
-      navigate('/');
+      navigate('/profile');
     } else {
       navigate('/login');
     }

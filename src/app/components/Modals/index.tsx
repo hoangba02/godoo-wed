@@ -55,7 +55,7 @@ function Modals({
           <img className={classes.img} src={img} alt="warn" />
 
           {isDesc && <Text className={classes.desc}>{desc}</Text>}
-          <Link to="/login">
+          <Link to="/register">
             {btnFunc && <Button variant="gradient">{textBtn}</Button>}
           </Link>
         </Stack>

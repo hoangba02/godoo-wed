@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import OtpInput from 'react-otp-input';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Flex, Group, Text } from '@mantine/core';
+import { Button, Flex, Text } from '@mantine/core';
 import { useInterval, useMediaQuery } from '@mantine/hooks';
 
 import { UserSlice } from 'store/slice/userSlice';
@@ -34,7 +34,7 @@ export default function Code({ setNext, status }: CodeProps) {
       .post(
         'https://ttvnapi.com/v1/methodgetotp',
         {
-          method: 2,
+          method: status === 'Telegram' ? 2 : 1,
         },
         {
           headers: {
@@ -42,12 +42,7 @@ export default function Code({ setNext, status }: CodeProps) {
           },
         },
       )
-      .then(res => {
-        console.log(res.data);
-        if (res.data.error === 0) {
-          setNext('codeTele');
-        }
-      })
+      .then(res => {})
       .catch(err => {
         console.log(err);
       });
@@ -105,6 +100,7 @@ export default function Code({ setNext, status }: CodeProps) {
           console.log(err);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [OTP]);
   // useEffect(() => {
   //   navigator.clipboard.readText().then(clipText =>{
