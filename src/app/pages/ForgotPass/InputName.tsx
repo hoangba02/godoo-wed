@@ -36,28 +36,19 @@ export default function InputName({ setNext }) {
       })
       .then(res => {
         console.log(res);
-        if (res.data.error === 10) {
-          if (res.data.data.hasOwnProperty('telegram_fullname')) {
-            dispatch(
-              actions.getUserForgotPass({
-                id: res.data.data.id,
-                telegram_fullname: res.data.data.telegram_fullname,
-              }),
-            );
-            setNext('method');
-          } else if (res.data.data.hasOwnProperty('messenger_fullname')) {
-            dispatch(
-              actions.getUserForgotPass({
-                id: res.data.data.id,
-                messenger_fullname: res.data.data.messenger_fullname,
-              }),
-            );
-            setNext('method');
-          } else {
-            setOpenModal(true);
-          }
-        } else {
+        if (res.data.error === 2) {
           form.setErrors({ name: t('LoginPage.username.Username incorrect') });
+        } else if (res.data.error === 12) {
+          setOpenModal(true);
+        } else {
+          dispatch(
+            actions.getUserForgotPass({
+              id: res.data.data.id,
+              telegram_fullname: res.data.data.telegram_fullname,
+              messenger_fullname: res.data.data.messenger_fullname,
+            }),
+          );
+          setNext('method');
         }
       })
       .catch(err => {
