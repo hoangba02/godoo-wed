@@ -42,7 +42,7 @@ export default function Mode() {
             className={classes.optionBtn}
             onClick={() => setMode(0)}
           >
-            Friends to hangout with
+            Friends
           </Button>
           <Button
             variant={mode === 1 ? 'default' : 'filled'}

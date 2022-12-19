@@ -76,6 +76,11 @@ export const ProfileStyle = createStyles(() => ({
     bottom: 14,
     right: 14,
     zIndex: 3,
+    '&:disabled': {
+      color: 'var(--white)',
+      background:
+        'linear-gradient(90deg, rgba(228, 97, 37, 0.6) -0.01%, rgba(161, 47, 163, 0.6) 100%)',
+    },
     [`@media (max-width:575px)`]: {
       width: 65,
       height: 65,
@@ -197,6 +202,7 @@ export const ProfileStyle = createStyles(() => ({
     top: '50%',
     left: 10,
     transform: 'translateY(-50%)',
+    zIndex: 1,
   },
   //Picture Pro
   picContent: {

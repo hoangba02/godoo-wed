@@ -4,18 +4,42 @@ import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function Tips() {
   const { classes } = ProfileStyle();
-  const phone = useMediaQuery('(max-width:575px)');
   const navigate = useNavigate();
+  const user = useSelector(getUserSelector);
+  const phone = useMediaQuery('(max-width:575px)');
 
+  const handleCompleteProfile = () => {
+    axios.post(
+      ' https://ttvnapi.com/v1/godoo/profile/compulsoryinfo',
+      {
+        nickname: user.nickname,
+        picture: user.picture,
+        date_of_birth: user.date_of_birth,
+        zodiac: user.zodiac,
+        gender: user.gender,
+        introduction: user.introduction,
+        relationship: user.relationship,
+      },
+      {
+        headers: {
+          userid: user.id,
+          token: user.token,
+        },
+      },
+    );
+  };
   return (
     <Box className={classes.children}>
       <Button
         variant="subtle"
         className={classes.thanksBtn}
-        onClick={() => navigate('/')}
+        onClick={handleCompleteProfile}
       >
         No thanks
       </Button>

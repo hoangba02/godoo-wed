@@ -23,7 +23,7 @@ export const initialState: UserState = {
   nickname: '',
   password: '',
   picture: [],
-  data_of_birth: new Date(),
+  data_of_birth: '',
   zodiac: [],
   gender: [],
   introduction: '',

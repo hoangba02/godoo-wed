@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BackgroundImage,
   Box,
@@ -20,9 +20,9 @@ import { useMediaQuery } from '@mantine/hooks';
 export default function Picture() {
   const { classes } = ProfileStyle();
   const dispatch = useDispatch();
-  const phone = useMediaQuery('(max-width:575px)');
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
+  const [disableBtn, setDisableBtn] = useState(true);
   const [img, setImg] = useState({
     one: images.illustrating,
     two: '',
@@ -31,6 +31,7 @@ export default function Picture() {
     fire: '',
     six: '',
   });
+  const phone = useMediaQuery('(max-width:575px)');
 
   const handleUploadImage = e => {
     console.log(img);
@@ -44,6 +45,13 @@ export default function Picture() {
       }),
     );
   };
+  useEffect(() => {
+    if (img.one !== images.illustrating) {
+      setDisableBtn(false);
+    } else {
+      setDisableBtn(true);
+    }
+  }, [img]);
   return (
     <Box className={classes.children}>
       <Box className={classes.picContent}>
@@ -409,6 +417,7 @@ export default function Picture() {
           Some photos so we can get to know you.
         </Text>
         <Button
+          disabled={disableBtn}
           variant="gradient"
           className={classes.nextBtn}
           onClick={handleCreatePicture}
