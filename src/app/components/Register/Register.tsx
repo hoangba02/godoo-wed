@@ -90,7 +90,10 @@ function Register() {
   const handleConvertEng = e => {
     form.setValues({
       ...form.values,
-      [e.target.name]: converLang(e.target.value.toLowerCase()),
+      [e.target.name]:
+        e.target.name === 'username'
+          ? converLang(e.target.value.toLowerCase())
+          : converLang(e.target.value),
     });
   };
   useEffect(() => {
@@ -214,7 +217,9 @@ function Register() {
         <Flex align="center">
           <Text className={classes.rules}>
             {t('LoginPage.text.By clicking')}{' '}
-            <span>{t('LoginPage.button.Sign up')}</span>{' '}
+            <span style={{ cursor: 'default' }}>
+              {t('LoginPage.button.Sign up')}
+            </span>{' '}
             {t('LoginPage.text.you have agree with')}{' '}
             <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
             {t('LoginPage.text.and')}{' '}

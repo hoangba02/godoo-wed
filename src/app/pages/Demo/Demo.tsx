@@ -18,13 +18,23 @@ export default function Demo() {
   const [checked, setChecked] = useState(true);
   console.log(checked);
   return (
-    <Checkbox
+    <Button
       sx={{
-        position: 'relative',
-        zIndex: 99,
+        height: 30,
+        color: 'var(--black)',
       }}
-      checked={checked}
-      onChange={event => setChecked(event.currentTarget.checked)}
-    />
+      variant="subtle"
+      onClick={() => {
+        navigator.clipboard.readText().then(clipText => {
+          if (typeof clipText === 'number') {
+            console.log('copy');
+          } else {
+            console.log('no');
+          }
+        });
+      }}
+    >
+      Paste
+    </Button>
   );
 }

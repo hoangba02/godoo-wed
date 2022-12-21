@@ -82,6 +82,7 @@ export default function ChangePass() {
         navigate('/');
       }, 2000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openModal]);
   return (
     <Box>

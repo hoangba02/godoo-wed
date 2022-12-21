@@ -3,7 +3,7 @@ import axios from 'axios';
 import OtpInput from 'react-otp-input';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Flex, Group, Text } from '@mantine/core';
+import { Button, Flex, Text } from '@mantine/core';
 import { useInterval, useMediaQuery } from '@mantine/hooks';
 
 import { UserSlice } from 'store/slice/userSlice';
@@ -24,6 +24,7 @@ export default function Code({ setNext, status }: CodeProps) {
   const [OTP, setOTP] = useState('');
   const [errorOTP, setErrorOTP] = useState(false);
   const [seconds, setSeconds] = useState(300);
+  // const [disable, setDisable] = useState(true);
 
   const user = useSelector(getUserSelector);
   const phone = useMediaQuery('(max-width:575px)');
@@ -33,7 +34,7 @@ export default function Code({ setNext, status }: CodeProps) {
       .post(
         'https://ttvnapi.com/v1/methodgetotp',
         {
-          method: 2,
+          method: status === 'Telegram' ? 2 : 1,
         },
         {
           headers: {
@@ -41,12 +42,7 @@ export default function Code({ setNext, status }: CodeProps) {
           },
         },
       )
-      .then(res => {
-        console.log(res.data);
-        if (res.data.error === 0) {
-          setNext('codeTele');
-        }
-      })
+      .then(res => {})
       .catch(err => {
         console.log(err);
       });
@@ -104,7 +100,13 @@ export default function Code({ setNext, status }: CodeProps) {
           console.log(err);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [OTP]);
+  // useEffect(() => {
+  //   navigator.clipboard.readText().then(clipText =>{
+  //     if
+  //   } );
+  // }, [navigator.clipboard]);
   return (
     <>
       <Text mt={16} className={classes.desc}>
@@ -113,13 +115,13 @@ export default function Code({ setNext, status }: CodeProps) {
         )}
       </Text>
       <OtpInput
-        className={classes.inputCode}
         value={OTP}
-        onChange={value => handleChangeOTP(value)}
         numInputs={6}
-        separator={<span style={{ width: '8px' }}></span>}
         isInputNum={true}
         shouldAutoFocus={true}
+        className={classes.inputCode}
+        onChange={value => handleChangeOTP(value)}
+        separator={<span style={{ width: '8px' }}></span>}
         containerStyle={{
           justifyContent: 'space-between',
         }}
@@ -138,7 +140,22 @@ export default function Code({ setNext, status }: CodeProps) {
           Mã OTP không đúng
         </Text>
       )}
-
+      <Flex justify="flex-end">
+        {/* <Button
+          disabled={disable}
+          sx={{
+            width: 94,
+            height: 35,
+            color: 'var(--black)',
+          }}
+          variant="outline"
+          onClick={() => {
+            navigator.clipboard.readText().then(clipText => setOTP(clipText));
+          }}
+        >
+          Paste
+        </Button> */}
+      </Flex>
       <Flex align="center" justify={phone ? 'center' : 'flex-start'}>
         <Text
           sx={{
@@ -159,6 +176,7 @@ export default function Code({ setNext, status }: CodeProps) {
           className={classes.senTo}
           onClick={() => {
             setErrorOTP(false);
+            setOTP('');
             handleGetOTPByTele();
             setSeconds(300);
           }}

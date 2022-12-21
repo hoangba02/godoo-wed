@@ -23,6 +23,7 @@ export const ProfileStyle = createStyles(() => ({
     height: '100%',
     borderRadius: '30px',
     padding: '0 32px 32px !important',
+    zIndex: 3,
     [`@media (min-width:1200px) and (max-width:1439px)`]: {
       width: '60%',
     },
@@ -75,10 +76,15 @@ export const ProfileStyle = createStyles(() => ({
     bottom: 14,
     right: 14,
     zIndex: 3,
+    '&:disabled': {
+      color: 'var(--white)',
+      background:
+        'linear-gradient(90deg, rgba(228, 97, 37, 0.6) -0.01%, rgba(161, 47, 163, 0.6) 100%)',
+    },
     [`@media (max-width:575px)`]: {
       width: 65,
       height: 65,
-      bottom: '8%',
+      bottom: 56,
       right: 16,
     },
   },
@@ -145,6 +151,22 @@ export const ProfileStyle = createStyles(() => ({
       marginBottom: 18,
     },
   },
+  back: {
+    textAlign: 'left',
+    color: 'var(--primary-3)',
+    position: 'absolute',
+    left: 10,
+    top: 10,
+    padding: 10,
+    border: 'none',
+    backgroundColor: 'transparent',
+    cursor: 'pointer',
+    zIndex: 4,
+    [`@media (max-width:575px)`]: {
+      top: '2%',
+      left: '5px',
+    },
+  },
   //NickName
   form: {
     position: 'relative',
@@ -180,12 +202,10 @@ export const ProfileStyle = createStyles(() => ({
   // Birday
   birthIcon: {
     position: 'absolute',
-    top: '28%',
-    left: 55,
+    top: '50%',
+    left: 10,
     transform: 'translateY(-50%)',
-    [`@media (max-width:575px)`]: {
-      left: 25,
-    },
+    zIndex: 1,
   },
   //Picture Pro
   picContent: {
@@ -204,7 +224,7 @@ export const ProfileStyle = createStyles(() => ({
       padding: '24px 0px 0',
     },
     [`@media (max-width:575px)`]: {
-      padding: '100px 15px 0',
+      padding: '87px 15px 0',
     },
   },
   picMain: {
@@ -221,6 +241,9 @@ export const ProfileStyle = createStyles(() => ({
     backdropFilter: 'blur(12.5px)',
     '&::before': {
       display: 'none',
+    },
+    '&:hover': {
+      backgroundColor: 'rgba(228, 97, 37, 0.4)  !important',
     },
   },
   picCard: {
@@ -256,13 +279,17 @@ export const ProfileStyle = createStyles(() => ({
     height: 26,
     color: 'var(--white)',
     padding: 0,
-    background: '#E46125',
+    backgroundColor: '#E46125',
     borderRadius: 34,
     fontWeight: 400,
     fontSize: '14px !important',
     lineHeight: '18px',
     '&::before': {
       display: 'none',
+    },
+    '&:hover': {
+      backgroundColor: '#E46125 !important',
+      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
     [`@media (max-width:575px)`]: {
       height: 26,

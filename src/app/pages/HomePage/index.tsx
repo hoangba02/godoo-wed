@@ -14,12 +14,12 @@ export function HomePage() {
   const user = useSelector(getUserSelector);
   console.log(user);
   useEffect(() => {
-    if (user.id !== -1) {
-      navigate('/');
-    } else {
+    if (user.token === '') {
       navigate('/login');
+    } else {
+      navigate('/');
     }
-  }, [user.id]);
+  }, [navigate, user.token]);
   return (
     <>
       <Helmet>

@@ -3,6 +3,7 @@
     "username": {
       "Username": "Username",
       "Enter your username": "Enter your username",
+      "Username incorrect": "Username incorrect",
       "This username has already existed": "This username has already existed",
       "Contains only lowercase letters and numbers": "Contains only lowercase letters and numbers"
     },

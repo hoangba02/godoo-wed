@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box, Button, Image, Text, Textarea } from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
@@ -7,6 +7,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useDispatch } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
+import { setContext } from 'redux-saga/effects';
 
 export default function Desc() {
   const { classes } = ProfileStyle();
@@ -26,6 +27,11 @@ export default function Desc() {
     );
     dispatch(counterActions.increase());
   };
+  useEffect(() => {
+    if (couterText >= 200) {
+      setCouterText(200);
+    }
+  }, [couterText]);
   return (
     <Box className={classes.children}>
       <img className={classes.imgDecs} src={images.descPro} alt="hi" />
@@ -59,6 +65,8 @@ export default function Desc() {
               setCouterText(couterText + 1);
             } else if (e.key === 'Backspace' || e.key === 'Delete') {
               setCouterText(couterText - 1);
+            } else if (couterText >= 200) {
+              setCouterText(couterText + 0);
             }
           }}
           placeholder="Say something..."

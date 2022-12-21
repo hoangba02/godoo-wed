@@ -1,7 +1,8 @@
-import React, { Fragment, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useSelector } from 'react-redux';
-import { BackgroundImage, Box, Card, Container, Flex } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Card, Container, Flex } from '@mantine/core';
+import React, { Fragment, useEffect, useState } from 'react';
 
 import Tips from './Tips';
 import Mode from './Mode';
@@ -10,10 +11,13 @@ import Birth from './Birthday';
 import Picture from './Picture';
 import Desc from './Description';
 import NickName from './NickName';
-import { ProfileStyle } from './ProfileStyles';
-import { getCounterSelector } from 'store/slice/counterSlice/selector';
 import { images } from 'assets/images';
+import { ProfileStyle } from './ProfileStyles';
 import { useMediaQuery } from '@mantine/hooks';
+import { UserSlice } from 'store/slice/userSlice';
+import { CounterSlice } from 'store/slice/counterSlice';
+import { ReactComponent as BackBtn } from 'assets/icons/backBtn.svg';
+import { getCounterSelector } from 'store/slice/counterSlice/selector';
 
 const STEPS = [
   <NickName />,
@@ -30,9 +34,22 @@ export function Profile() {
   const phone = useMediaQuery('(max-width:575px)');
   const [Order, setOrder] = useState(<Fragment />);
   // Global
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { counterActions } = CounterSlice();
   const counter = useSelector(getCounterSelector);
   useEffect(() => {
     setOrder(STEPS[counter]);
+  }, [counter]);
+
+  const handleComeBack = () => {
+    dispatch(counterActions.decrease());
+  };
+  useEffect(() => {
+    if (counter === -1) {
+      navigate('/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter]);
   return (
     <>
@@ -55,9 +72,12 @@ export function Profile() {
           }}
         ></Box>
         <Card className={classes.wrapper}>
+          <button className={classes.back} onClick={handleComeBack}>
+            <BackBtn />
+          </button>
           <Box className={classes.card}>
-            {Order}
-            {/* <Picture /> */}
+            {/* {Order} */}
+            <Picture />
             <Flex className={classes.progress}>
               {STEPS.map((step, index) => {
                 return (

@@ -23,7 +23,7 @@ export const initialState: UserState = {
   nickname: '',
   password: '',
   picture: [],
-  data_of_birth: new Date(),
+  data_of_birth: '',
   zodiac: [],
   gender: [],
   introduction: '',
@@ -79,7 +79,7 @@ const slice = createSlice({
       state.password = '';
       state.isLogin = false;
     },
-    requestLanguage(state: UserState, action: PayloadAction<UserState>) {
+    setLanguage(state: UserState, action: PayloadAction<UserState>) {
       state.language = action.payload.language;
     },
     // Lấy user id và tên tele hoặc tên mess khi quên mật khẩu

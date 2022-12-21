@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
 import { IconChevronRight } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Image, Text, TextInput } from '@mantine/core';
+import { Box, Button, Text, TextInput } from '@mantine/core';
 
 import { images } from 'assets/images';
 import { ProfileStyle } from './ProfileStyles';
@@ -14,6 +14,7 @@ import { UserSlice } from 'store/slice/userSlice';
 export default function NickName() {
   const { classes } = ProfileStyle();
   const [error, setError] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(true);
   //Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
@@ -39,6 +40,13 @@ export default function NickName() {
       dispatch(counterActions.increase());
     }
   };
+  useEffect(() => {
+    if (form.values.nickname.length > 0) {
+      setDisableBtn(false);
+    } else {
+      setDisableBtn(true);
+    }
+  }, [form.values.nickname.length]);
   return (
     <Box className={classes.children}>
       <img
@@ -52,7 +60,7 @@ export default function NickName() {
         }}
         className={classes.box}
       >
-        <Text className={classes.titleChild}>NickName</Text>
+        <Text className={classes.titleChild}>Nickname</Text>
         <form onSubmit={form.onSubmit(handleNickName)}>
           <Box
             sx={{
@@ -71,6 +79,7 @@ export default function NickName() {
                 },
               }}
               maxLength={15}
+              placeholder="Nickname"
               onKeyDown={e => {
                 handleClearSpace(e);
               }}
@@ -78,7 +87,12 @@ export default function NickName() {
             />
             <FaceName className={classes.nicknameIcon} />
           </Box>
-          <Button type="submit" variant="gradient" className={classes.nextBtn}>
+          <Button
+            disabled={disableBtn}
+            type="submit"
+            variant="gradient"
+            className={classes.nextBtn}
+          >
             <IconChevronRight width={40} height={40} stroke={2.5} />
           </Button>
         </form>

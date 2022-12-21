@@ -7,13 +7,12 @@ import {
   SimpleGrid,
   Text,
 } from '@mantine/core';
+import { useDispatch } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
 import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
-import { useDispatch } from 'react-redux';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { UserSlice } from 'store/slice/userSlice';
-import { useMediaQuery } from '@mantine/hooks';
 
 const GENDER = [
   {
@@ -71,7 +70,7 @@ export default function Gender() {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
-  const phone = useMediaQuery('(max-width:575px)');
+  const [disableBtn, setDisabel] = useState(true);
 
   const handleCreateGender = () => {
     dispatch(counterActions.increase());
@@ -81,6 +80,15 @@ export default function Gender() {
       }),
     );
   };
+  useEffect(() => {
+    console.log(sex);
+    if (sex.length > 2 || sex.length < 1) {
+      setDisabel(true);
+    } else {
+      setDisabel(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sex.length]);
   return (
     <Box sx={{ height: 476 }} className={classes.children}>
       <Box
@@ -134,7 +142,7 @@ export default function Gender() {
               <Button
                 key={index}
                 sx={{
-                  color: 'var(--black)',
+                  color: gender.color,
                   backgroundColor: 'var(--white-light)',
                   borderRadius: 200,
                   border: `1px solid var(--white)`,
@@ -157,9 +165,19 @@ export default function Gender() {
                   },
                 }}
                 onClick={e => {
-                  if (sex.length < 2) {
-                    if (gender.id === index) {
-                      e.currentTarget.classList.toggle('active');
+                  if (gender.id === index) {
+                    let boolean = sex.find(value => {
+                      return value === gender.text;
+                    });
+                    if (boolean) {
+                      e.currentTarget.classList.remove('active');
+                      setSex(
+                        sex.filter(value => {
+                          return value !== boolean;
+                        }),
+                      );
+                    } else {
+                      e.currentTarget.classList.add('active');
                       setSex([...sex, gender.text]);
                     }
                   }
@@ -171,6 +189,7 @@ export default function Gender() {
           })}
         </SimpleGrid>
         <Checkbox
+          defaultChecked={true}
           sx={{
             marginTop: 68,
             [`@media (max-width:575px)`]: {
@@ -190,6 +209,7 @@ export default function Gender() {
           label="Show on my profile"
         />
         <Button
+          disabled={disableBtn}
           onClick={() => handleCreateGender()}
           variant="gradient"
           className={classes.nextBtn}

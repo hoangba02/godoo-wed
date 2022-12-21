@@ -95,6 +95,7 @@ const useStyles = createStyles(() => ({
     height: 150,
   },
   desc: {
+    textAlign: 'center',
     fontWeight: 400,
     fontSize: 24,
     lineHeight: '30px',

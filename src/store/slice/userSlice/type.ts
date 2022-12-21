@@ -25,10 +25,10 @@ export interface UserState {
   // Profile
   nickname?: string;
   picture?: string[];
-  data_of_birth?: Date;
+  data_of_birth?: string;
   zodiac?: string[];
   gender?: number[];
   introduction?: string;
   relationship?: number;
-  language?: 'vi' | 'en';
+  language?: any;
 }

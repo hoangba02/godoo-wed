@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Image, Stack, Text } from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
@@ -9,10 +9,12 @@ import { CounterSlice } from 'store/slice/counterSlice';
 
 export default function Mode() {
   const { classes } = ProfileStyle();
-  const [mode, setMode] = useState(-1);
   const dispatch = useDispatch();
-  const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
+  const { counterActions } = CounterSlice();
+
+  const [mode, setMode] = useState(-1);
+  const [disableBtn, setDisableBtn] = useState(true);
 
   const handleSelectMode = () => {
     dispatch(
@@ -22,6 +24,11 @@ export default function Mode() {
     );
     dispatch(counterActions.increase());
   };
+  useEffect(() => {
+    if (mode !== -1) {
+      setDisableBtn(false);
+    }
+  }, [mode]);
   return (
     <Box className={classes.children}>
       <img className={classes.imgMode} src={images.modePro} alt="nickname" />
@@ -42,7 +49,15 @@ export default function Mode() {
             className={classes.optionBtn}
             onClick={() => setMode(0)}
           >
-            Friends to hangout with
+            <Text
+              sx={{
+                background: 'var(--primary-3)',
+                WebkitBackgroundClip: 'text',
+                color: mode === 0 ? 'var(--white)' : 'transparent',
+              }}
+            >
+              Friends
+            </Text>
           </Button>
           <Button
             variant={mode === 1 ? 'default' : 'filled'}
@@ -53,6 +68,7 @@ export default function Mode() {
           </Button>
         </Stack>
         <Button
+          disabled={disableBtn}
           onClick={() => handleSelectMode()}
           variant="gradient"
           className={classes.nextBtn}
