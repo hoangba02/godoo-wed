@@ -19,7 +19,7 @@ export function HomePage() {
     } else {
       navigate('/login');
     }
-  });
+  }, [user.id]);
   return (
     <>
       <Helmet>

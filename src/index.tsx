@@ -49,7 +49,7 @@ root.render(
                 '--primary-1': '#E46125',
                 '--primary-2': '#D65473',
                 '--primary-3':
-                  'linear-gradient(2.17deg, #A12FA3 -2.91%, #F96724 88.05%)',
+                  'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
                 '--primary-4': '#FF9565',
                 '--primary-5': '#FFE0D2',
                 '--primary-6': '#FFDBEF',
@@ -113,9 +113,9 @@ root.render(
                         : '#FFFFFF',
                     backgroundImage:
                       params.variant === 'outline'
-                        ? 'linear-gradient(90deg, #E46125 -0.01%, #A12FA3 100%)'
+                        ? 'var(--primary-3)'
                         : params.variant === 'gradient'
-                        ? 'linear-gradient(90deg, #E46125 -0.01%, #A12FA3 100%)'
+                        ? 'var(--primary-3)'
                         : 'none',
                     '::before': {
                       content: '""',
@@ -137,13 +137,16 @@ root.render(
                     },
                     ':hover': {
                       backgroundColor:
-                        params.variant === 'filled'
+                        params.variant === 'gradient'
+                          ? 'var(--primary-3)'
+                          : params.variant === 'filled'
                           ? 'var(--primary-2)'
                           : params.variant === 'default'
                           ? 'var(--primary-2)'
                           : params.variant === 'outline'
                           ? '#FFFFFF'
                           : '#FFFFFF',
+                      backgroundSize: '100% !important',
                     },
                     ':disabled': {
                       cursor: 'not-allowed',

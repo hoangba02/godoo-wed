@@ -56,7 +56,18 @@ function Modals({
 
           {isDesc && <Text className={classes.desc}>{desc}</Text>}
           <Link to="/login">
-            {btnFunc && <Button variant="gradient">{textBtn}</Button>}
+            {btnFunc && (
+              <Button
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 600,
+                  lineHeight: '25px',
+                }}
+                variant="gradient"
+              >
+                {textBtn}
+              </Button>
+            )}
           </Link>
         </Stack>
       </Modal>

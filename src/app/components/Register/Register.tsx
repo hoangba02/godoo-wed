@@ -215,7 +215,7 @@ function Register() {
           <Text className={classes.rules}>
             {t('LoginPage.text.By clicking')}{' '}
             <span>{t('LoginPage.button.Sign up')}</span>{' '}
-            {t('LoginPage.text.you have agreed with')}{' '}
+            {t('LoginPage.text.you have agree with')}{' '}
             <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
             {t('LoginPage.text.and')}{' '}
             <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
@@ -313,7 +313,7 @@ const useStyles = createStyles(() => ({
     marginTop: '4px',
   },
   rules: {
-    margin: '6px 0 0 10px',
+    margin: '6px 0 0 0',
     fontSize: '16px',
     fontWeight: 400,
     lineHeight: '20px',
