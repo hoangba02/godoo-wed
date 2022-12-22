@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from '@mantine/form';
+import { useMediaQuery } from '@mantine/hooks';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconAlertCircle, IconChevronRight } from '@tabler/icons';
 import { Box, Button, Center, Checkbox, Image, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
 import { DatePicker } from '@mantine/dates';
 import { ProfileStyle } from './ProfileStyles';
-import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import { CounterSlice } from 'store/slice/counterSlice';
-import { UserSlice } from 'store/slice/userSlice';
-import { useMediaQuery } from '@mantine/hooks';
 import { Zodiac } from 'app/components/Zodiac';
+import { UserSlice } from 'store/slice/userSlice';
+import { CounterSlice } from 'store/slice/counterSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
 
 export default function Birth() {
   const { classes } = ProfileStyle();
@@ -24,10 +25,13 @@ export default function Birth() {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
   const phone = useMediaQuery('(max-width:575px)');
 
   const form = useForm({
-    initialValues: { date: '' },
+    initialValues: {
+      date: user.data_of_birth,
+    },
   });
   const handleCreateBirthDay = () => {
     let currentYear = new Date().getFullYear();
@@ -38,18 +42,17 @@ export default function Birth() {
     } else if (age < 15) {
       setAge(true);
     } else {
-      let day =
-        new Date(form.values.date).getDate() < 10
-          ? `0${new Date(form.values.date).getDate()}`
-          : new Date(form.values.date).getDate();
-      let month =
-        new Date(form.values.date).getMonth() < 10
-          ? `0${new Date(form.values.date).getMonth() + 1}`
-          : new Date(form.values.date).getMonth() + 1;
+      let day = new Date(form.values.date).getDate();
+      let month = new Date(form.values.date).getMonth();
       let year = new Date(form.values.date).getFullYear();
       dispatch(
         actions.createProfile({
-          data_of_birth: `${day}/${month}/${year}`,
+          nickname: user.nickname,
+          picture: user.picture,
+          data_of_birth: new Date(year, month, day),
+          zodiac: user.zodiac,
+          introduction: user.introduction,
+          relationship: user.relationship,
         }),
       );
       dispatch(counterActions.increase());
@@ -78,7 +81,7 @@ export default function Birth() {
       <Box
         sx={{
           [`@media (max-width:575px)`]: {
-            height: 552,
+            height: 484,
           },
         }}
         className={classes.box}
@@ -123,10 +126,11 @@ export default function Birth() {
                   zIndex: 3,
                 },
               }}
+              // size="sx"
               clearable={false}
-              dropdownPosition="bottom-end"
-              inputFormat="MM/DD/YYYY"
-              placeholder="MM/DD/YYYY"
+              dropdownPosition={phone ? 'top-end' : 'bottom-end'}
+              inputFormat="DD/MM/YYYY"
+              placeholder="DD/MM/YYYY"
               {...form.getInputProps('date')}
             />
             <DateBirth className={classes.birthIcon} />
@@ -138,6 +142,9 @@ export default function Birth() {
                 color: 'var(--red)',
                 fontSize: 14,
                 fontWeight: 400,
+                [`@media (max-width:575px)`]: {
+                  fontSize: 10,
+                },
               }}
             >
               {t(
@@ -164,31 +171,38 @@ export default function Birth() {
             color: 'var(--primary-1)',
             [`@media (max-width:575px)`]: {
               fontSize: 18,
+              marginTop: 0,
             },
           }}
         >
-          {`Oh! You are a lovely ${
-            Zodiac(form.values.date || new Date())?.name
-          }`}
+          {`Oh! You are a lovely ${Zodiac(form.values.date)?.name}`}
         </Text>
         <Center mt={10}>
           <Image
             width={180}
             height={180}
-            src={Zodiac(form.values.date || new Date())?.zodiac}
+            src={Zodiac(form.values.date)?.zodiac}
           />
         </Center>
         <Checkbox
-          mt={48}
+          sx={{
+            position: 'absolute',
+            bottom: 30,
+            zIndex: 4,
+          }}
           styles={{
             label: {
               fontSize: 16,
               fontWeight: 500,
               lineHeight: '20px',
               paddingLeft: 4,
+              [`@media (max-width:575px)`]: {
+                fontSize: 14,
+                lineHeight: '17.5px',
+              },
             },
           }}
-          checked={true}
+          defaultChecked={true}
           color="orange.7"
           label="Show this zodiac on my profile"
         />

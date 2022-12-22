@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, Button, Image, Text, Textarea } from '@mantine/core';
+import { Box, Button, Text, Textarea } from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
 import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
-import { setContext } from 'redux-saga/effects';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function Desc() {
-  const { classes } = ProfileStyle();
-
-  const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
 
-  const [intro, setIntro] = useState('');
+  const { classes } = ProfileStyle();
+  const dispatch = useDispatch();
+  const [intro, setIntro] = useState(user.introduction);
   const [couterText, setCouterText] = useState(0);
 
   const handleCreateIntro = () => {
     dispatch(
       actions.createProfile({
+        nickname: user.nickname,
+        picture: user.picture,
+        data_of_birth: user.data_of_birth,
+        zodiac: user.zodiac,
         introduction: intro,
+        relationship: user.relationship,
       }),
     );
     dispatch(counterActions.increase());
@@ -38,6 +43,9 @@ export default function Desc() {
       <Box
         sx={{
           height: 479,
+          [`@media (max-width:376px)`]: {
+            height: 425,
+          },
         }}
         className={classes.box}
       >
@@ -53,6 +61,9 @@ export default function Desc() {
               fontWeight: 400,
               fontSize: 24,
               lineHeight: '30px',
+              [`@media (max-width:376px)`]: {
+                height: '200px !important',
+              },
             },
           }}
           value={intro}

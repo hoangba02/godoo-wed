@@ -1,12 +1,18 @@
-/**
- * Create the store with dynamic reducers
- */
-
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
 
 import { createReducer } from './reducers';
+
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  persistStore,
+} from 'redux-persist';
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -25,13 +31,20 @@ export function configureAppStore() {
 
   const store = configureStore({
     reducer: createReducer(),
-    middleware: getDefaultMiddleware => [
-      ...getDefaultMiddleware(),
+    middleware: defaultMiddleware => [
+      ...defaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
       ...middlewares,
     ],
-    devTools: process.env.NODE_ENV !== 'production',
+    devTools:
+      /* istanbul ignore next line */
+      process.env.NODE_ENV !== 'production' ||
+      process.env.PUBLIC_URL.length > 0,
     enhancers,
   });
-
+  persistStore(store);
   return store;
 }

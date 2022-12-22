@@ -4,22 +4,29 @@ import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
 import { IconChevronRight } from '@tabler/icons';
 import { UserSlice } from 'store/slice/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CounterSlice } from 'store/slice/counterSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function Mode() {
+  const user = useSelector(getUserSelector);
   const { classes } = ProfileStyle();
   const dispatch = useDispatch();
   const { actions } = UserSlice();
   const { counterActions } = CounterSlice();
 
-  const [mode, setMode] = useState(-1);
+  const [mode, setMode] = useState(user.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
 
   const handleSelectMode = () => {
     dispatch(
       actions.createProfile({
+        nickname: user.nickname,
+        picture: user.picture,
+        data_of_birth: user.data_of_birth,
+        zodiac: user.zodiac,
         relationship: mode,
+        introduction: user.introduction,
       }),
     );
     dispatch(counterActions.increase());
@@ -31,11 +38,15 @@ export default function Mode() {
   }, [mode]);
   return (
     <Box className={classes.children}>
-      <img className={classes.imgMode} src={images.modePro} alt="nickname" />
+      <img className={classes.imgMode} src={images.modePro} alt="mode" />
       <Box
         sx={{
-          [`@media (max-width:575px)`]: {
-            height: '60%',
+          height: 'calc(95% - 272px)',
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            height: 'calc(95% - 252px)',
+          },
+          [`@media (min-width:576px) and (max-width:767px)`]: {
+            height: 'calc(95% - 252px)',
           },
         }}
         className={classes.box}

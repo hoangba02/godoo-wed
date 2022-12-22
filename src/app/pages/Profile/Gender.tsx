@@ -4,15 +4,18 @@ import {
   Box,
   Button,
   Checkbox,
+  Image,
   SimpleGrid,
   Text,
 } from '@mantine/core';
-import { useDispatch } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
-import { ProfileStyle } from './ProfileStyles';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { images } from 'assets/images';
-import { CounterSlice } from 'store/slice/counterSlice';
+import { ProfileStyle } from './ProfileStyles';
 import { UserSlice } from 'store/slice/userSlice';
+import { CounterSlice } from 'store/slice/counterSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const GENDER = [
   {
@@ -65,18 +68,25 @@ const GENDER = [
   },
 ];
 export default function Gender() {
-  const { classes } = ProfileStyle();
-  const [sex, setSex] = useState<string[]>([]);
-  const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
   const [disableBtn, setDisabel] = useState(true);
+  // Local
+  const { classes } = ProfileStyle();
+  const [sex, setSex] = useState<string[]>(user.zodiac);
+  const dispatch = useDispatch();
 
   const handleCreateGender = () => {
     dispatch(counterActions.increase());
     dispatch(
       actions.createProfile({
+        nickname: user.nickname,
+        picture: user.picture,
+        data_of_birth: user.data_of_birth,
         zodiac: sex,
+        introduction: user.introduction,
+        relationship: user.relationship,
       }),
     );
   };
@@ -88,33 +98,41 @@ export default function Gender() {
       setDisabel(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sex.length]);
+  }, [sex]);
   return (
     <Box sx={{ height: 476 }} className={classes.children}>
       <Box
         sx={{
-          width: '84%',
-          height: 335,
+          width: '100%',
           position: 'relative',
-          left: '50%',
-          bottom: -20,
-          transform: 'translateX(-50%)',
+          height: 335,
           [`@media (max-width:575px)`]: {
             width: '100%',
             bottom: '-10%',
           },
+          [`@media (max-width:376px)`]: {
+            width: '100%',
+            bottom: '-1%',
+          },
         }}
       >
-        <BackgroundImage
-          sx={{
-            position: 'absolute',
-            inset: 0,
-          }}
+        <img
           src={images.genderPro}
-        ></BackgroundImage>
+          className={classes.imgGender}
+          alt="gender"
+        />
       </Box>
       <Box
         sx={{
+          [`@media (min-width:768px) and (max-width:800px)`]: {
+            height: '60%',
+          },
+          [`@media (min-width:800px) and (max-width:991px)`]: {
+            height: '60%',
+          },
+          [`@media (min-width:576px) and (max-width:767px)`]: {
+            height: '60%',
+          },
           [`@media (max-width:575px)`]: {
             height: '60%',
           },
@@ -132,16 +150,22 @@ export default function Gender() {
         </Text>
         <SimpleGrid
           cols={2}
-          mt={28}
           sx={{
+            marginTop: 28,
             justifyItems: 'center',
+            [`@media (max-width:376px)`]: {
+              marginTop: 14,
+              gap: '10px 16px',
+            },
           }}
         >
           {GENDER.map((gender, index) => {
             return (
               <Button
+                className={user.zodiac.includes(gender.text) ? 'active' : ''}
                 key={index}
                 sx={{
+                  maxWidth: '100%',
                   color: gender.color,
                   backgroundColor: 'var(--white-light)',
                   borderRadius: 200,
@@ -162,6 +186,9 @@ export default function Gender() {
 
                   [`@media (max-width:575px)`]: {
                     width: 159,
+                  },
+                  [`@media (max-width:376px)`]: {
+                    height: 42,
                   },
                 }}
                 onClick={e => {

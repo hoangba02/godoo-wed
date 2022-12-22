@@ -73,10 +73,24 @@ export default function Tips() {
       >
         No thanks
       </Button>
-      <Center pt={100}>
+      <Center
+        sx={{
+          paddingTop: 100,
+          [`@media (max-width:575px)`]: {
+            paddingTop: 150,
+          },
+          [`@media (max-width:376px)`]: {
+            paddingTop: 100,
+          },
+        }}
+      >
         <Image
-          width={phone ? 315 : 529}
-          height={phone ? 290 : 489}
+          sx={{
+            maxWidth: 529,
+            [`@media (max-width:575px)`]: {
+              maxWidth: 315,
+            },
+          }}
           src={images.tips}
           alt="tips"
         />

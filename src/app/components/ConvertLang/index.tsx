@@ -16,3 +16,14 @@ export function converLang(str) {
   str = str.replace(/Đ/g, 'D');
   return str;
 }
+export const handleClearSpecialCharacter = (str: string) => {
+  if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(str)) {
+    const newStr = converLang(
+      str.replace(/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g, ''),
+    );
+    return newStr.toLowerCase();
+  } else {
+    const newStr = converLang(str);
+    return newStr.toLowerCase();
+  }
+};
