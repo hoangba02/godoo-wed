@@ -35,12 +35,14 @@ export default function NickName() {
     } else {
       dispatch(
         actions.createProfile({
-          nickname: form.values.nickname,
-          picture: user.picture,
-          data_of_birth: user.data_of_birth,
-          zodiac: user.zodiac,
-          introduction: user.introduction,
-          relationship: user.relationship,
+          profile: {
+            nickname: form.values.nickname,
+            picture: user.picture,
+            data_of_birth: user.data_of_birth,
+            zodiac: user.zodiac,
+            introduction: user.introduction,
+            relationship: user.relationship,
+          },
         }),
       );
       dispatch(counterActions.increase());

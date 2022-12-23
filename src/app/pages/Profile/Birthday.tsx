@@ -47,12 +47,14 @@ export default function Birth() {
       let year = new Date(form.values.date).getFullYear();
       dispatch(
         actions.createProfile({
-          nickname: user.nickname,
-          picture: user.picture,
-          data_of_birth: new Date(year, month, day),
-          zodiac: user.zodiac,
-          introduction: user.introduction,
-          relationship: user.relationship,
+          profile: {
+            nickname: user.nickname,
+            picture: user.picture,
+            data_of_birth: new Date(year, month, day),
+            zodiac: user.zodiac,
+            introduction: user.introduction,
+            relationship: user.relationship,
+          },
         }),
       );
       dispatch(counterActions.increase());

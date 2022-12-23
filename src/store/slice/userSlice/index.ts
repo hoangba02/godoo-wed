@@ -5,12 +5,17 @@ import { userSaga } from './saga';
 import { UserState } from './type';
 
 export const initialState: UserState = {
+  // Account
   id: -1,
-  telegram_fullname: '',
-  messenger_fullname: '',
   token: '',
+  language: 'vi',
   isLogin: false,
   loading: false,
+  telegram_fullname: '',
+  messenger_fullname: '',
+  username: '',
+  password: '',
+  // Status
   register: {
     error: -1,
     message: '',
@@ -20,15 +25,16 @@ export const initialState: UserState = {
     message: '',
     savePassword: false,
   },
-  nickname: '',
-  password: '',
-  picture: [],
-  data_of_birth: new Date(),
-  zodiac: [],
-  gender: [],
-  introduction: '',
-  relationship: -1,
-  language: 'vi',
+  // Profile
+  profile: {
+    nickname: '',
+    picture: [],
+    data_of_birth: new Date(),
+    zodiac: [],
+    gender: [],
+    introduction: '',
+    relationship: -1,
+  },
 };
 
 const slice = createSlice({
@@ -63,7 +69,6 @@ const slice = createSlice({
       state.loading = false;
       state.username = action.payload.username;
       state.password = action.payload.password;
-      state.createTime = action.payload.createTime;
       state.language = action.payload.language;
       state.register = action.payload.register;
     },
@@ -93,12 +98,7 @@ const slice = createSlice({
     // Create Information Profile User
 
     createProfile(state: UserState, action: PayloadAction<UserState>) {
-      state.nickname = action.payload.nickname;
-      state.picture = action.payload.picture;
-      state.data_of_birth = action.payload.data_of_birth;
-      state.zodiac = action.payload.zodiac;
-      state.introduction = action.payload.introduction;
-      state.relationship = action.payload.relationship;
+      state.profile = action.payload.profile;
     },
   },
 });

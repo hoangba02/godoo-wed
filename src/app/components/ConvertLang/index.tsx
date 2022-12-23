@@ -1,4 +1,4 @@
-export function converLang(str) {
+export function convertLang(str) {
   // bắt đầu xóa dấu tiếng việt  trong chuỗi
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, 'a');
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, 'e');
@@ -17,13 +17,6 @@ export function converLang(str) {
   return str;
 }
 export const handleClearSpecialCharacter = (str: string) => {
-  if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(str)) {
-    const newStr = converLang(
-      str.replace(/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g, ''),
-    );
-    return newStr.toLowerCase();
-  } else {
-    const newStr = converLang(str);
-    return newStr.toLowerCase();
-  }
+  const newStr = convertLang(str);
+  return newStr;
 };

@@ -81,12 +81,14 @@ export default function Gender() {
     dispatch(counterActions.increase());
     dispatch(
       actions.createProfile({
-        nickname: user.nickname,
-        picture: user.picture,
-        data_of_birth: user.data_of_birth,
-        zodiac: sex,
-        introduction: user.introduction,
-        relationship: user.relationship,
+        profile: {
+          nickname: user.nickname,
+          picture: user.picture,
+          data_of_birth: user.data_of_birth,
+          zodiac: sex,
+          introduction: user.introduction,
+          relationship: user.relationship,
+        },
       }),
     );
   };

@@ -58,6 +58,7 @@ export function LoginPage({ children, islogin }) {
                     navigate('/register');
                   }}
                 >
+                  {' '}
                   {t('LoginPage.button.Sign up')}
                 </span>
               </Text>

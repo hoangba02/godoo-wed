@@ -21,12 +21,14 @@ export default function Mode() {
   const handleSelectMode = () => {
     dispatch(
       actions.createProfile({
-        nickname: user.nickname,
-        picture: user.picture,
-        data_of_birth: user.data_of_birth,
-        zodiac: user.zodiac,
-        relationship: mode,
-        introduction: user.introduction,
+        profile: {
+          nickname: user.nickname,
+          picture: user.picture,
+          data_of_birth: user.data_of_birth,
+          zodiac: user.zodiac,
+          relationship: mode,
+          introduction: user.introduction,
+        },
       }),
     );
     dispatch(counterActions.increase());

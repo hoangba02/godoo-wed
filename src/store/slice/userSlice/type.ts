@@ -1,17 +1,16 @@
 export interface UserState {
   //Account
   id?: number;
-  telegram_fullname?: string;
-  messenger_fullname?: string;
   token?: string;
-  username?: string;
-  password?: string | number;
-  role?: string;
-  status?: string;
-  createTime?: string;
-  // Status
+  language?: any;
   isLogin?: boolean;
   loading?: boolean;
+  telegram_fullname?: string;
+  messenger_fullname?: string;
+  username?: string;
+  password?: string | number;
+
+  // Status
   register?: {
     error?: number;
     message?: string;
@@ -21,14 +20,14 @@ export interface UserState {
     message?: string;
     savePassword?: boolean;
   };
-
   // Profile
-  nickname?: string;
-  picture?: string[];
-  data_of_birth?: Date;
-  zodiac?: string[];
-  gender?: number[];
-  introduction?: string;
-  relationship?: number;
-  language?: any;
+  profile?: {
+    nickname?: string;
+    picture?: string[];
+    data_of_birth?: Date;
+    zodiac?: string[];
+    gender?: number[];
+    introduction?: string;
+    relationship?: number;
+  };
 }

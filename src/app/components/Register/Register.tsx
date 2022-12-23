@@ -19,7 +19,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { images } from 'assets/images';
-import { converLang } from '../ConvertLang';
+import { convertLang } from '../ConvertLang';
 
 function Register() {
   const navigate = useNavigate();
@@ -92,8 +92,8 @@ function Register() {
       ...form.values,
       [e.target.name]:
         e.target.name === 'username'
-          ? converLang(e.target.value.toLowerCase())
-          : converLang(e.target.value),
+          ? convertLang(e.target.value.toLowerCase())
+          : convertLang(e.target.value),
     });
   };
   useEffect(() => {
@@ -272,7 +272,7 @@ function Register() {
         <Button variant="subtle" className={classes.socialBtn}>
           <img className={classes.img} src={images.facebook} alt="facebook" />
         </Button>
-        <Button variant="subtle" mx={30} className={classes.socialBtn}>
+        <Button variant="subtle" mx={64} className={classes.socialBtn}>
           <img className={classes.img} src={images.google} alt="google" />
         </Button>
         <Button variant="subtle" className={classes.socialBtn}>

@@ -50,12 +50,14 @@ export default function Picture() {
     dispatch(counterActions.increase());
     dispatch(
       actions.createProfile({
-        nickname: user.nickname,
-        picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
-        data_of_birth: user.data_of_birth,
-        zodiac: user.zodiac,
-        introduction: user.introduction,
-        relationship: user.relationship,
+        profile: {
+          nickname: user.nickname,
+          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
+          data_of_birth: user.data_of_birth,
+          zodiac: user.zodiac,
+          introduction: user.introduction,
+          relationship: user.relationship,
+        },
       }),
     );
   };
@@ -65,6 +67,10 @@ export default function Picture() {
     } else {
       setDisableBtn(true);
     }
+    return () => {
+      console.log('clear');
+      URL.revokeObjectURL(img.one);
+    };
   }, [img]);
   return (
     <Box className={classes.children}>
@@ -104,7 +110,8 @@ export default function Picture() {
                 <button
                   className={classes.clearBtn}
                   onClick={e => {
-                    setImg({ ...img, one: undefined });
+                    // URL.revokeObjectURL(img.one);
+                    setImg({ ...img, one: URL.revokeObjectURL(img.one) });
                   }}
                 >
                   <Clear />
@@ -131,6 +138,7 @@ export default function Picture() {
                 name="one"
                 className={classes.upImg}
                 type="file"
+                accept="image/*"
                 onChange={e => {
                   handleUploadImage(e);
                 }}

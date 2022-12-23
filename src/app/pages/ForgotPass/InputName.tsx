@@ -10,7 +10,7 @@ import { images } from 'assets/images';
 import Modals from 'app/components/Modals';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
-import { converLang } from 'app/components/ConvertLang';
+import { convertLang } from 'app/components/ConvertLang';
 
 export default function InputName({ setNext }) {
   const dispatch = useDispatch();
@@ -64,7 +64,7 @@ export default function InputName({ setNext }) {
   const handleConvertEng = e => {
     form.setValues({
       ...form.values,
-      [e.target.name]: converLang(e.target.value.toLowerCase()),
+      [e.target.name]: convertLang(e.target.value.toLowerCase()),
     });
   };
   return (

@@ -22,12 +22,14 @@ export default function Desc() {
   const handleCreateIntro = () => {
     dispatch(
       actions.createProfile({
-        nickname: user.nickname,
-        picture: user.picture,
-        data_of_birth: user.data_of_birth,
-        zodiac: user.zodiac,
-        introduction: intro,
-        relationship: user.relationship,
+        profile: {
+          nickname: user.nickname,
+          picture: user.picture,
+          data_of_birth: user.data_of_birth,
+          zodiac: user.zodiac,
+          introduction: intro,
+          relationship: user.relationship,
+        },
       }),
     );
     dispatch(counterActions.increase());
