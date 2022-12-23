@@ -57,17 +57,27 @@ export default function NickName() {
   }, [form.values.nickname]);
   return (
     <Box className={classes.children}>
-      <img
-        className={classes.imgNickname}
-        src={images.nicknamePro}
-        alt="nickname"
-      />
       <Box
         sx={{
-          height: 283,
+          width: 485,
+          height: 214,
+          position: 'absolute',
+          top: '8%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          [`@media (max-width:575px)`]: {
+            width: 305,
+            height: 222,
+          },
         }}
-        className={classes.box}
       >
+        <img
+          className={classes.imgNickname}
+          src={images.nicknamePro}
+          alt="nickname"
+        />
+      </Box>
+      <Box className={classes.box}>
         <Text className={classes.titleChild}>Nickname</Text>
         <form onSubmit={form.onSubmit(handleNickName)}>
           <Box
@@ -88,7 +98,7 @@ export default function NickName() {
                   textAlign: 'right',
                   border: 'none',
                   backgroundColor: 'transparent',
-                  zIndex: 2,
+                  zIndex: 3,
                 },
               }}
               maxLength={15}

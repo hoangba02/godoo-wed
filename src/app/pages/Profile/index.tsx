@@ -26,7 +26,7 @@ const STEPS = [
   <Gender />,
   <Desc />,
   <Mode />,
-  <Tips />,
+  // <Tips />,
 ];
 
 export function Profile() {

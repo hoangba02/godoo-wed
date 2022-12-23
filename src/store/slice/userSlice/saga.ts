@@ -1,13 +1,19 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { takeLatest, put } from 'redux-saga/effects';
+import { apiPost } from 'utils/http/request';
+import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
 
 export function* Register(action) {
-  const res = yield axios.post('https://ttvnapi.com/v1/register', {
+  const data = {
     username: action.payload.username,
     password: action.payload.password,
+  };
+
+  const res: BaseResponse = yield apiPost('/v1/register', data, {
+    'content-type': 'appication/json',
   });
+
   if (res.data.error === 0) {
     yield put(
       usersActions.registerSuccess({
@@ -34,9 +40,13 @@ export function* Register(action) {
   console.log(res);
 }
 export function* Login(action) {
-  const res = yield axios.post('https://ttvnapi.com/v1/login', {
+  const data = {
     username: action.payload.username,
     password: action.payload.password,
+  };
+
+  const res: BaseResponse = yield apiPost('/v1/login', data, {
+    'content-type': 'appication/json',
   });
   if (res.data.error === 0) {
     yield put(

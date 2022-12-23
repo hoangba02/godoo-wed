@@ -25,16 +25,18 @@ export const ProfileStyle = createStyles(() => ({
     padding: '0 32px 32px !important',
     zIndex: 3,
     [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      width: '60%',
+      width: '70%',
     },
     [`@media (min-width:992px) and (max-width:1199px)`]: {
-      width: '60%',
+      width: '70%',
     },
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      width: '70%',
+      width: '537px', // 70%
+      height: '789px', // 84%
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {
       width: '80%',
+      height: '84%',
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
@@ -79,6 +81,7 @@ export const ProfileStyle = createStyles(() => ({
     zIndex: 3,
     '&:disabled': {
       color: 'var(--white)',
+      border: '1px solid #FFFFFF',
       background:
         'linear-gradient(90deg, rgba(228, 97, 37, 0.6) -0.01%, rgba(161, 47, 163, 0.6) 100%)',
     },
@@ -116,15 +119,16 @@ export const ProfileStyle = createStyles(() => ({
   },
 
   box: {
-    height: 518,
+    height: '63%',
     bottom: 0,
     width: '100%',
-    padding: '0 43px',
+    padding: '0 6.5%',
     borderRadius: 30,
     backgroundColor: 'var(--primary-5)',
     position: 'absolute',
     zIndex: 3,
     [`@media (max-width:575px)`]: {
+      height: '63%',
       padding: '0 16px',
       borderRadius: '30px 30px 0 0',
     },
@@ -143,7 +147,7 @@ export const ProfileStyle = createStyles(() => ({
   },
   text: {
     fontSize: 16,
-    fontWeight: 400,
+    fontWeight: 500,
     lineHeight: '20px',
     textAlign: 'center',
     marginTop: 6,
@@ -173,32 +177,14 @@ export const ProfileStyle = createStyles(() => ({
     position: 'relative',
   },
   imgNickname: {
-    position: 'absolute',
-    bottom: 281,
-    left: '50%',
-    transform: 'translateX(-50%)',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      width: '100%',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      width: '100%',
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      width: '100%',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      width: '100%',
-    },
-    [`@media (max-width:575px)`]: {
-      width: '140%',
-      bottom: 255,
-    },
+    width: '100%',
+    height: '100%',
   },
   nicknameIcon: {
     position: 'absolute',
     top: '50%',
     left: 10,
-    zIndex: 1,
+    zIndex: 2,
     transform: 'translateY(-50%)',
   },
   // Birday
@@ -210,29 +196,6 @@ export const ProfileStyle = createStyles(() => ({
     zIndex: 1,
   },
   //Picture Pro
-  picContent: {
-    width: '100%',
-    height: '70%',
-    padding: '34px 44px 0',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      padding: '34px 44px 0',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      padding: '34px 20px 0',
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      padding: '45px 10px 0',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      padding: '54px 0px 0',
-    },
-    [`@media (max-width:575px)`]: {
-      padding: '87px 15px 0',
-    },
-    [`@media (max-width:376px)`]: {
-      padding: '66px 15px 0',
-    },
-  },
   picMain: {
     padding: '0 !important',
     borderRadius: 30,
@@ -258,26 +221,27 @@ export const ProfileStyle = createStyles(() => ({
     padding: '0 !important',
     borderRadius: 30,
     position: 'relative',
-    backgroundColor: 'var(--white-light)',
+    backgroundColor: 'var(--white)',
     display: 'flex',
     justifyContent: 'center',
   },
   label: {
+    width: '100%',
+    height: '15%',
     position: 'absolute',
-    bottom: 21.5,
-    [`@media (max-width:575px)`]: {
-      bottom: 8,
-    },
+    bottom: '16%',
+    zIndex: 3,
+    display: 'flex',
+    justifyContent: 'center',
   },
   addBtnSmall: {
-    width: 84,
-    height: 26,
+    width: '42% !important',
+    height: '100% !important',
     color: 'var(--white)',
     padding: 0,
     backgroundColor: '#E46125',
     borderRadius: 34,
     fontWeight: 400,
-    fontSize: '14px !important',
     lineHeight: '18px',
     '&::before': {
       display: 'none',
@@ -292,16 +256,7 @@ export const ProfileStyle = createStyles(() => ({
       width: 84,
     },
   },
-  addBtnBig: {
-    width: 156,
-    height: 56,
-    fontSize: '32px !important',
-    lineHeight: '40px',
-    marginBottom: 30,
-    [`@media (max-width:575px)`]: {
-      fontSize: '20px !important',
-    },
-  },
+
   upImg: {
     display: 'none',
   },
@@ -315,7 +270,7 @@ export const ProfileStyle = createStyles(() => ({
     cursor: 'pointer',
     backgroundColor: 'transparent',
     transition: 'transform 0.5s ease',
-    zIndex: 2,
+    zIndex: 3,
 
     '&:active': {
       transform: 'translateY(3px)',

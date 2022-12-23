@@ -44,13 +44,13 @@ function SignIn() {
       setError(true);
     } else {
       setError(false);
-      dispatch(
-        actions.requestLogin({
-          username: form.values.username,
-          password: form.values.password,
-          login: { savePassword: form.values.termsOfService },
-        }),
-      );
+      // dispatch(
+      //   actions.requestLogin({
+      //     username: form.values.username,
+      //     password: form.values.password,
+      //     login: { savePassword: form.values.termsOfService },
+      //   }),
+      // );
     }
   };
   const handleClearSpace = e => {
@@ -93,6 +93,7 @@ function SignIn() {
       >
         <TextInput
           name="username"
+          defaultValue={user.username}
           label={t('LoginPage.username.Username')}
           placeholder={t('LoginPage.username.Enter your username')}
           {...form.getInputProps('username')}
@@ -110,6 +111,7 @@ function SignIn() {
             },
           }}
           name="password"
+          value={user.password}
           className={classes.input}
           label={t('LoginPage.password.Password')}
           placeholder={t('LoginPage.password.Enter your password')}

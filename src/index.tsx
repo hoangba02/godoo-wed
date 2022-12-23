@@ -205,8 +205,11 @@ root.render(
                     },
                     '&:focus, &:focus-within': {
                       borderColor: 'var(--primary-4)',
+                      backgroundColor: '#FFFFFF',
                     },
-
+                    '&:-webkit-autofill,[type="password"]:-webkit-autofill': {
+                      boxShadow: '0 0 0px 1000px #FFFFFF inset',
+                    },
                     [`@media (max-width:575px)`]: {
                       marginTop: '4px',
                       height: '45px',

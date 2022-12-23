@@ -18,7 +18,6 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 function UpLoad({ link, id, name, setImg, img }) {
   const { classes } = useStyles();
   const user = useSelector(getUserSelector);
-  const phone = useMediaQuery('(max-width:575px)');
 
   const handleUploadImage = e => {
     console.log(img);
@@ -35,18 +34,22 @@ function UpLoad({ link, id, name, setImg, img }) {
         sx={{
           position: 'absolute',
           inset: 0,
+          zIndex: 2,
         }}
         src={user.picture[id] || link}
       ></BackgroundImage>
       <Box
         sx={{
-          marginTop: 41.5,
-          [`@media (max-width:575px)`]: {
-            marginTop: 20.5,
-          },
+          width: '35%',
+          height: '35%',
+          position: 'absolute',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 1,
         }}
       >
-        <Blink width={phone ? 35 : 60} height={phone ? 35 : 60} />
+        <Blink width="100%" height="100%" />
       </Box>
       <input
         name={name}
@@ -66,7 +69,7 @@ function UpLoad({ link, id, name, setImg, img }) {
               },
             }}
             component="span"
-            leftIcon={<IconCamera width={20} height={20} />}
+            leftIcon={<IconCamera width={18} height={18} />}
             className={classes.changeBtn}
           >
             Change Photo
@@ -99,40 +102,29 @@ const useStyles = createStyles(() => ({
     padding: '0 !important',
     borderRadius: 30,
     position: 'relative',
-    backgroundColor: 'var(--white-light)',
+    backgroundColor: 'var(--white)',
     display: 'flex',
     justifyContent: 'center',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      height: 160,
-      maxWidth: 160,
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      height: 160,
-      maxWidth: 160,
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      height: 160,
-      width: 160,
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      height: 132.5,
-      width: 132.5,
-    },
     [`@media (max-width:575px)`]: {
       height: 106,
       width: 106,
     },
   },
   label: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '100%',
+    height: 26,
     position: 'absolute',
-    bottom: 21.5,
+    bottom: '8%',
+    zIndex: 3,
     [`@media (max-width:575px)`]: {
-      bottom: 8,
+      width: '58%',
     },
   },
   addBtn: {
-    width: 84,
-    height: 26,
+    width: '49%',
+    height: '100%',
     color: 'var(--white)',
     padding: 0,
     backgroundColor: '#E46125',
@@ -140,6 +132,7 @@ const useStyles = createStyles(() => ({
     fontWeight: 400,
     fontSize: '14px !important',
     lineHeight: '18px',
+
     '&::before': {
       display: 'none',
     },
@@ -149,14 +142,14 @@ const useStyles = createStyles(() => ({
       boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     },
     [`@media (max-width:575px)`]: {
-      height: 26,
-      width: 60,
+      width: '100%',
+      height: '100%',
     },
   },
   changeBtn: {
     width: 139,
     height: 26,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 400,
     color: 'var(--white)',
     borderRadius: 34,
@@ -189,15 +182,15 @@ const useStyles = createStyles(() => ({
   },
   clearBtn: {
     position: 'absolute',
-    right: 14,
-    top: 14,
+    right: 16,
+    top: 16,
     border: 'none',
-    width: 26,
-    height: 26,
+    width: '15%',
+    height: '15%',
     cursor: 'pointer',
     backgroundColor: 'transparent',
     transition: 'transform 0.5s ease',
-    zIndex: 2,
+    zIndex: 3,
 
     '&:active': {
       transform: 'translateY(3px)',

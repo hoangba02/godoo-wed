@@ -4,12 +4,10 @@ import {
   Box,
   Button,
   Card,
-  clsx,
   Flex,
   Stack,
   Text,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconCamera, IconPlus, IconChevronRight } from '@tabler/icons';
 
@@ -26,7 +24,6 @@ export default function Picture() {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const { actions } = UserSlice();
-  const phone = useMediaQuery('(max-width:575px)');
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = ProfileStyle();
@@ -39,11 +36,8 @@ export default function Picture() {
     six: user.picture[5],
   });
   const [disableBtn, setDisableBtn] = useState(true);
-  console.log(img);
 
   const handleUploadImage = e => {
-    console.log(1);
-    console.log(img);
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
   };
   const handleCreatePicture = () => {
@@ -74,21 +68,27 @@ export default function Picture() {
   }, [img]);
   return (
     <Box className={classes.children}>
-      <Box className={classes.picContent}>
+      <Box
+        sx={{
+          height: '93%',
+          [`@media (max-width:575px)`]: {
+            height: '90%',
+          },
+        }}
+        className={classes.box}
+      >
+        <Text className={classes.titleChild}>Photos</Text>
+        <Text mb={24} className={classes.text}>
+          Some photos so we can get to know you.
+        </Text>
         <Flex
           sx={{
-            maxHeight: 370,
-            height: '70%',
+            width: '100%',
+            height: '46.6%',
             gap: '5%',
             justifyContent: 'space-between',
-            [`@media (min-width:1200px) and (max-width:1439px)`]: {
-              height: 370,
-            },
-            [`@media (min-width:992px) and (max-width:1199px)`]: {
-              height: 350,
-            },
             [`@media (min-width:768px) and (max-width:991px)`]: {
-              height: 350,
+              height: '35%',
             },
             [`@media (min-width:576px) and (max-width:767px)`]: {
               height: 295,
@@ -101,8 +101,9 @@ export default function Picture() {
         >
           <Box
             sx={{
-              minWidth: '65%',
+              width: '65%',
               height: '100%',
+              aspectRatio: '1 / 1',
             }}
           >
             <Card className={classes.picCard}>
@@ -121,18 +122,22 @@ export default function Picture() {
                 sx={{
                   position: 'absolute',
                   inset: 0,
+                  zIndex: 2,
                 }}
                 src={user.picture[0] || img.one}
               ></BackgroundImage>
               <Box
                 sx={{
-                  marginTop: 91.5,
-                  [`@media (max-width:575px)`]: {
-                    marginTop: 40.5,
-                  },
+                  width: '35%',
+                  height: '38%',
+                  position: 'absolute',
+                  top: '20%',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  zIndex: 1,
                 }}
               >
-                <Blink width={phone ? 90 : 134} height={phone ? 90 : 134} />
+                <Blink width="100%" height="100%" />
               </Box>
               <input
                 name="one"
@@ -179,10 +184,16 @@ export default function Picture() {
                       leftIcon: {
                         margin: 0,
                       },
+                      root: {
+                        fontSize: 32,
+                        [`@media (min-width:768px) and (max-width:991px)`]: {
+                          fontSize: 24,
+                        },
+                      },
                     }}
                     component="span"
                     leftIcon={<IconPlus width={29} height={29} />}
-                    className={clsx(classes.addBtnSmall, classes.addBtnBig)}
+                    className={classes.addBtnSmall}
                   >
                     Add
                   </Button>
@@ -192,8 +203,8 @@ export default function Picture() {
           </Box>
           <Stack
             sx={{
-              gap: 30,
-              minWidth: '30%',
+              gap: '8%',
+              width: '30%',
               alignItems: 'flex-end',
               justifyContent: 'space-between',
             }}
@@ -216,23 +227,12 @@ export default function Picture() {
         </Flex>
         <Flex
           sx={{
-            height: 170,
-            gap: 30,
+            height: '19%',
+            gap: '5%',
             marginTop: 25,
             justifyContent: 'space-between',
-            [`@media (min-width:1200px) and (max-width:1439px)`]: {
-              gap: 30,
-            },
-            [`@media (min-width:992px) and (max-width:1199px)`]: {
-              gap: 20,
-              height: 160,
-            },
             [`@media (min-width:768px) and (max-width:991px)`]: {
-              gap: 10,
-            },
-            [`@media (min-width:576px) and (max-width:767px)`]: {
-              gap: 10,
-              marginTop: 20,
+              height: '17%',
             },
             [`@media (max-width:575px)`]: {
               gap: 0,
@@ -262,28 +262,18 @@ export default function Picture() {
             fontWeight: 400,
             fontSize: 16,
             lineHeight: '20px',
-            textAlign: 'center',
             color: '#929292',
+            marginTop: 12,
+            paddingRight: '25%',
+            [`@media (min-width:768px) and (max-width:991px)`]: {
+              paddingRight: 0,
+            },
+            [`@media (max-width:575px)`]: {
+              paddingRight: 0,
+            },
           }}
         >
           Upload at least one photo. Hold & drag photos to change the order
-        </Text>
-      </Box>
-
-      <Box
-        sx={{
-          maxHeight: '25%',
-          [`@media (max-width:575px)`]: {
-            height: 295,
-          },
-          [`@media (max-width:376px)`]: {
-            height: '40%',
-          },
-        }}
-        className={classes.box}
-      >
-        <Text className={classes.titleChild}>
-          Some photos so we can get to know you.
         </Text>
         <Button
           disabled={disableBtn}
