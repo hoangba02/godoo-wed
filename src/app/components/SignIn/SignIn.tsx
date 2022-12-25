@@ -44,13 +44,13 @@ function SignIn() {
       setError(true);
     } else {
       setError(false);
-      // dispatch(
-      //   actions.requestLogin({
-      //     username: form.values.username,
-      //     password: form.values.password,
-      //     login: { savePassword: form.values.termsOfService },
-      //   }),
-      // );
+      dispatch(
+        actions.requestLogin({
+          username: form.values.username,
+          password: form.values.password,
+          login: { savePassword: form.values.termsOfService },
+        }),
+      );
     }
   };
   const handleClearSpace = e => {
