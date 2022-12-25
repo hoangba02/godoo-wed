@@ -200,20 +200,6 @@ export const ProfileStyle = createStyles(() => ({
     position: 'relative',
     backgroundColor: 'var(--white-light)',
   },
-  photoBtn: {
-    padding: 0,
-    color: 'var(--white)',
-    borderRadius: 34,
-    border: '1px solid var(--white)',
-    backgroundColor: 'rgba(228, 97, 37, 0.4)',
-    backdropFilter: 'blur(12.5px)',
-    '&::before': {
-      display: 'none',
-    },
-    '&:hover': {
-      backgroundColor: 'rgba(228, 97, 37, 0.4)  !important',
-    },
-  },
   picCard: {
     height: '100%',
     width: '100%',
@@ -281,7 +267,7 @@ export const ProfileStyle = createStyles(() => ({
     cursor: 'pointer',
     backgroundColor: 'transparent',
     transition: 'transform 0.5s ease',
-    zIndex: 3,
+    zIndex: 5,
 
     '&:active': {
       transform: 'translateY(3px)',

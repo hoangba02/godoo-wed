@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IconPlus } from '@tabler/icons';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
@@ -9,22 +9,30 @@ import {
   Card,
   createStyles,
 } from '@mantine/core';
-import { IconCamera } from '@tabler/icons';
 import { useSelector } from 'react-redux';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 function UpLoad({ link, id, name, setImg, img }) {
   const { classes } = useStyles();
+  const [zIndex, setZIndex] = useState(2);
   const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
     console.log(img);
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
+    setZIndex(4);
   };
   return (
     <Card className={classes.picCard}>
       {img[name] && (
-        <button className={classes.clearBtn}>
+        <button
+          className={classes.clearBtn}
+          onClick={e => {
+            // URL.revokeObjectURL(img.one);
+            setImg({ ...img, [name]: URL.revokeObjectURL(img[name]) });
+            setZIndex(2);
+          }}
+        >
           <Clear width={20} height={20} />
         </button>
       )}
@@ -32,7 +40,7 @@ function UpLoad({ link, id, name, setImg, img }) {
         sx={{
           position: 'absolute',
           inset: 0,
-          zIndex: 2,
+          zIndex: zIndex,
         }}
         src={profile.picture[id] || link}
       ></BackgroundImage>
@@ -59,31 +67,18 @@ function UpLoad({ link, id, name, setImg, img }) {
         id={id}
       />
       <label htmlFor={id} className={classes.label}>
-        {link || profile.picture[id] ? (
-          <Button
-            styles={{
-              leftIcon: {
-                marginRight: 0,
-              },
-            }}
-            component="span"
-            leftIcon={<IconCamera width={24} height={24} />}
-            className={classes.changeBtn}
-          />
-        ) : (
-          <Button
-            styles={{
-              leftIcon: {
-                margin: 0,
-              },
-            }}
-            component="span"
-            leftIcon={<IconPlus width={18} height={18} />}
-            className={classes.addBtn}
-          >
-            Add
-          </Button>
-        )}
+        <Button
+          styles={{
+            leftIcon: {
+              margin: 0,
+            },
+          }}
+          component="span"
+          leftIcon={<IconPlus width={18} height={18} />}
+          className={classes.addBtn}
+        >
+          Add
+        </Button>
       </label>
     </Card>
   );
@@ -128,7 +123,6 @@ const useStyles = createStyles(() => ({
     fontWeight: 400,
     fontSize: '14px !important',
     lineHeight: '18px',
-
     '&::before': {
       display: 'none',
     },
@@ -140,25 +134,6 @@ const useStyles = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       width: '100%',
       height: '100%',
-    },
-  },
-  changeBtn: {
-    width: '40%',
-    height: '26px !important',
-    color: 'var(--white)',
-    borderRadius: 34,
-    padding: 0,
-    border: '1px solid var(--white)',
-    backgroundColor: 'rgba(228, 97, 37, 0.4)',
-    backdropFilter: 'blur(12.5px)',
-    '&::before': {
-      display: 'none',
-    },
-    '&:hover': {
-      backgroundColor: 'rgba(228, 97, 37, 0.4)  !important',
-    },
-    [`@media (max-width:575px)`]: {
-      height: 24,
     },
   },
   icon: {
@@ -177,7 +152,7 @@ const useStyles = createStyles(() => ({
     cursor: 'pointer',
     backgroundColor: 'transparent',
     transition: 'transform 0.5s ease',
-    zIndex: 3,
+    zIndex: 5,
 
     '&:active': {
       transform: 'translateY(3px)',

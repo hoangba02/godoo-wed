@@ -13,11 +13,9 @@ import { IconCamera, IconPlus, IconChevronRight } from '@tabler/icons';
 
 import UpLoad from 'app/components/UpLoad';
 import { ProfileStyle } from './ProfileStyles';
-import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
@@ -38,9 +36,11 @@ export default function Picture() {
     fire: profile.picture[4],
     six: profile.picture[5],
   });
+  const [zIndex, setZIndex] = useState(2);
   const [disableBtn, setDisableBtn] = useState(true);
 
   const handleUploadImage = e => {
+    setZIndex(4);
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
   };
   const handleCreatePicture = () => {
@@ -114,6 +114,7 @@ export default function Picture() {
                   onClick={e => {
                     // URL.revokeObjectURL(img.one);
                     setImg({ ...img, one: URL.revokeObjectURL(img.one) });
+                    setZIndex(2);
                   }}
                 >
                   <Clear />
@@ -123,7 +124,7 @@ export default function Picture() {
                 sx={{
                   position: 'absolute',
                   inset: 0,
-                  zIndex: 2,
+                  zIndex: zIndex,
                 }}
                 src={profile.picture[0] || img.one}
               ></BackgroundImage>
@@ -151,49 +152,24 @@ export default function Picture() {
                 id="0"
               />
               <label htmlFor="0" className={classes.label}>
-                {img.one || profile.picture[0] ? (
-                  <Button
-                    styles={{
-                      leftIcon: {
-                        marginRight: 10,
+                <Button
+                  styles={{
+                    leftIcon: {
+                      margin: 0,
+                    },
+                    root: {
+                      fontSize: 32,
+                      [`@media (min-width:768px) and (max-width:991px)`]: {
+                        fontSize: 24,
                       },
-                      root: {
-                        width: '100%',
-                        height: '38px !important',
-                        [`@media (max-width:575px)`]: {
-                          height: '32px !important',
-                          fontSize: 14,
-                          fontWeight: 500,
-                          lineHeight: '18px',
-                        },
-                      },
-                    }}
-                    component="span"
-                    leftIcon={<IconCamera />}
-                    className={classes.photoBtn}
-                  >
-                    Change Photo
-                  </Button>
-                ) : (
-                  <Button
-                    styles={{
-                      leftIcon: {
-                        margin: 0,
-                      },
-                      root: {
-                        fontSize: 32,
-                        [`@media (min-width:768px) and (max-width:991px)`]: {
-                          fontSize: 24,
-                        },
-                      },
-                    }}
-                    component="span"
-                    leftIcon={<IconPlus width={29} height={29} />}
-                    className={classes.addBtnSmall}
-                  >
-                    Add
-                  </Button>
-                )}
+                    },
+                  }}
+                  component="span"
+                  leftIcon={<IconPlus width={29} height={29} />}
+                  className={classes.addBtnSmall}
+                >
+                  Add
+                </Button>
               </label>
             </Card>
           </Box>
