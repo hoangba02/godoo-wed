@@ -63,7 +63,7 @@ const GENDER = [
     text: 'Others',
     color: '#000000',
     background:
-      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
+      'linear-gradient(81.84deg,#0099ff -9.4%,#a033ff 51.57%,#ff5280 84.07%,#ff7061 90.59%)',
   },
 ];
 export default function Gender() {
@@ -154,7 +154,7 @@ export default function Gender() {
           sx={{
             gap: '8.5px 25px',
             marginTop: 28,
-            justifyItems: 'center',
+            justifyItems: 'stretch',
             [`@media (max-width:376px)`]: {
               marginTop: 14,
               gap: '10px 16px',
@@ -164,8 +164,9 @@ export default function Gender() {
           {GENDER.map((gender, index) => {
             return (
               <Button
-                className={profile.zodiac.includes(gender.text) ? 'active' : ''}
                 key={index}
+                // variant={gender.text === 'Others' ? 'outline' : undefined}
+                className={profile.zodiac.includes(gender.text) ? 'active' : ''}
                 sx={{
                   height: 52,
                   width: 'calc(200% + 25px) !important',
@@ -175,23 +176,30 @@ export default function Gender() {
                   backgroundColor: 'var(--white-light)',
                   borderRadius: 200,
                   border: `1px solid var(--white)`,
-                  transform:
-                    gender.text === 'Others'
-                      ? 'translateX(26%)'
-                      : 'translateX(0)',
+
                   '&::before': {
-                    display: 'none',
+                    display: gender.text === 'Others' ? 'block' : 'none',
+                    // display: 'none',
+                    borderRadius: 200,
+                    backgroundColor: 'var(--white-light)',
                   },
                   '&:hover': {
                     backgroundColor: 'var(--white-light)',
                   },
                   '&.active': {
                     color: gender.color,
+                    backgroundImage:
+                      gender.text === 'Others' ? 'var(--primary-3)' : 'none',
                     backgroundColor: gender.background,
-                    border: `1px solid ${gender.color}`,
+                    border:
+                      gender.text === 'Others'
+                        ? 'none'
+                        : `1px solid ${gender.color}`,
                     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                   },
-
+                  '&.active::before': {
+                    backgroundColor: 'var(--white)',
+                  },
                   [`@media (max-width:376px)`]: {
                     height: 42,
                   },
@@ -215,7 +223,18 @@ export default function Gender() {
                   }
                 }}
               >
-                {gender.text}
+                <Text
+                  sx={{
+                    background:
+                      gender.text === 'Others' ? 'var(--primary-3)' : 'inherit',
+                    WebkitBackgroundClip:
+                      gender.text === 'Others' ? 'text' : 'inherit',
+                    color:
+                      gender.text === 'Others' ? 'transparent' : gender.color,
+                  }}
+                >
+                  {gender.text}
+                </Text>
               </Button>
             );
           })}
