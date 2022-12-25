@@ -99,8 +99,8 @@ export function Profile() {
               <BackBtn />
             </button>
             <Box className={classes.card}>
-              {/* {Order} */}
-              <Gender />
+              {Order}
+              {/* <Gender /> */}
               <Flex className={classes.progress}>
                 {STEPS.map((step, index) => {
                   return (
