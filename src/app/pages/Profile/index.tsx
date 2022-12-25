@@ -71,31 +71,55 @@ export function Profile() {
             zIndex: 2,
           }}
         ></Box>
-        <Card className={classes.wrapper}>
-          <button className={classes.back} onClick={handleComeBack}>
-            <BackBtn />
-          </button>
-          <Box className={classes.card}>
-            {/* {Order} */}
-            <Gender />
-            <Flex className={classes.progress}>
-              {STEPS.map((step, index) => {
-                return (
-                  <Box
-                    sx={{
-                      backgroundColor:
-                        index <= counter
-                          ? 'var(--primary-4)'
-                          : 'var(--white-light)',
-                    }}
-                    key={index}
-                    className={classes.step}
-                  ></Box>
-                );
-              })}
-            </Flex>
-          </Box>
-        </Card>
+
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            width: '100vw',
+            height: '100vh',
+            position: 'absolute',
+            inset: 0,
+            overflowY: 'auto',
+            padding: '42px 0 38px 0 ',
+            [`@media (min-width:768px) and (max-width:991px)`]: {
+              alignItems: 'center',
+            },
+            [`@media (max-width:575px)`]: {
+              padding: 0,
+            },
+            [`@media (max-width:376px)`]: {
+              overflowX: 'hidden',
+              padding: 0,
+            },
+          }}
+        >
+          <Card className={classes.wrapper}>
+            <button className={classes.back} onClick={handleComeBack}>
+              <BackBtn />
+            </button>
+            <Box className={classes.card}>
+              {/* {Order} */}
+              <Gender />
+              <Flex className={classes.progress}>
+                {STEPS.map((step, index) => {
+                  return (
+                    <Box
+                      sx={{
+                        backgroundColor:
+                          index <= counter
+                            ? 'var(--primary-4)'
+                            : 'var(--white-light)',
+                      }}
+                      key={index}
+                      className={classes.step}
+                    ></Box>
+                  );
+                })}
+              </Flex>
+            </Box>
+          </Card>
+        </Box>
       </Container>
     </>
   );

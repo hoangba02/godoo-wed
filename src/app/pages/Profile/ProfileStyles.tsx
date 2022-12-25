@@ -9,9 +9,6 @@ export const ProfileStyle = createStyles(() => ({
     padding: '42px 0',
     position: 'absolute',
     inset: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     zIndex: 1,
     [`@media (max-width:575px)`]: {
       padding: 0,
@@ -20,7 +17,7 @@ export const ProfileStyle = createStyles(() => ({
   wrapper: {
     width: '50%',
     maxWidth: 720,
-    height: '100%',
+    height: '888px',
     borderRadius: '30px',
     padding: '0 32px 32px !important',
     zIndex: 3,
@@ -40,6 +37,7 @@ export const ProfileStyle = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
+      height: '100%',
       alignItems: 'flex-end',
       padding: '0px !important',
       borderRadius: 0,
