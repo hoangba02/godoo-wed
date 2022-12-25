@@ -9,7 +9,7 @@ import {
   Text,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconCamera, IconPlus, IconChevronRight } from '@tabler/icons';
+import { IconPlus, IconChevronRight } from '@tabler/icons';
 
 import UpLoad from 'app/components/UpLoad';
 import { ProfileStyle } from './ProfileStyles';
@@ -83,153 +83,178 @@ export default function Picture() {
         <Text mb={24} className={classes.text}>
           Some photos so we can get to know you.
         </Text>
-        <Flex
+        <Box
           sx={{
+            position: 'relative',
             width: '100%',
-            height: '46.6%',
-            gap: '5%',
-            justifyContent: 'space-between',
+            height: '71%',
             [`@media (min-width:768px) and (max-width:991px)`]: {
-              height: '35%',
+              height: '58%',
             },
             [`@media (min-width:576px) and (max-width:767px)`]: {
-              height: 295,
+              height: '61%',
             },
-            [`@media (max-width:575px)`]: {
-              gap: 15,
-              height: 225,
-            },
+
+            [`@media (max-width:575px)`]: { height: 'max-content' },
+            // [`@media (max-width:375px)`]: {},
           }}
         >
-          <Box
+          <Flex
             sx={{
-              width: '65%',
-              height: '100%',
-              aspectRatio: '1 / 1',
-            }}
-          >
-            <Card className={classes.picCard}>
-              {img.one && (
-                <button
-                  className={classes.clearBtn}
-                  onClick={e => {
-                    // URL.revokeObjectURL(img.one);
-                    setImg({ ...img, one: URL.revokeObjectURL(img.one) });
-                    setZIndex(2);
-                  }}
-                >
-                  <Clear />
-                </button>
-              )}
-              <BackgroundImage
-                sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  zIndex: zIndex,
-                }}
-                src={profile.picture[0] || img.one}
-              ></BackgroundImage>
-              <Box
-                sx={{
-                  width: '35%',
-                  height: '38%',
-                  position: 'absolute',
-                  top: '20%',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  zIndex: 1,
-                }}
-              >
-                <Blink width="100%" height="100%" />
-              </Box>
-              <input
-                name="one"
-                className={classes.upImg}
-                type="file"
-                accept="image/*"
-                onChange={e => {
-                  handleUploadImage(e);
-                }}
-                id="0"
-              />
-              <label htmlFor="0" className={classes.label}>
-                <Button
-                  styles={{
-                    leftIcon: {
-                      margin: 0,
-                    },
-                    root: {
-                      fontSize: 32,
-                      [`@media (min-width:768px) and (max-width:991px)`]: {
-                        fontSize: 24,
-                      },
-                    },
-                  }}
-                  component="span"
-                  leftIcon={<IconPlus width={29} height={29} />}
-                  className={classes.addBtnSmall}
-                >
-                  Add
-                </Button>
-              </label>
-            </Card>
-          </Box>
-          <Stack
-            sx={{
-              gap: '8%',
-              width: '30%',
-              alignItems: 'flex-end',
+              width: '100%',
+              height: '65.5%',
+              gap: '5%',
               justifyContent: 'space-between',
+              // [`@media (min-width:768px) and (max-width:991px)`]: {
+              //   height: '53.5%',
+              // },
+              // [`@media (min-width:576px) and (max-width:767px)`]: {
+              //   height: '65.5%',
+              // },
+              [`@media (max-width:575px)`]: {
+                gap: 15,
+                height: 225,
+              },
+            }}
+          >
+            <Box
+              sx={{
+                width: '65%',
+                height: '100%',
+                aspectRatio: '1 / 1',
+                position: 'relative',
+                zIndex: 99,
+              }}
+            >
+              <Card className={classes.picCard}>
+                {img.one && (
+                  <button
+                    className={classes.clearBtn}
+                    onClick={e => {
+                      // URL.revokeObjectURL(img.one);
+                      setImg({ ...img, one: URL.revokeObjectURL(img.one) });
+                      setZIndex(2);
+                    }}
+                  >
+                    <Clear />
+                  </button>
+                )}
+                <BackgroundImage
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    zIndex: zIndex,
+                  }}
+                  src={profile.picture[0] || img.one}
+                ></BackgroundImage>
+                <Box
+                  sx={{
+                    width: '35%',
+                    height: '38%',
+                    position: 'absolute',
+                    top: '20%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    zIndex: 1,
+                  }}
+                >
+                  <Blink width="100%" height="100%" />
+                </Box>
+                <input
+                  name="one"
+                  className={classes.upImg}
+                  type="file"
+                  accept="image/*"
+                  onChange={e => {
+                    handleUploadImage(e);
+                  }}
+                  id="0"
+                />
+                <label htmlFor="0" className={classes.label}>
+                  <Button
+                    styles={{
+                      leftIcon: {
+                        margin: 0,
+                      },
+                      root: {
+                        fontSize: 32,
+                        [`@media (min-width:768px) and (max-width:991px)`]: {
+                          fontSize: 24,
+                        },
+                      },
+                    }}
+                    component="span"
+                    leftIcon={<IconPlus width={29} height={29} />}
+                    className={classes.addBtnSmall}
+                  >
+                    Add
+                  </Button>
+                </label>
+              </Card>
+            </Box>
+            <Stack
+              sx={{
+                gap: '8%',
+                width: '30%',
+                alignItems: 'flex-end',
+                justifyContent: 'space-between',
+              }}
+            >
+              <UpLoad
+                link={img.two}
+                id="1"
+                name="two"
+                setImg={setImg}
+                img={img}
+              />
+              <UpLoad
+                link={img.three}
+                id="2"
+                name="three"
+                setImg={setImg}
+                img={img}
+              />
+            </Stack>
+          </Flex>
+          <Flex
+            sx={{
+              height: '30%',
+              gap: '5%',
+              marginTop: 25,
+              justifyContent: 'space-between',
+              // [`@media (min-width:768px) and (max-width:991px)`]: {
+              //   height: '30%',
+              // },
+              [`@media (max-width:575px)`]: {
+                gap: 0,
+                height: 106,
+                marginBottom: 20,
+              },
             }}
           >
             <UpLoad
-              link={img.two}
-              id="1"
-              name="two"
+              link={img.four}
+              id="3"
+              name="four"
               setImg={setImg}
               img={img}
             />
             <UpLoad
-              link={img.three}
-              id="2"
-              name="three"
+              link={img.fire}
+              id="4"
+              name="fire"
               setImg={setImg}
               img={img}
             />
-          </Stack>
-        </Flex>
-        <Flex
-          sx={{
-            height: '19%',
-            gap: '5%',
-            marginTop: 25,
-            justifyContent: 'space-between',
-            [`@media (min-width:768px) and (max-width:991px)`]: {
-              height: '17%',
-            },
-            [`@media (max-width:575px)`]: {
-              gap: 0,
-              height: 106,
-              marginBottom: 20,
-            },
-          }}
-        >
-          <UpLoad
-            link={img.four}
-            id="3"
-            name="four"
-            setImg={setImg}
-            img={img}
-          />
-          <UpLoad
-            link={img.fire}
-            id="4"
-            name="fire"
-            setImg={setImg}
-            img={img}
-          />
-          <UpLoad link={img.six} id="5" name="six" setImg={setImg} img={img} />
-        </Flex>
+            <UpLoad
+              link={img.six}
+              id="5"
+              name="six"
+              setImg={setImg}
+              img={img}
+            />
+          </Flex>
+        </Box>
         <Text
           sx={{
             fontWeight: 400,

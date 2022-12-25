@@ -59,13 +59,8 @@ export default function Mode() {
         },
       )
       .then(res => {
-        if (res.data.data.error === 0) {
-          dispatch(
-            actions.requestLogin({
-              username: user.username,
-              password: user.password,
-            }),
-          );
+        if (res.data.error === 0) {
+          navigate('/');
         }
       })
       .catch(err => {

@@ -32,7 +32,7 @@ export const LoginPageStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
-      height: '76%',
+      height: 'max-content',
       borderRadius: '20px 20px 0 0',
       padding: '25px 16px 0',
       position: 'absolute',
@@ -78,10 +78,10 @@ export const LoginPageStyles = createStyles(() => ({
   logo: {
     [`@media (max-width:575px)`]: {
       position: 'absolute',
-      top: '-30%',
+      top: '-25%',
     },
     [`@media (max-width:376px)`]: {
-      top: '-22%',
+      top: '-18%',
     },
   },
   registerBtn: {
