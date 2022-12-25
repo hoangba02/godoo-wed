@@ -3,7 +3,7 @@ import { useForm } from '@mantine/form';
 import { useMediaQuery } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconAlertCircle, IconChevronRight } from '@tabler/icons';
+import { IconChevronRight } from '@tabler/icons';
 import { Box, Button, Center, Checkbox, Image, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
@@ -16,21 +16,26 @@ import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
 
 export default function Birth() {
-  const { classes } = ProfileStyle();
-  const { t } = useTranslation();
-  const [disableBtn, setDisableBtn] = useState(true);
-  const [error, setError] = useState(false);
-  const [age, setAge] = useState(false);
-  const phone = useMediaQuery('(max-width:575px)');
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
+  // Local
+  const { classes } = ProfileStyle();
+  const { t } = useTranslation();
+  const [age, setAge] = useState(false);
+  // const [birth, setBirth] = useState(profile.date_of_birth);
+  const [error, setError] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(true);
+  const phone = useMediaQuery('(max-width:575px)');
 
   const form = useForm({
     initialValues: {
-      date: profile.data_of_birth,
+      date:
+        profile.date_of_birth === ''
+          ? new Date()
+          : new Date(profile.date_of_birth),
     },
   });
   const handleCreateBirthDay = () => {
@@ -49,8 +54,9 @@ export default function Birth() {
         profileActions.createProfile({
           nickname: profile.nickname,
           picture: profile.picture,
-          data_of_birth: new Date(year, month, day),
-          zodiac: profile.zodiac,
+          date_of_birth: new Date(year, month, day).toString(),
+          gender: profile.gender,
+          zodiac: Zodiac(form.values.date)?.name,
           introduction: profile.introduction,
           relationship: profile.relationship,
         }),
@@ -96,20 +102,6 @@ export default function Birth() {
         <Text className={classes.text}>
           Based on the birthday given, we will find you more suitable friends
         </Text>
-        <Text
-          sx={{
-            color: '#929292',
-            fontSize: 14,
-            marginTop: 15,
-            [`@media (max-width:575px)`]: {
-              fontSize: 12,
-            },
-          }}
-          align="center"
-        >
-          <IconAlertCircle />
-          You cannot change this DOB later
-        </Text>
         <form onSubmit={form.onSubmit(handleCreateBirthDay)}>
           <Box
             sx={{
@@ -130,12 +122,15 @@ export default function Birth() {
                   backgroundColor: 'transparent',
                 },
               }}
-              // size="sx"
+              // value={birth}
               clearable={false}
               dropdownPosition={phone ? 'top-end' : 'bottom-end'}
               inputFormat="DD/MM/YYYY"
               placeholder="DD/MM/YYYY"
               {...form.getInputProps('date')}
+              // onChange={() => {
+              //   setAge(false);
+              // }}
             />
             <DateBirth className={classes.birthIcon} />
           </Box>

@@ -1,9 +1,9 @@
 export interface ProfileState {
   nickname?: string;
   picture?: string[];
-  data_of_birth?: Date;
-  zodiac?: string[];
-  gender?: number[];
+  date_of_birth?: string;
+  zodiac?: string;
+  gender?: string[];
   introduction?: string;
   relationship?: number;
 }

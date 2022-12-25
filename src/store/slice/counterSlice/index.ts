@@ -1,3 +1,4 @@
+import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer } from 'utils/redux-injectors';
 import { CounterState } from './type';
@@ -15,6 +16,9 @@ const slice = createSlice({
     },
     decrease(state: CounterState) {
       state.value -= 1;
+    },
+    setCounter(state: CounterState, actions: PayloadAction<CounterState>) {
+      state.value = actions.payload.value;
     },
   },
 });

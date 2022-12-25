@@ -77,7 +77,9 @@ export const ProfileStyle = createStyles(() => ({
     bottom: 14,
     right: 14,
     zIndex: 3,
+    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
     '&:disabled': {
+      boxShadow: 'none',
       color: 'var(--white)',
       border: '1px solid #FFFFFF',
       background:

@@ -49,8 +49,9 @@ export default function Picture() {
       profileActions.createProfile({
         nickname: profile.nickname,
         picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
-        data_of_birth: profile.data_of_birth,
+        date_of_birth: profile.date_of_birth,
         zodiac: profile.zodiac,
+        gender: profile.gender,
         introduction: profile.introduction,
         relationship: profile.relationship,
       }),

@@ -37,8 +37,9 @@ export default function NickName() {
         profileActions.createProfile({
           nickname: form.values.nickname,
           picture: profile.picture,
-          data_of_birth: profile.data_of_birth,
+          date_of_birth: profile.date_of_birth,
           zodiac: profile.zodiac,
+          gender: profile.gender,
           introduction: profile.introduction,
           relationship: profile.relationship,
         }),
@@ -77,6 +78,9 @@ export default function NickName() {
       </Box>
       <Box className={classes.box}>
         <Text className={classes.titleChild}>Nickname</Text>
+        <Text mb={24} className={classes.text}>
+          As a GoDooer, you are free to give yourself an interesting name.
+        </Text>
         <form onSubmit={form.onSubmit(handleNickName)}>
           <Box
             sx={{
@@ -115,9 +119,6 @@ export default function NickName() {
             <IconChevronRight width={40} height={40} stroke={2.5} />
           </Button>
         </form>
-        <Text className={classes.text}>
-          As a GoDooer, you are free to give yourself an interesting name.
-        </Text>
       </Box>
     </Box>
   );

@@ -24,8 +24,9 @@ export default function Desc() {
       profileActions.createProfile({
         nickname: profile.nickname,
         picture: profile.picture,
-        data_of_birth: profile.data_of_birth,
+        date_of_birth: profile.date_of_birth,
         zodiac: profile.zodiac,
+        gender: profile.gender,
         introduction: intro,
         relationship: profile.relationship,
       }),
@@ -53,6 +54,7 @@ export default function Desc() {
               fontWeight: 400,
               fontSize: 24,
               lineHeight: '30px',
+              marginTop: 24,
               [`@media (max-width:376px)`]: {
                 height: '200px !important',
               },

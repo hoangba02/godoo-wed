@@ -74,7 +74,7 @@ export default function Gender() {
   const [disableBtn, setDisabel] = useState(true);
   // Local
   const { classes } = ProfileStyle();
-  const [sex, setSex] = useState<string[]>(profile.zodiac);
+  const [sex, setSex] = useState<string[]>(profile.gender);
   const dispatch = useDispatch();
 
   const handleCreateGender = () => {
@@ -83,8 +83,9 @@ export default function Gender() {
       profileActions.createProfile({
         nickname: profile.nickname,
         picture: profile.picture,
-        data_of_birth: profile.data_of_birth,
-        zodiac: sex,
+        date_of_birth: profile.date_of_birth,
+        zodiac: profile.zodiac,
+        gender: sex,
         introduction: profile.introduction,
         relationship: profile.relationship,
       }),
@@ -166,14 +167,14 @@ export default function Gender() {
               <Button
                 key={index}
                 // variant={gender.text === 'Others' ? 'outline' : undefined}
-                className={profile.zodiac.includes(gender.text) ? 'active' : ''}
+                className={profile.gender.includes(gender.text) ? 'active' : ''}
                 sx={{
                   height: 52,
                   width: 'calc(200% + 25px) !important',
                   maxWidth:
                     gender.text === 'Others' ? 'calc(200% + 25px)' : '100%',
                   color: gender.color,
-                  backgroundColor: 'var(--white-light)',
+                  backgroundColor: 'inherit',
                   borderRadius: 200,
                   border: `1px solid var(--white)`,
 
@@ -181,10 +182,10 @@ export default function Gender() {
                     display: gender.text === 'Others' ? 'block' : 'none',
                     // display: 'none',
                     borderRadius: 200,
-                    backgroundColor: 'var(--white-light)',
+                    backgroundColor: 'inherit',
                   },
                   '&:hover': {
-                    backgroundColor: 'var(--white-light)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
                   },
                   '&.active': {
                     color: gender.color,

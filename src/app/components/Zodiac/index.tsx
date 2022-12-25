@@ -3,7 +3,6 @@ import { images } from 'assets/images';
 export function Zodiac(date) {
   var day = new Date(date).getDate();
   var month = new Date(date).getMonth() + 1;
-  console.log(month);
 
   switch (month) {
     case 1:

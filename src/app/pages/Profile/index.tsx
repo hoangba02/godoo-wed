@@ -106,6 +106,7 @@ export function Profile() {
                   return (
                     <Box
                       sx={{
+                        cursor: 'pointer',
                         backgroundColor:
                           index <= counter
                             ? 'var(--primary-4)'
@@ -113,6 +114,14 @@ export function Profile() {
                       }}
                       key={index}
                       className={classes.step}
+                      onClick={() => {
+                        dispatch(
+                          counterActions.setCounter({
+                            value: index,
+                          }),
+                        );
+                        // console.log(index);
+                      }}
                     ></Box>
                   );
                 })}

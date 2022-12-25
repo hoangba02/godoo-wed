@@ -7,14 +7,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 export default function Mode() {
   // Global
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { actions } = UserSlice();
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
-
+  const user = useSelector(getUserSelector);
+  console.log(user);
+  console.log(profile);
   const { classes } = ProfileStyle();
   const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
@@ -24,13 +32,46 @@ export default function Mode() {
       profileActions.createProfile({
         nickname: profile.nickname,
         picture: profile.picture,
-        data_of_birth: profile.data_of_birth,
+        date_of_birth: profile.date_of_birth,
         zodiac: profile.zodiac,
+        gender: profile.gender,
         relationship: mode,
         introduction: profile.introduction,
       }),
     );
-    dispatch(counterActions.increase());
+    axios
+      .post(
+        'https://ttvnapi.com/v1/godoo/profile/compulsoryinfo',
+        {
+          nickname: profile.nickname,
+          picture: profile.picture,
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: profile.gender,
+          relationship: mode,
+          introduction: profile.introduction,
+        },
+        {
+          headers: {
+            userid: user.id,
+            token: user.token,
+          },
+        },
+      )
+      .then(res => {
+        if (res.data.data.error === 0) {
+          dispatch(
+            actions.requestLogin({
+              username: user.username,
+              password: user.password,
+            }),
+          );
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    // navigate('/');
   };
   useEffect(() => {
     if (mode !== -1) {

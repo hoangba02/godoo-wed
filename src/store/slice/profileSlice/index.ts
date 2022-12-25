@@ -6,8 +6,8 @@ import { ProfileState } from './type';
 export const initialState: ProfileState = {
   nickname: '',
   picture: [],
-  data_of_birth: new Date(),
-  zodiac: [],
+  date_of_birth: '',
+  zodiac: '',
   gender: [],
   introduction: '',
   relationship: -1,
@@ -22,7 +22,7 @@ const slice = createSlice({
     createProfile(state: ProfileState, action: PayloadAction<ProfileState>) {
       state.nickname = action.payload.nickname;
       state.picture = action.payload.picture;
-      state.data_of_birth = action.payload.data_of_birth;
+      state.date_of_birth = action.payload.date_of_birth;
       state.zodiac = action.payload.zodiac;
       state.gender = action.payload.gender;
       state.introduction = action.payload.introduction;
