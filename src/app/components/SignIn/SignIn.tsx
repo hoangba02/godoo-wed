@@ -93,7 +93,8 @@ function SignIn() {
       >
         <TextInput
           name="username"
-          defaultValue={user.username}
+          value={user.username}
+          // defaultValue={user.username}
           label={t('LoginPage.username.Username')}
           placeholder={t('LoginPage.username.Enter your username')}
           {...form.getInputProps('username')}
@@ -112,6 +113,7 @@ function SignIn() {
           }}
           name="password"
           value={user.password}
+          // defaultValue={user.password}
           className={classes.input}
           label={t('LoginPage.password.Password')}
           placeholder={t('LoginPage.password.Enter your password')}

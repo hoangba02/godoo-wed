@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Image, Stack, Text } from '@mantine/core';
+import { Box, Button, Stack, Text } from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
-import { IconChevronRight } from '@tabler/icons';
-import { UserSlice } from 'store/slice/userSlice';
+import { IconCheck } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 export default function Mode() {
-  const user = useSelector(getUserSelector);
-  const { classes } = ProfileStyle();
+  // Global
   const dispatch = useDispatch();
-  const { actions } = UserSlice();
   const { counterActions } = CounterSlice();
+  const { profileActions } = ProfileSlice();
+  const profile = useSelector(getProfileSelector);
 
-  const [mode, setMode] = useState(user.relationship);
+  const { classes } = ProfileStyle();
+  const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
 
   const handleSelectMode = () => {
     dispatch(
-      actions.createProfile({
-        profile: {
-          nickname: user.nickname,
-          picture: user.picture,
-          data_of_birth: user.data_of_birth,
-          zodiac: user.zodiac,
-          relationship: mode,
-          introduction: user.introduction,
-        },
+      profileActions.createProfile({
+        nickname: profile.nickname,
+        picture: profile.picture,
+        data_of_birth: profile.data_of_birth,
+        zodiac: profile.zodiac,
+        relationship: mode,
+        introduction: profile.introduction,
       }),
     );
     dispatch(counterActions.increase());
@@ -41,22 +40,11 @@ export default function Mode() {
   return (
     <Box className={classes.children}>
       <img className={classes.imgMode} src={images.modePro} alt="mode" />
-      <Box
-        sx={{
-          height: 'calc(95% - 272px)',
-          [`@media (min-width:768px) and (max-width:991px)`]: {
-            height: 'calc(95% - 252px)',
-          },
-          [`@media (min-width:576px) and (max-width:767px)`]: {
-            height: 'calc(95% - 252px)',
-          },
-        }}
-        className={classes.box}
-      >
+      <Box className={classes.box}>
         <Text className={classes.titleChild}>
           What’re you looking for in GoDoo?
         </Text>
-        <Stack align="center" mt={28}>
+        <Stack align="center" mt={14}>
           <Button
             variant={mode === 0 ? 'gradient' : 'outline'}
             className={classes.optionBtn}
@@ -77,7 +65,7 @@ export default function Mode() {
             className={classes.optionBtn}
             onClick={() => setMode(1)}
           >
-            Someone to date
+            Looking for my destiny
           </Button>
         </Stack>
         <Button
@@ -86,7 +74,7 @@ export default function Mode() {
           variant="gradient"
           className={classes.nextBtn}
         >
-          <IconChevronRight width={40} height={40} stroke={2.5} />
+          <IconCheck width={40} height={40} stroke={2.5} />
         </Button>
       </Box>
     </Box>

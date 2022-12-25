@@ -25,16 +25,6 @@ export const initialState: UserState = {
     message: '',
     savePassword: false,
   },
-  // Profile
-  profile: {
-    nickname: '',
-    picture: [],
-    data_of_birth: new Date(),
-    zodiac: [],
-    gender: [],
-    introduction: '',
-    relationship: -1,
-  },
 };
 
 const slice = createSlice({
@@ -95,12 +85,6 @@ const slice = createSlice({
       state.telegram_fullname = action.payload.telegram_fullname;
       state.messenger_fullname = action.payload.messenger_fullname;
       state.token = action.payload.token;
-    },
-
-    // Create Information Profile User
-
-    createProfile(state: UserState, action: PayloadAction<UserState>) {
-      state.profile = action.payload.profile;
     },
   },
 });

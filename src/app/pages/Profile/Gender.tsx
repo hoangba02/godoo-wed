@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BackgroundImage,
-  Box,
-  Button,
-  Checkbox,
-  Image,
-  SimpleGrid,
-  Text,
-} from '@mantine/core';
+import { Box, Button, Checkbox, SimpleGrid, Text } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { images } from 'assets/images';
 import { ProfileStyle } from './ProfileStyles';
-import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
 
 const GENDER = [
   {
@@ -66,29 +58,35 @@ const GENDER = [
     color: '#EF7627',
     background: '#FFE5D3',
   },
+  {
+    id: 8,
+    text: 'Others',
+    color: '#000000',
+    background:
+      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
+  },
 ];
 export default function Gender() {
-  const user = useSelector(getUserSelector);
   const { counterActions } = CounterSlice();
-  const { actions } = UserSlice();
+  const { profileActions } = ProfileSlice();
+  const profile = useSelector(getProfileSelector);
+
   const [disableBtn, setDisabel] = useState(true);
   // Local
   const { classes } = ProfileStyle();
-  const [sex, setSex] = useState<string[]>(user.zodiac);
+  const [sex, setSex] = useState<string[]>(profile.zodiac);
   const dispatch = useDispatch();
 
   const handleCreateGender = () => {
     dispatch(counterActions.increase());
     dispatch(
-      actions.createProfile({
-        profile: {
-          nickname: user.nickname,
-          picture: user.picture,
-          data_of_birth: user.data_of_birth,
-          zodiac: sex,
-          introduction: user.introduction,
-          relationship: user.relationship,
-        },
+      profileActions.createProfile({
+        nickname: profile.nickname,
+        picture: profile.picture,
+        data_of_birth: profile.data_of_birth,
+        zodiac: sex,
+        introduction: profile.introduction,
+        relationship: profile.relationship,
       }),
     );
   };
@@ -108,13 +106,17 @@ export default function Gender() {
           width: '100%',
           position: 'relative',
           height: 335,
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            height: 236,
+          },
+          [`@media (min-width:576px) and (max-width:767px)`]: {
+            height: 236,
+          },
           [`@media (max-width:575px)`]: {
-            width: '100%',
-            bottom: '-10%',
+            height: 260,
           },
           [`@media (max-width:376px)`]: {
-            width: '100%',
-            bottom: '-1%',
+            height: 236,
           },
         }}
       >
@@ -126,17 +128,14 @@ export default function Gender() {
       </Box>
       <Box
         sx={{
-          [`@media (min-width:768px) and (max-width:800px)`]: {
-            height: '60%',
-          },
-          [`@media (min-width:800px) and (max-width:991px)`]: {
-            height: '60%',
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            height: '70%',
           },
           [`@media (min-width:576px) and (max-width:767px)`]: {
-            height: '60%',
+            height: '70%',
           },
           [`@media (max-width:575px)`]: {
-            height: '60%',
+            height: '70%',
           },
         }}
         className={classes.box}
@@ -153,6 +152,7 @@ export default function Gender() {
         <SimpleGrid
           cols={2}
           sx={{
+            gap: '8.5px 25px',
             marginTop: 28,
             justifyItems: 'center',
             [`@media (max-width:376px)`]: {
@@ -164,15 +164,21 @@ export default function Gender() {
           {GENDER.map((gender, index) => {
             return (
               <Button
-                className={user.zodiac.includes(gender.text) ? 'active' : ''}
+                className={profile.zodiac.includes(gender.text) ? 'active' : ''}
                 key={index}
                 sx={{
-                  maxWidth: '100%',
+                  height: 52,
+                  width: 'calc(200% + 25px) !important',
+                  maxWidth:
+                    gender.text === 'Others' ? 'calc(200% + 25px)' : '100%',
                   color: gender.color,
                   backgroundColor: 'var(--white-light)',
                   borderRadius: 200,
                   border: `1px solid var(--white)`,
-
+                  transform:
+                    gender.text === 'Others'
+                      ? 'translateX(26%)'
+                      : 'translateX(0)',
                   '&::before': {
                     display: 'none',
                   },
@@ -186,9 +192,6 @@ export default function Gender() {
                     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                   },
 
-                  [`@media (max-width:575px)`]: {
-                    width: 159,
-                  },
                   [`@media (max-width:376px)`]: {
                     height: 42,
                   },
@@ -220,11 +223,12 @@ export default function Gender() {
         <Checkbox
           defaultChecked={true}
           sx={{
-            marginTop: 68,
+            position: 'absolute',
+            bottom: '5%',
+            left: 16,
+            zIndex: 2,
             [`@media (max-width:575px)`]: {
-              position: 'absolute',
               bottom: '10%',
-              left: 16,
             },
           }}
           styles={{

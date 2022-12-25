@@ -10,14 +10,12 @@ import {
   createStyles,
 } from '@mantine/core';
 import { IconCamera } from '@tabler/icons';
-
-import { useMediaQuery } from '@mantine/hooks';
 import { useSelector } from 'react-redux';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 function UpLoad({ link, id, name, setImg, img }) {
   const { classes } = useStyles();
-  const user = useSelector(getUserSelector);
+  const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
     console.log(img);
@@ -27,7 +25,7 @@ function UpLoad({ link, id, name, setImg, img }) {
     <Card className={classes.picCard}>
       {img[name] && (
         <button className={classes.clearBtn}>
-          <Clear />
+          <Clear width={20} height={20} />
         </button>
       )}
       <BackgroundImage
@@ -36,7 +34,7 @@ function UpLoad({ link, id, name, setImg, img }) {
           inset: 0,
           zIndex: 2,
         }}
-        src={user.picture[id] || link}
+        src={profile.picture[id] || link}
       ></BackgroundImage>
       <Box
         sx={{
@@ -61,7 +59,7 @@ function UpLoad({ link, id, name, setImg, img }) {
         id={id}
       />
       <label htmlFor={id} className={classes.label}>
-        {link || user.picture[id] ? (
+        {link || profile.picture[id] ? (
           <Button
             styles={{
               leftIcon: {
@@ -69,11 +67,9 @@ function UpLoad({ link, id, name, setImg, img }) {
               },
             }}
             component="span"
-            leftIcon={<IconCamera width={18} height={18} />}
+            leftIcon={<IconCamera width={24} height={24} />}
             className={classes.changeBtn}
-          >
-            Change Photo
-          </Button>
+          />
         ) : (
           <Button
             styles={{
@@ -147,12 +143,11 @@ const useStyles = createStyles(() => ({
     },
   },
   changeBtn: {
-    width: 139,
-    height: 26,
-    fontSize: 13,
-    fontWeight: 400,
+    width: '40%',
+    height: '26px !important',
     color: 'var(--white)',
     borderRadius: 34,
+    padding: 0,
     border: '1px solid var(--white)',
     backgroundColor: 'rgba(228, 97, 37, 0.4)',
     backdropFilter: 'blur(12.5px)',
@@ -162,16 +157,8 @@ const useStyles = createStyles(() => ({
     '&:hover': {
       backgroundColor: 'rgba(228, 97, 37, 0.4)  !important',
     },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      width: '165px',
-      height: '42px',
-    },
     [`@media (max-width:575px)`]: {
-      fontSize: 10,
-      width: 95,
       height: 24,
-      padding: 0,
-      lineHeight: '18px',
     },
   },
   icon: {
@@ -182,8 +169,8 @@ const useStyles = createStyles(() => ({
   },
   clearBtn: {
     position: 'absolute',
-    right: 16,
-    top: 16,
+    right: 14,
+    top: 14,
     border: 'none',
     width: '15%',
     height: '15%',

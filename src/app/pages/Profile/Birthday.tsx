@@ -10,10 +10,10 @@ import { images } from 'assets/images';
 import { DatePicker } from '@mantine/dates';
 import { ProfileStyle } from './ProfileStyles';
 import { Zodiac } from 'app/components/Zodiac';
-import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
 
 export default function Birth() {
   const { classes } = ProfileStyle();
@@ -21,16 +21,16 @@ export default function Birth() {
   const [disableBtn, setDisableBtn] = useState(true);
   const [error, setError] = useState(false);
   const [age, setAge] = useState(false);
-
+  const phone = useMediaQuery('(max-width:575px)');
+  // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { actions } = UserSlice();
-  const user = useSelector(getUserSelector);
-  const phone = useMediaQuery('(max-width:575px)');
+  const { profileActions } = ProfileSlice();
+  const profile = useSelector(getProfileSelector);
 
   const form = useForm({
     initialValues: {
-      date: user.data_of_birth,
+      date: profile.data_of_birth,
     },
   });
   const handleCreateBirthDay = () => {
@@ -46,15 +46,13 @@ export default function Birth() {
       let month = new Date(form.values.date).getMonth();
       let year = new Date(form.values.date).getFullYear();
       dispatch(
-        actions.createProfile({
-          profile: {
-            nickname: user.nickname,
-            picture: user.picture,
-            data_of_birth: new Date(year, month, day),
-            zodiac: user.zodiac,
-            introduction: user.introduction,
-            relationship: user.relationship,
-          },
+        profileActions.createProfile({
+          nickname: profile.nickname,
+          picture: profile.picture,
+          data_of_birth: new Date(year, month, day),
+          zodiac: profile.zodiac,
+          introduction: profile.introduction,
+          relationship: profile.relationship,
         }),
       );
       dispatch(counterActions.increase());
@@ -82,8 +80,14 @@ export default function Birth() {
       />
       <Box
         sx={{
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            height: '70%',
+          },
+          [`@media (min-width:576px) and (max-width:767px)`]: {
+            height: '70%',
+          },
           [`@media (max-width:575px)`]: {
-            height: 484,
+            height: '70%',
           },
         }}
         className={classes.box}
@@ -117,7 +121,6 @@ export default function Birth() {
             <DatePicker
               styles={{
                 input: {
-                  position: 'relative',
                   fontSize: 24,
                   fontWeight: 500,
                   lineHeight: '30px',
@@ -125,7 +128,6 @@ export default function Birth() {
                   borderRadius: 8,
                   border: error ? '1px solid var(--red)' : 'none',
                   backgroundColor: 'transparent',
-                  zIndex: 3,
                 },
               }}
               // size="sx"

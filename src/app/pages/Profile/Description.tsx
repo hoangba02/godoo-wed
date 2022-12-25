@@ -3,54 +3,44 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Text, Textarea } from '@mantine/core';
 import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
-import { UserSlice } from 'store/slice/userSlice';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 export default function Desc() {
-  const user = useSelector(getUserSelector);
+  const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { actions } = UserSlice();
+  const { profileActions } = ProfileSlice();
+  const profile = useSelector(getProfileSelector);
 
   const { classes } = ProfileStyle();
-  const dispatch = useDispatch();
-  const [intro, setIntro] = useState(user.introduction);
+  const [intro, setIntro] = useState(profile.introduction);
   const [couterText, setCouterText] = useState(0);
 
   const handleCreateIntro = () => {
     dispatch(
-      actions.createProfile({
-        profile: {
-          nickname: user.nickname,
-          picture: user.picture,
-          data_of_birth: user.data_of_birth,
-          zodiac: user.zodiac,
-          introduction: intro,
-          relationship: user.relationship,
-        },
+      profileActions.createProfile({
+        nickname: profile.nickname,
+        picture: profile.picture,
+        data_of_birth: profile.data_of_birth,
+        zodiac: profile.zodiac,
+        introduction: intro,
+        relationship: profile.relationship,
       }),
     );
     dispatch(counterActions.increase());
   };
   useEffect(() => {
-    if (couterText >= 200) {
-      setCouterText(200);
+    if (couterText >= 500) {
+      setCouterText(500);
     }
   }, [couterText]);
   return (
     <Box className={classes.children}>
       <img className={classes.imgDecs} src={images.descPro} alt="hi" />
-      <Box
-        sx={{
-          height: 479,
-          [`@media (max-width:376px)`]: {
-            height: 425,
-          },
-        }}
-        className={classes.box}
-      >
+      <Box className={classes.box}>
         <Text className={classes.titleChild}>Bio description</Text>
         <Text className={classes.text}>
           Anything you wanna say about yourself?
@@ -78,7 +68,7 @@ export default function Desc() {
               setCouterText(couterText + 1);
             } else if (e.key === 'Backspace' || e.key === 'Delete') {
               setCouterText(couterText - 1);
-            } else if (couterText >= 200) {
+            } else if (couterText >= 500) {
               setCouterText(couterText + 0);
             }
           }}
@@ -95,7 +85,7 @@ export default function Desc() {
           }}
         >
           {`${couterText}`}
-          <span>/200 characters</span>
+          <span>/500 characters</span>
         </Text>
         <Button
           onClick={() => handleCreateIntro()}

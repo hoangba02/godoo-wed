@@ -18,22 +18,25 @@ import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 export default function Picture() {
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { actions } = UserSlice();
-  const user = useSelector(getUserSelector);
+  const { profileActions } = ProfileSlice();
+  const profile = useSelector(getProfileSelector);
+
   // Local
   const { classes } = ProfileStyle();
   const [img, setImg] = useState({
-    one: user.picture[0],
-    two: user.picture[1],
-    three: user.picture[2],
-    four: user.picture[3],
-    fire: user.picture[4],
-    six: user.picture[5],
+    one: profile.picture[0],
+    two: profile.picture[1],
+    three: profile.picture[2],
+    four: profile.picture[3],
+    fire: profile.picture[4],
+    six: profile.picture[5],
   });
   const [disableBtn, setDisableBtn] = useState(true);
 
@@ -43,15 +46,13 @@ export default function Picture() {
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
     dispatch(
-      actions.createProfile({
-        profile: {
-          nickname: user.nickname,
-          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
-          data_of_birth: user.data_of_birth,
-          zodiac: user.zodiac,
-          introduction: user.introduction,
-          relationship: user.relationship,
-        },
+      profileActions.createProfile({
+        nickname: profile.nickname,
+        picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
+        data_of_birth: profile.data_of_birth,
+        zodiac: profile.zodiac,
+        introduction: profile.introduction,
+        relationship: profile.relationship,
       }),
     );
   };
@@ -124,7 +125,7 @@ export default function Picture() {
                   inset: 0,
                   zIndex: 2,
                 }}
-                src={user.picture[0] || img.one}
+                src={profile.picture[0] || img.one}
               ></BackgroundImage>
               <Box
                 sx={{
@@ -150,22 +151,17 @@ export default function Picture() {
                 id="0"
               />
               <label htmlFor="0" className={classes.label}>
-                {img.one || user.picture[0] ? (
+                {img.one || profile.picture[0] ? (
                   <Button
                     styles={{
                       leftIcon: {
                         marginRight: 10,
                       },
                       root: {
-                        width: '233px',
-                        height: '38px',
-                        [`@media (min-width:768px) and (max-width:991px)`]: {
-                          width: '165px',
-                          height: '42px',
-                        },
+                        width: '100%',
+                        height: '38px !important',
                         [`@media (max-width:575px)`]: {
-                          width: '145px',
-                          height: '32px',
+                          height: '32px !important',
                           fontSize: 14,
                           fontWeight: 500,
                           lineHeight: '18px',

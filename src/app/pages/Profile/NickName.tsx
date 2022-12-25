@@ -8,8 +8,8 @@ import { images } from 'assets/images';
 import { ProfileStyle } from './ProfileStyles';
 import { ReactComponent as FaceName } from 'assets/icons/faceName.svg';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { UserSlice } from 'store/slice/userSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { ProfileSlice } from 'store/slice/profileSlice';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 
 export default function NickName() {
   const { classes } = ProfileStyle();
@@ -17,12 +17,12 @@ export default function NickName() {
   const [disableBtn, setDisableBtn] = useState(true);
   //Global
   const dispatch = useDispatch();
-  const { actions } = UserSlice();
+  const { profileActions } = ProfileSlice();
   const { counterActions } = CounterSlice();
-  const user = useSelector(getUserSelector);
+  const profile = useSelector(getProfileSelector);
 
   const form = useForm({
-    initialValues: { nickname: '' || user.nickname },
+    initialValues: { nickname: '' || profile.nickname },
   });
   const handleClearSpace = e => {
     if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
@@ -34,15 +34,13 @@ export default function NickName() {
       setError(true);
     } else {
       dispatch(
-        actions.createProfile({
-          profile: {
-            nickname: form.values.nickname,
-            picture: user.picture,
-            data_of_birth: user.data_of_birth,
-            zodiac: user.zodiac,
-            introduction: user.introduction,
-            relationship: user.relationship,
-          },
+        profileActions.createProfile({
+          nickname: form.values.nickname,
+          picture: profile.picture,
+          data_of_birth: profile.data_of_birth,
+          zodiac: profile.zodiac,
+          introduction: profile.introduction,
+          relationship: profile.relationship,
         }),
       );
       dispatch(counterActions.increase());
@@ -91,14 +89,12 @@ export default function NickName() {
             <TextInput
               styles={{
                 input: {
-                  position: 'relative',
                   fontSize: 24,
                   fontWeight: 500,
                   lineHeight: '30px',
                   textAlign: 'right',
                   border: 'none',
                   backgroundColor: 'transparent',
-                  zIndex: 3,
                 },
               }}
               maxLength={15}

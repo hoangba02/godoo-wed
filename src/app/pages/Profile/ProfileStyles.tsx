@@ -64,7 +64,7 @@ export const ProfileStyle = createStyles(() => ({
   step: {
     flex: 1,
     height: 9,
-    maxWidth: 90.29,
+    maxWidth: 106,
     borderRadius: 41,
     backgroundColor: 'var(--white-light)',
     [`@media (max-width:575px)`]: {
@@ -119,7 +119,7 @@ export const ProfileStyle = createStyles(() => ({
   },
 
   box: {
-    height: '63%',
+    height: '60%',
     bottom: 0,
     width: '100%',
     padding: '0 6.5%',
@@ -203,6 +203,7 @@ export const ProfileStyle = createStyles(() => ({
     backgroundColor: 'var(--white-light)',
   },
   photoBtn: {
+    padding: 0,
     color: 'var(--white)',
     borderRadius: 34,
     border: '1px solid var(--white)',
@@ -226,16 +227,28 @@ export const ProfileStyle = createStyles(() => ({
     justifyContent: 'center',
   },
   label: {
-    width: '100%',
-    height: '15%',
+    width: '63%',
     position: 'absolute',
-    bottom: '16%',
+    bottom: '6%',
     zIndex: 3,
     display: 'flex',
     justifyContent: 'center',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      bottom: '6%',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      bottom: '6%',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      bottom: '6%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      bottom: '6%',
+    },
+    [`@media (max-width:575px)`]: {},
   },
   addBtnSmall: {
-    width: '42% !important',
+    width: '67% !important',
     height: '100% !important',
     color: 'var(--white)',
     padding: 0,
@@ -282,35 +295,35 @@ export const ProfileStyle = createStyles(() => ({
     left: '50%',
     top: 20,
     transform: 'translateX(-50%)',
-    [`@media (max-width:575px)`]: {
-      top: '10%',
-      width: 264,
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '70%',
       height: 287,
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {
+      width: '80%',
+      height: 257,
+    },
+    [`@media (max-width:575px)`]: {
+      top: '5%',
+      height: 264,
     },
     [`@media (max-width:376px)`]: {
       top: '0%',
-      width: 214,
       height: 237,
     },
   },
   //Mode Pro
   optionBtn: {
     height: 70,
-    width: 430,
+    width: '70%',
     fontWeight: 600,
     fontSize: 32,
     lineHeight: '40px',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      width: '70%',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      width: '70%',
-    },
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      width: '80%',
+      fontSize: 24,
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {
-      width: '90%',
+      fontSize: 24,
     },
     [`@media (max-width:575px)`]: {
       width: 274,
@@ -319,14 +332,16 @@ export const ProfileStyle = createStyles(() => ({
   },
   imgMode: {
     width: '100%',
-    height: 295,
+    height: 336,
     position: 'absolute',
     left: '50%',
     top: '5%',
     transform: 'translateX(-50%)',
     [`@media (max-width:575px)`]: {
-      top: '7%',
-      width: '140%',
+      top: '5%',
+    },
+    [`@media (max-width:375px)`]: {
+      top: '0%',
     },
   },
   // tips
@@ -355,20 +370,8 @@ export const ProfileStyle = createStyles(() => ({
   },
   imgGender: {
     width: '100%',
+    height: '100%',
     position: 'absolute',
     top: '5%',
-
-    [`@media (min-width:768px) and (max-width:800px)`]: {
-      top: '20%',
-    },
-    [`@media (min-width:800px) and (max-width:991px)`]: {
-      top: '10%',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      top: '25%',
-    },
-    [`@media (max-width:575px)`]: {
-      top: '20%',
-    },
   },
 }));
