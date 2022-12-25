@@ -13,13 +13,13 @@ export function HomePage() {
 
   const user = useSelector(getUserSelector);
   console.log(user);
-  // useEffect(() => {
-  //   if (user.token === '') {
-  //     navigate('/login');
-  //   } else {
-  //     navigate('/');
-  //   }
-  // }, [navigate, user.token]);
+  useEffect(() => {
+    if (user.token === '') {
+      navigate('/login');
+    } else {
+      navigate('/');
+    }
+  }, [navigate, user.token]);
   return (
     <>
       <Helmet>

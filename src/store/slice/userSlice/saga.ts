@@ -13,17 +13,17 @@ export function* Register(action) {
   const res: BaseResponse = yield apiPost('/v1/register', data, {
     'content-type': 'appication/json',
   });
-
-  if (res.data.error === 0) {
+  console.log(res);
+  if (res.error === 0) {
     yield put(
       usersActions.registerSuccess({
-        id: res.data.data.id,
-        token: res.data.data.token,
-        username: res.data.data.username,
-        password: res.data.data.password,
+        id: res.data.id,
+        token: res.data.token,
+        username: res.data.username,
+        password: res.data.password,
         register: {
-          error: res.data.error,
-          message: res.data.message,
+          error: res.error,
+          message: res.message,
         },
       }),
     );
@@ -31,8 +31,8 @@ export function* Register(action) {
     yield put(
       usersActions.registerFail({
         register: {
-          error: res.data.error,
-          message: res.data.message,
+          error: res.error,
+          message: res.message,
         },
       }),
     );
@@ -48,16 +48,17 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
-  if (res.data.error === 0) {
+  console.log(res.data);
+  if (res.error === 0) {
     yield put(
       usersActions.loginSuccess({
-        id: res.data.data.id,
-        token: res.data.data.token,
-        username: res.data.data.username,
-        password: res.data.data.password,
+        id: res.data.id,
+        token: res.data.token,
+        username: res.data.username,
+        password: res.data.password,
         login: {
-          error: res.data.error,
-          message: res.data.message,
+          error: res.error,
+          message: res.message,
           savePassword: action.payload.savePassword,
         },
       }),
@@ -66,13 +67,12 @@ export function* Login(action) {
     yield put(
       usersActions.loginFail({
         login: {
-          error: res.data.error,
-          message: res.data.message,
+          error: res.error,
+          message: res.message,
         },
       }),
     );
   }
-  console.log(res);
 }
 
 export function* userSaga() {

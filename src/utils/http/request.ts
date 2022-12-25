@@ -30,6 +30,7 @@ export const apiPost = async (url: string, payload: any, header: any) => {
     const { data } = await axios.post<BaseResponse>(url, payload, {
       headers: header,
     });
+    console.log(data);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -40,12 +40,9 @@ const slice = createSlice({
       state.token = action.payload.token;
       state.isLogin = true;
       state.loading = false;
-
       state.login = action.payload.login;
-      if (state.login?.savePassword) {
-        state.username = action.payload.username;
-        state.password = action.payload.password;
-      }
+      state.username = action.payload.username;
+      state.password = action.payload.password;
     },
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
