@@ -13,5 +13,5 @@ export const routes = [
   { path: '/forgot', component: ForgotPass },
   { path: '/profile', component: Profile },
   { path: '*', component: NotFoundPage },
-  { path: '/demo', component: Demo },
+  { path: '/demo', component: Demo, layout: true },
 ];

@@ -42,6 +42,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react-hooks": "4.6.0",
     "fontfaceobserver": "2.3.0",
+    "framer-motion": "8.0.2",
     "husky": "8.0.1",
     "i18next": "21.9.2",
     "i18next-browser-languagedetector": "6.1.5",

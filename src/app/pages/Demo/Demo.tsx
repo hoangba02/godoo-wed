@@ -1,195 +1,128 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { BackgroundImage, Box, Button, Card } from '@mantine/core';
+import { IconPlus } from '@tabler/icons';
 
-import { useForm } from '@mantine/form';
-import {
-  NumberInput,
-  TextInput,
-  Button,
-  Checkbox,
-  createStyles,
-  Center,
-  BackgroundImage,
-  ScrollArea,
-  Text,
-} from '@mantine/core';
-import Modals from 'app/components/Modals';
-import { images } from 'assets/images';
-import UpLoad from 'app/components/UpLoad';
-
+import { ReactComponent as Clear } from 'assets/icons/clear.svg';
+import { ReactComponent as Blink } from 'assets/icons/blink.svg';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { DemoStyles } from './DemoStyles';
 export default function Demo() {
-  const [checked, setChecked] = useState(true);
+  const profile = useSelector(getProfileSelector);
+
+  // Local
+  const { t } = useTranslation();
+  const [img, setImg] = useState({
+    one: profile.picture[0],
+    two: profile.picture[1],
+    three: profile.picture[2],
+    four: profile.picture[3],
+    fire: profile.picture[4],
+    six: profile.picture[5],
+  });
+  console.log(img.one);
+  const [zIndex, setZIndex] = useState(2);
+
+  const { classes } = DemoStyles();
+  const [x, setX] = useState(570);
+  const [y, setY] = useState(570);
+  const [rotate, setRotate] = useState(0);
+
+  const handleUploadImage = e => {
+    setZIndex(4);
+
+    setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
+  };
+  useEffect(() => {
+    if (!img.one) {
+      return;
+    } else {
+      setX(370);
+      setY(370);
+    }
+  }, [img.one]);
   return (
-    <ScrollArea style={{ width: 300, height: 200 }}>
-      <Text>
-        Charizard (Pokémon) Charizard description from Bulbapedia Charizard is a
-        draconic, bipedal Pokémon. It is primarily orange with a cream underside
-        from the chest to the tip of its tail. It has a long neck, small blue
-        eyes, slightly raised nostrils, and two horn-like structures protruding
-        from the back of its rectangular head. There are two fangs visible in
-        the upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames. Charizard
-        (Pokémon) Charizard description from Bulbapedia Charizard is a draconic,
-        bipedal Pokémon. It is primarily orange with a cream underside from the
-        chest to the tip of its tail. It has a long neck, small blue eyes,
-        slightly raised nostrils, and two horn-like structures protruding from
-        the back of its rectangular head. There are two fangs visible in the
-        upper jaw when its mouth is closed. Two large wings with blue-green
-        undersides sprout from its back, and a horn-like appendage juts out from
-        the top of the third joint of each wing. A single wing-finger is visible
-        through the center of each wing membrane. Charizard's arms are short and
-        skinny compared to its robust belly, and each limb has three white
-        claws. It has stocky legs with cream-colored soles on each of its
-        plantigrade feet. The tip of its long, tapering tail burns with a
-        sizable flame. As Mega Charizard X, its body and legs are more
-        physically fit, though its arms remain thin. Its skin turns black with a
-        sky-blue underside and soles. Two spikes with blue tips curve upward
-        from the front and back of each shoulder, while the tips of its horns
-        sharpen, turn blue, and curve slightly upward. Its brow and claws are
-        larger, and its eyes are now red. It has two small, fin-like spikes
-        under each horn and two more down its lower neck. The finger disappears
-        from the wing membrane, and the lower edges are divided into large,
-        rounded points. The third joint of each wing-arm is adorned with a
-        claw-like spike. Mega Charizard X breathes blue flames out the sides of
-        its mouth, and the flame on its tail now burns blue. It is said that its
-        new power turns it black and creates more intense flames.
-      </Text>
-    </ScrollArea>
+    <Box className={classes.container}>
+      <Box
+        sx={{
+          width: x,
+          height: y,
+          background: ' var(--white)',
+          aspectRatio: '1 / 1',
+          position: 'relative',
+          zIndex: 99,
+          transition: 'all 1s ease',
+          borderRadius: 30,
+        }}
+        // className={classes.box}
+      >
+        <Card className={classes.picCard}>
+          {img.one && (
+            <button
+              className={classes.clearBtn}
+              onClick={e => {
+                setImg({ ...img, one: URL.revokeObjectURL(img.one) });
+                setZIndex(2);
+              }}
+            >
+              <Clear />
+            </button>
+          )}
+          <BackgroundImage
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: zIndex,
+            }}
+            src={profile.picture[0] || img.one}
+          ></BackgroundImage>
+          <Box
+            sx={{
+              width: '35%',
+              height: '38%',
+              position: 'absolute',
+              top: '20%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 1,
+            }}
+          >
+            <Blink width="100%" height="100%" />
+          </Box>
+          <input
+            name="one"
+            className={classes.upImg}
+            type="file"
+            accept="image/*"
+            onChange={e => {
+              handleUploadImage(e);
+            }}
+            id="0"
+          />
+          <label htmlFor="0" className={classes.label}>
+            <Button
+              styles={{
+                leftIcon: {
+                  margin: 0,
+                },
+                root: {
+                  fontSize: 32,
+                  [`@media (min-width:768px) and (max-width:991px)`]: {
+                    fontSize: 24,
+                  },
+                },
+              }}
+              component="span"
+              leftIcon={<IconPlus width={29} height={29} />}
+              className={classes.addBtnSmall}
+            >
+              {t('Profile.text.Add')}
+            </Button>
+          </label>
+        </Card>
+      </Box>
+    </Box>
   );
 }

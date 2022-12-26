@@ -258,6 +258,7 @@ export default function Gender() {
               fontSize: 16,
               fontWeight: 500,
               lineHeight: '20px',
+              paddingLeft: 2,
             },
           }}
           color="orange.7"

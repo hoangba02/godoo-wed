@@ -1,20 +1,15 @@
 import React from 'react';
 import { Box, Container, Stack, Text } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
-
-import { images } from 'assets/images';
 import { LoginPageStyles } from './LoginPageStyles';
 import Languages from 'app/components/Languages/Language';
 import Logo from 'app/components/Logo/Logo';
-import { useSelector } from 'react-redux';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function LoginPage({ children, islogin }) {
   const { t } = useTranslation();
   const { classes } = LoginPageStyles();
-  const user = useSelector(getUserSelector);
   const navigate = useNavigate();
   const phone = useMediaQuery('(max-width:575px)');
   return (
@@ -27,16 +22,17 @@ export function LoginPage({ children, islogin }) {
           inset: 0,
           overflowY: 'auto',
           paddingTop: '20px',
+          display: 'flex',
           [`@media (max-width:376px)`]: {
             overflowX: 'hidden',
           },
         }}
       >
-        <Logo className={classes.logo} />
+        {phone && <Logo className={classes.logo} />}
         <Box className={classes.wrapper}>
           <Stack spacing={0} className={classes.content}>
-            <Languages />
-            {/* <Logo className={classes.logo} /> */}
+            {!phone && <Logo className={classes.logo} />}
+            {!phone && <Languages />}
             {children}
             {islogin ? (
               <Text className={classes.ques}>

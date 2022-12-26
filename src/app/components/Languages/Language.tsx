@@ -140,27 +140,19 @@ const useStyles = createStyles(() => ({
     alignItems: 'center',
     backgroundColor: 'var(--white)',
     position: 'absolute',
-    top: '0',
-    right: '-225px',
+    top: 0,
+    right: '-20%',
     zIndex: 2,
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      right: '-160px',
-    },
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      top: '-60px',
-      right: '-0',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      top: '-60px',
-      right: '-0',
+      top: -50,
     },
     [`@media (max-width:575px)`]: {
-      top: '-20%',
+      top: 30,
       right: '16px',
       width: 84,
     },
     [`@media (max-width:375px)`]: {
-      top: '-27%',
+      top: 30,
       right: '16px',
       width: 84,
     },

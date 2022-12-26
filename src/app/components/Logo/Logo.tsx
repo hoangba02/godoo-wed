@@ -1,7 +1,9 @@
-import { Avatar, createStyles, Flex } from '@mantine/core';
+import { Avatar, Box, createStyles, Flex } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { images } from 'assets/images';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Languages from '../Languages/Language';
 
 interface Props {
   className?: string;
@@ -9,12 +11,17 @@ interface Props {
 function Logo({ className }: Props) {
   const { classes } = useStyles();
   const navigate = useNavigate();
+  const phone = useMediaQuery('(max-width:575px)');
 
   return (
     <Flex
       sx={{
+        position: 'relative',
         width: '100%',
         justifyContent: 'center',
+        [`@media (max-width:575px)`]: {
+          position: 'static',
+        },
       }}
       className={className}
     >
@@ -26,6 +33,11 @@ function Logo({ className }: Props) {
         color="lime"
         src={images.logo}
       />
+      {phone && (
+        <Box>
+          <Languages />
+        </Box>
+      )}
     </Flex>
   );
 }

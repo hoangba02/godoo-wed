@@ -230,7 +230,7 @@ const useStyles = createStyles(() => ({
   },
   save: {
     color: 'var(--black)',
-    margin: '10px 0 0 10px',
+    margin: '10px 0 0 2px',
     fontSize: '16px',
     fontWeight: 500,
     lineHeight: '20px',

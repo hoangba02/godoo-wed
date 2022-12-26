@@ -15,6 +15,7 @@ import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
 
+const ADJ = ['lovely', 'cute', 'mischievious', 'bonny', 'affable'];
 export default function Birth() {
   // Global
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Birth() {
   const { classes } = ProfileStyle();
   const { t } = useTranslation();
   const [age, setAge] = useState(false);
-  // const [birth, setBirth] = useState(profile.date_of_birth);
+  const [adj, setAdj] = useState(ADJ[0]);
   const [error, setError] = useState(false);
   const [disableBtn, setDisableBtn] = useState(true);
   const phone = useMediaQuery('(max-width:575px)');
@@ -70,6 +71,7 @@ export default function Birth() {
     } else {
       setDisableBtn(true);
     }
+    setAdj(ADJ[Math.floor(Math.random() * 5)]);
   }, [form.values.date]);
   return (
     <Box className={classes.children}>
@@ -176,7 +178,7 @@ export default function Birth() {
             },
           }}
         >
-          {`Oh! You are a lovely ${Zodiac(form.values.date)?.name}`}
+          {`Oh! You are a ${adj} ${Zodiac(form.values.date)?.name}`}
         </Text>
         <Center mt={10}>
           <Image
@@ -196,7 +198,7 @@ export default function Birth() {
               fontSize: 16,
               fontWeight: 500,
               lineHeight: '20px',
-              paddingLeft: 4,
+              paddingLeft: 2,
               [`@media (max-width:575px)`]: {
                 fontSize: 14,
                 lineHeight: '17.5px',

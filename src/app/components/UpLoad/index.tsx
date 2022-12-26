@@ -11,8 +11,10 @@ import {
 } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { useTranslation } from 'react-i18next';
 
 function UpLoad({ link, id, name, setImg, img }) {
+  const { t } = useTranslation();
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(2);
   const profile = useSelector(getProfileSelector);
@@ -76,7 +78,7 @@ function UpLoad({ link, id, name, setImg, img }) {
           leftIcon={<IconPlus width={18} height={18} />}
           className={classes.addBtn}
         >
-          Add
+          {t('Profile.text.Add')}
         </Button>
       </label>
     </Card>
