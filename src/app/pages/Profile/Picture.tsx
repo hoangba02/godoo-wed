@@ -193,7 +193,7 @@ export default function Picture() {
             </Box>
             <Stack
               sx={{
-                gap: '8%',
+                gap: '7%',
                 width: '30%',
                 alignItems: 'flex-end',
                 justifyContent: 'space-between',
@@ -227,6 +227,7 @@ export default function Picture() {
               [`@media (max-width:575px)`]: {
                 gap: 0,
                 height: 106,
+                marginTop: 17,
                 marginBottom: 20,
               },
             }}

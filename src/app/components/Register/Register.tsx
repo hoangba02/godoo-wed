@@ -220,7 +220,7 @@ function Register() {
             <span style={{ cursor: 'default' }}>
               {t('LoginPage.button.Sign up')}
             </span>{' '}
-            {t('LoginPage.text.you have agree with')}{' '}
+            {t('LoginPage.text.you agree with')}{' '}
             <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
             {t('LoginPage.text.and')}{' '}
             <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
@@ -327,7 +327,7 @@ const useStyles = createStyles(() => ({
       cursor: 'pointer',
     },
     [`@media (max-width:575px)`]: {
-      margin: '10px 0 0 10px',
+      margin: '10px 0 0 0',
       fontSize: '12px',
     },
   },

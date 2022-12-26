@@ -160,7 +160,7 @@ const useStyles = createStyles(() => ({
       width: 84,
     },
     [`@media (max-width:375px)`]: {
-      top: '-19%',
+      top: '-27%',
       right: '16px',
       width: 84,
     },
