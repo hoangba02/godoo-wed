@@ -74,6 +74,57 @@
   "Profile": {
     "error": {
       "You have to be 15 years old or over to experience our App": "You have to be 15 years old or over to experience our App"
+    },
+    "title": {
+      "Photo": "Photo",
+      "Nickname": "Nickname",
+      "Your birthday": "Your birthday",
+      "Genders": "Genders",
+      "Bio description": "Bio description"
+    },
+    "text": {
+      "Add": "Add",
+      "As a GoDooer, you are free to give yourself an interesting name.": "As a GoDooer, you are free to give yourself an interesting name.",
+      "Some photos so we can get to know you": "Some photos so we can get to know you more",
+      "Upload at least one photo. Hold & drag photos to change the order": "Upload at least one photo. Hold & drag photos to change the order",
+      "Based on the birthday given, we will find you more suitable friends": "Based on the birthday given, we will find you more suitable friends",
+      "Show this zodiac on my profile": "Show this zodiac on my profile",
+      "You can pick maximum 2 genders": "You can pick maximum 2 genders",
+      "Show on my profile": "Show on my profile",
+      "characters": "characters",
+      "What're you looking for in GoDoo?": "What're you looking for in GoDoo? ",
+      "Friends": "Friends",
+      "Looking for my destiny": "Looking for my destiny",
+      "Successfully updated your profile. Let the fun begin!": "Successfully updated your profile. Let the fun begin!"
+    },
+    "zodiac": {
+      "Capricon": "Capricon",
+      "Aquarius": "Aquarius",
+      "Pisces": "Pisces",
+      "Aries": "Aries",
+      "Taurus": "Taurus",
+      "Gemini": "Gemini",
+      "Cancer": "Cancer",
+      "Leo": "Leo",
+      "Virgo": "Virgo",
+      "Libra": "Libra",
+      "Scorpio": "Scorpio",
+      "Sagittarius": "Sagittarius",
+      "cute": "cute",
+      "lovely": "lovely",
+      "mischievious": "mischievious",
+      "bonny": "bonny",
+      "affable": "affable"
+    },
+    "gender": {
+      "Men": "Men",
+      "Women": "Women",
+      "Bisexual": "Bisexual",
+      "Gay": "Gay",
+      "Lesbian": "Lesbian",
+      "Transgender": "Transgender",
+      "Asexual": "Asexual",
+      "Nonbinary": "Nonbinary"
     }
   }
 }

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { useTranslation } from 'react-i18next';
 
 export default function Desc() {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Desc() {
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
 
+  const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [intro, setIntro] = useState(profile.introduction);
   const [couterText, setCouterText] = useState(0);
@@ -42,9 +44,11 @@ export default function Desc() {
     <Box className={classes.children}>
       <img className={classes.imgDecs} src={images.descPro} alt="hi" />
       <Box className={classes.box}>
-        <Text className={classes.titleChild}>Bio description</Text>
+        <Text className={classes.titleChild}>
+          {t('Profile.title.Bio description')}
+        </Text>
         <Text className={classes.text}>
-          Anything you wanna say about yourself?
+          {t('Profile.text.Anything you wanna say about yourself?')}
         </Text>
         <Textarea
           styles={{
@@ -86,7 +90,7 @@ export default function Desc() {
           }}
         >
           {`${couterText}`}
-          <span>/500 characters</span>
+          <span>/500 {t('Profile.text.characters')}</span>
         </Text>
         <Button
           onClick={() => handleCreateIntro()}

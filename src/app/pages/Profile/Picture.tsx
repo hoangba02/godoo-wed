@@ -18,6 +18,8 @@ import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 export default function Picture() {
   // Global
@@ -27,6 +29,7 @@ export default function Picture() {
   const profile = useSelector(getProfileSelector);
 
   // Local
+  const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [img, setImg] = useState({
     one: profile.picture[0],
@@ -78,9 +81,9 @@ export default function Picture() {
         }}
         className={classes.box}
       >
-        <Text className={classes.titleChild}>Photos</Text>
+        <Text className={classes.titleChild}>{t('Profile.title.Photo')}</Text>
         <Text mb={24} className={classes.text}>
-          Some photos so we can get to know you.
+          {t('Profile.text.Some photos so we can get to know you')}
         </Text>
         <Box
           sx={{
@@ -186,7 +189,7 @@ export default function Picture() {
                     leftIcon={<IconPlus width={29} height={29} />}
                     className={classes.addBtnSmall}
                   >
-                    Add
+                    {t('Profile.text.Add')}
                   </Button>
                 </label>
               </Card>
@@ -271,7 +274,9 @@ export default function Picture() {
             },
           }}
         >
-          Upload at least one photo. Hold & drag photos to change the order
+          {t(
+            'Profile.text.Upload at least one photo. Hold & drag photos to change the order',
+          )}
         </Text>
         <Button
           disabled={disableBtn}

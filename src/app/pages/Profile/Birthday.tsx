@@ -100,7 +100,9 @@ export default function Birth() {
       >
         <Text className={classes.titleChild}>Your birthday</Text>
         <Text className={classes.text}>
-          Based on the birthday given, we will find you more suitable friends
+          {t(
+            'Profile.text.Based on the birthday given, we will find you more suitable friends',
+          )}
         </Text>
         <form onSubmit={form.onSubmit(handleCreateBirthDay)}>
           <Box
@@ -203,7 +205,7 @@ export default function Birth() {
           }}
           defaultChecked={true}
           color="orange.7"
-          label="Show this zodiac on my profile"
+          label={t('Profile.text.Show this zodiac on my profile')}
         />
       </Box>
     </Box>

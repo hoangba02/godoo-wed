@@ -10,8 +10,10 @@ import { ReactComponent as FaceName } from 'assets/icons/faceName.svg';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
+import { useTranslation } from 'react-i18next';
 
 export default function NickName() {
+  const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [error, setError] = useState(false);
   const [disableBtn, setDisableBtn] = useState(true);
@@ -77,9 +79,13 @@ export default function NickName() {
         />
       </Box>
       <Box className={classes.box}>
-        <Text className={classes.titleChild}>Nickname</Text>
+        <Text className={classes.titleChild}>
+          {t('Profile.title.Nickname')}
+        </Text>
         <Text mb={24} className={classes.text}>
-          As a GoDooer, you are free to give yourself an interesting name.
+          {t(
+            'Profile.text.As a GoDooer, you are free to give yourself an interesting name.',
+          )}
         </Text>
         <form onSubmit={form.onSubmit(handleNickName)}>
           <Box
@@ -102,7 +108,7 @@ export default function NickName() {
                 },
               }}
               maxLength={15}
-              placeholder="Nickname"
+              placeholder={t('Profile.title.Nickname')}
               onKeyDown={e => {
                 handleClearSpace(e);
               }}

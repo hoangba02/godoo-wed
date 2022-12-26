@@ -111,6 +111,7 @@ export const LoginPageStyles = createStyles(() => ({
 
     [`@media (max-width:575px)`]: {
       marginTop: '38px',
+      fontSize: 16,
     },
   },
   big: {

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
+import { useTranslation } from 'react-i18next';
 
 export default function Mode() {
   // Global
@@ -21,6 +22,8 @@ export default function Mode() {
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
+
+  const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
@@ -76,7 +79,7 @@ export default function Mode() {
       <img className={classes.imgMode} src={images.modePro} alt="mode" />
       <Box className={classes.box}>
         <Text className={classes.titleChild}>
-          What’re you looking for in GoDoo?
+          {t('Profile.text.What’re you looking for in GoDoo?')}
         </Text>
         <Stack align="center" mt={14}>
           <Button
@@ -91,7 +94,7 @@ export default function Mode() {
                 color: mode === 0 ? 'var(--white)' : 'transparent',
               }}
             >
-              Friends
+              {t('Profile.title.Friends')}
             </Text>
           </Button>
           <Button
@@ -99,7 +102,7 @@ export default function Mode() {
             className={classes.optionBtn}
             onClick={() => setMode(1)}
           >
-            Looking for my destiny
+            {t('Profile.text.Looking for my destiny')}
           </Button>
         </Stack>
         <Button

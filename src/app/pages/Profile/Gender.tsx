@@ -8,6 +8,8 @@ import { ProfileStyle } from './ProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const GENDER = [
   {
@@ -73,6 +75,7 @@ export default function Gender() {
 
   const [disableBtn, setDisabel] = useState(true);
   // Local
+  const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [sex, setSex] = useState<string[]>(profile.gender);
   const dispatch = useDispatch();
@@ -140,14 +143,14 @@ export default function Gender() {
         }}
         className={classes.box}
       >
-        <Text className={classes.titleChild}>Genders</Text>
+        <Text className={classes.titleChild}>{t('Profile.title.Genders')}</Text>
         <Text
           sx={{
             fontSize: 18,
             textAlign: 'center',
           }}
         >
-          Pick maximum 2 genders
+          {t('Profile.text.Pick maximum 2 genders')}
         </Text>
         <SimpleGrid
           cols={2}
@@ -233,7 +236,7 @@ export default function Gender() {
                       gender.text === 'Others' ? 'transparent' : gender.color,
                   }}
                 >
-                  {gender.text}
+                  {t(`Profile.gender.${gender.text}`)}
                 </Text>
               </Button>
             );
@@ -258,7 +261,7 @@ export default function Gender() {
             },
           }}
           color="orange.7"
-          label="Show on my profile"
+          label={t('Profile.text.Show on my profile')}
         />
         <Button
           disabled={disableBtn}

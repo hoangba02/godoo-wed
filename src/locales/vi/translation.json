@@ -73,7 +73,58 @@
   },
   "Profile": {
     "error": {
-      "You have to be 15 years old or over to experience our App": "Bạn cần tử 15t trở lên để có thể trải nghiệm ứng dụng của chúng tôi"
+      "You have to be 15 years old or over to experience our App": "Bạn cần từ 15t trở lên để trải nghiệm ứng dụng GoDoo"
+    },
+    "title": {
+      "Photo": "Ảnh",
+      "Nickname": "Nickname",
+      "Your birthday": "Ngày sinh nhật của bạn",
+      "Genders": "Giới tính",
+      "Bio description": "Mô tả"
+    },
+    "text": {
+      "Add": "Thêm",
+      "As a GoDooer, you are free to give yourself an interesting name.": "Là một GoDooer, bạn có thể thỏa thích đặt tên cho mình.",
+      "Some photos so we can get to know you": "Một vài bức ảnh để chúng toi có thể hiểu bạn rõ hơn",
+      "Upload at least one photo. Hold & drag photos to change the order": "Tải lên ít nhất 1 ảnh. Giữ và di chuyển để thay đổi thứ tự ảnh",
+      "Based on the birthday given, we will find you more suitable friends": "Thêm thông tin về ngày sinh sẽ giúp bạn tìm được nhiều người phù hợp vs mình hơn",
+      "Show this zodiac on my profile": "hiển thị cung hoàng đạo này nha",
+      "You can pick maximum 2 genders": "Có thể chọn tối đa 2 giới tính nha",
+      "Show on my profile": "Hiển thị trên hồ sơ của tôi",
+      "characters": "ký tự",
+      "What're you looking for in GoDoo?": "Bạn đang tìm kiếm điều gì ở đây?",
+      "Friends": "Vài người bạn",
+      "Looking for my destiny": "Tìm kiếm định mệnh đời tôi",
+      "Successfully updated your profile. Let the fun begin!": "Cập nhật hồ sơ thành công. Chúc bạn có những trải nghiệm thật thú vị!"
+    },
+    "zodiac": {
+      "Capricon": "Ma kết",
+      "Aquarius": "Bảo Bình",
+      "Pisces": "Song ngư ",
+      "Aries": "Bạch Dương",
+      "Taurus": "Kim ngưu",
+      "Gemini": "Song tử",
+      "Cancer": "Cự giải",
+      "Leo": "Sư tử",
+      "Virgo": "Xử nữ",
+      "Libra": "Thiên bình",
+      "Scorpio": "Thiên yết",
+      "Sagittarius": "Nhân mã",
+      "cute": "đáng yêu",
+      "lovely": "duyên dáng",
+      "mischievious": "tinh nghịch",
+      "bonny": "dễ thương",
+      "affable": "thông minh"
+    },
+    "gender": {
+      "Men": "Nam",
+      "Women": "Nữ",
+      "Bisexual": "Song tính",
+      "Gay": "Đồng tính nam",
+      "Lesbian": "Đồng tính nữ",
+      "Transgender": "Chuyển giới",
+      "Asexual": "Vô tính",
+      "Nonbinary": "Phi nhị giới"
     }
   }
 }
