@@ -35,7 +35,6 @@ export default function InputName({ setNext }) {
         username: form.values.name,
       })
       .then(res => {
-        console.log(res);
         if (res.data.error === 2) {
           form.setErrors({ name: t('LoginPage.username.Username incorrect') });
         } else if (res.data.error === 12) {

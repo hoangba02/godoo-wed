@@ -20,6 +20,19 @@ export function LoginPage({ children, islogin }) {
   return (
     <Container fluid={true} className={classes.container}>
       <Box
+        style={{
+          height: '100vh',
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: `url(${
+            phone ? images.bgLoginTopMobile : images.bgLoginTop
+          })`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          zIndex: 2,
+        }}
+      ></Box>
+      <Box
         sx={{
           width: '100vw',
           height: '100vh',
@@ -32,11 +45,10 @@ export function LoginPage({ children, islogin }) {
           },
         }}
       >
-        <Logo className={classes.logo} />
         <Box className={classes.wrapper}>
           <Stack spacing={0} className={classes.content}>
-            {/* <Languages /> */}
-            {/* <Logo className={classes.logo} /> */}
+            <Languages />
+            <Logo className={classes.logo} />
             {children}
             {islogin ? (
               <Text className={classes.ques}>

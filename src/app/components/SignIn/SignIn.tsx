@@ -39,7 +39,6 @@ function SignIn() {
   });
 
   const handleSubmitSignIn = () => {
-    console.log(form.values);
     if (!form.values.username || !form.values.password) {
       setError(true);
     } else {
@@ -60,7 +59,6 @@ function SignIn() {
   };
 
   const handleConvertEng = e => {
-    console.log(e.target.value);
     form.setValues({
       ...form.values,
       [e.target.name]:

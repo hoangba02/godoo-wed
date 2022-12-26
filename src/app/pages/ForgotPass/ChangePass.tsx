@@ -43,7 +43,6 @@ export default function ChangePass() {
     },
   });
   const handleSaveNewPass = values => {
-    console.log(values);
     axios
       .post(
         'https://ttvnapi.com/v1/createnewpassword',
@@ -58,7 +57,6 @@ export default function ChangePass() {
         },
       )
       .then(res => {
-        console.log(res.data);
         if (res.data.error === 0) {
           setOpenModal(true);
           start();

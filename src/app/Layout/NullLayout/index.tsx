@@ -22,6 +22,7 @@ function NullLayout({ children }: Props) {
     <Box
       style={{
         width: '100%',
+        height: '100%',
         paddingTop: `${(height / width) * 100}%`,
         backgroundImage: `url(${
           phone ? images.bgLoginMobile : images.bgLogin

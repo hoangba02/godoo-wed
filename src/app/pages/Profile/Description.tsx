@@ -65,7 +65,6 @@ export default function Desc() {
           maxLength={200}
           onChange={event => setIntro(event.currentTarget.value)}
           onKeyDown={e => {
-            console.log(e.key);
             if (e.key.length === 1) {
               setCouterText(couterText + 1);
             } else if (e.key === 'Backspace' || e.key === 'Delete') {

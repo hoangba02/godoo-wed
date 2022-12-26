@@ -18,7 +18,6 @@ function UpLoad({ link, id, name, setImg, img }) {
   const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
-    console.log(img);
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
     setZIndex(4);
   };

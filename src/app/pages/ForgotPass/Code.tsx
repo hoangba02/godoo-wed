@@ -69,7 +69,6 @@ export default function Code({ setNext, status }: CodeProps) {
     if (!(OTP.length === 6)) {
       return;
     } else {
-      console.log('success');
       axios
         .post(
           'https://ttvnapi.com/v1/otp/verifyotp',
@@ -83,7 +82,6 @@ export default function Code({ setNext, status }: CodeProps) {
           },
         )
         .then(res => {
-          console.log(res.data);
           if (res.data.error === 0) {
             setNext('change');
             dispatch(

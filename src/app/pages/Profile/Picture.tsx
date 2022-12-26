@@ -64,7 +64,6 @@ export default function Picture() {
       setDisableBtn(true);
     }
     return () => {
-      console.log('clear');
       URL.revokeObjectURL(img.one);
     };
   }, [img]);

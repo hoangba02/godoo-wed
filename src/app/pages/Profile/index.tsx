@@ -120,7 +120,6 @@ export function Profile() {
                             value: index,
                           }),
                         );
-                        // console.log(index);
                       }}
                     ></Box>
                   );

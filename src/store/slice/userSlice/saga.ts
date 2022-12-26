@@ -13,7 +13,7 @@ export function* Register(action) {
   const res: BaseResponse = yield apiPost('/v1/register', data, {
     'content-type': 'appication/json',
   });
-  console.log(res);
+
   if (res.error === 0) {
     yield put(
       usersActions.registerSuccess({
@@ -37,7 +37,6 @@ export function* Register(action) {
       }),
     );
   }
-  console.log(res);
 }
 export function* Login(action) {
   const data = {
@@ -48,7 +47,6 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
-  console.log(res.data);
   if (res.error === 0) {
     yield put(
       usersActions.loginSuccess({

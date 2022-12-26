@@ -92,7 +92,6 @@ export default function Gender() {
     );
   };
   useEffect(() => {
-    console.log(sex);
     if (sex.length > 2 || sex.length < 1) {
       setDisabel(true);
     } else {

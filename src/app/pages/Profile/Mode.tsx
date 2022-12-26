@@ -21,8 +21,6 @@ export default function Mode() {
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
-  console.log(user);
-  console.log(profile);
   const { classes } = ProfileStyle();
   const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);

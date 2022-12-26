@@ -2,6 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export const LoginPageStyles = createStyles(() => ({
   container: {
+    // position: 'relative',
     padding: 0,
     [`@media (max-width:575px)`]: {
       alignItems: 'flex-end',
@@ -12,7 +13,7 @@ export const LoginPageStyles = createStyles(() => ({
     paddingBottom: '20px',
     maxWidth: 720,
     width: '50%',
-    // height: '915px',
+    height: '76vh',
     borderRadius: 30,
     margin: 'auto',
     backgroundColor: 'var(--white)',
@@ -32,57 +33,57 @@ export const LoginPageStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
-      height: '80vh',
+      // height: 'max-content',
       borderRadius: '20px 20px 0 0',
-      padding: 0,
+      padding: '25px 16px 0',
       position: 'absolute',
       bottom: 0,
     },
     [`@media (max-width:376px)`]: {
       padding: 0,
-      height: '70vh',
     },
   },
   content: {
     position: 'relative',
     maxWidth: 720,
     width: '100%',
-    // height: '915px',
+    height: '915px',
     borderRadius: 30,
     margin: 'auto',
-    padding: '188px 75px 0',
+    padding: '20px 75px ',
     zIndex: 3,
+
     [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      padding: '188px 75px 0 ',
+      padding: '20px 75px 0 ',
     },
     [`@media (min-width:992px) and (max-width:1199px)`]: {
-      padding: '188px 75px 0 ',
+      padding: '20px 75px ',
     },
     [`@media (min-width:768px) and (max-width:991px)`]: {
-      padding: '188px 45px 0',
+      padding: '20px 45px ',
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {
       padding: '20px 25px ',
     },
     [`@media (max-width:575px)`]: {
-      padding: '25px 16px 0',
-      // height: 615,
-      borderRadius: '30px 30px 0 0',
-      backgroundColor: 'var(--white)',
+      padding: '0px ',
+      height: 615,
     },
     [`@media (max-width:376px)`]: {
       padding: '20px ',
       borderRadius: '30px 30px 0 0',
-      // height: 634,
+      height: 634,
       backgroundColor: 'var(--white)',
     },
   },
 
   logo: {
-    position: 'absolute',
-    top: 50,
     [`@media (max-width:575px)`]: {
-      position: 'static',
+      position: 'absolute',
+      top: '-25%',
+    },
+    [`@media (max-width:376px)`]: {
+      top: '-18%',
     },
   },
   registerBtn: {
