@@ -35,7 +35,7 @@ export function LoginPage({ children, islogin }) {
         <Logo className={classes.logo} />
         <Box className={classes.wrapper}>
           <Stack spacing={0} className={classes.content}>
-            {/* <Languages /> */}
+            <Languages />
             {/* <Logo className={classes.logo} /> */}
             {children}
             {islogin ? (
