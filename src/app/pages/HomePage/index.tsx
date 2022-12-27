@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import Liked from './Liked/Liked';
-import Matcher from './Matcher/Matcher';
+import Matcher from './Match/Match';
 import Swipe from './Swipe/Swipe';
 
 export function HomePage() {
@@ -81,8 +81,8 @@ export function HomePage() {
 const HomePageStyles = createStyles(() => ({
   container: {
     height: '100%',
-    margin: '0 133px',
-    paddingTop: 32,
+    margin: '0 135px',
+    padding: '32px 0 0',
   },
   wrapper: {
     width: '100%',

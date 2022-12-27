@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export const SwipeStyles = createStyles(() => ({
   container: {
-    width: '32.6%',
+    width: '40%',
     minWidth: 470,
     height: '68%',
     padding: '0 15px',

@@ -1,9 +1,10 @@
 import { createStyles } from '@mantine/core';
 
-export const MatcherStyles = createStyles(() => ({
+export const MatchStyles = createStyles(() => ({
   container: {
-    width: '26%',
+    width: '31%',
     margin: 0,
+    padding: '0 15px',
   },
   user: {
     width: '100%',

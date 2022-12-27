@@ -6,7 +6,6 @@ import { ReactComponent as Undo } from 'assets/icons/undo.svg';
 import { ReactComponent as Filter } from 'assets/icons/filter.svg';
 import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { SwipeStyles } from './SwipeStyles';
-import { useInterval } from '@mantine/hooks';
 import Card from './Card';
 import Control from './Control';
 
@@ -78,6 +77,9 @@ function Swipe() {
             root: { height: '100%' },
             container: {
               height: '100%',
+            },
+            viewport: {
+              borderRadius: 20,
             },
           }}
           loop

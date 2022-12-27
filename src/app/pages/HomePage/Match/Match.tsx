@@ -1,10 +1,11 @@
 import React from 'react';
 import { Avatar, Container, Flex, Stack, Text } from '@mantine/core';
-import { MatcherStyles } from './MatcherStyles';
+import { MatchStyles } from './MatchStyles';
 import Search from './Search';
+import NewMatch from './NewMatch';
 
-function Matcher() {
-  const { classes } = MatcherStyles();
+function Match() {
+  const { classes } = MatchStyles();
   return (
     <Container fluid className={classes.container}>
       <Flex>
@@ -27,8 +28,9 @@ function Matcher() {
         </Stack>
       </Flex>
       <Search />
+      <NewMatch />
     </Container>
   );
 }
 
-export default Matcher;
+export default Match;

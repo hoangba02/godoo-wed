@@ -1,13 +1,13 @@
 import React from 'react';
-import { createStyles, Paper, Text, Title, Flex, Box } from '@mantine/core';
+import { createStyles, Paper } from '@mantine/core';
 
-export default function Card({ image, title, nickname }) {
+export default function Card({ image }) {
   const { classes } = useStyles();
 
   return (
     <Paper
       shadow="md"
-      radius={20}
+      radius={0}
       sx={{ backgroundImage: `url(${image})` }}
       className={classes.card}
     />
