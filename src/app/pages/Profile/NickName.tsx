@@ -11,6 +11,7 @@ import { CounterSlice } from 'store/slice/counterSlice';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function NickName() {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ export default function NickName() {
   const { profileActions } = ProfileSlice();
   const { counterActions } = CounterSlice();
   const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
 
   const form = useForm({
     initialValues: { nickname: '' || profile.nickname },
@@ -36,7 +38,9 @@ export default function NickName() {
       setError(true);
     } else {
       dispatch(
-        profileActions.createProfile({
+        profileActions.requestProfile({
+          id: user.id,
+          token: user.token,
           nickname: form.values.nickname,
           picture: profile.picture,
           date_of_birth: profile.date_of_birth,

@@ -14,6 +14,7 @@ import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const ADJ = ['lovely', 'cute', 'mischievious', 'bonny', 'affable'];
 export default function Birth() {
@@ -22,6 +23,7 @@ export default function Birth() {
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
   // Local
   const { classes } = ProfileStyle();
   const { t } = useTranslation();
@@ -52,7 +54,9 @@ export default function Birth() {
       let month = new Date(form.values.date).getMonth();
       let year = new Date(form.values.date).getFullYear();
       dispatch(
-        profileActions.createProfile({
+        profileActions.requestProfile({
+          id: user.id,
+          token: user.token,
           nickname: profile.nickname,
           picture: profile.picture,
           date_of_birth: new Date(year, month, day).toString(),

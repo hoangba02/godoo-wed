@@ -30,7 +30,9 @@ export default function Mode() {
 
   const handleSelectMode = () => {
     dispatch(
-      profileActions.createProfile({
+      profileActions.requestProfile({
+        id: user.id,
+        token: user.token,
         nickname: profile.nickname,
         picture: profile.picture,
         date_of_birth: profile.date_of_birth,
@@ -40,34 +42,6 @@ export default function Mode() {
         introduction: profile.introduction,
       }),
     );
-    axios
-      .post(
-        'https://ttvnapi.com/v1/godoo/profile/compulsoryinfo',
-        {
-          nickname: profile.nickname,
-          picture: profile.picture,
-          date_of_birth: profile.date_of_birth,
-          zodiac: profile.zodiac,
-          gender: profile.gender,
-          relationship: mode,
-          introduction: profile.introduction,
-        },
-        {
-          headers: {
-            userid: user.id,
-            token: user.token,
-          },
-        },
-      )
-      .then(res => {
-        if (res.data.error === 0) {
-          navigate('/');
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    // navigate('/');
   };
   useEffect(() => {
     if (mode !== -1) {

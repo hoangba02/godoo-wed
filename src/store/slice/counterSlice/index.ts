@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer } from 'utils/redux-injectors';
-import { CounterState } from './type';
+import { CounterState } from '../type';
 
 export const initialState: CounterState = {
   value: 0,

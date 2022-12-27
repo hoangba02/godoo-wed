@@ -1,8 +1,6 @@
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
-import { CounterState } from 'store/slice/counterSlice/type';
-import { ProfileState } from 'store/slice/profileSlice/type';
-import { UserState } from 'store/slice/userSlice/type';
+import { CounterState, ProfileState, UserState } from 'store/slice/type';
 
 /* 
   Because the redux-injectors injects your reducers asynchronously somewhere in your code

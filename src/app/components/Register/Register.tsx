@@ -112,7 +112,7 @@ function Register() {
       return;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.register.error]);
+  }, [user.register]);
   return (
     <LoginPage islogin={false}>
       <form

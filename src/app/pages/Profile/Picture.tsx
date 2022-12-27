@@ -18,8 +18,8 @@ import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function Picture() {
   // Global
@@ -27,6 +27,7 @@ export default function Picture() {
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
 
   // Local
   const { t } = useTranslation();
@@ -49,7 +50,9 @@ export default function Picture() {
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
     dispatch(
-      profileActions.createProfile({
+      profileActions.requestProfile({
+        id: user.id,
+        token: user.token,
         nickname: profile.nickname,
         picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
         date_of_birth: profile.date_of_birth,

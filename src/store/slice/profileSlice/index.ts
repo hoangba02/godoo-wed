@@ -1,7 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer } from 'utils/redux-injectors';
-import { ProfileState } from './type';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { ProfileState } from '../type';
+import { profileSaga } from './saga';
 
 export const initialState: ProfileState = {
   nickname: '',
@@ -17,8 +18,10 @@ const slice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
+    requestProfile(state: ProfileState, action: PayloadAction<ProfileState>) {
+      state.loading = true;
+    },
     // Create Information Profile User
-
     createProfile(state: ProfileState, action: PayloadAction<ProfileState>) {
       state.nickname = action.payload.nickname;
       state.picture = action.payload.picture;
@@ -35,5 +38,6 @@ export const { actions: profileActions, reducer } = slice;
 
 export const ProfileSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
+  useInjectSaga({ key: slice.name, saga: profileSaga });
   return { profileActions: slice.actions };
 };

@@ -21,3 +21,17 @@ export interface UserState {
     savePassword?: boolean;
   };
 }
+
+export interface ProfileState extends UserState {
+  nickname?: string;
+  picture?: string[];
+  date_of_birth?: string;
+  zodiac?: string;
+  gender?: string[];
+  introduction?: string;
+  relationship?: number;
+}
+
+export interface CounterState {
+  value: number;
+}

@@ -9,12 +9,14 @@ import { IconChevronRight } from '@tabler/icons';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 export default function Desc() {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
 
   const { t } = useTranslation();
   const { classes } = ProfileStyle();
@@ -23,7 +25,7 @@ export default function Desc() {
 
   const handleCreateIntro = () => {
     dispatch(
-      profileActions.createProfile({
+      profileActions.requestProfile({
         nickname: profile.nickname,
         picture: profile.picture,
         date_of_birth: profile.date_of_birth,

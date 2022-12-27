@@ -1,11 +1,4 @@
-import {
-  BackgroundImage,
-  Box,
-  Center,
-  Container,
-  createStyles,
-  Image,
-} from '@mantine/core';
+import { Box, createStyles } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { images } from 'assets/images';
 import React, { ReactNode } from 'react';

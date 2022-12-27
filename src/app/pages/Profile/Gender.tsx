@@ -10,6 +10,7 @@ import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { ProfileSlice } from 'store/slice/profileSlice';
 import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const GENDER = [
   {
@@ -72,6 +73,7 @@ export default function Gender() {
   const { counterActions } = CounterSlice();
   const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
 
   const [disableBtn, setDisabel] = useState(true);
   // Local
@@ -83,7 +85,9 @@ export default function Gender() {
   const handleCreateGender = () => {
     dispatch(counterActions.increase());
     dispatch(
-      profileActions.createProfile({
+      profileActions.requestProfile({
+        id: user.id,
+        token: user.token,
         nickname: profile.nickname,
         picture: profile.picture,
         date_of_birth: profile.date_of_birth,
