@@ -24,9 +24,18 @@ export default Layout;
 const useStyles = createStyles(() => ({
   container: {
     height: '100vh',
-    margin: '0 135px',
-    padding: '32px 0',
+    padding: '32px 135px',
     display: 'flex',
     justifyContent: 'space-between',
+    overflowX: 'hidden',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      padding: '32px 0',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '32px 0',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {},
   },
 }));

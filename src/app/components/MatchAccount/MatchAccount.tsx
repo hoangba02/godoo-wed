@@ -7,6 +7,7 @@ function MatchAccount() {
     <Flex
       sx={{
         gap: 0,
+        minWidth: 250,
         justifyContent: 'space-between',
         marginBottom: 15,
       }}

@@ -83,8 +83,20 @@ export function HomePage() {
         >
           <Swipe />
         </Flex>
-        <Liked />
+        <motion.div
+          initial={{ translateX: '10vh', width: 0 }}
+          animate={{
+            translateX: drawer ? '0' : '100vh',
+            width: drawer ? 308 : 0,
+          }}
+          transition={{ delay: 0, duration: 1 }}
+        >
+          <Liked />
+        </motion.div>
       </Flex>
+      <button className={classes.drawer} onClick={handleDrawerLike}>
+        Click
+      </button>
     </>
   );
 }
@@ -106,5 +118,7 @@ const HomePageStyles = createStyles(() => ({
     right: 0,
     top: 32,
   },
-  btn: {},
+  // btn: {
+  //   height: 38,
+  // },
 }));

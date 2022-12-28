@@ -3,10 +3,23 @@ import { createStyles } from '@mantine/core';
 export const NavBarStyles = createStyles(() => ({
   container: {
     maxWidth: 370,
-    // minWidth: 370,
+    width: '31%',
+    // minWidth: '31%',
     margin: 0,
     padding: '0 15px',
     aspectRatio: '2 / 3',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {},
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '0 15px',
+      maxWidth: 100,
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {},
+  },
+  wrapper: {
+    width: '100%',
+    height: '100%',
   },
   user: {
     position: 'relative',

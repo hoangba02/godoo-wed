@@ -7,7 +7,7 @@ import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { SwipeStyles } from './SwipeStyles';
 import Card from './Card';
 import Control from './Control';
-import Filter from './Filter';
+import { FilterUser } from './FilterUser';
 
 const data = [
   {
@@ -68,7 +68,7 @@ function Swipe() {
           ))}
         </Flex>
         {/* Btn filter */}
-        <Filter />
+        <FilterUser />
       </Flex>
       <Box className={classes.content}>
         <Carousel

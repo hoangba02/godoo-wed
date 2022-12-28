@@ -5,29 +5,36 @@ import {
   Group,
   createStyles,
   Box,
-  Flex,
   Text,
   Stack,
   Center,
   RangeSlider,
+  Select,
 } from '@mantine/core';
 import { ReactComponent as FilterBtn } from 'assets/icons/filter.svg';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
+import { ReactComponent as ArrowDown } from 'assets/icons/arrowDown.svg';
 
-function Filter() {
+const data = [
+  'No promblem',
+  '< 10 km',
+  '< 20 km',
+  '< 50 km',
+  '< 100 km',
+  '< 1000 km',
+  '< 10 000 km',
+];
+
+export const FilterUser = () => {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   return (
     <>
       <Modal
         styles={{
-          inner: {
+          modal: {
             width: 470,
             height: 722,
-          },
-          modal: {
-            width: '100%',
-            height: '100%',
             padding: '0 !important',
             borderRadius: 20,
           },
@@ -53,7 +60,9 @@ function Filter() {
             sx={{
               position: 'absolute',
               left: 50,
+              cursor: 'pointer',
             }}
+            onClick={() => setOpened(false)}
           >
             <ArrowLeft />
           </Box>
@@ -65,24 +74,72 @@ function Filter() {
           </Text>
           <Box>
             <Text className={classes.indexing}>Age</Text>
-            <RangeSlider
+            <div>
+              <RangeSlider
+                styles={{
+                  root: {
+                    padding: '0 15px',
+                  },
+                  thumb: {
+                    backgroundColor: '#FFE9E0',
+                    border: '4px solid #E46125',
+                  },
+                  bar: {
+                    background:
+                      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+                  },
+                }}
+                thumbSize={24}
+                mt="xl"
+                defaultValue={[20, 80]}
+              />
+            </div>
+          </Box>
+          <Box>
+            <Text className={classes.indexing}>Distance</Text>
+            <Select
+              rightSection={<ArrowDown />}
+              defaultValue="No promblem"
+              data={data}
               styles={{
-                thumb: {
-                  backgroundColor: '#FFE9E0',
-                  border: '4px solid #E46125',
+                item: {
+                  textAlign: 'center',
+                  // applies styles to selected item
+                  '&[data-selected]': {
+                    backgroundColor: '#FFE9E0',
+                    '&, &:hover': {
+                      backgroundColor: 'var(--light)',
+                      color: 'var(--black)',
+                    },
+                  },
+                  '&:hover': {
+                    backgroundColor: '#FFE9E0',
+                    color: 'var(--black)',
+                  },
+
+                  // applies styles to hovered item (with mouse or keyboard)
+                  '&[data-hovered]': {},
                 },
-                bar: {
+                rightSection: {
+                  right: 4,
+                  top: '50%',
+                  width: 24,
+                  height: 24,
+                  borderRadius: '50%',
+                  backgroundColor: 'var(--white)',
+                  transform: 'translateY(-50%)',
+                },
+
+                input: {
+                  textAlign: 'center',
+                  color: 'var(--white)',
+                  height: 32,
+                  borderRadius: 32,
                   background:
                     'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
                 },
               }}
-              thumbSize={24}
-              mt="xl"
-              defaultValue={[20, 80]}
             />
-          </Box>
-          <Box>
-            <Text className={classes.indexing}>Distance</Text>
           </Box>
           <Box>
             <Text className={classes.indexing}>Advanced Filters</Text>
@@ -101,9 +158,7 @@ function Filter() {
       </Group>
     </>
   );
-}
-
-export default Filter;
+};
 
 const useStyles = createStyles(() => ({
   btn: {
