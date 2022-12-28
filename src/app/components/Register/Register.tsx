@@ -19,7 +19,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { images } from 'assets/images';
-import { convertLang } from '../ConvertLang';
+import { convertLang } from '../ConvertLang/ConvertLang';
 
 function Register() {
   const navigate = useNavigate();

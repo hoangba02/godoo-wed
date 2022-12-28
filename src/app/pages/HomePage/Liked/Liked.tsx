@@ -1,16 +1,20 @@
 import { Button, clsx, Container, Flex } from '@mantine/core';
 import React, { useState } from 'react';
 import { LikedStyles } from './LikedStyles';
+import NewLiked from './NewLiked';
+import { motion } from 'framer-motion';
 
 function Liked() {
   const { classes } = LikedStyles();
   const [active, setActive] = useState(true);
+  // const [opened, setOpened] = useState(false);
+
   return (
     <Container fluid className={classes.container}>
       <Flex
         sx={{
           width: '100%',
-          gap: '4%',
+          gap: 8,
         }}
       >
         <Button
@@ -30,6 +34,7 @@ function Liked() {
           You liked (50+)
         </Button>
       </Flex>
+      <NewLiked />
     </Container>
   );
 }

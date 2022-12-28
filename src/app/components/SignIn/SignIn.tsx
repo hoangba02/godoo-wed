@@ -19,7 +19,10 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { images } from 'assets/images';
-import { convertLang, handleClearSpecialCharacter } from '../ConvertLang';
+import {
+  convertLang,
+  handleClearSpecialCharacter,
+} from '../ConvertLang/ConvertLang';
 
 function SignIn() {
   const { t } = useTranslation();

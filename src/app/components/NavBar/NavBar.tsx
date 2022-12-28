@@ -1,14 +1,16 @@
 import React from 'react';
-import { Avatar, Container, Flex, Stack, Text } from '@mantine/core';
-import { MatchStyles } from './MatchStyles';
+import { Avatar, Container, Flex, Stack, Text, Box } from '@mantine/core';
+import { ReactComponent as Square } from 'assets/icons/square.svg';
+import { NavBarStyles } from './NavBarStyles';
 import Search from './Search';
 import NewMatch from './NewMatch';
+import ImgAccount from './ImgAccount';
 
-function Match() {
-  const { classes } = MatchStyles();
+function Navbar() {
+  const { classes } = NavBarStyles();
   return (
     <Container fluid className={classes.container}>
-      <Flex>
+      <Flex align="center">
         <Avatar
           size={50}
           radius="xl"
@@ -25,12 +27,22 @@ function Match() {
           >
             John sayhi!
           </Text>
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 0,
+              cursor: 'pointer',
+            }}
+          >
+            <Square />
+          </Box>
         </Stack>
       </Flex>
       <Search />
+      <ImgAccount />
       <NewMatch />
     </Container>
   );
 }
 
-export default Match;
+export default Navbar;

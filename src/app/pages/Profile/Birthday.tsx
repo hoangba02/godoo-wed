@@ -9,7 +9,7 @@ import { Box, Button, Center, Checkbox, Image, Text } from '@mantine/core';
 import { images } from 'assets/images';
 import { DatePicker } from '@mantine/dates';
 import { ProfileStyle } from './ProfileStyles';
-import { Zodiac } from 'app/components/Zodiac';
+import { Zodiac } from 'app/components/Zodiac/Zodiac';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
 import { getProfileSelector } from 'store/slice/profileSlice/selectors';

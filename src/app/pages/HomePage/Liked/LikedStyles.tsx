@@ -2,9 +2,12 @@ import { createStyles } from '@mantine/core';
 
 export const LikedStyles = createStyles(() => ({
   container: {
-    width: '26%',
+    maxWidth: 308,
+    minWidth: 308,
     margin: 0,
     padding: 0,
+    aspectRatio: '2 / 3',
+    transition: 'all 1s ease',
   },
   btn: {
     width: '48%',
@@ -21,12 +24,13 @@ export const LikedStyles = createStyles(() => ({
       display: 'none',
     },
     ':hover': {
-      color: '#FFFFFF',
-      background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+      color: '#E46125',
+      backgroundColor: '#F3F3F3',
     },
     '&.active': {
       color: '#FFFFFF',
       background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
     },
   },
+  content: {},
 }));

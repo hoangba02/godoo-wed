@@ -3,11 +3,11 @@ import { Box, Container, Flex, Text, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { ReactComponent as Undo } from 'assets/icons/undo.svg';
-import { ReactComponent as Filter } from 'assets/icons/filter.svg';
 import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { SwipeStyles } from './SwipeStyles';
 import Card from './Card';
 import Control from './Control';
+import Filter from './Filter';
 
 const data = [
   {
@@ -32,7 +32,7 @@ const data = [
 function Swipe() {
   const slides = data.map((item, index) => (
     <Carousel.Slide key={index}>
-      <Card {...item} />
+      <Card {...item} radius={0} />
     </Carousel.Slide>
   ));
 
@@ -67,9 +67,8 @@ function Swipe() {
             ></Box>
           ))}
         </Flex>
-        <button className={classes.btn}>
-          <Filter />
-        </button>
+        {/* Btn filter */}
+        <Filter />
       </Flex>
       <Box className={classes.content}>
         <Carousel

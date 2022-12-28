@@ -11,7 +11,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { IconPlus, IconChevronRight } from '@tabler/icons';
 
-import UpLoad from 'app/components/UpLoad';
+import UpLoad from 'app/components/UpLoad/UpLoad';
 import { ProfileStyle } from './ProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';

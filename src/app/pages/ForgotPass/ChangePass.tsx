@@ -9,7 +9,7 @@ import { useInterval, useMediaQuery, useTimeout } from '@mantine/hooks';
 import { Box, Button, Group, PasswordInput, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
-import Modals from 'app/components/Modals';
+import Modals from 'app/components/Modals/Modals';
 import Logo from 'app/components/Logo/Logo';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';

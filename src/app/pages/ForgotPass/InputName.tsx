@@ -7,10 +7,10 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@mantine/hooks';
 
 import { images } from 'assets/images';
-import Modals from 'app/components/Modals';
+import Modals from 'app/components/Modals/Modals';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
-import { convertLang } from 'app/components/ConvertLang';
+import { convertLang } from 'app/components/ConvertLang/ConvertLang';
 
 export default function InputName({ setNext }) {
   const dispatch = useDispatch();

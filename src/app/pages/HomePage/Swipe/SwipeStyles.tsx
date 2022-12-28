@@ -2,11 +2,16 @@ import { createStyles } from '@mantine/core';
 
 export const SwipeStyles = createStyles(() => ({
   container: {
-    width: '40%',
+    position: 'relative',
+    maxWidth: '40%',
     minWidth: 470,
-    height: '68%',
+    minHeight: 622,
+    maxHeight: '68%',
     padding: '0 15px',
     margin: 0,
+    transitionProperty: 'all',
+    transitionDuration: '10ms',
+    aspectRatio: '2 / 3',
   },
   nav: {
     width: '100%',

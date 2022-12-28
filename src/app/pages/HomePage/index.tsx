@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Container, createStyles, Flex, Text } from '@mantine/core';
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  createStyles,
+  Flex,
+  Text,
+} from '@mantine/core';
 import { openConfirmModal } from '@mantine/modals';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +16,9 @@ import { useNavigate } from 'react-router-dom';
 import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import Liked from './Liked/Liked';
-import Matcher from './Match/Match';
 import Swipe from './Swipe/Swipe';
+import { motion } from 'framer-motion';
+import Navbar from 'app/components/NavBar/NavBar';
 
 export function HomePage() {
   const { actions } = UserSlice();
@@ -18,6 +27,7 @@ export function HomePage() {
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = HomePageStyles();
+  const [drawer, setDrawer] = useState(false);
   const openModal = () =>
     openConfirmModal({
       title: 'Please confirm your action',
@@ -54,39 +64,47 @@ export function HomePage() {
   //       console.log(err);
   //     });
   // }, []);
+
+  const handleDrawerLike = () => {
+    setDrawer(prev => !prev);
+  };
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <Container fluid className={classes.container}>
-        {/* <Button
-          onClick={() => {
-            dispatch(actions.logoutSuccess());
+      <Flex className={classes.home}>
+        <Flex
+          sx={{
+            width: '100%',
+            justifyContent: 'center',
           }}
         >
-          Log out
-        </Button> */}
-        <Flex className={classes.wrapper}>
-          <Matcher />
           <Swipe />
-          <Liked />
         </Flex>
-      </Container>
+        <Liked />
+      </Flex>
     </>
   );
 }
 
 const HomePageStyles = createStyles(() => ({
-  container: {
+  home: {
+    width: '100%',
     height: '100%',
-    margin: '0 135px',
-    padding: '32px 0 0',
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
   wrapper: {
     width: '100%',
-    height: '100vh',
+    height: '100%',
     justifyContent: 'space-between',
   },
+  drawer: {
+    position: 'absolute',
+    right: 0,
+    top: 32,
+  },
+  btn: {},
 }));
