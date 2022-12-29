@@ -1,9 +1,17 @@
-import axios from 'axios';
 import { takeLatest, put } from 'redux-saga/effects';
-import { apiPost } from 'utils/http/request';
+import { apiGet, apiPost } from 'utils/http/request';
 import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
 
+// export function* CheckProfile(data) {
+//   const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
+//     userId: data.id,
+//     token: data.token,
+//   });
+//   // thành công thì call api
+//   // api trả về data
+//   console.log(res);
+// }
 export function* Register(action) {
   const data = {
     username: action.payload.username,
@@ -47,13 +55,15 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
+
   if (res.error === 0) {
+    console.log('login');
+    // yield CheckProfile(res.data);
     yield put(
       usersActions.loginSuccess({
         id: res.data.id,
         token: res.data.token,
         username: res.data.username,
-        password: res.data.password,
         login: {
           error: res.error,
           message: res.message,

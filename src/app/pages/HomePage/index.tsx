@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  createStyles,
-  Flex,
-  Text,
-} from '@mantine/core';
-import { openConfirmModal } from '@mantine/modals';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { UserSlice } from 'store/slice/userSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { openConfirmModal } from '@mantine/modals';
+import { useDispatch, useSelector } from 'react-redux';
+import { Button, createStyles, Flex, Text } from '@mantine/core';
+
 import Liked from './Liked/Liked';
 import Swipe from './Swipe/Swipe';
-import { motion } from 'framer-motion';
-import Navbar from 'app/components/NavBar/NavBar';
+import { UserSlice } from 'store/slice/userSlice';
+import { ReactComponent as Show } from 'assets/icons/show.svg';
+import { ReactComponent as Hide } from 'assets/icons/hide.svg';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { getCounterSelector } from 'store/slice/counterSlice/selector';
+import { CounterSlice } from 'store/slice/counterSlice';
 
 export function HomePage() {
-  const { actions } = UserSlice();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { counterActions } = CounterSlice();
+  const counter = useSelector(getCounterSelector);
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = HomePageStyles();
@@ -48,22 +45,9 @@ export function HomePage() {
     //   navigate('/');
     // }
   }, [navigate, user.token]);
-  // useEffect(() => {
-  //   openModal();
-  //   axios
-  //     .get('https://ttvnapi.com/v1/godoo/profile/get', {
-  //       headers: {
-  //         userid: 28,
-  //         token: 'bux466nsq6nd3np60ftze6qnvbera5vi',
-  //       },
-  //     })
-  //     .then(res => {
-  //       console.log(res);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // openModal();
+  }, []);
 
   const handleDrawerLike = () => {
     setDrawer(prev => !prev);
@@ -79,24 +63,41 @@ export function HomePage() {
           sx={{
             width: '100%',
             justifyContent: 'center',
+            padding: '32px 0',
+            borderLeft: '1.5px solid #D6D6D6',
           }}
         >
           <Swipe />
         </Flex>
         <motion.div
-          initial={{ translateX: '10vh', width: 0 }}
+          className={classes.liked}
+          initial={{ translateX: '20vh', width: 0 }}
           animate={{
             translateX: drawer ? '0' : '100vh',
-            width: drawer ? 308 : 0,
+            width: drawer ? 334 : 0,
           }}
           transition={{ delay: 0, duration: 1 }}
         >
           <Liked />
         </motion.div>
       </Flex>
-      <button className={classes.drawer} onClick={handleDrawerLike}>
-        Click
-      </button>
+      <motion.button
+        animate={{ width: drawer ? 22 : 37 }}
+        transition={{ duration: 0.5 }}
+        style={{
+          height: 80,
+          padding: 0,
+          border: 'none',
+          borderRadius: '8px 0px 0px 8px',
+          background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+          position: 'absolute',
+          right: 0,
+          top: 32,
+        }}
+        onClick={handleDrawerLike}
+      >
+        {!drawer ? <Show /> : <Hide />}
+      </motion.button>
     </>
   );
 }
@@ -107,6 +108,8 @@ const HomePageStyles = createStyles(() => ({
     height: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
+    marginRight: 135,
+    backgroundColor: '#FFFFFF',
   },
   wrapper: {
     width: '100%',
@@ -118,7 +121,8 @@ const HomePageStyles = createStyles(() => ({
     right: 0,
     top: 32,
   },
-  // btn: {
-  //   height: 38,
-  // },
+  liked: {
+    padding: '32px 0 32px 26px',
+    borderLeft: '1px solid #D6D6D6',
+  },
 }));

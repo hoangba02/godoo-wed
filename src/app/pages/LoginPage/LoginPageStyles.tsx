@@ -22,13 +22,13 @@ export const LoginPageStyles = createStyles(() => ({
     [`@media (min-width:992px) and (max-width:1199px)`]: {
       width: '60%',
     },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
+    [`@media (min-width:769px) and (max-width:991px)`]: {
       width: '70%',
-      // height: '100%',
+      // height: '90%',
     },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
+    [`@media (min-width:576px) and (max-width:768px)`]: {
       width: '80%',
-      // height: '100%',
+      height: '93%',
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
@@ -70,7 +70,7 @@ export const LoginPageStyles = createStyles(() => ({
       backgroundColor: 'var(--white)',
     },
     [`@media (max-width:376px)`]: {
-      padding: '20px ',
+      padding: '20px 20px 70px ',
       borderRadius: '30px 30px 0 0',
       // height: 634,
       backgroundColor: 'var(--white)',

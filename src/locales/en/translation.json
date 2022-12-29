@@ -89,7 +89,7 @@
       "Upload at least one photo. Hold & drag photos to change the order": "Upload at least one photo. Hold & drag photos to change the order",
       "Based on the birthday given, we will find you more suitable friends": "Based on the birthday given, we will find you more suitable friends",
       "Show this zodiac on my profile": "Show this zodiac on my profile",
-      "You can pick maximum 2 genders": "You can pick maximum 2 genders",
+      "Pick maximum 2 genders": "Pick maximum 2 genders",
       "Show on my profile": "Show on my profile",
       "characters": "characters",
       "What're you looking for in GoDoo?": "What're you looking for in GoDoo? ",
@@ -124,7 +124,8 @@
       "Lesbian": "Lesbian",
       "Transgender": "Transgender",
       "Asexual": "Asexual",
-      "Nonbinary": "Nonbinary"
+      "Nonbinary": "Nonbinary",
+      "Others": "Others"
     }
   }
 }

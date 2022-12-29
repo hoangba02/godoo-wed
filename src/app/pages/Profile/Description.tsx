@@ -45,7 +45,14 @@ export default function Desc() {
   return (
     <Box className={classes.children}>
       <img className={classes.imgDecs} src={images.descPro} alt="hi" />
-      <Box className={classes.box}>
+      <Box
+        sx={{
+          [`@media (max-width:375px)`]: {
+            height: '70%',
+          },
+        }}
+        className={classes.box}
+      >
         <Text className={classes.titleChild}>
           {t('Profile.title.Bio description')}
         </Text>

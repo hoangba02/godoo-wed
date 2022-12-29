@@ -146,6 +146,10 @@ const useStyles = createStyles(() => ({
     [`@media (min-width:768px) and (max-width:991px)`]: {
       top: -50,
     },
+    [`@media (min-width:576px) and (max-width:768px)`]: {
+      right: '16px',
+      top: -40,
+    },
     [`@media (max-width:575px)`]: {
       top: 30,
       right: '16px',

@@ -185,9 +185,7 @@ const useStyles = createStyles(() => ({
   },
 
   indexing: {
-    backgroundImage: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
-    WebkitBackgroundClip: 'text',
-    color: 'transparent',
+    color: 'var(--black)',
     fontSize: 18,
     lineHeight: '22px',
     fontWeight: 500,

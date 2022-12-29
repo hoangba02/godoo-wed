@@ -9,7 +9,12 @@ function MatchAccount() {
         gap: 0,
         minWidth: 250,
         justifyContent: 'space-between',
-        marginBottom: 15,
+        marginBottom: 11,
+        padding: 4,
+        ':hover': {
+          backgroundColor: '#FFE9E0',
+          borderRadius: 8,
+        },
       }}
     >
       <Avatar
@@ -28,6 +33,7 @@ function MatchAccount() {
       >
         <Text
           sx={{
+            color: 'var(--black)',
             fontWeight: 500,
             fontSize: 18,
             lineHeight: '22px',
@@ -56,6 +62,10 @@ function MatchAccount() {
           sx={{
             height: '100%',
             width: '100%',
+            background: 'transparent',
+            ':hover': {
+              backgroundColor: 'transparent',
+            },
           }}
           variant="subtle"
         >

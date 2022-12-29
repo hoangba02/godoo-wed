@@ -1,10 +1,13 @@
 import React from 'react';
 import MatchAccount from 'app/components/MatchAccount/MatchAccount';
+import { Link } from 'react-router-dom';
 
 function NewMatch() {
   return (
     <>
-      <MatchAccount />
+      <Link to="/:20">
+        <MatchAccount />
+      </Link>
       <MatchAccount />
       <MatchAccount />
       <MatchAccount />

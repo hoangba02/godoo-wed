@@ -78,6 +78,9 @@ root.render(
               body: {
                 overflow: 'hidden',
               },
+              a: {
+                textDecoration: 'none',
+              },
             }),
             fontFamily: 'Lexend, sans-serif',
             defaultGradient: {
