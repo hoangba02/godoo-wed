@@ -68,7 +68,7 @@ export default function Mode() {
                 color: mode === 0 ? 'var(--white)' : 'transparent',
               }}
             >
-              {t('Profile.title.Friends')}
+              {t('Profile.text.Friends')}
             </Text>
           </Button>
           <Button

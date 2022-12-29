@@ -2,16 +2,36 @@ import { takeLatest, put } from 'redux-saga/effects';
 import { apiGet, apiPost } from 'utils/http/request';
 import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
+import { profileActions } from '../profileSlice';
 
-// export function* CheckProfile(data) {
-//   const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
-//     userId: data.id,
-//     token: data.token,
-//   });
-//   // thành công thì call api
-//   // api trả về data
-//   console.log(res);
-// }
+export function* CheckProfile(data) {
+  const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
+    userId: data.id,
+    token: data.token,
+  });
+  // thành công thì call api
+  // api trả về data
+  console.log(res);
+  if (res.data !== null) {
+    yield put(
+      profileActions.createProfile({
+        nickname: res.data.nickname,
+        picture: res.data.picture,
+        date_of_birth: res.data.date_of_birth,
+        zodiac: res.data.zodiac,
+        gender: res.data.gender,
+        introduction: res.data.introduction,
+        relationship: res.data.relationship,
+      }),
+    );
+  } else {
+    yield put(
+      profileActions.createProfile({
+        nickname: '',
+      }),
+    );
+  }
+}
 export function* Register(action) {
   const data = {
     username: action.payload.username,
@@ -58,7 +78,7 @@ export function* Login(action) {
 
   if (res.error === 0) {
     console.log('login');
-    // yield CheckProfile(res.data);
+    yield CheckProfile(res.data);
     yield put(
       usersActions.loginSuccess({
         id: res.data.id,

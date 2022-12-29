@@ -19,24 +19,13 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { images } from 'assets/images';
-import {
-  convertLang,
-  handleClearSpecialCharacter,
-} from '../ConvertLang/ConvertLang';
-import axios from 'axios';
-import { CounterSlice } from 'store/slice/counterSlice';
-import { getCounterSelector } from 'store/slice/counterSlice/selector';
-import { ProfileSlice } from 'store/slice/profileSlice';
+import { handleClearSpecialCharacter } from '../ConvertLang/ConvertLang';
 
 function SignIn() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { actions } = UserSlice();
-  const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
-
-  const counter = useSelector(getCounterSelector);
   const user = useSelector(getUserSelector);
 
   const { classes } = useStyles();
@@ -94,49 +83,7 @@ function SignIn() {
     // if (user.username) {
     //   navigate('/');
     // }
-    if (user.token !== '') {
-      axios
-        .get('https://ttvnapi.com/v1/godoo/profile/get', {
-          headers: {
-            userid: 326,
-            token: 'ibaggwnr10xxs0zw7e58ael5siq2mo6d',
-          },
-        })
-        .then(res => {
-          let data = res.data.data;
-          console.log(data);
-          if (data === null) {
-            navigate('/profile');
-          }
-          if (data.nickname === '') {
-            navigate('/profile');
-            dispatch(counterActions.setCounter({ value: 0 }));
-          }
-          if (data.picture.length === 0) {
-            navigate('/profile');
-            dispatch(counterActions.setCounter({ value: 1 }));
-            dispatch(
-              profileActions.requestProfile({
-                // id: user.id,
-                // token: user.token,
-                nickname: data.nickname,
-                // picture: profile.picture,
-                // date_of_birth: profile.date_of_birth,
-                // zodiac: profile.zodiac,
-                // gender: profile.gender,
-                // introduction: profile.introduction,
-                // relationship: profile.relationship,
-              }),
-            );
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      return;
-    }
-  }, [user.token]);
+  }, [navigate, user]);
   return (
     <LoginPage islogin={true}>
       <form

@@ -1,13 +1,12 @@
-import { Box, createStyles } from '@mantine/core';
+import React, { ReactNode } from 'react';
+import { Box } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { images } from 'assets/images';
-import React, { ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
 }
 function NullLayout({ children }: Props) {
-  const { classes } = useStyles();
   const { width, height } = useViewportSize();
   const phone = useMediaQuery('(max-width:575px)');
 
@@ -31,7 +30,3 @@ function NullLayout({ children }: Props) {
 }
 
 export default NullLayout;
-
-const useStyles = createStyles(() => ({
-  layout: {},
-}));
