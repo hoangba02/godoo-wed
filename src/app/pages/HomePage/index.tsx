@@ -110,6 +110,15 @@ const HomePageStyles = createStyles(() => ({
     justifyContent: 'flex-end',
     marginRight: 135,
     backgroundColor: '#FFFFFF',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      marginRight: 0,
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      marginRight: 0,
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {},
   },
   wrapper: {
     width: '100%',
@@ -124,5 +133,8 @@ const HomePageStyles = createStyles(() => ({
   liked: {
     padding: '32px 0 32px 26px',
     borderLeft: '1px solid #D6D6D6',
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '32px 10px 32px 10px',
+    },
   },
 }));

@@ -68,6 +68,10 @@ const useStyles = createStyles(() => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     aspectRatio: '0.84',
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      minWidth: '100%',
+      maxWidth: '100%',
+    },
   },
   content: {
     position: 'relative',

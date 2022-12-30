@@ -28,6 +28,12 @@ export function* CheckProfile(data) {
     yield put(
       profileActions.createProfile({
         nickname: '',
+        picture: [],
+        date_of_birth: '',
+        zodiac: '',
+        gender: [],
+        introduction: '',
+        relationship: -1,
       }),
     );
   }

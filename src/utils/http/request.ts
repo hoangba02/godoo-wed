@@ -31,6 +31,7 @@ export const apiPost = async (url: string, payload: any, header: any) => {
       headers: header,
     });
     console.log(data);
+    console.log(url);
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

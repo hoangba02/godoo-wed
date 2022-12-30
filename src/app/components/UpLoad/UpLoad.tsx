@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Card,
+  clsx,
   createStyles,
 } from '@mantine/core';
 import { useSelector } from 'react-redux';
@@ -18,7 +19,7 @@ function UpLoad({ link, id, name, setImg, img }) {
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(2);
   const profile = useSelector(getProfileSelector);
-
+  console.log(img);
   const handleUploadImage = e => {
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
     setZIndex(4);
@@ -67,7 +68,10 @@ function UpLoad({ link, id, name, setImg, img }) {
         }}
         id={id}
       />
-      <label htmlFor={id} className={classes.label}>
+      <label
+        htmlFor={img.one ? id : ''}
+        className={clsx(classes.label, img.one ? '' : 'disable')}
+      >
         <Button
           styles={{
             leftIcon: {
@@ -75,6 +79,7 @@ function UpLoad({ link, id, name, setImg, img }) {
             },
           }}
           component="span"
+          disabled={!img.one}
           leftIcon={<IconPlus width={18} height={18} />}
           className={classes.addBtn}
         >
@@ -110,6 +115,10 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     bottom: '8%',
     zIndex: 3,
+    userSelect: 'none',
+    '&.disable': {
+      cursor: 'no-drop',
+    },
     [`@media (max-width:575px)`]: {
       width: '58%',
     },
@@ -131,6 +140,11 @@ const useStyles = createStyles(() => ({
       transition: '0.5s',
       backgroundColor: '#E46125 !important',
       boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    },
+    '&[data-disabled]': {
+      cursor: 'no-drop',
+      color: 'var(--white) !important',
+      backgroundColor: '#BFBFBF',
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
