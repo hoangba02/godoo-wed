@@ -7,8 +7,8 @@ import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { DemoStyles } from './DemoStyles';
+import { getProfileSelector } from 'store/slice/userSlice/selectors';
 export default function Demo() {
   const profile = useSelector(getProfileSelector);
 

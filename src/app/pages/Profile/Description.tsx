@@ -6,15 +6,17 @@ import { images } from 'assets/images';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconChevronRight } from '@tabler/icons';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 export default function Desc() {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
 
@@ -25,14 +27,19 @@ export default function Desc() {
 
   const handleCreateIntro = () => {
     dispatch(
-      profileActions.requestProfile({
-        nickname: profile.nickname,
-        picture: profile.picture,
-        date_of_birth: profile.date_of_birth,
-        zodiac: profile.zodiac,
-        gender: profile.gender,
-        introduction: intro,
-        relationship: profile.relationship,
+      actions.requestProfile({
+        id: user.id,
+        isLogin: false,
+        token: user.token,
+        profile: {
+          nickname: profile.nickname,
+          picture: profile.picture,
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: profile.gender,
+          introduction: intro,
+          relationship: profile.relationship,
+        },
       }),
     );
     dispatch(counterActions.increase());

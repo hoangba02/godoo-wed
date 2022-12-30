@@ -25,6 +25,15 @@ export const initialState: UserState = {
     message: '',
     savePassword: false,
   },
+  profile: {
+    nickname: '',
+    picture: [],
+    date_of_birth: '',
+    zodiac: '',
+    gender: [],
+    introduction: '',
+    relationship: -1,
+  },
 };
 
 const slice = createSlice({
@@ -33,12 +42,13 @@ const slice = createSlice({
   reducers: {
     requestLogin(state: UserState, action: PayloadAction<UserState>) {
       state.loading = true;
+      state.isLogin = false;
       state.login = action.payload.login;
     },
     loginSuccess(state: UserState, action: PayloadAction<UserState>) {
       state.id = action.payload.id;
       state.token = action.payload.token;
-      state.isLogin = true;
+      state.isLogin = action.payload.isLogin;
       state.loading = false;
       state.login = action.payload.login;
       state.username = action.payload.username;
@@ -82,6 +92,16 @@ const slice = createSlice({
       state.telegram_fullname = action.payload.telegram_fullname;
       state.messenger_fullname = action.payload.messenger_fullname;
       state.token = action.payload.token;
+    },
+    requestProfile(state: UserState, action: PayloadAction<UserState>) {
+      state.loading = true;
+      state.isLogin = action.payload.isLogin;
+    },
+    // Create Information Profile User
+    createProfile(state: UserState, action: PayloadAction<UserState>) {
+      state.profile = action.payload.profile;
+
+      console.log('sao k vào');
     },
   },
 });

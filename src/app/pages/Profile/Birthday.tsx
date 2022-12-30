@@ -12,16 +12,18 @@ import { ProfileStyle } from './ProfileStyles';
 import { Zodiac } from 'app/components/Zodiac/Zodiac';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 const ADJ = ['lovely', 'cute', 'mischievious', 'bonny', 'affable'];
 export default function Birth() {
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
   // Local
@@ -54,16 +56,19 @@ export default function Birth() {
       let month = new Date(form.values.date).getMonth();
       let year = new Date(form.values.date).getFullYear();
       dispatch(
-        profileActions.requestProfile({
+        actions.requestProfile({
           id: user.id,
+          isLogin: false,
           token: user.token,
-          nickname: profile.nickname,
-          picture: profile.picture,
-          date_of_birth: new Date(year, month, day).toString(),
-          gender: profile.gender,
-          zodiac: Zodiac(form.values.date)?.name,
-          introduction: profile.introduction,
-          relationship: profile.relationship,
+          profile: {
+            nickname: profile.nickname,
+            picture: profile.picture,
+            date_of_birth: new Date(year, month, day).toString(),
+            gender: profile.gender,
+            zodiac: Zodiac(form.values.date)?.name,
+            introduction: profile.introduction,
+            relationship: profile.relationship,
+          },
         }),
       );
       dispatch(counterActions.increase());

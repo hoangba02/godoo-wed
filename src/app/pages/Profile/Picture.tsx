@@ -16,16 +16,18 @@ import { ProfileStyle } from './ProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 export default function Picture() {
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
 
@@ -50,16 +52,19 @@ export default function Picture() {
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
     dispatch(
-      profileActions.requestProfile({
+      actions.requestProfile({
         id: user.id,
+        isLogin: false,
         token: user.token,
-        nickname: profile.nickname,
-        picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
-        date_of_birth: profile.date_of_birth,
-        zodiac: profile.zodiac,
-        gender: profile.gender,
-        introduction: profile.introduction,
-        relationship: profile.relationship,
+        profile: {
+          nickname: profile.nickname,
+          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: profile.gender,
+          introduction: profile.introduction,
+          relationship: profile.relationship,
+        },
       }),
     );
   };

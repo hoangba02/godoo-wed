@@ -14,8 +14,8 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { useTranslation } from 'react-i18next';
 import { routes } from './routes';
-import Layout from './Layout';
 import NullLayout from './Layout/NullLayout';
+import Layout from './Layout/Layout';
 
 export function App() {
   const { i18n } = useTranslation();

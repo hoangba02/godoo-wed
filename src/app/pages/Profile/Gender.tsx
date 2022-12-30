@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { images } from 'assets/images';
 import { ProfileStyle } from './ProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 const GENDER = [
   {
@@ -70,31 +71,34 @@ const GENDER = [
   },
 ];
 export default function Gender() {
+  const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
 
-  const [disableBtn, setDisabel] = useState(true);
   // Local
   const { t } = useTranslation();
   const { classes } = ProfileStyle();
   const [sex, setSex] = useState<string[]>(profile.gender);
-  const dispatch = useDispatch();
+  const [disableBtn, setDisabel] = useState(true);
 
   const handleCreateGender = () => {
     dispatch(counterActions.increase());
     dispatch(
-      profileActions.requestProfile({
+      actions.requestProfile({
         id: user.id,
+        isLogin: false,
         token: user.token,
-        nickname: profile.nickname,
-        picture: profile.picture,
-        date_of_birth: profile.date_of_birth,
-        zodiac: profile.zodiac,
-        gender: sex,
-        introduction: profile.introduction,
-        relationship: profile.relationship,
+        profile: {
+          nickname: profile.nickname,
+          picture: profile.picture,
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: sex,
+          introduction: profile.introduction,
+          relationship: profile.relationship,
+        },
       }),
     );
   };

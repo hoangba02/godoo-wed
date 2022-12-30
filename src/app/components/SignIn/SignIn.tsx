@@ -15,18 +15,24 @@ import { UserSlice } from 'store/slice/userSlice';
 import { IconEyeOff, IconEye } from '@tabler/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { images } from 'assets/images';
 import { handleClearSpecialCharacter } from '../ConvertLang/ConvertLang';
+import { CounterSlice } from 'store/slice/counterSlice';
 
 function SignIn() {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { actions } = UserSlice();
+  const { counterActions } = CounterSlice();
   const user = useSelector(getUserSelector);
+  const profile = useSelector(getProfileSelector);
 
   const { classes } = useStyles();
   const [error, setError] = useState(false);
@@ -58,7 +64,6 @@ function SignIn() {
       e.preventDefault();
     }
   };
-
   const handleConvertEng = e => {
     form.setValues({
       ...form.values,
@@ -80,10 +85,34 @@ function SignIn() {
     }
   }, [user.login.message]);
   useEffect(() => {
-    // if (user.username) {
-    //   navigate('/');
-    // }
-  }, [navigate, user]);
+    if (user.token !== '') {
+      if (profile.nickname === '') {
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 0 }));
+      } else if (profile.picture.length === 0) {
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 1 }));
+      } else if (profile.date_of_birth === '') {
+        console.log(profile.date_of_birth);
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 2 }));
+      } else if (profile.zodiac === '' || profile.gender.length === 0) {
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 3 }));
+      } else if (profile.introduction === '') {
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 4 }));
+      } else if (profile.relationship === -1) {
+        navigate('/profile');
+        dispatch(counterActions.setCounter({ value: 5 }));
+      } else {
+        navigate('/');
+      }
+    } else {
+      navigate('/login');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.token]);
   return (
     <LoginPage islogin={true}>
       <form

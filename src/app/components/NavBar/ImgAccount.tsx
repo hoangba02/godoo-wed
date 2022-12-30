@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Container, createStyles } from '@mantine/core';
-import Card from '../../pages/HomePage/Swipe/Card';
+import Card from '../Swipe/Card';
 
 const data = [
   {

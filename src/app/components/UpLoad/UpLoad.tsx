@@ -11,15 +11,14 @@ import {
   createStyles,
 } from '@mantine/core';
 import { useSelector } from 'react-redux';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
+import { getProfileSelector } from 'store/slice/userSlice/selectors';
 
 function UpLoad({ link, id, name, setImg, img }) {
   const { t } = useTranslation();
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(2);
   const profile = useSelector(getProfileSelector);
-  console.log(img);
   const handleUploadImage = e => {
     setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
     setZIndex(4);

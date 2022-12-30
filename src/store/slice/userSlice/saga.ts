@@ -2,38 +2,77 @@ import { takeLatest, put } from 'redux-saga/effects';
 import { apiGet, apiPost } from 'utils/http/request';
 import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
-import { profileActions } from '../profileSlice';
 
 export function* CheckProfile(data) {
   const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
     userId: data.id,
     token: data.token,
   });
-  // thành công thì call api
-  // api trả về data
   console.log(res);
   if (res.data !== null) {
     yield put(
-      profileActions.createProfile({
-        nickname: res.data.nickname,
-        picture: res.data.picture,
-        date_of_birth: res.data.date_of_birth,
-        zodiac: res.data.zodiac,
-        gender: res.data.gender,
-        introduction: res.data.introduction,
-        relationship: res.data.relationship,
+      usersActions.createProfile({
+        profile: {
+          nickname: res.data.nickname,
+          picture: res.data.picture,
+          date_of_birth: res.data.date_of_birth,
+          zodiac: res.data.zodiac,
+          gender: res.data.gender,
+          introduction: res.data.introduction,
+          relationship: res.data.relationship,
+        },
       }),
     );
   } else {
     yield put(
-      profileActions.createProfile({
-        nickname: '',
-        picture: [],
-        date_of_birth: '',
-        zodiac: '',
-        gender: [],
-        introduction: '',
-        relationship: -1,
+      usersActions.createProfile({
+        profile: {
+          nickname: '',
+          picture: [],
+          date_of_birth: '',
+          zodiac: '',
+          gender: [],
+          introduction: '',
+          relationship: -1,
+        },
+      }),
+    );
+  }
+}
+export function* SetProfile(action) {
+  console.log(action);
+  const data = {
+    nickname: action.payload.profile.nickname,
+    picture: action.payload.profile.picture,
+    date_of_birth: action.payload.profile.date_of_birth,
+    zodiac: action.payload.profile.zodiac,
+    gender: action.payload.profile.gender,
+    introduction: action.payload.profile.introduction,
+    relationship: action.payload.profile.relationship,
+  };
+  const header = {
+    userid: action.payload.id,
+    token: action.payload.token,
+  };
+  const res: BaseResponse = yield apiPost(
+    '/v1/godoo/profile/compulsoryinfo  ',
+    data,
+    header,
+  );
+  console.log(res);
+  if (res.error === 0) {
+    console.log('vao k');
+    yield put(
+      usersActions.createProfile({
+        profile: {
+          nickname: res.data.nickname,
+          picture: res.data.picture,
+          date_of_birth: res.data.date_of_birth,
+          zodiac: res.data.zodiac,
+          gender: res.data.gender,
+          introduction: res.data.introduction,
+          relationship: res.data.relationship,
+        },
       }),
     );
   }
@@ -81,9 +120,9 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
-
+  console.log(res);
+  console.log('login');
   if (res.error === 0) {
-    console.log('login');
     yield CheckProfile(res.data);
     yield put(
       usersActions.loginSuccess({
@@ -108,8 +147,8 @@ export function* Login(action) {
     );
   }
 }
-
 export function* userSaga() {
   yield takeLatest(usersActions.requestRegister.type, Register);
   yield takeLatest(usersActions.requestLogin.type, Login);
+  yield takeLatest(usersActions.requestProfile.type, SetProfile);
 }

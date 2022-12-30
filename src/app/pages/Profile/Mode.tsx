@@ -4,22 +4,19 @@ import { ProfileStyle } from './ProfileStyles';
 import { images } from 'assets/images';
 import { IconCheck } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { CounterSlice } from 'store/slice/counterSlice';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export default function Mode() {
   // Global
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { actions } = UserSlice();
-  const { counterActions } = CounterSlice();
-  const { profileActions } = ProfileSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
 
@@ -30,19 +27,29 @@ export default function Mode() {
 
   const handleSelectMode = () => {
     dispatch(
-      profileActions.requestProfile({
+      actions.requestProfile({
         id: user.id,
+        isLogin: true,
         token: user.token,
-        nickname: profile.nickname,
-        picture: profile.picture,
-        date_of_birth: profile.date_of_birth,
-        zodiac: profile.zodiac,
-        gender: profile.gender,
-        relationship: mode,
-        introduction: profile.introduction,
+        profile: {
+          nickname: profile.nickname,
+          picture: profile.picture,
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: profile.gender,
+          relationship: mode,
+          introduction: profile.introduction,
+        },
       }),
     );
   };
+  useEffect(() => {
+    if (!user.isLogin) {
+      return;
+    } else {
+      navigate('/');
+    }
+  }, [user.isLogin]);
   useEffect(() => {
     if (mode !== -1) {
       setDisableBtn(false);

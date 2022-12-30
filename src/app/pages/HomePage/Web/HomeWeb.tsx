@@ -1,63 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
-import { openConfirmModal } from '@mantine/modals';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, createStyles, Flex, Text } from '@mantine/core';
+import { Container, createStyles, Flex } from '@mantine/core';
 
-import Liked from './Liked/Liked';
-import Swipe from './Swipe/Swipe';
-import { UserSlice } from 'store/slice/userSlice';
 import { ReactComponent as Show } from 'assets/icons/show.svg';
 import { ReactComponent as Hide } from 'assets/icons/hide.svg';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
-import { getCounterSelector } from 'store/slice/counterSlice/selector';
-import { CounterSlice } from 'store/slice/counterSlice';
+import Swipe from 'app/components/Swipe/Swipe';
+import Liked from 'app/components/Liked/Liked';
+import Navbar from 'app/components/NavBar/NavBar';
 
-export function HomePage() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { counterActions } = CounterSlice();
-  const counter = useSelector(getCounterSelector);
-  const user = useSelector(getUserSelector);
-  // Local
-  const { classes } = HomePageStyles();
+export function HomeWeb() {
+  const { classes } = HomeWebStyles();
   const [drawer, setDrawer] = useState(false);
-  const openModal = () =>
-    openConfirmModal({
-      title: 'Please confirm your action',
-      children: (
-        <Text size="sm">
-          This action is so important that you are required to confirm it with a
-          modal. Please click one of these buttons to proceed.
-        </Text>
-      ),
-      labels: { confirm: 'Confirm', cancel: 'Cancel' },
-      onCancel: () => console.log('Cancel'),
-      onConfirm: () => console.log('Confirmed'),
-    });
-  useEffect(() => {
-    // if (user.token === '') {
-    //   navigate('/login');
-    // } else {
-    //   navigate('/');
-    // }
-  }, [navigate, user.token]);
-  useEffect(() => {
-    // openModal();
-  }, []);
 
   const handleDrawerLike = () => {
     setDrawer(prev => !prev);
   };
   return (
-    <>
-      <Helmet>
-        <title>HomePage</title>
-        <meta name="description" content="A Boilerplate application homepage" />
-      </Helmet>
+    <Container fluid className={classes.container}>
+      <Container className={classes.navbar}>
+        <Navbar />
+      </Container>
       <Flex className={classes.home}>
         <Flex
           sx={{
@@ -74,7 +37,7 @@ export function HomePage() {
           initial={{ translateX: '20vh', width: 0 }}
           animate={{
             translateX: drawer ? '0' : '100vh',
-            width: drawer ? 334 : 0,
+            width: drawer ? 350 : 0,
           }}
           transition={{ delay: 0, duration: 1 }}
         >
@@ -98,11 +61,43 @@ export function HomePage() {
       >
         {!drawer ? <Show /> : <Hide />}
       </motion.button>
-    </>
+    </Container>
   );
 }
 
-const HomePageStyles = createStyles(() => ({
+const HomeWebStyles = createStyles(() => ({
+  container: {
+    width: '100%',
+    height: '100vh',
+    display: 'flex',
+    padding: 0,
+    justifyContent: 'space-between',
+    overflowX: 'hidden',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {},
+    [`@media (min-width:768px) and (max-width:991px)`]: {},
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {},
+  },
+  navbar: {
+    maxWidth: 370,
+    width: '31%',
+    height: '100%',
+    margin: '0 0 0 135px',
+    padding: '32px 0',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      margin: '0',
+      padding: '16px 0',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      margin: '0',
+      overflow: 'hidden',
+      width: '55%',
+    },
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {},
+  },
   home: {
     width: '100%',
     height: '100%',
@@ -131,7 +126,7 @@ const HomePageStyles = createStyles(() => ({
     top: 32,
   },
   liked: {
-    padding: '32px 0 32px 26px',
+    padding: '32px 16px 32px 26px',
     borderLeft: '1px solid #D6D6D6',
     [`@media (min-width:768px) and (max-width:991px)`]: {
       padding: '32px 10px 32px 10px',

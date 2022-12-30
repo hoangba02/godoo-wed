@@ -8,10 +8,12 @@ import { images } from 'assets/images';
 import { ProfileStyle } from './ProfileStyles';
 import { ReactComponent as FaceName } from 'assets/icons/faceName.svg';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { ProfileSlice } from 'store/slice/profileSlice';
-import { getProfileSelector } from 'store/slice/profileSlice/selectors';
 import { useTranslation } from 'react-i18next';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 export default function NickName() {
   const { t } = useTranslation();
@@ -20,8 +22,8 @@ export default function NickName() {
   const [disableBtn, setDisableBtn] = useState(true);
   //Global
   const dispatch = useDispatch();
-  const { profileActions } = ProfileSlice();
   const { counterActions } = CounterSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   const user = useSelector(getUserSelector);
 
@@ -38,16 +40,19 @@ export default function NickName() {
       setError(true);
     } else {
       dispatch(
-        profileActions.requestProfile({
+        actions.requestProfile({
           id: user.id,
+          isLogin: false,
           token: user.token,
-          nickname: form.values.nickname,
-          picture: profile.picture,
-          date_of_birth: profile.date_of_birth,
-          zodiac: profile.zodiac,
-          gender: profile.gender,
-          introduction: profile.introduction,
-          relationship: profile.relationship,
+          profile: {
+            nickname: form.values.nickname,
+            picture: profile.picture,
+            date_of_birth: profile.date_of_birth,
+            zodiac: profile.zodiac,
+            gender: profile.gender,
+            introduction: profile.introduction,
+            relationship: profile.relationship,
+          },
         }),
       );
       dispatch(counterActions.increase());
