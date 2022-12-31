@@ -11,7 +11,8 @@ export const ProfileStyle = createStyles(() => ({
     inset: 0,
     zIndex: 1,
     [`@media (max-width:575px)`]: {
-      padding: 0,
+      paddingTop: 0,
+      paddingBottom: 'calc(1em + env(safe-area-inset-bottom)',
     },
   },
   wrapper: {
@@ -86,10 +87,12 @@ export const ProfileStyle = createStyles(() => ({
         'linear-gradient(90deg, rgba(228, 97, 37, 0.6) -0.01%, rgba(161, 47, 163, 0.6) 100%)',
     },
     [`@media (max-width:575px)`]: {
+      position: 'fixed',
       width: 65,
       height: 65,
       bottom: 40,
       right: 16,
+      zIndex: 9999,
     },
   },
   // Children
