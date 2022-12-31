@@ -93,9 +93,11 @@ export function Profile() {
           }}
         >
           <Card className={classes.wrapper}>
-            <button className={classes.back} onClick={handleComeBack}>
-              <BackBtn />
-            </button>
+            {counter > 0 && (
+              <button className={classes.back} onClick={handleComeBack}>
+                <BackBtn />
+              </button>
+            )}
             <Box className={classes.card}>
               {Order}
               {/* <Picture /> */}

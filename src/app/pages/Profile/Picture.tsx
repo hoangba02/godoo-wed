@@ -278,7 +278,7 @@ export default function Picture() {
               paddingRight: 0,
             },
             [`@media (max-width:575px)`]: {
-              paddingRight: 0,
+              paddingRight: 100,
             },
           }}
         >
