@@ -53,7 +53,7 @@ function Header({ active, setActive }: Props) {
             <Button
               key={index}
               className={classes.navBtn}
-              onClick={index => {
+              onClick={() => {
                 setActive(index);
               }}
             >
@@ -70,12 +70,14 @@ export default Header;
 
 const useStyles = createStyles(() => ({
   container: {
+    width: '100%',
     position: 'absolute',
     bottom: 0,
-    height: 75,
+    height: 65,
     margin: 0,
     background: '#FFE9E0',
     borderRadius: '20px 20px 0px 0px',
+    zIndex: 999,
   },
   wrapper: {
     height: '100%',
@@ -83,8 +85,8 @@ const useStyles = createStyles(() => ({
     alignItems: 'center',
   },
   navBtn: {
-    width: 45,
-    height: 45,
+    width: '45px !important',
+    height: '45px !important',
     padding: 10,
     background: 'transparent',
     '::before': {

@@ -20,3 +20,18 @@ export const handleClearSpecialCharacter = (str: string) => {
   const newStr = convertLang(str);
   return newStr;
 };
+
+// export const handleClearSpecialCharacter = (str: string) => {
+//   return str
+//     .normalize('NFD')
+//     .replace(/[\u0300-\u036f]/g, '')
+//     .replace(/đ/g, 'd')
+//     .replace(/Đ/g, 'D');
+// };
+export function removeAccents(str) {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
+}

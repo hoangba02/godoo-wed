@@ -3,22 +3,29 @@ import { createStyles } from '@mantine/core';
 export const SwipeStyles = createStyles(() => ({
   container: {
     position: 'relative',
-    maxWidth: '40%',
-    minWidth: 470,
-    minHeight: 622,
-    maxHeight: '68%',
+    width: 470,
     padding: '0 15px',
     margin: 0,
     transitionProperty: 'all',
     transitionDuration: '10ms',
-    aspectRatio: '2 / 3',
+    aspectRatio: '0.67',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
+    [`@media (min-width:992px) and (max-width:1199px)`]: {},
+    [`@media (min-width:768px) and (max-width:991px)`]: {},
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
   },
   nav: {
     width: '100%',
-    height: 32,
-    marginBottom: 16,
+    height: 48,
+    padding: '8px 0 16px',
     alignItems: 'center',
     justifyContent: 'space-between',
+    [`@media (max-width:575px)`]: {
+      padding: '8px 0',
+    },
   },
   btn: {
     border: 'none',
@@ -27,8 +34,8 @@ export const SwipeStyles = createStyles(() => ({
   },
   content: {
     width: '100%',
-    height: '100%',
     position: 'relative',
+    aspectRatio: '0.69',
   },
   info: {
     color: 'var(--white)',
@@ -38,6 +45,9 @@ export const SwipeStyles = createStyles(() => ({
     position: 'absolute',
     padding: '0 16px',
     bottom: 104,
+    [`@media (max-width:575px)`]: {
+      bottom: 20,
+    },
   },
   title: {
     width: 251,

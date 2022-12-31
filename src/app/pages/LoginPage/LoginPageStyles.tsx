@@ -64,13 +64,13 @@ export const LoginPageStyles = createStyles(() => ({
       padding: '20px 25px 0',
     },
     [`@media (max-width:575px)`]: {
-      padding: '25px 16px 0',
+      padding: '25px 16px 120px',
       // height: 615,
       borderRadius: '30px 30px 0 0',
       backgroundColor: 'var(--white)',
     },
     [`@media (max-width:376px)`]: {
-      padding: '20px 20px 70px ',
+      padding: '20px 20px 120px ',
       borderRadius: '30px 30px 0 0',
       // height: 634,
       backgroundColor: 'var(--white)',
@@ -80,7 +80,7 @@ export const LoginPageStyles = createStyles(() => ({
   logo: {
     position: 'absolute',
     [`@media (max-width:575px)`]: {
-      position: 'static',
+      // position: 'static',
       marginTop: 38,
     },
   },

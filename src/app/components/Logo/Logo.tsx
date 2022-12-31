@@ -20,7 +20,7 @@ function Logo({ className }: Props) {
         width: '100%',
         justifyContent: 'center',
         [`@media (max-width:575px)`]: {
-          position: 'static',
+          // position: 'static',
         },
       }}
       className={className}
@@ -33,11 +33,7 @@ function Logo({ className }: Props) {
         color="lime"
         src={images.logo}
       />
-      {phone && (
-        <Box>
-          <Languages />
-        </Box>
-      )}
+      {phone && <Languages />}
     </Flex>
   );
 }

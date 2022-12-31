@@ -14,6 +14,7 @@ import {
 import { ReactComponent as FilterBtn } from 'assets/icons/filter.svg';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrowDown.svg';
+import { useMediaQuery } from '@mantine/hooks';
 
 const data = [
   'No promblem',
@@ -28,6 +29,8 @@ const data = [
 export const FilterUser = () => {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
+  const phone = useMediaQuery('(max-width:575px)');
+
   return (
     <>
       <Modal
@@ -37,6 +40,10 @@ export const FilterUser = () => {
             height: 722,
             padding: '0 !important',
             borderRadius: 20,
+            [`@media (max-width:575px)`]: {
+              width: '100%',
+              height: '100%',
+            },
           },
           close: {
             display: 'none',
@@ -45,6 +52,7 @@ export const FilterUser = () => {
             margin: 0,
           },
         }}
+        fullScreen={phone ? true : false}
         opened={opened}
         onClose={() => setOpened(false)}
       >
@@ -61,6 +69,9 @@ export const FilterUser = () => {
               position: 'absolute',
               left: 50,
               cursor: 'pointer',
+              [`@media (max-width:575px)`]: {
+                left: 20,
+              },
             }}
             onClick={() => setOpened(false)}
           >
@@ -97,7 +108,7 @@ export const FilterUser = () => {
           </Box>
           <Box>
             <Text className={classes.indexing}>Distance</Text>
-            <Select
+            {/* <Select
               rightSection={<ArrowDown />}
               defaultValue="No promblem"
               data={data}
@@ -139,7 +150,28 @@ export const FilterUser = () => {
                     'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
                 },
               }}
-            />
+            /> */}
+            <div>
+              <RangeSlider
+                styles={{
+                  root: {
+                    padding: '0 15px',
+                  },
+                  thumb: {
+                    backgroundColor: '#FFE9E0',
+                    border: '4px solid #E46125',
+                  },
+                  bar: {
+                    background:
+                      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+                  },
+                }}
+                thumbSize={24}
+                mt="xl"
+                defaultValue={[0, 200]}
+                max={200}
+              />
+            </div>
           </Box>
           <Box>
             <Text className={classes.indexing}>Advanced Filters</Text>
@@ -162,8 +194,8 @@ export const FilterUser = () => {
 
 const useStyles = createStyles(() => ({
   btn: {
-    width: 32,
-    height: 32,
+    width: '32px !important',
+    height: '32px !important',
     border: 'none',
     background: 'inherit',
     cursor: 'pointer',
@@ -176,9 +208,13 @@ const useStyles = createStyles(() => ({
   },
   content: {
     padding: '24px 50px 0',
+    [`@media (max-width:575px)`]: {
+      padding: '12px 16px 0',
+    },
   },
   question: {
-    color: 'var(--primary-1)',
+    textAlign: 'center',
+    color: 'var(--black)',
     fontSize: 14,
     lineHeight: '22px',
     fontWeight: 400,
