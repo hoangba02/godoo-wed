@@ -106,13 +106,29 @@ function SignIn() {
         navigate('/profile');
         dispatch(counterActions.setCounter({ value: 5 }));
       } else {
-        navigate('/');
+        dispatch(
+          actions.loginSuccess({
+            id: user.id,
+            token: user.token,
+            isLogin: true,
+            loading: false,
+            username: form.values.username,
+            login: { savePassword: form.values.termsOfService },
+          }),
+        );
       }
     } else {
       navigate('/login');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
+  useEffect(() => {
+    if (!user.isLogin) {
+      return;
+    } else {
+      navigate('/');
+    }
+  }, [user.isLogin]);
   return (
     <LoginPage islogin={true}>
       <form

@@ -129,6 +129,7 @@ export function* Login(action) {
         id: res.data.id,
         token: res.data.token,
         username: res.data.username,
+        isLogin: false,
         login: {
           error: res.error,
           message: res.message,

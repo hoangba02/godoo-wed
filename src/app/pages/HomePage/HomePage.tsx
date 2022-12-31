@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,13 @@ export function HomePage() {
   const user = useSelector(getUserSelector);
   // Local
   const phone = useMediaQuery('(max-width: 575px)');
-
+  useEffect(() => {
+    if (!user.token) {
+      navigate('/login');
+    } else {
+      navigate('/');
+    }
+  }, [navigate]);
   return (
     <>
       <Helmet>
