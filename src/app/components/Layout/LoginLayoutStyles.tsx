@@ -1,38 +1,32 @@
 import { createStyles } from '@mantine/core';
 
-export const LoginPageStyles = createStyles(() => ({
+export const LoginLayoutStyles = createStyles(() => ({
   container: {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
     padding: 0,
+    margin: 0,
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      padding: '4% 0',
+    },
     [`@media (max-width:575px)`]: {
-      alignItems: 'flex-end',
-      padding: '0px',
+      // height: 'max-content',
+      position: 'relative',
+      paddingTop: 176,
     },
   },
   wrapper: {
-    paddingBottom: '20px',
+    position: 'relative',
+    width: 720,
     maxWidth: 720,
-    width: '50%',
-    height: '915px',
-    borderRadius: 30,
     margin: 'auto',
+    borderRadius: 30,
     backgroundColor: 'var(--white)',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      width: '60%',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      width: '60%',
-    },
-    [`@media (min-width:769px) and (max-width:991px)`]: {
-      width: '70%',
-      // height: '90%',
-    },
-    [`@media (min-width:576px) and (max-width:768px)`]: {
-      width: '80%',
-      height: '93%',
-    },
     [`@media (max-width:575px)`]: {
       width: '100%',
-      height: '70vh',
+      // height: '70vh',
       borderRadius: '20px 20px 0 0',
       padding: 0,
       position: 'absolute',
@@ -40,31 +34,32 @@ export const LoginPageStyles = createStyles(() => ({
     },
     [`@media (max-width:376px)`]: {
       padding: 0,
-      height: '70vh',
+      // height: '70vh',
     },
   },
   content: {
-    position: 'relative',
-    maxWidth: 720,
+    position: 'absolute',
+    inset: 0,
     width: '100%',
-    borderRadius: 30,
-    margin: 'auto',
+    height: '100%',
     padding: '20px 75px 0',
-    zIndex: 3,
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {
-      padding: '20px 75px 0 ',
-    },
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      padding: '20px 75px 0 ',
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      padding: '20px 45px 0',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      padding: '20px 25px 0',
-    },
+    borderRadius: 30,
+    zIndex: 5,
+    // [`@media (min-width:1200px) and (max-width:1439px)`]: {
+    //   padding: '20px 75px 0 ',
+    // },
+    // [`@media (min-width:992px) and (max-width:1199px)`]: {
+    //   padding: '20px 75px 0 ',
+    // },
+    // [`@media (min-width:768px) and (max-width:991px)`]: {
+    //   padding: '20px 45px 0',
+    // },
+    // [`@media (min-width:576px) and (max-width:767px)`]: {
+    //   padding: '20px 25px 0',
+    // },
     [`@media (max-width:575px)`]: {
       padding: '25px 16px 120px',
+      height: 'max-content',
       // height: 615,
       borderRadius: '30px 30px 0 0',
       backgroundColor: 'var(--white)',
@@ -78,10 +73,12 @@ export const LoginPageStyles = createStyles(() => ({
   },
 
   logo: {
+    height: 150,
     position: 'absolute',
     [`@media (max-width:575px)`]: {
-      // position: 'static',
-      marginTop: 38,
+      height: 100,
+      top: -130,
+      zIndex: 4,
     },
   },
   registerBtn: {

@@ -12,7 +12,8 @@ export const ProfileStyle = createStyles(() => ({
     zIndex: 1,
     [`@media (max-width:575px)`]: {
       paddingTop: 0,
-      paddingBottom: 'calc(1em + env(safe-area-inset-bottom)',
+      paddingBottom: 0,
+      // paddingBottom: 'calc(1em + env(safe-area-inset-bottom)',
     },
   },
   wrapper: {

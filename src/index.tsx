@@ -74,9 +74,14 @@ root.render(
                 padding: 0,
                 boxSizing: 'border-box',
               },
-
+              '#root': {
+                height: '100%',
+              },
               body: {
                 overflow: 'hidden',
+                minHeight: '-webkit-fill-available',
+                padding:
+                  'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
               },
               a: {
                 textDecoration: 'none',

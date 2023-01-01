@@ -14,8 +14,6 @@ import { GlobalStyle } from 'styles/global-styles';
 
 import { useTranslation } from 'react-i18next';
 import { routes } from './routes';
-import NullLayout from './Layout/NullLayout';
-import Layout from './Layout/Layout';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -32,20 +30,7 @@ export function App() {
       <Routes>
         {routes.map(function (route, index) {
           const Page = route.component;
-          let element = (
-            <Layout>
-              <Page />
-            </Layout>
-          );
-
-          if (!route.layout) {
-            element = (
-              <NullLayout>
-                <Page />
-              </NullLayout>
-            );
-          }
-          return <Route key={index} path={route.path} element={element} />;
+          return <Route key={index} path={route.path} element={<Page />} />;
         })}
       </Routes>
       <GlobalStyle />
