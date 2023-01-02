@@ -80,7 +80,7 @@ root.render(
               body: {
                 overflow: 'hidden',
                 minHeight: '-webkit-fill-available',
-                paddingBottom: 'env(safe-area-inset-bottom)',
+                paddingBottom: 'env(1em + safe-area-inset-bottom)',
                 // padding:
                 //   'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
               },
