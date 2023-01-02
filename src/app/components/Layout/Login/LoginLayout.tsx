@@ -3,16 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import {
-  Box,
-  Card,
-  Container,
-  LoadingOverlay,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Card, Container, LoadingOverlay, Stack, Text } from '@mantine/core';
 
-import Languages from 'app/components/Languages/Language';
 import Logo from 'app/components/Logo/Logo';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { LoginLayoutStyles } from './LoginLayoutStyles';
@@ -23,6 +15,7 @@ export default function LoginLayout({ children, islogin }) {
   const { width, height } = useViewportSize();
   // Global
   const navigate = useNavigate();
+  const user = useSelector(getUserSelector);
   const phone = useMediaQuery('(max-width:575px)');
 
   return (
@@ -36,7 +29,7 @@ export default function LoginLayout({ children, islogin }) {
       fluid
       className={classes.container}
     >
-      {/* <LoadingOverlay visible={user.loading} overlayBlur={2} /> */}
+      <LoadingOverlay visible={user.loading} overlayBlur={2} />
       {phone && <Logo className={classes.logo} />}
       <Card
         sx={{
@@ -45,6 +38,7 @@ export default function LoginLayout({ children, islogin }) {
             aspectRatio: `calc(${width}/${height})`,
           },
           [`@media (max-width:575px)`]: {
+            overflow: 'visible',
             // aspectRatio: `calc(${width}/${height})`,
           },
         }}

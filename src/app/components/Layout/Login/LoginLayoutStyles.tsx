@@ -13,6 +13,7 @@ export const LoginLayoutStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       // height: 'max-content',
+      overflowY: 'scroll',
       position: 'relative',
       paddingTop: 176,
     },
@@ -26,9 +27,9 @@ export const LoginLayoutStyles = createStyles(() => ({
     backgroundColor: 'var(--white)',
     [`@media (max-width:575px)`]: {
       width: '100%',
-      // height: '70vh',
-      borderRadius: '20px 20px 0 0',
+      height: 'max-content',
       padding: 0,
+      borderRadius: '20px 20px 0 0',
       position: 'absolute',
       bottom: 0,
     },

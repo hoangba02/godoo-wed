@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, Text } from '@mantine/core';
-import { ProfileStyle } from './ProfileStyles';
+import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
 import { images } from 'assets/images';
 import { IconCheck } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import {
 import { UserSlice } from 'store/slice/userSlice';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
 
 export default function Mode() {
   // Global
@@ -21,7 +22,7 @@ export default function Mode() {
   const user = useSelector(getUserSelector);
 
   const { t } = useTranslation();
-  const { classes } = ProfileStyle();
+  const { classes } = ProfileLayoutStyle();
   const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
 
@@ -49,6 +50,7 @@ export default function Mode() {
     } else {
       navigate('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogin]);
   useEffect(() => {
     if (mode !== -1) {
@@ -56,45 +58,47 @@ export default function Mode() {
     }
   }, [mode]);
   return (
-    <Box className={classes.children}>
-      <img className={classes.imgMode} src={images.modePro} alt="mode" />
-      <Box className={classes.box}>
-        <Text className={classes.titleChild}>
-          {t('Profile.text.What’re you looking for in GoDoo?')}
-        </Text>
-        <Stack align="center" mt={14}>
-          <Button
-            variant={mode === 0 ? 'gradient' : 'outline'}
-            className={classes.optionBtn}
-            onClick={() => setMode(0)}
-          >
-            <Text
-              sx={{
-                background: 'var(--primary-3)',
-                WebkitBackgroundClip: 'text',
-                color: mode === 0 ? 'var(--white)' : 'transparent',
-              }}
+    <ProfileLayout>
+      <Box className={classes.children}>
+        <img className={classes.imgMode} src={images.modePro} alt="mode" />
+        <Box className={classes.box}>
+          <Text className={classes.titleChild}>
+            {t('Profile.text.What’re you looking for in GoDoo?')}
+          </Text>
+          <Stack align="center" mt={14}>
+            <Button
+              variant={mode === 0 ? 'gradient' : 'outline'}
+              className={classes.optionBtn}
+              onClick={() => setMode(0)}
             >
-              {t('Profile.text.Friends')}
-            </Text>
-          </Button>
+              <Text
+                sx={{
+                  background: 'var(--primary-3)',
+                  WebkitBackgroundClip: 'text',
+                  color: mode === 0 ? 'var(--white)' : 'transparent',
+                }}
+              >
+                {t('Profile.text.Friends')}
+              </Text>
+            </Button>
+            <Button
+              variant={mode === 1 ? 'default' : 'filled'}
+              className={classes.optionBtn}
+              onClick={() => setMode(1)}
+            >
+              {t('Profile.text.Looking for my destiny')}
+            </Button>
+          </Stack>
           <Button
-            variant={mode === 1 ? 'default' : 'filled'}
-            className={classes.optionBtn}
-            onClick={() => setMode(1)}
+            disabled={disableBtn}
+            onClick={() => handleSelectMode()}
+            variant="gradient"
+            className={classes.nextBtn}
           >
-            {t('Profile.text.Looking for my destiny')}
+            <IconCheck width={40} height={40} stroke={2.5} />
           </Button>
-        </Stack>
-        <Button
-          disabled={disableBtn}
-          onClick={() => handleSelectMode()}
-          variant="gradient"
-          className={classes.nextBtn}
-        >
-          <IconCheck width={40} height={40} stroke={2.5} />
-        </Button>
+        </Box>
       </Box>
-    </Box>
+    </ProfileLayout>
   );
 }

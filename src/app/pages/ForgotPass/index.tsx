@@ -12,6 +12,7 @@ import ChangePass from './ChangePass';
 import { images } from 'assets/images';
 import Logo from 'app/components/Logo/Logo';
 import { ForgotPassStyles } from './ForgotPassStyles';
+import Background from 'app/components/Background/Background';
 
 function ForgotPass() {
   const navigate = useNavigate();
@@ -25,42 +26,34 @@ function ForgotPass() {
   };
 
   return (
-    <Container>
-      <div className={classes.wrapper}>
-        <BackgroundImage
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-          src={phone ? images.bgLoginTopMobile : images.bgLoginTop}
-        ></BackgroundImage>
-        <Box className={classes.card}>
-          <Logo className={classes.logo} />
-          <Flex className={classes.header}>
-            <button className={classes.back} onClick={handleComeBack}>
-              <IconArrowLeft />
-            </button>
-            <Text className={classes.title}>
-              {t('ForgotPage.title.Reset your password')}
-            </Text>
-          </Flex>
-          {next === 'method' ? (
-            <MethodOTP setNext={setNext} />
-          ) : next === 'codeMess' ? (
-            <Code setNext={setNext} status="Messenger" />
-          ) : next === 'codeTele' ? (
-            <Code setNext={setNext} status="Telegram" />
-          ) : next === 'change' ? (
-            <ChangePass />
-          ) : (
-            <InputName setNext={setNext} />
-          )}
-        </Box>
-      </div>
-    </Container>
+    <Background>
+      <Container>
+        <div className={classes.wrapper}>
+          <Box className={classes.card}>
+            <Logo className={classes.logo} />
+            <Flex className={classes.header}>
+              <button className={classes.back} onClick={handleComeBack}>
+                <IconArrowLeft />
+              </button>
+              <Text className={classes.title}>
+                {t('ForgotPage.title.Reset your password')}
+              </Text>
+            </Flex>
+            {next === 'method' ? (
+              <MethodOTP setNext={setNext} />
+            ) : next === 'codeMess' ? (
+              <Code setNext={setNext} status="Messenger" />
+            ) : next === 'codeTele' ? (
+              <Code setNext={setNext} status="Telegram" />
+            ) : next === 'change' ? (
+              <ChangePass />
+            ) : (
+              <InputName setNext={setNext} />
+            )}
+          </Box>
+        </div>
+      </Container>
+    </Background>
   );
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Background from 'app/components/Background/Background';
-import LoginLayout from 'app/components/Layout/LoginLayout';
+import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 import {
   Button,
   createStyles,
@@ -107,7 +107,7 @@ export function RegisterPage() {
       });
     } else if (user.register.error === 0) {
       setErrName(false);
-      navigate('/profile');
+      navigate('/register/nickname');
     } else {
       setErrName(true);
       return;

@@ -1,15 +1,16 @@
 import { createStyles } from '@mantine/core';
 
-export const ProfileStyle = createStyles(() => ({
+export const ProfileLayoutStyle = createStyles(() => ({
   // Profile
   container: {
     width: '100vw',
-    maxWidth: '100%',
     height: '100vh',
     padding: '42px 0',
+    display: 'flex',
+    justifyContent: 'center',
     position: 'absolute',
     inset: 0,
-    zIndex: 1,
+    zIndex: 2,
     [`@media (max-width:575px)`]: {
       paddingTop: 0,
       paddingBottom: 0,
@@ -22,7 +23,7 @@ export const ProfileStyle = createStyles(() => ({
     height: '888px',
     borderRadius: '30px',
     padding: '0 32px 32px !important',
-    zIndex: 3,
+    zIndex: 5,
     [`@media (min-width:1200px) and (max-width:1439px)`]: {
       width: '70%',
     },

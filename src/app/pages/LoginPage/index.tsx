@@ -20,11 +20,10 @@ import {
   getUserSelector,
 } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
-import { images } from 'assets/images';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
 import Background from 'app/components/Background/Background';
-import LoginLayout from 'app/components/Layout/LoginLayout';
+import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 import Social from 'app/components/Social/Social';
 
 export function LoginPage() {
@@ -89,23 +88,23 @@ export function LoginPage() {
   useEffect(() => {
     if (user.token !== '') {
       if (profile.nickname === '') {
-        navigate('/profile');
+        navigate('/register/nickname');
         dispatch(counterActions.setCounter({ value: 0 }));
       } else if (profile.picture.length === 0) {
-        navigate('/profile');
+        navigate('/register/picture');
         dispatch(counterActions.setCounter({ value: 1 }));
       } else if (profile.date_of_birth === '') {
         console.log(profile.date_of_birth);
-        navigate('/profile');
+        navigate('/register/birthday');
         dispatch(counterActions.setCounter({ value: 2 }));
       } else if (profile.zodiac === '' || profile.gender.length === 0) {
-        navigate('/profile');
+        navigate('/register/gender');
         dispatch(counterActions.setCounter({ value: 3 }));
       } else if (profile.introduction === '') {
-        navigate('/profile');
+        navigate('/register/description');
         dispatch(counterActions.setCounter({ value: 4 }));
       } else if (profile.relationship === -1) {
-        navigate('/profile');
+        navigate('/register/mode');
         dispatch(counterActions.setCounter({ value: 5 }));
       } else {
         dispatch(
@@ -130,6 +129,7 @@ export function LoginPage() {
     } else {
       navigate('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogin]);
   return (
     <Background>
