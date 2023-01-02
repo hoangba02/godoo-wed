@@ -18,13 +18,13 @@ export function HomePage() {
   const user = useSelector(getUserSelector);
   // Local
   const phone = useMediaQuery('(max-width: 575px)');
-  useEffect(() => {
-    if (!user.token) {
-      navigate('/login');
-    } else {
-      navigate('/');
-    }
-  }, [navigate]);
+  // useEffect(() => {
+  //   if (!user.token) {
+  //     navigate('/login');
+  //   } else {
+  //     navigate('/');
+  //   }
+  // }, [navigate]);
   return (
     <>
       <Helmet>

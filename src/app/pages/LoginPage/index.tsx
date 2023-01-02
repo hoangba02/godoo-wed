@@ -75,17 +75,6 @@ export function LoginPage() {
     });
   };
   useEffect(() => {
-    if (
-      user.login.message === 'invalid_username' ||
-      user.login.message === 'invalid_password'
-    ) {
-      setError(true);
-    } else {
-      // setError(false);
-      return;
-    }
-  }, [user.login.message]);
-  useEffect(() => {
     if (user.token !== '') {
       if (profile.nickname === '') {
         navigate('/register/nickname');
@@ -180,10 +169,12 @@ export function LoginPage() {
             }}
             {...form.getInputProps('password')}
           />
-          {error && (
+          {error || user.login.error > 0 ? (
             <Text className={classes.error}>
               {t('LoginPage.error.Username or password incorrect')}
             </Text>
+          ) : (
+            <></>
           )}
 
           <Flex

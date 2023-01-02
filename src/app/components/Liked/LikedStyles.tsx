@@ -14,7 +14,12 @@ export const LikedStyles = createStyles(() => ({
       minWidth: 290,
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {},
-    [`@media (max-width:575px)`]: {},
+    [`@media (max-width:575px)`]: {
+      maxWidth: '100%',
+      maxHeight: '100vh',
+      overflowY: 'scroll',
+      padding: '28px 16.5px 0',
+    },
   },
   btn: {
     width: '48%',
@@ -37,6 +42,9 @@ export const LikedStyles = createStyles(() => ({
     '&.active': {
       color: '#FFFFFF',
       background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+    },
+    [`@media (max-width:575px)`]: {
+      height: '38px ',
     },
   },
   content: {},

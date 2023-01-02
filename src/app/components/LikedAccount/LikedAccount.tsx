@@ -72,6 +72,12 @@ const useStyles = createStyles(() => ({
       minWidth: '100%',
       maxWidth: '100%',
     },
+    [`@media (max-width:575px)`]: {
+      minWidth: 165,
+      maxWidth: 165,
+      minHeight: 196,
+      maxHeight: 196,
+    },
   },
   content: {
     position: 'relative',

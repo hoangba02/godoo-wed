@@ -4,6 +4,7 @@ import Conversation from 'app/components/Conversation/Conversation';
 import { HomePage } from 'app/pages/HomePage/Loadable';
 import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
+
 import { RegisterPage } from 'app/pages/RegisterPage/Loadable';
 import NickName from 'app/pages/RegisterPage/RegisterProfile/NickName';
 import Picture from 'app/pages/RegisterPage/RegisterProfile/Picture';
@@ -12,8 +13,18 @@ import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
+import Swipe from 'app/components/Swipe/Swipe';
+import Liked from 'app/components/Liked/Liked';
+import Navbar from 'app/components/NavBar/NavBar';
+import About from 'app/components/About/About';
+
 export const routes = [
   { path: '/', component: HomePage },
+  { path: '/swipe', component: Swipe },
+  { path: '/liked', component: Liked },
+  { path: '/chat', component: Navbar },
+  { path: '/about', component: About },
+
   { path: '/login', component: LoginPage },
   { path: '/forgot', component: ForgotPass },
 
