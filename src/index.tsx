@@ -78,8 +78,7 @@ root.render(
                 height: '100%',
               },
               body: {
-                overflow: 'hidden',
-                minHeight: '-webkit-fill-available',
+                // overflow: 'hidden',
               },
               a: {
                 textDecoration: 'none',
