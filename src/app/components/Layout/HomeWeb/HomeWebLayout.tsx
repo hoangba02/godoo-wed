@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, createStyles } from '@mantine/core';
 import { motion } from 'framer-motion';
 import Match from 'app/components/Match/Match';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Props {
   children?: any;
@@ -9,6 +10,7 @@ interface Props {
 }
 export default function HomeWebLayout({ children, drawer }: Props) {
   const { classes } = HomeWebStyles();
+  const tablet = useMediaQuery('(max-width:990px)');
 
   return (
     <Container fluid className={classes.container}>
@@ -16,8 +18,8 @@ export default function HomeWebLayout({ children, drawer }: Props) {
         <motion.div
           initial={{ translateX: '0', opacity: 1 }}
           animate={{
-            translateX: drawer ? '-55vh' : '0',
-            opacity: drawer ? 0.5 : 1,
+            translateX: tablet && drawer ? '-55vh' : '0',
+            opacity: tablet && drawer ? 0.5 : 1,
           }}
           transition={{ delay: 0, duration: 0.5 }}
         >

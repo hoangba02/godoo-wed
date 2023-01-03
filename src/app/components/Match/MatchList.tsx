@@ -2,6 +2,7 @@ import React from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Container, createStyles, Text } from '@mantine/core';
 import Card from '../Swipe/Card';
+import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 
 const data = [
   {
@@ -39,9 +40,9 @@ function MatchList() {
   const { classes } = useStyles();
   return (
     <Container fluid className={classes.container}>
-      <Text className={classes.text}>Match List (20)</Text>
+      <Text className={classes.text}>Pairing list (20)</Text>
       <Carousel
-        styles={theme => ({
+        styles={{
           root: {
             height: 107,
             '::before': {
@@ -59,6 +60,9 @@ function MatchList() {
             height: '100%',
           },
           control: {
+            color: '#FFFFFF',
+            border: 'none',
+            background: 'rgba(0, 0, 0, 0.3)',
             zIndex: 3,
             '&[data-inactive]': {
               opacity: 0,
@@ -68,14 +72,16 @@ function MatchList() {
           slide: {
             position: 'relative',
           },
-        })}
-        // loop
+        }}
         align="start"
         height="100%"
         slideSize="25.5%"
         slideGap={12}
         draggable={false}
         withControls={true}
+        controlsOffset={0}
+        nextControlIcon={<IconChevronRight stroke={2.5} />}
+        previousControlIcon={<IconChevronLeft stroke={2.5} />}
       >
         {slides}
       </Carousel>

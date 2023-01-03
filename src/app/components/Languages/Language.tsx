@@ -141,8 +141,8 @@ const useStyles = createStyles(() => ({
     backgroundColor: 'var(--white)',
     position: 'absolute',
     top: 0,
-    right: '-20%',
-    zIndex: 2,
+    right: '-50%',
+    zIndex: 6,
     [`@media (min-width:768px) and (max-width:991px)`]: {
       top: -50,
     },

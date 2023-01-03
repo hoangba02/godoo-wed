@@ -8,6 +8,7 @@ import { Card, Container, LoadingOverlay, Stack, Text } from '@mantine/core';
 import Logo from 'app/components/Logo/Logo';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { LoginLayoutStyles } from './LoginLayoutStyles';
+import Languages from 'app/components/Languages/Language';
 
 export default function LoginLayout({ children, islogin }) {
   const { t } = useTranslation();
@@ -34,19 +35,19 @@ export default function LoginLayout({ children, islogin }) {
       <Card
         sx={{
           aspectRatio: '0.78',
+          overflow: 'initial',
           [`@media (min-width:768px) and (max-width:991px)`]: {
-            aspectRatio: `calc(${width}/${height})`,
+            width: 600,
+            aspectRatio: '0.70',
           },
           [`@media (max-width:575px)`]: {
             overflow: 'initial',
-            // aspectRatio: `calc(${width}/${height})`,
           },
         }}
         className={classes.wrapper}
       >
         <Stack spacing={0} className={classes.content}>
           {!phone && <Logo className={classes.logo} />}
-          {/* {!phone && <Languages />} */}
           {children}
           {islogin ? (
             <Text className={classes.ques}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import MatchAccount from 'app/components/MatchAccount/MatchAccount';
 import { Link } from 'react-router-dom';
-import { Container, createStyles, Stack, Text } from '@mantine/core';
+import { Container, createStyles, Text } from '@mantine/core';
 
 function NewMatch() {
   const { classes } = useStyles();
@@ -13,7 +13,7 @@ function NewMatch() {
       }}
       className={classes.container}
     >
-      <Text className={classes.text}>Chat list</Text>
+      <Text className={classes.text}>Conversations</Text>
       <div>
         <Link to="chat/:20">
           <MatchAccount />

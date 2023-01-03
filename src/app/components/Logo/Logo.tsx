@@ -33,7 +33,7 @@ function Logo({ className }: Props) {
         color="lime"
         src={images.logo}
       />
-      {phone && <Languages />}
+      <Languages />
     </Flex>
   );
 }

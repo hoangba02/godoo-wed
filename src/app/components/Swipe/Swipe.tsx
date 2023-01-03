@@ -11,8 +11,7 @@ import { FilterUser } from './FilterUser';
 import { ReactComponent as Undo } from 'assets/icons/undo.svg';
 import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
-import { ReactComponent as NavLeft } from 'assets/icons/narrowLeft.svg';
-import { ReactComponent as NavUp } from 'assets/icons/narrowUp.svg';
+import SwipeTotorial from './SwipeTotorial';
 
 const DATA = [
   {
@@ -44,7 +43,6 @@ function Swipe() {
   const { classes } = SwipeStyles();
   const [active, setActive] = useState<number>();
   const { width, height } = useViewportSize();
-  const phone = useMediaQuery('(max-width:575px)');
   const tablet = useMediaQuery('(max-width:799px)');
   // console.log(active);
   const autoplay = useRef(Autoplay({ delay: 2000 }));
@@ -109,22 +107,7 @@ function Swipe() {
         </Flex>
         {!tablet && <Control />}
       </Box>
-      <Flex
-        sx={{
-          display: tablet ? 'none' : 'flex',
-        }}
-        className={classes.tutorial}
-      >
-        <div className={classes.arrow}>
-          <NavLeft />
-        </div>
-        <div className={classes.arrow}>
-          <NavUp />
-        </div>
-        <div className={classes.arrow}>
-          <NavLeft />
-        </div>
-      </Flex>
+      <SwipeTotorial />
       {tablet && <Nav active={active} data={DATA} />}
     </Container>
   );

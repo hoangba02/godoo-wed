@@ -74,6 +74,7 @@ export const SwipeStyles = createStyles(() => ({
     width: '100%',
     marginTop: 8,
     justifyContent: 'center',
+    alignItems: 'center',
   },
   arrow: {
     width: 24,

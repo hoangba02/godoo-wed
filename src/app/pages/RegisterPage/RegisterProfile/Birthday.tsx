@@ -156,9 +156,10 @@ export default function Birth() {
               <Text
                 sx={{
                   textAlign: 'center',
-                  color: 'var(--red)',
+                  color: 'var(--grey-dark)',
                   fontSize: 14,
                   fontWeight: 400,
+                  marginTop: 4,
                   [`@media (max-width:575px)`]: {
                     fontSize: 10,
                   },
