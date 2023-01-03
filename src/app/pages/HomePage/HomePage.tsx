@@ -17,21 +17,21 @@ export function HomePage() {
   const counter = useSelector(getCounterSelector);
   const user = useSelector(getUserSelector);
   // Local
-  const phone = useMediaQuery('(max-width: 575px)');
-  useEffect(() => {
-    if (!user.token) {
-      navigate('/login');
-    } else {
-      navigate('/');
-    }
-  }, [navigate]);
+  const tablet = useMediaQuery('(max-width: 799px)');
+  // useEffect(() => {
+  //   if (!user.token) {
+  //     navigate('/login');
+  //   } else {
+  //     navigate('/');
+  //   }
+  // }, [navigate]);
   return (
     <>
       <Helmet>
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      {phone ? <HomeMobile /> : <HomeWeb />}
+      {tablet ? <HomeMobile /> : <HomeWeb />}
     </>
   );
 }

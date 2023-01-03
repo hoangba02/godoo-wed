@@ -1,15 +1,18 @@
 import React, { useRef, useState } from 'react';
-import { Box, Container, Flex, Text, Title } from '@mantine/core';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { ReactComponent as Undo } from 'assets/icons/undo.svg';
-import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { SwipeStyles } from './SwipeStyles';
+import { Box, Container, Flex, Text, Title } from '@mantine/core';
+
 import Card from './Card';
+import Nav from './Nav';
 import Control from './Control';
 import { FilterUser } from './FilterUser';
+import { ReactComponent as Undo } from 'assets/icons/undo.svg';
+import { ReactComponent as Gift } from 'assets/icons/box.svg';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
-import Nav from './Nav';
+import { ReactComponent as NavLeft } from 'assets/icons/narrowLeft.svg';
+import { ReactComponent as NavUp } from 'assets/icons/narrowUp.svg';
 
 const DATA = [
   {
@@ -42,6 +45,7 @@ function Swipe() {
   const [active, setActive] = useState<number>();
   const { width, height } = useViewportSize();
   const phone = useMediaQuery('(max-width:575px)');
+  const tablet = useMediaQuery('(max-width:799px)');
   // console.log(active);
   const autoplay = useRef(Autoplay({ delay: 2000 }));
 
@@ -60,7 +64,7 @@ function Swipe() {
         <button className={classes.btn}>
           <Undo />
         </button>
-        {!phone && <Nav active={active} data={DATA} />}
+        {!tablet && <Nav active={active} data={DATA} />}
         {/* Btn filter */}
         <FilterUser />
       </Flex>
@@ -89,7 +93,7 @@ function Swipe() {
           slideGap={0}
           draggable={false}
           withControls={false}
-          // plugins={[autoplay.current]}
+          plugins={[autoplay.current]}
           onSlideChange={value => setActive(value)}
         >
           {slides}
@@ -103,9 +107,25 @@ function Swipe() {
           </Box>
           <Gift />
         </Flex>
-        {!phone && <Control />}
+        {!tablet && <Control />}
       </Box>
-      {phone && <Nav active={active} data={DATA} />}
+      <Flex
+        sx={{
+          display: tablet ? 'none' : 'flex',
+        }}
+        className={classes.tutorial}
+      >
+        <div className={classes.arrow}>
+          <NavLeft />
+        </div>
+        <div className={classes.arrow}>
+          <NavUp />
+        </div>
+        <div className={classes.arrow}>
+          <NavLeft />
+        </div>
+      </Flex>
+      {tablet && <Nav active={active} data={DATA} />}
     </Container>
   );
 }

@@ -41,15 +41,15 @@ function MatchList() {
     <Container fluid className={classes.container}>
       <Text className={classes.text}>Match List (20)</Text>
       <Carousel
-        styles={{
+        styles={theme => ({
           root: {
             height: 107,
             '::before': {
               content: '""',
               position: 'absolute',
-              right: 0,
+              right: -1,
               height: '100%',
-              width: '100%',
+              width: '50%',
               background:
                 'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.22) 25%, rgba(255, 255, 255, 0) 50%)',
               zIndex: 1,
@@ -65,7 +65,10 @@ function MatchList() {
               cursor: 'default',
             },
           },
-        }}
+          slide: {
+            position: 'relative',
+          },
+        })}
         // loop
         align="start"
         height="100%"
@@ -76,6 +79,7 @@ function MatchList() {
       >
         {slides}
       </Carousel>
+      <div className={classes.border}></div>
     </Container>
   );
 }
@@ -84,6 +88,7 @@ export default MatchList;
 
 const useStyles = createStyles(() => ({
   container: {
+    position: 'relative',
     width: '100%',
     height: 140,
     padding: 0,
@@ -94,5 +99,27 @@ const useStyles = createStyles(() => ({
     fontSize: 18,
     lineHeight: '22px',
     marginBottom: 10,
+  },
+  border: {
+    height: 112,
+    width: 87,
+    position: 'absolute',
+    left: -3,
+    bottom: -1,
+    borderRadius: 8,
+    background:
+      'linear-gradient(0deg, rgba(228,97,37,1) 0%, rgba(201,26,68,1) 100%)',
+    zIndex: -1,
+    '::after': {
+      content: '""',
+      position: 'absolute',
+      left: 3,
+      top: 3,
+      height: 'calc(100% - 6px)',
+      width: 'calc(100% - 6px)',
+      borderRadius: 8,
+      background: 'var(--white)',
+      zIndex: 1,
+    },
   },
 }));

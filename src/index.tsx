@@ -135,7 +135,7 @@ root.render(
                       left: 'var(--border-width)',
                       backgroundColor: 'var(--white)',
                       borderRadius:
-                        'calc(var(--boder-radius) - var(--border-width))',
+                        'calc(var(--border-radius) - var(--border-width))',
                       height: 'calc(100% - calc(var(--border-width)*2.2))',
                       width: 'calc(100% - calc(var(--border-width)*2))',
                       zIndex: -1,

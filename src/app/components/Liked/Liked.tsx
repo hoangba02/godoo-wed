@@ -15,6 +15,7 @@ function Liked() {
         sx={{
           width: '100%',
           gap: 8,
+          justifyContent: 'space-around',
         }}
       >
         <Button

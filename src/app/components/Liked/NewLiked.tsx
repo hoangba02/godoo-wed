@@ -30,5 +30,6 @@ const useStyles = createStyles(() => ({
   },
   gird: {
     gap: '12px 12px',
+    justifyItems: 'center',
   },
 }));

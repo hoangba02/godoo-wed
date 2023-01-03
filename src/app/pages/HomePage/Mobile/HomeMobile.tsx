@@ -30,7 +30,8 @@ export default HomeMobile;
 const HomeMobileStyles = createStyles(() => ({
   container: {
     minWidth: '100%',
-    minHeight: '100vh',
+    maxHeight: '100vh',
+    overflow: 'hidden',
     padding: 0,
   },
 }));

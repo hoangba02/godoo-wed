@@ -16,7 +16,7 @@ export function HomeWeb() {
     setDrawer(prev => !prev);
   };
   return (
-    <HomeWebLayout>
+    <HomeWebLayout drawer={drawer}>
       <Flex className={classes.home}>
         <Flex
           sx={{
@@ -30,12 +30,12 @@ export function HomeWeb() {
         </Flex>
         <motion.div
           className={classes.liked}
-          initial={{ translateX: '20vh', width: 0 }}
+          initial={{ translateX: '15vh', width: 0 }}
           animate={{
             translateX: drawer ? '0' : '100vh',
             width: drawer ? 350 : 0,
           }}
-          transition={{ delay: 0, duration: 1 }}
+          transition={{ delay: 0, duration: 0.5 }}
         >
           <Liked />
         </motion.div>
@@ -43,16 +43,7 @@ export function HomeWeb() {
       <motion.button
         animate={{ width: drawer ? 22 : 37 }}
         transition={{ duration: 0.5 }}
-        style={{
-          height: 80,
-          padding: 0,
-          border: 'none',
-          borderRadius: '8px 0px 0px 8px',
-          background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
-          position: 'absolute',
-          right: 0,
-          top: 32,
-        }}
+        className={classes.drawerBtn}
         onClick={handleDrawerLike}
       >
         {!drawer ? <Show /> : <Hide />}
@@ -73,8 +64,8 @@ const HomeWebStyles = createStyles(() => ({
     [`@media (min-width:992px) and (max-width:1199px)`]: {
       marginRight: 0,
     },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      marginRight: 0,
+    [`@media (min-width:800px) and (max-width:991px)`]: {
+      marginRight: 16,
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {},
     [`@media (max-width:575px)`]: {},
@@ -95,5 +86,16 @@ const HomeWebStyles = createStyles(() => ({
     [`@media (min-width:768px) and (max-width:991px)`]: {
       padding: '32px 10px 32px 10px',
     },
+  },
+  drawerBtn: {
+    height: 80,
+    padding: 0,
+    border: 'none',
+    borderRadius: '8px 0px 0px 8px',
+    background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+    position: 'absolute',
+    right: 0,
+    top: 75,
+    [`@media (min-width:576px) and (max-width:767px)`]: {},
   },
 }));

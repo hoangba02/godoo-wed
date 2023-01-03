@@ -7,7 +7,7 @@ function Nav({ active, data }) {
       gap={6}
       sx={{
         height: 34,
-        [`@media (max-width:575px)`]: {
+        [`@media (max-width:799px)`]: {
           width: '100%',
           justifyContent: 'center',
           alignItems: 'center',

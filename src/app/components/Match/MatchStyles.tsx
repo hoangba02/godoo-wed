@@ -15,18 +15,14 @@ export const MatchStyles = createStyles(() => ({
       maxWidth: '100%',
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {},
-    [`@media (max-width:575px)`]: {},
+    [`@media (max-width:575px)`]: {
+      padding: '0 16px',
+      overflowY: 'scroll',
+      height: 'calc(100vh - 65px)',
+    },
   },
   wrapper: {
     width: '100%',
     height: '100%',
-  },
-  user: {
-    position: 'relative',
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    marginLeft: 8,
-    borderBottom: '1px solid #FFE0D2',
   },
 }));

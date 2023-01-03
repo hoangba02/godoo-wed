@@ -12,9 +12,13 @@ export const SwipeStyles = createStyles(() => ({
     [`@media (min-width:1200px) and (max-width:1439px)`]: {},
     [`@media (min-width:992px) and (max-width:1199px)`]: {},
     [`@media (min-width:768px) and (max-width:991px)`]: {},
-    [`@media (min-width:576px) and (max-width:767px)`]: {},
+    [`@media (max-width:799px)`]: {
+      width: '70%',
+      margin: '24px auto 0',
+    },
     [`@media (max-width:575px)`]: {
       width: '100%',
+      margin: 0,
     },
   },
   nav: {
@@ -45,6 +49,9 @@ export const SwipeStyles = createStyles(() => ({
     position: 'absolute',
     padding: '0 16px',
     bottom: 104,
+    [`@media (max-width:799px)`]: {
+      bottom: 50,
+    },
     [`@media (max-width:575px)`]: {
       bottom: 20,
     },
@@ -61,5 +68,17 @@ export const SwipeStyles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 32,
     lineHeight: '40px',
+  },
+  tutorial: {
+    gap: 14,
+    width: '100%',
+    marginTop: 8,
+    justifyContent: 'center',
+  },
+  arrow: {
+    width: 24,
+    height: 24,
+    borderRadius: 4,
+    border: 'none',
   },
 }));

@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, createStyles } from '@mantine/core';
+import { motion } from 'framer-motion';
+import Match from 'app/components/Match/Match';
 
-import Navbar from 'app/components/Match/Match';
-
-export default function HomeWebLayout({ children }) {
+interface Props {
+  children?: any;
+  drawer?: boolean;
+}
+export default function HomeWebLayout({ children, drawer }: Props) {
   const { classes } = HomeWebStyles();
 
   return (
     <Container fluid className={classes.container}>
       <Container className={classes.navbar}>
-        <Navbar />
+        <motion.div
+          initial={{ translateX: '0', opacity: 1 }}
+          animate={{
+            translateX: drawer ? '-55vh' : '0',
+            opacity: drawer ? 0.5 : 1,
+          }}
+          transition={{ delay: 0, duration: 0.5 }}
+        >
+          <Match />
+        </motion.div>
       </Container>
       {children}
     </Container>
@@ -41,10 +54,11 @@ const HomeWebStyles = createStyles(() => ({
       margin: '0',
       padding: '16px 0',
     },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
+    [`@media (min-width:800px) and (max-width:991px)`]: {
       margin: '0',
       overflow: 'hidden',
-      width: '55%',
+      width: '100%',
+      minWidth: 0,
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {},
     [`@media (max-width:575px)`]: {},
