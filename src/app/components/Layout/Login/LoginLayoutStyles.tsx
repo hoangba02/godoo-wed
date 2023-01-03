@@ -27,7 +27,7 @@ export const LoginLayoutStyles = createStyles(() => ({
     backgroundColor: 'var(--white)',
     [`@media (max-width:575px)`]: {
       width: '100%',
-      height: 'max-content',
+      height: 'calc(100% - 176px)',
       padding: 0,
       borderRadius: '20px 20px 0 0',
       position: 'absolute',

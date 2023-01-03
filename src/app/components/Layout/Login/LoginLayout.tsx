@@ -38,7 +38,7 @@ export default function LoginLayout({ children, islogin }) {
             aspectRatio: `calc(${width}/${height})`,
           },
           [`@media (max-width:575px)`]: {
-            overflow: 'visible',
+            overflow: 'initial',
             // aspectRatio: `calc(${width}/${height})`,
           },
         }}

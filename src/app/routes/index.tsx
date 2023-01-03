@@ -1,6 +1,5 @@
 import Demo from 'app/pages/Demo/Demo';
 import ForgotPass from 'app/pages/ForgotPass';
-import Conversation from 'app/components/Conversation/Conversation';
 import { HomePage } from 'app/pages/HomePage/Loadable';
 import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
