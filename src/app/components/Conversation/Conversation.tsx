@@ -7,7 +7,6 @@ import {
   Flex,
   Stack,
   Text,
-  TextInput,
 } from '@mantine/core';
 import { ConversationStyles } from './ConversationStyles';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
@@ -25,7 +24,7 @@ function Conversation() {
       <Flex className={classes.header}>
         <Box
           onClick={() => {
-            navigate(-1);
+            navigate('/');
           }}
         >
           <ArrowLeft />

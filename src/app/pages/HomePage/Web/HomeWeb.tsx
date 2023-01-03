@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Helmet } from 'react-helmet-async';
-import { Container, createStyles, Flex } from '@mantine/core';
+import { createStyles, Flex } from '@mantine/core';
 
 import { ReactComponent as Show } from 'assets/icons/show.svg';
 import { ReactComponent as Hide } from 'assets/icons/hide.svg';
 import Swipe from 'app/components/Swipe/Swipe';
 import Liked from 'app/components/Liked/Liked';
-import Navbar from 'app/components/NavBar/NavBar';
+import HomeWebLayout from 'app/components/Layout/HomeWeb/HomeWebLayout';
 
 export function HomeWeb() {
   const { classes } = HomeWebStyles();
@@ -17,10 +16,7 @@ export function HomeWeb() {
     setDrawer(prev => !prev);
   };
   return (
-    <Container fluid className={classes.container}>
-      <Container className={classes.navbar}>
-        <Navbar />
-      </Container>
+    <HomeWebLayout>
       <Flex className={classes.home}>
         <Flex
           sx={{
@@ -61,43 +57,11 @@ export function HomeWeb() {
       >
         {!drawer ? <Show /> : <Hide />}
       </motion.button>
-    </Container>
+    </HomeWebLayout>
   );
 }
 
 const HomeWebStyles = createStyles(() => ({
-  container: {
-    width: '100%',
-    height: '100vh',
-    display: 'flex',
-    padding: 0,
-    justifyContent: 'space-between',
-    overflowX: 'hidden',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
-    [`@media (min-width:992px) and (max-width:1199px)`]: {},
-    [`@media (min-width:768px) and (max-width:991px)`]: {},
-    [`@media (min-width:576px) and (max-width:767px)`]: {},
-    [`@media (max-width:575px)`]: {},
-  },
-  navbar: {
-    maxWidth: 370,
-    width: '31%',
-    height: '100%',
-    margin: '0 0 0 135px',
-    padding: '32px 0',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      margin: '0',
-      padding: '16px 0',
-    },
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      margin: '0',
-      overflow: 'hidden',
-      width: '55%',
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {},
-    [`@media (max-width:575px)`]: {},
-  },
   home: {
     width: '100%',
     height: '100%',

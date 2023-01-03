@@ -1,14 +1,14 @@
 import React from 'react';
 import { Avatar, Container, Flex, Stack, Text, Box } from '@mantine/core';
 import { ReactComponent as Square } from 'assets/icons/square.svg';
-import { NavBarStyles } from './NavBarStyles';
+import { MatchStyles } from './MatchStyles';
 import Search from './Search';
 import NewMatch from './NewMatch';
-import ImgAccount from './ImgAccount';
+import ImgAccount from './MatchList';
 import { motion } from 'framer-motion';
 
-function Navbar() {
-  const { classes } = NavBarStyles();
+function Match() {
+  const { classes } = MatchStyles();
   return (
     <Container fluid className={classes.container}>
       <Box className={classes.wrapper}>
@@ -54,4 +54,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Match;

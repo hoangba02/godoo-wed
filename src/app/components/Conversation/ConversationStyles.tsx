@@ -3,8 +3,9 @@ import { createStyles } from '@mantine/core';
 export const ConversationStyles = createStyles(() => ({
   container: {
     width: '100%',
-    margin: '0 135px 0 30px',
-    padding: '32px 0',
+    marginRight: 135,
+    padding: '32px 0 0 30px',
+    borderLeft: '1px solid #BFBFBF',
     position: 'relative',
   },
   header: {

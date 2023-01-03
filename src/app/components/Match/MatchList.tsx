@@ -1,6 +1,6 @@
 import React from 'react';
 import { Carousel } from '@mantine/carousel';
-import { Container, createStyles } from '@mantine/core';
+import { Container, createStyles, Text } from '@mantine/core';
 import Card from '../Swipe/Card';
 
 const data = [
@@ -29,7 +29,7 @@ const data = [
       'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
   },
 ];
-function ImgAccount() {
+function MatchList() {
   const slides = data.map((item, index) => (
     <Carousel.Slide key={index}>
       <Card {...item} radius={8} />
@@ -39,35 +39,60 @@ function ImgAccount() {
   const { classes } = useStyles();
   return (
     <Container fluid className={classes.container}>
+      <Text className={classes.text}>Match List (20)</Text>
       <Carousel
         styles={{
-          root: { height: '100%' },
+          root: {
+            height: 107,
+            '::before': {
+              content: '""',
+              position: 'absolute',
+              right: 0,
+              height: '100%',
+              width: '100%',
+              background:
+                'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.22) 25%, rgba(255, 255, 255, 0) 50%)',
+              zIndex: 1,
+            },
+          },
           container: {
             height: '100%',
+          },
+          control: {
+            zIndex: 3,
+            '&[data-inactive]': {
+              opacity: 0,
+              cursor: 'default',
+            },
           },
         }}
         // loop
         align="start"
         height="100%"
-        slideSize="27%"
+        slideSize="25.5%"
         slideGap={12}
-        draggable={true}
-        withControls={false}
+        draggable={false}
+        withControls={true}
       >
-        <Carousel.Slide>1</Carousel.Slide>
         {slides}
       </Carousel>
     </Container>
   );
 }
 
-export default ImgAccount;
+export default MatchList;
 
 const useStyles = createStyles(() => ({
   container: {
     width: '100%',
-    height: 131,
-    margin: '12px 0 14px',
-    padding: '0 0 20px',
+    height: 140,
+    padding: 0,
+    marginTop: 12,
+  },
+  text: {
+    color: '#E46125',
+    fontSize: 18,
+    lineHeight: '22px',
+    marginBottom: 10,
   },
 }));

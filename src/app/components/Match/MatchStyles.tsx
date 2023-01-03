@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const NavBarStyles = createStyles(() => ({
+export const MatchStyles = createStyles(() => ({
   container: {
     width: '100%',
     height: '100%',

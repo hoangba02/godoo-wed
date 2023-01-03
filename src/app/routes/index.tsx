@@ -13,17 +13,11 @@ import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
-import Swipe from 'app/components/Swipe/Swipe';
-import Liked from 'app/components/Liked/Liked';
-import Navbar from 'app/components/NavBar/NavBar';
-import About from 'app/components/About/About';
+import { ChatPage } from 'app/pages/ChatPage/Loadable';
 
 export const routes = [
   { path: '/', component: HomePage },
-  { path: '/swipe', component: Swipe },
-  { path: '/liked', component: Liked },
-  { path: '/chat', component: Navbar },
-  { path: '/about', component: About },
+  { path: '/chat/:useId', component: ChatPage },
 
   { path: '/login', component: LoginPage },
   { path: '/forgot', component: ForgotPass },
@@ -36,7 +30,6 @@ export const routes = [
   { path: '/register/description', component: Desc },
   { path: '/register/mode', component: Mode },
 
-  { path: '/:usedId', component: Conversation },
   { path: '*', component: NotFoundPage },
   { path: '/demo', component: Demo },
 ];

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, createStyles } from '@mantine/core';
 import Header from 'app/components/Header/Header';
 import Swipe from 'app/components/Swipe/Swipe';
 import Liked from 'app/components/Liked/Liked';
-import Navbar from 'app/components/NavBar/NavBar';
+import Navbar from 'app/components/Match/Match';
 import About from 'app/components/About/About';
 
 function HomeMobile() {
