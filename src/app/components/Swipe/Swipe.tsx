@@ -4,7 +4,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import { SwipeStyles } from './SwipeStyles';
 import { Box, Container, Flex, Text, Title } from '@mantine/core';
 
-import Card from './Card';
+import Card from './SwipeCard';
 import Nav from './Nav';
 import Control from './Control';
 import { FilterUser } from './FilterUser';
@@ -62,7 +62,7 @@ function Swipe() {
         <button className={classes.btn}>
           <Undo />
         </button>
-        {!tablet && <Nav active={active} data={DATA} />}
+        {/* {!tablet && <Nav active={active} data={DATA} />} */}
         {/* Btn filter */}
         <FilterUser />
       </Flex>
@@ -108,7 +108,7 @@ function Swipe() {
         {!tablet && <Control />}
       </Box>
       <SwipeTotorial />
-      {tablet && <Nav active={active} data={DATA} />}
+      {/* {tablet && <Nav active={active} data={DATA} />} */}
     </Container>
   );
 }

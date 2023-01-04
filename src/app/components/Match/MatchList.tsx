@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Container, createStyles, Text } from '@mantine/core';
-import Card from '../Swipe/Card';
+import Card from '../Swipe/SwipeCard';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 
 const data = [

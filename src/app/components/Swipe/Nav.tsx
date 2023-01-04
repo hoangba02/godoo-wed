@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Flex } from '@mantine/core';
 
-function Nav({ active, data }) {
+function Nav({ active, lengths }) {
   return (
     <Flex
       gap={6}
@@ -14,7 +14,7 @@ function Nav({ active, data }) {
         },
       }}
     >
-      {data.map((value, index) => (
+      {Array.from({ length: lengths }).map((value, index) => (
         <Box
           key={index}
           className={index === active ? 'active' : ''}

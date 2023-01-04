@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, Paper } from '@mantine/core';
 
-export default function Card({ image, radius }) {
+export default function SwipeCard({ image, radius }) {
   const { classes } = useStyles();
 
   return (

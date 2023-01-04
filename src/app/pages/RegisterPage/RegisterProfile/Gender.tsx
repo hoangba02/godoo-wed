@@ -104,7 +104,7 @@ export default function Gender() {
         },
       }),
     );
-    navigate('/register/disciption');
+    navigate('/register/description');
   };
   useEffect(() => {
     if (sex.length > 2 || sex.length < 1) {

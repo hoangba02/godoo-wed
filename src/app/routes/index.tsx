@@ -13,6 +13,7 @@ import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
 import { ChatPage } from 'app/pages/ChatPage/Loadable';
+import Demo2 from 'app/pages/Demo/Demo2';
 
 export const routes = [
   { path: '/', component: HomePage },
@@ -31,4 +32,5 @@ export const routes = [
 
   { path: '*', component: NotFoundPage },
   { path: '/demo', component: Demo },
+  { path: '/demo2', component: Demo2 },
 ];
