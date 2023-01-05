@@ -20,152 +20,139 @@ function Demo2() {
     },
   ]);
   const dragItem = useRef<number>(0);
-  // const constraintsRef = useRef(null);
+  const dragOverItem = useRef<number>(0);
+  const wrapperRef = useRef(null);
   const [active, setActive] = useState(-1);
   const [translate, setTranslate] = useState('');
   const [rotateZ, setRotateZ] = useState('');
+  const [offsetDrag, setOffsetDrag] = useState(0);
+  const [offsetDragEnd, setOffsetDragEnd] = useState(0);
   const [overlay, setOverlay] = useState('');
-  const [constraints, setConstraints] = useState({
-    top: 0,
-    bottom: 0,
-    right: 0,
-    left: 0,
-  });
 
-  const dragStart = (e, info, position) => {
-    console.log(info.offset);
+  const childRefs = useMemo(
+    () =>
+      Array(picture.length)
+        .fill(0)
+        .map(i => React.createRef()),
+    [],
+  );
+  const dragStart = position => {
+    childRefs[position] = position;
     dragItem.current = position;
+    dragOverItem.current = position;
   };
-  const dragEnd = (event, info) => {
-    // console.log(info.offset.x);
-    if (info.offset.x > 400) {
-      setTranslate('right');
-      setConstraints({
-        top: 0,
-        bottom: 0,
-        right: info.offset.x,
-        left: 0,
-      });
-    } else if (info.offset.x < -400) {
-      setTranslate('left');
-      setConstraints({
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: info.offset.x,
-      });
-    } else {
-      setTranslate('');
-      setConstraints({
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0,
-      });
+  const dragEnd = (event, info, position) => {
+    // console.log(info.point.x);
+    setOffsetDragEnd(info.offset.x);
+    if (info.offset.x > 900 || info.offset.x < -900) {
+      setPicture(picture.filter((value, index) => index !== position));
     }
-
-    // console.log(first)
-    // setPicture(picture.filter((value, index) => index !== position));
   };
   const drag = (event, info) => {
-    if (info.offset.x > 0) {
-      setRotateZ('right');
-    } else if (info.offset.x < 0) {
-      setRotateZ('left');
-    } else {
-      setRotateZ('');
-    }
+    setOffsetDrag(info.offset.x);
   };
-  const y = useMotionValue(0);
+  // const y = useMotionValue(0);
 
-  const background = useTransform(
-    y,
-    [-400, 0, 400],
-    [
-      'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)',
-      'transparent',
-      'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)',
-    ],
-  );
-  const variants = {
-    initial: { x: 0 },
+  // const background = useTransform(
+  //   y,
+  //   [-400, 0, 400],
+  //   [
+  //     'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)',
+  //     'transparent',
+  //     'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)',
+  //   ],
+  // );
+
+  const dragTransitionEnd = position => {
+    setPicture(picture.filter((value, index) => index !== position));
+  };
+  const variantsAfter = {
+    initial: { translateX: 0, rotateZ: 0 },
     animationRight: {
-      x: '100vw',
+      translateX: '100vw',
+      rotateZ: 15,
       // translate:""
       transition: { duration: 1 },
     },
     animationLeft: {
-      x: '-100vw',
+      translateX: '-100vw',
+      rotateZ: -15,
       transition: { duration: 1 },
     },
   };
-  console.log(translate);
+  // console.log(picture);
   return (
     <Center className={classes.container}>
       <Flex className={classes.swipe}>
-        {picture.map((value, index) => (
-          <motion.div
-            drag
-            key={index}
-            dragElastic={1}
-            dragConstraints={constraints}
-            onDragStart={(e, info) => dragStart(e, info, index)}
-            onDragEnd={dragEnd}
-            onDrag={drag}
-            className={classes.draggable}
-            initial="initial"
-            animate={
-              translate === 'right'
-                ? 'animationRight'
-                : translate === 'left'
-                ? 'animationLeft'
-                : 'initial'
-            }
-            whileTap={
-              rotateZ === 'right'
-                ? {
-                    rotateZ: 15,
-                  }
-                : rotateZ === 'left'
-                ? {
-                    rotateZ: -15,
-                  }
-                : {
-                    rotateZ: 0,
-                  }
-            }
-            // style={dragItem.current === index ? { x } : undefined}
-            variants={dragItem.current === index ? variants : undefined}
-          >
-            {/* <motion.div
+        <motion.div className={classes.wrapper} ref={wrapperRef}>
+          {picture.map((value, index) => (
+            <motion.div
+              drag
+              dragListener={false}
+              key={index}
+              ref={e => childRefs[index]}
+              dragElastic={1}
+              dragConstraints={wrapperRef}
+              onDragStart={() => dragStart(index)}
+              onDragEnd={(event, info) => dragEnd(event, info, index)}
+              onDrag={drag}
+              // onDragTransitionEnd={() => dragTransitionEnd(index)}
+              onDragOver={() => console.log('first')}
+              className={classes.draggable}
+              initial="initial"
+              animate={
+                offsetDragEnd > 800
+                  ? 'animationRight'
+                  : offsetDragEnd < -800
+                  ? 'animationLeft'
+                  : 'initial'
+              }
+              whileTap={
+                offsetDrag > 1
+                  ? {
+                      rotateZ: 15,
+                    }
+                  : offsetDrag < -1
+                  ? {
+                      rotateZ: -15,
+                    }
+                  : {
+                      rotateZ: 0,
+                    }
+              }
+              // style={dragItem.current === index ? { x } : undefined}
+              variants={dragItem.current === index ? variantsAfter : undefined}
+            >
+              {/* <motion.div
               className={classes.overlay}
               style={dragItem.current === index ? { background } : undefined}
             ></motion.div> */}
-            <Paper
-              shadow="md"
-              radius={20}
-              sx={{
-                // position: 'relative',
-                backgroundImage: `url(${value.profile.picture[0]})`,
-                backgroundSize: 'cover',
+              <Paper
+                shadow="md"
+                radius={20}
+                sx={{
+                  // position: 'relative',
+                  backgroundImage: `url(${value.profile.picture[0]})`,
+                  backgroundSize: 'cover',
 
-                // '::before': {
-                //   content: '""',
-                //   position: 'absolute',
-                //   inset: 0,
-                //   borderRadius: 20,
-                //   background:
-                //     overlay === 'right'
-                //       ? 'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)'
-                //       : overlay === 'left'
-                //       ? 'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)'
-                //       : 'transparent',
-                // },
-              }}
-              className={classes.page}
-            />
-          </motion.div>
-        ))}
+                  // '::before': {
+                  //   content: '""',
+                  //   position: 'absolute',
+                  //   inset: 0,
+                  //   borderRadius: 20,
+                  //   background:
+                  //     overlay === 'right'
+                  //       ? 'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)'
+                  //       : overlay === 'left'
+                  //       ? 'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)'
+                  //       : 'transparent',
+                  // },
+                }}
+                className={classes.page}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </Flex>
     </Center>
   );
@@ -189,6 +176,10 @@ const useStyles = createStyles(() => ({
     position: 'relative',
     width: 470,
     height: 650,
+  },
+  wrapper: {
+    width: '100%',
+    height: '100%',
   },
   draggable: {
     width: '100%',
