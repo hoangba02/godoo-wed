@@ -85,22 +85,40 @@ function Demo() {
   const tablet = useMediaQuery('(max-width:799px)');
 
   const [active, setActive] = useState<number>();
+  const [dragIndex, setDragIndex] = useState(-1);
   // Array chứa picture user
   const [picture, setPicture] = useState(DATA);
   // Motion
   const x = useMotionValue(0);
+  const dragControls = useDragControls();
   const xInput = [-100, 0, 100];
   const background = useTransform(x, xInput, [
-    'linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)',
+    'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)',
     'transparent',
-    'linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)',
+    'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)',
   ]);
-  // Function
+  // Function Swipe
   const swiped = (direction, userId) => {};
 
   const outOfFrame = userId => {
     console.log(userId + ' left the screen!');
     setPicture(picture.filter(value => value.userId !== userId));
+  };
+
+  // Function Motion
+  function startDrag(event, index) {
+    // console.log(childRefs[index]);
+    console.log(event.pageY);
+    dragControls.start(event);
+  }
+  const handleDrag = index => {
+    console.log('Drag Start');
+    setDragIndex(index);
+    console.log(index);
+  };
+  const handleDragEnd = e => {
+    console.log('Drag End');
+    setActive(-1);
   };
   return (
     <Center
@@ -137,32 +155,43 @@ function Demo() {
               <TinderCard
                 key={data.userId}
                 className={classes.card}
-                swipeRequirementType="position"
-                swipeThreshold={400}
+                // swipeRequirementType="position"
+                // swipeThreshold={400}
                 onSwipe={dir => swiped(dir, data.userId)}
                 onCardLeftScreen={() => outOfFrame(data.userId)}
                 preventSwipe={['up', 'down']}
-                onSwipeRequirementFulfilled={() => {
-                  console.log('full');
-                }}
               >
                 <motion.div
                   key={index}
+                  // ref={() => childRefs[index]}
                   drag
-                  // dragElastic={1}
+                  dragElastic={1}
                   dragConstraints={{
                     left: 0,
                     right: 0,
                     bottom: 0,
                     top: 0,
                   }}
-                  // style={{(index === (picture.length -1)) ? x: null }}
-                  // onDragStart={}
-                  // animate={{ transform: 'rotate(90deg)' }}
+                  style={dragIndex === index ? { x } : undefined}
+                  // onPointerDown={e => startDrag(e, index)}
+                  onDragStart={() => {
+                    handleDrag(index);
+                  }}
+                  onDragEnd={() => {
+                    handleDragEnd(index);
+                  }}
                 >
-                  <motion.div style={{ background }}>
-                    <SwipeCarousel setActive={setActive} data={data} />
-                  </motion.div>
+                  <motion.div
+                    className={classes.overlay}
+                    style={dragIndex === index ? { background } : undefined}
+                    // custom={index}
+                    transition={{ duration: 1 }}
+                  ></motion.div>
+                  <SwipeCarousel
+                    setActive={setActive}
+                    data={data}
+                    autoPlay={dragIndex === index ? true : false}
+                  />
                 </motion.div>
               </TinderCard>
             );
@@ -182,7 +211,8 @@ function Demo() {
 
 export default Demo;
 
-export function SwipeCarousel({ setActive, data }) {
+export function SwipeCarousel({ setActive, data, autoPlay }) {
+  console.log(autoPlay);
   const slides = data.profile.picture.map((image, index) => (
     <Carousel.Slide key={index}>
       <SwipeCard image={image} radius={0} />
@@ -219,7 +249,7 @@ export function SwipeCarousel({ setActive, data }) {
           slideGap={0}
           draggable={false}
           withControls={false}
-          plugins={[autoplay.current]}
+          plugins={!autoPlay ? [autoplay.current] : []}
           onSlideChange={value => setActive(value)}
         >
           {slides}

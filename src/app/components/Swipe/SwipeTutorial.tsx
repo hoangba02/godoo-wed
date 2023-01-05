@@ -20,7 +20,7 @@ const ARROW = [
     label: 'Like',
   },
 ];
-function SwipeTotorial() {
+function SwipeTutorial() {
   const { classes } = SwipeStyles();
   const tablet = useMediaQuery('(max-width:799px)');
 
@@ -57,4 +57,4 @@ function SwipeTotorial() {
   );
 }
 
-export default SwipeTotorial;
+export default SwipeTutorial;

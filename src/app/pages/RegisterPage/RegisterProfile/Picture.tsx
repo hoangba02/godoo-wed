@@ -70,7 +70,7 @@ export default function Picture() {
         },
       }),
     );
-    navigate('/register/birthday');
+    // navigate('/register/birthday');
   };
   useEffect(() => {
     if (img.one) {

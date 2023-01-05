@@ -8,7 +8,6 @@ export const SwipeStyles = createStyles(() => ({
     margin: 0,
     transitionProperty: 'all',
     transitionDuration: '10ms',
-    aspectRatio: '0.67',
     [`@media (min-width:1200px) and (max-width:1439px)`]: {},
     [`@media (min-width:992px) and (max-width:1199px)`]: {},
     [`@media (min-width:768px) and (max-width:991px)`]: {},
@@ -36,39 +35,7 @@ export const SwipeStyles = createStyles(() => ({
     background: 'inherit',
     cursor: 'pointer',
   },
-  content: {
-    width: '100%',
-    position: 'relative',
-    aspectRatio: '0.69',
-  },
-  info: {
-    color: 'var(--white)',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    position: 'absolute',
-    padding: '0 16px',
-    bottom: 104,
-    [`@media (max-width:799px)`]: {
-      bottom: 50,
-    },
-    [`@media (max-width:575px)`]: {
-      bottom: 20,
-    },
-  },
-  title: {
-    width: 251,
-    fontWeight: 400,
-    lineHeight: '18px',
-    fontSize: 14,
-    marginTop: 2,
-  },
 
-  nickname: {
-    fontWeight: 600,
-    fontSize: 32,
-    lineHeight: '40px',
-  },
   tutorial: {
     gap: 14,
     width: '100%',
@@ -81,5 +48,9 @@ export const SwipeStyles = createStyles(() => ({
     height: 24,
     borderRadius: 4,
     border: 'none',
+  },
+  overlay: {
+    padding: '0px !important',
+    position: 'relative',
   },
 }));

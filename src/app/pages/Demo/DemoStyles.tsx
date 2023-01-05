@@ -97,4 +97,10 @@ export const DemoStyles = createStyles(() => ({
     height: '100%',
     position: 'absolute',
   },
+  overlay: {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 6,
+    borderRadius: 20,
+  },
 }));

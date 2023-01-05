@@ -75,11 +75,18 @@ export default function Languages() {
         src={user.language === 'vi' ? images.vi : images.en}
         alt="lang"
       />
+      <IconChevronDown />
       <Select
         styles={{
+          wrapper: {
+            height: '100%',
+            width: '100%',
+            position: 'absolute',
+            inset: 0,
+          },
           input: {
-            height: 38,
-            width: 132,
+            height: '100%',
+            width: '100%',
             margin: 0,
             padding: '4px 16px 4px 42px',
             fontSize: 18,
@@ -87,9 +94,10 @@ export default function Languages() {
             lineHeight: '22px',
             border: 'none',
             outline: 'none',
-            backgroundColor: 'transparent',
-            position: 'relative',
-            zIndex: 2,
+            background: 'transparent',
+            position: 'absolute',
+            inset: 0,
+            zIndex: 99,
             '&:focus': {
               border: 'none',
             },
@@ -103,12 +111,7 @@ export default function Languages() {
             },
           },
           rightSection: {
-            position: 'absolute',
-            right: 10,
-            zIndex: -1,
-            [`@media (max-width:575px)`]: {
-              right: -3,
-            },
+            display: 'none',
           },
           item: {
             padding: '6px 0',
@@ -136,13 +139,16 @@ export default function Languages() {
 const useStyles = createStyles(() => ({
   wrapper: {
     width: 132,
+    height: 38,
     borderRadius: '8px',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'var(--white)',
+    padding: '0 10px',
     position: 'absolute',
-    top: 0,
+    top: -20,
     right: '-50%',
-    zIndex: 6,
+    zIndex: 1,
     [`@media (min-width:768px) and (max-width:991px)`]: {
       top: -50,
     },
@@ -160,9 +166,6 @@ const useStyles = createStyles(() => ({
     width: 22.5,
     height: 22.5,
     borderRadius: '50%',
-    position: 'absolute',
-    left: 5,
-    zIndex: 2,
   },
   button: {
     background: 'var(--white)',

@@ -1,44 +1,9 @@
 import { Card, Center, createStyles, Flex, Paper } from '@mantine/core';
-import React, { useEffect, useState } from 'react';
-import {
-  motion,
-  useAnimationControls,
-  useDragControls,
-  useMotionValue,
-  useTransform,
-} from 'framer-motion';
-
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 function Demo2() {
   const { classes } = useStyles();
   const [picture, setPicture] = useState([
-    {
-      profile: {
-        picture: [
-          'https://i.pinimg.com/236x/98/76/1b/98761b431a9f80b43199bb38d044b396.jpg',
-        ],
-      },
-    },
-    {
-      profile: {
-        picture: [
-          'https://i.pinimg.com/236x/af/1d/f9/af1df9d971e18030e7586f367870e44d.jpg',
-        ],
-      },
-    },
-    {
-      profile: {
-        picture: [
-          'https://i.pinimg.com/236x/af/1d/f9/af1df9d971e18030e7586f367870e44d.jpg',
-        ],
-      },
-    },
-    {
-      profile: {
-        picture: [
-          'https://i.pinimg.com/236x/18/a7/a8/18a7a8200eed42503b351bc67ca74249.jpg',
-        ],
-      },
-    },
     {
       profile: {
         picture: [
@@ -46,73 +11,202 @@ function Demo2() {
         ],
       },
     },
+    {
+      profile: {
+        picture: [
+          'https://i.pinimg.com/236x/98/76/1b/98761b431a9f80b43199bb38d044b396.jpg',
+        ],
+      },
+    },
   ]);
-  const x = useMotionValue(0);
-  const xInput = [-100, 0, 100];
-  const background = useTransform(x, xInput, [
-    'linear-gradient(180deg, #ff008c 0%, rgb(211, 9, 225) 100%)',
-    'linear-gradient(180deg, #7700ff 0%, rgb(68, 0, 255) 100%)',
-    'linear-gradient(180deg, rgb(230, 255, 0) 0%, rgb(3, 209, 0) 100%)',
-  ]);
+  const dragItem = useRef<number>(0);
+  // const constraintsRef = useRef(null);
+  const [active, setActive] = useState(-1);
+  const [translate, setTranslate] = useState('');
+  const [rotateZ, setRotateZ] = useState('');
+  const [overlay, setOverlay] = useState('');
+  const [constraints, setConstraints] = useState({
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+  });
+
+  const dragStart = (e, info, position) => {
+    console.log(info.offset);
+    dragItem.current = position;
+  };
+  const dragEnd = (event, info) => {
+    // console.log(info.offset.x);
+    if (info.offset.x > 400) {
+      setTranslate('right');
+      setConstraints({
+        top: 0,
+        bottom: 0,
+        right: info.offset.x,
+        left: 0,
+      });
+    } else if (info.offset.x < -400) {
+      setTranslate('left');
+      setConstraints({
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: info.offset.x,
+      });
+    } else {
+      setTranslate('');
+      setConstraints({
+        top: 0,
+        bottom: 0,
+        right: 0,
+        left: 0,
+      });
+    }
+
+    // console.log(first)
+    // setPicture(picture.filter((value, index) => index !== position));
+  };
+  const drag = (event, info) => {
+    if (info.offset.x > 0) {
+      setRotateZ('right');
+    } else if (info.offset.x < 0) {
+      setRotateZ('left');
+    } else {
+      setRotateZ('');
+    }
+  };
+  const y = useMotionValue(0);
+
+  const background = useTransform(
+    y,
+    [-400, 0, 400],
+    [
+      'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)',
+      'transparent',
+      'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)',
+    ],
+  );
+  const variants = {
+    initial: { x: 0 },
+    animationRight: {
+      x: '100vw',
+      // translate:""
+      transition: { duration: 1 },
+    },
+    animationLeft: {
+      x: '-100vw',
+      transition: { duration: 1 },
+    },
+  };
+  console.log(translate);
   return (
-    <motion.div style={{ background }}>
-      <Center className={classes.container}>
-        <Flex className={classes.swipe}>
-          {picture.map((value, index) => (
-            <motion.div
-              key={index}
-              drag
-              dragElastic={1}
-              dragConstraints={{
-                left: 0,
-                right: 0,
-                bottom: 0,
-                top: 0,
+    <Center className={classes.container}>
+      <Flex className={classes.swipe}>
+        {picture.map((value, index) => (
+          <motion.div
+            drag
+            key={index}
+            dragElastic={1}
+            dragConstraints={constraints}
+            onDragStart={(e, info) => dragStart(e, info, index)}
+            onDragEnd={dragEnd}
+            onDrag={drag}
+            className={classes.draggable}
+            initial="initial"
+            animate={
+              translate === 'right'
+                ? 'animationRight'
+                : translate === 'left'
+                ? 'animationLeft'
+                : 'initial'
+            }
+            whileTap={
+              rotateZ === 'right'
+                ? {
+                    rotateZ: 15,
+                  }
+                : rotateZ === 'left'
+                ? {
+                    rotateZ: -15,
+                  }
+                : {
+                    rotateZ: 0,
+                  }
+            }
+            // style={dragItem.current === index ? { x } : undefined}
+            variants={dragItem.current === index ? variants : undefined}
+          >
+            {/* <motion.div
+              className={classes.overlay}
+              style={dragItem.current === index ? { background } : undefined}
+            ></motion.div> */}
+            <Paper
+              shadow="md"
+              radius={20}
+              sx={{
+                // position: 'relative',
+                backgroundImage: `url(${value.profile.picture[0]})`,
+                backgroundSize: 'cover',
+
+                // '::before': {
+                //   content: '""',
+                //   position: 'absolute',
+                //   inset: 0,
+                //   borderRadius: 20,
+                //   background:
+                //     overlay === 'right'
+                //       ? 'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)'
+                //       : overlay === 'left'
+                //       ? 'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)'
+                //       : 'transparent',
+                // },
               }}
-              style={{ x }}
-              // onDragStart={}
-              // animate={{ transform: 'rotate(90deg)' }}
-            >
-              <Card className={classes.card}>
-                <Paper
-                  shadow="md"
-                  radius={20}
-                  sx={{ backgroundImage: `url(${value.profile.picture[0]})` }}
-                  className={classes.page}
-                />
-              </Card>
-            </motion.div>
-          ))}
-        </Flex>
-      </Center>
-    </motion.div>
+              className={classes.page}
+            />
+          </motion.div>
+        ))}
+      </Flex>
+    </Center>
   );
 }
 
 export default Demo2;
 
 const useStyles = createStyles(() => ({
+  safeArea: {
+    position: 'relative',
+    width: 500,
+    height: 500,
+    background: '#ccc',
+  },
   container: {
     width: '100%',
     height: '100%',
+    overflow: 'hidden',
   },
   swipe: {
     position: 'relative',
-    // width: 200,
-    // height: 200,
+    width: 470,
+    height: 650,
   },
-  card: {
-    width: 200,
-    height: 200,
-    padding: '0px !important',
-    background: 'transparent',
-    position: 'relative',
-    borderRadius: 20,
-  },
-  page: {
-    position: 'absolute',
+  draggable: {
     width: '100%',
     height: '100%',
-    zIndex: 99,
+    position: 'absolute',
+    inset: 0,
+    zIndex: 10,
+  },
+  overlay: {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 11,
+  },
+
+  page: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    inset: 0,
   },
 }));

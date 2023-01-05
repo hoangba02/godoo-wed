@@ -1,51 +1,77 @@
-import React, { useRef, useState } from 'react';
-import { Carousel } from '@mantine/carousel';
-import Autoplay from 'embla-carousel-autoplay';
+import React, { useState } from 'react';
 import { SwipeStyles } from './SwipeStyles';
-import { Box, Container, Flex, Text, Title } from '@mantine/core';
-
-import Card from './SwipeCard';
-import Nav from './Nav';
-import Control from './Control';
-import { FilterUser } from './FilterUser';
-import { ReactComponent as Undo } from 'assets/icons/undo.svg';
-import { ReactComponent as Gift } from 'assets/icons/box.svg';
+import { Card, Container, Flex } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
-import SwipeTotorial from './SwipeTotorial';
+
+import Nav from './Nav';
+import { FilterUser } from './FilterUser';
+import SwipeTutorial from './SwipeTutorial';
+import Draggable from '../Draggable/Draggable';
+import { ReactComponent as Undo } from 'assets/icons/undo.svg';
+import Control from './Control';
 
 const DATA = [
   {
-    image:
-      'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Just a free soul looking for someone to hike up with',
-    nickname: 'nature',
+    userId: 1,
+    nickname: 'nature1',
+    profile: {
+      picture: [
+        'https://i.pinimg.com/236x/0d/39/dc/0d39dc251efd5694113e99b4ec077f0c.jpg',
+        'https://i.pinimg.com/236x/72/f8/12/72f8122584d5ebc91d65682d38050ef4.jpg',
+        'https://i.pinimg.com/236x/be/05/50/be0550911da79e4cc02e8b8fd16ca9a4.jpg',
+        'https://i.pinimg.com/236x/3d/74/63/3d74639d40ae75295fd25719ce35b886.jpg',
+      ],
+    },
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Hawaii beaches review: better than you think',
-    nickname: 'beach',
+    userId: 2,
+    nickname: 'nature2',
+    profile: {
+      picture: [
+        'https://i.pinimg.com/236x/98/76/1b/98761b431a9f80b43199bb38d044b396.jpg',
+        'https://i.pinimg.com/236x/0d/39/dc/0d39dc251efd5694113e99b4ec077f0c.jpg',
+      ],
+    },
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-    title: 'Mountains at night: 12 best locations to enjoy the view',
-    nickname: 'nature',
+    userId: 3,
+    nickname: 'nature3',
+    profile: {
+      picture: [
+        'https://i.pinimg.com/236x/24/55/5a/24555abc6290a637787a08110f8fbab9.jpg',
+        'https://i.pinimg.com/236x/72/f8/12/72f8122584d5ebc91d65682d38050ef4.jpg',
+        'https://i.pinimg.com/236x/01/ec/6b/01ec6b79228e3960abd78717e9159c3a.jpg',
+      ],
+    },
+  },
+  {
+    userId: 4,
+    nickname: 'natur4',
+    profile: {
+      picture: [
+        'https://i.pinimg.com/236x/be/05/50/be0550911da79e4cc02e8b8fd16ca9a4.jpg',
+        'https://i.pinimg.com/236x/24/55/5a/24555abc6290a637787a08110f8fbab9.jpg',
+      ],
+    },
+  },
+  {
+    userId: 5,
+    nickname: 'natur5',
+    profile: {
+      picture: [
+        'https://i.pinimg.com/236x/af/1d/f9/af1df9d971e18030e7586f367870e44d.jpg',
+        'https://i.pinimg.com/236x/01/ec/6b/01ec6b79228e3960abd78717e9159c3a.jpg',
+        'https://i.pinimg.com/236x/0d/39/dc/0d39dc251efd5694113e99b4ec077f0c.jpg',
+      ],
+    },
   },
 ];
 function Swipe() {
-  const slides = DATA.map((item, index) => (
-    <Carousel.Slide key={index}>
-      <Card {...item} radius={0} />
-    </Carousel.Slide>
-  ));
-
   const { classes } = SwipeStyles();
   const [active, setActive] = useState<number>();
   const { width, height } = useViewportSize();
   const tablet = useMediaQuery('(max-width:799px)');
   // console.log(active);
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
 
   return (
     <Container
@@ -62,53 +88,27 @@ function Swipe() {
         <button className={classes.btn}>
           <Undo />
         </button>
-        {/* {!tablet && <Nav active={active} data={DATA} />} */}
-        {/* Btn filter */}
+        {!tablet && <Nav active={active} lengths={3} />}
         <FilterUser />
       </Flex>
-      <Box
-        className={classes.content}
+      <Flex
         sx={{
-          [`@media (max-width:575px)`]: {
-            aspectRatio: `calc(${width - 30}/${height - 143})`,
-          },
+          width: '100%',
+          height: 'calc(470px /0.69)',
         }}
+        className={classes.overlay}
       >
-        <Carousel
-          styles={{
-            root: { height: '100%' },
-            container: {
-              height: '100%',
-            },
-            viewport: {
-              borderRadius: 20,
-            },
-          }}
-          loop
-          // speed={5}
-          height="100%"
-          slideSize="100%"
-          slideGap={0}
-          draggable={false}
-          withControls={false}
-          plugins={[autoplay.current]}
-          onSlideChange={value => setActive(value)}
-        >
-          {slides}
-        </Carousel>
-        <Flex className={classes.info}>
-          <Box>
-            <Text className={classes.nickname}>Anna, 24</Text>
-            <Title order={3} className={classes.title}>
-              Just a free soul looking for someone to hike up with
-            </Title>
-          </Box>
-          <Gift />
-        </Flex>
-        {!tablet && <Control />}
-      </Box>
-      <SwipeTotorial />
-      {/* {tablet && <Nav active={active} data={DATA} />} */}
+        {DATA.map((draggable, index) => (
+          <Draggable
+            key={draggable.userId}
+            setActive={setActive}
+            data={draggable.profile.picture}
+          />
+        ))}
+      </Flex>
+      {!tablet && <Control />}
+      <SwipeTutorial />
+      {tablet && <Nav active={active} lengths={3} />}
     </Container>
   );
 }

@@ -75,7 +75,7 @@ export default function Birth() {
         }),
       );
       dispatch(counterActions.increase());
-      navigate('/register/gender');
+      // navigate('/register/gender');
     }
   };
   useEffect(() => {
@@ -146,9 +146,9 @@ export default function Birth() {
                 inputFormat="DD/MM/YYYY"
                 placeholder="DD/MM/YYYY"
                 {...form.getInputProps('date')}
-                // onChange={() => {
-                //   setAge(false);
-                // }}
+                onFocus={() => {
+                  setAge(false);
+                }}
               />
               <DateBirth className={classes.birthIcon} />
             </Box>

@@ -46,7 +46,7 @@ export default function Desc() {
       }),
     );
     dispatch(counterActions.increase());
-    navigate('/register/mode');
+    // navigate('/register/mode');
   };
   useEffect(() => {
     if (couterText >= 500) {
@@ -68,7 +68,7 @@ export default function Desc() {
           <Text className={classes.titleChild}>
             {t('Profile.title.Bio description')}
           </Text>
-          <Text className={classes.text}>
+          <Text fz={18} className={classes.text}>
             {t('Profile.text.Anything you wanna say about yourself?')}
           </Text>
           <Textarea
@@ -87,7 +87,7 @@ export default function Desc() {
             }}
             value={intro}
             maxRows={4}
-            maxLength={200}
+            maxLength={500}
             onChange={event => setIntro(event.currentTarget.value)}
             onKeyDown={e => {
               if (e.key.length === 1) {

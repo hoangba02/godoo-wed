@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,6 +9,7 @@ import { ReactComponent as BackBtn } from 'assets/icons/backBtn.svg';
 import { getCounterSelector } from 'store/slice/counterSlice/selector';
 import Background from 'app/components/Background/Background';
 import { ProfileLayoutStyle } from './ProfileLayoutStyle';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const STEPS = [
   'nickname',
@@ -26,11 +27,32 @@ export function ProfileLayout({ children }) {
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
   const counter = useSelector(getCounterSelector);
+  const user = useSelector(getUserSelector);
 
   const handleComeBack = () => {
     dispatch(counterActions.decrease());
-    navigate(-1);
   };
+  useEffect(() => {
+    if (user.token !== '') {
+      if (counter === 0) {
+        navigate('/register/nickname');
+      } else if (counter === 1) {
+        navigate('/register/picture');
+      } else if (counter === 2) {
+        navigate('/register/birthday');
+      } else if (counter === 3) {
+        navigate('/register/gender');
+      } else if (counter === 4) {
+        navigate('/register/description');
+      } else if (counter === 5) {
+        navigate('/register/mode');
+      }
+    } else {
+      return;
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counter]);
   return (
     <>
       <Helmet>
@@ -52,7 +74,6 @@ export function ProfileLayout({ children }) {
                   return (
                     <Box
                       sx={{
-                        cursor: 'pointer',
                         backgroundColor:
                           index <= counter
                             ? 'var(--primary-4)'

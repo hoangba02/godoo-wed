@@ -44,10 +44,11 @@ root.render(
               ':root': {
                 '--fz-40': '40px',
                 '--border-width': '1px',
-                '--boder-radius': '8px',
+                '--border-radius': '8px',
                 // Color
                 '--primary-1': '#E46125',
-                '--primary-2': '#D65473',
+                '--primary-2':
+                  'linear-gradient(90deg, #C91A44 -0.01%, #A12FA3 100%)',
                 '--primary-3':
                   'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
                 '--primary-4': '#FF9565',
@@ -103,11 +104,11 @@ root.render(
                       params.variant === 'outline'
                         ? '#E46125'
                         : params.variant === 'filled'
-                        ? 'var(--primary-2)'
+                        ? '#C91A44'
                         : '#FFFFFF',
                     // borderWidth: params.variant === 'outline' ? 'none' : '1px',
                     border: params.variant === 'outline' ? 'none' : 'inherit',
-                    borderRadius: 'var(--boder-radius)',
+                    borderRadius: 'var(--border-radius)',
                     backgroundColor:
                       params.variant === 'filled'
                         ? 'var(--primary-2)'
@@ -118,9 +119,13 @@ root.render(
                         : '#FFFFFF',
                     backgroundImage:
                       params.variant === 'outline'
-                        ? 'var(--primary-3)'
+                        ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
+                        : params.variant === 'default'
+                        ? 'var(--primary-2)'
+                        : params.variant === 'filled'
+                        ? 'var(--primary-2)'
                         : params.variant === 'gradient'
-                        ? 'var(--primary-3)'
+                        ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
                         : 'none',
                     '::before': {
                       content: '""',

@@ -59,7 +59,7 @@ export default function NickName() {
         }),
       );
       dispatch(counterActions.increase());
-      navigate('/register/picture');
+      // navigate('/register/picture');
     }
   };
   useEffect(() => {
@@ -123,9 +123,9 @@ export default function NickName() {
                 }}
                 maxLength={15}
                 placeholder={t('Profile.title.Nickname')}
-                onKeyDown={e => {
-                  handleClearSpace(e);
-                }}
+                // onKeyDown={e => {
+                //   handleClearSpace(e);
+                // }}
                 {...form.getInputProps('nickname')}
               />
               <FaceName className={classes.nicknameIcon} />

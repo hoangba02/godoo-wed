@@ -104,7 +104,7 @@ export default function Gender() {
         },
       }),
     );
-    navigate('/register/description');
+    // navigate('/register/description');
   };
   useEffect(() => {
     if (sex.length > 2 || sex.length < 1) {
@@ -245,6 +245,9 @@ export default function Gender() {
                 >
                   <Text
                     sx={{
+                      fontSize: 24,
+                      fontWeight: 500,
+                      lineHeight: '30px',
                       background:
                         gender.text === 'Others'
                           ? 'var(--primary-3)'

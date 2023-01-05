@@ -60,10 +60,11 @@ const useStyles = createStyles(() => ({
     borderRadius: 33,
     padding: '0 12.5px',
     position: 'absolute',
-    bottom: 14,
+    bottom: '25%',
     left: '50%',
     transform: 'translateX(-50%)',
     backgroundColor: 'rgba(255, 161, 118, 0.2)',
+    zIndex: 7,
     // backgroundImage:
     //   'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(0,0,0,1) 50%, rgba(255,255,255,1) 100%);',
     // '&::before': {
