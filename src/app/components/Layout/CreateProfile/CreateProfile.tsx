@@ -8,7 +8,7 @@ import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as BackBtn } from 'assets/icons/backBtn.svg';
 import { getCounterSelector } from 'store/slice/counterSlice/selector';
 import Background from 'app/components/Background/Background';
-import { ProfileLayoutStyle } from './ProfileLayoutStyle';
+import { CreateProfileStyles } from './CreateProfileStyles';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 const STEPS = [
@@ -21,7 +21,7 @@ const STEPS = [
 ];
 
 export function ProfileLayout({ children }) {
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   // Global
   const navigate = useNavigate();
   const dispatch = useDispatch();

@@ -8,9 +8,12 @@ function Nav({ active, lengths }) {
       sx={{
         height: 34,
         alignItems: 'center',
+        justifyContent: 'center',
         [`@media (max-width:799px)`]: {
-          width: '100%',
           justifyContent: 'center',
+          width: '100%',
+          position: 'absolute',
+          bottom: 0,
         },
       }}
     >

@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IconPlus, IconChevronRight } from '@tabler/icons';
 
 import UpLoad from 'app/components/UpLoad/UpLoad';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
@@ -23,7 +23,7 @@ import {
 } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 export default function Picture() {
   // Global
@@ -36,7 +36,7 @@ export default function Picture() {
   // Local
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [img, setImg] = useState({
     one: profile.picture[0],
     two: profile.picture[1],

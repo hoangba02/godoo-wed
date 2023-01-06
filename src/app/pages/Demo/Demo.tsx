@@ -197,7 +197,7 @@ function Demo() {
             );
           })}
         </Flex>
-        {!tablet && <Control />}
+        {/* {!tablet && onSwipe={onSwipe}} */}
         {tablet && (
           <Nav
             active={active}

@@ -9,8 +9,13 @@ import { ReactComponent as ArrowUp } from 'assets/icons/arrowUp.svg';
 // const btn =[
 
 // ]
-function Control() {
+function Control({ childRefs, currentIndex, canSwipe, length }) {
   const { classes } = useStyles();
+  const onSwipe = dir => {
+    if (canSwipe && currentIndex < length) {
+      childRefs.current[currentIndex].swipe(dir);
+    }
+  };
   return (
     <Box>
       <Flex className={classes.control}>
@@ -20,6 +25,7 @@ function Control() {
             scale: 1.1,
             boxShadow: '0 0 8px #FF9565',
           }}
+          onClick={(): void => onSwipe('left')}
         >
           <UnLike />
         </motion.button>
@@ -40,6 +46,7 @@ function Control() {
             scale: 1.1,
             boxShadow: '0 0 8px #FF9565',
           }}
+          onClick={(): void => onSwipe('right')}
         >
           <Like />
         </motion.button>

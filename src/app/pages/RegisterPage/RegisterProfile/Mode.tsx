@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, Text } from '@mantine/core';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { images } from 'assets/images';
 import { IconCheck } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import {
 import { UserSlice } from 'store/slice/userSlice';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 export default function Mode() {
   // Global
@@ -22,7 +22,7 @@ export default function Mode() {
   const user = useSelector(getUserSelector);
 
   const { t } = useTranslation();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [mode, setMode] = useState(profile.relationship);
   const [disableBtn, setDisableBtn] = useState(true);
 
@@ -67,6 +67,10 @@ export default function Mode() {
           </Text>
           <Stack align="center" mt={14}>
             <Button
+              sx={{
+                background:
+                  'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+              }}
               variant={mode === 0 ? 'gradient' : 'outline'}
               className={classes.optionBtn}
               onClick={() => setMode(0)}
@@ -82,6 +86,10 @@ export default function Mode() {
               </Text>
             </Button>
             <Button
+              sx={{
+                background:
+                  'linear-gradient(90deg, #C91A44 -0.01%, #A12FA3 100%)',
+              }}
               variant={mode === 1 ? 'default' : 'filled'}
               className={classes.optionBtn}
               onClick={() => setMode(1)}

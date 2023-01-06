@@ -8,7 +8,7 @@ import { Box, Button, Center, Checkbox, Image, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
 import { DatePicker } from '@mantine/dates';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { Zodiac } from 'app/components/Zodiac/Zodiac';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { ReactComponent as DateBirth } from 'assets/icons/dateBirth.svg';
@@ -18,7 +18,7 @@ import {
 } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 const ADJ = ['lovely', 'cute', 'mischievious', 'bonny', 'affable'];
 export default function Birth() {
@@ -31,7 +31,7 @@ export default function Birth() {
   // Local
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [age, setAge] = useState(false);
   const [adj, setAdj] = useState(ADJ[0]);
   const [error, setError] = useState(false);

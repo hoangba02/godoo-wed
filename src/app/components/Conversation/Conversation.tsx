@@ -8,19 +8,24 @@ import {
   Stack,
   Text,
 } from '@mantine/core';
+import useModal from 'hooks/useModal';
+import { useNavigate } from 'react-router-dom';
+
+import Profile from '../Profile/Profile';
 import { ConversationStyles } from './ConversationStyles';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as Detail } from 'assets/icons/detail.svg';
 import { ReactComponent as ArrowRight } from 'assets/icons/arrowRight.svg';
 import { ReactComponent as Calendar } from 'assets/icons/calendar.svg';
 import { ReactComponent as Gift } from 'assets/icons/giftMess.svg';
-import { useNavigate } from 'react-router-dom';
 
 function Conversation() {
   const navigate = useNavigate();
+  const { isShowing, toggle } = useModal();
   const { classes } = ConversationStyles();
   return (
     <Container fluid className={classes.container}>
+      <Profile hide={toggle} isShowing={isShowing} />
       <Flex className={classes.header}>
         <Box
           onClick={() => {
@@ -29,7 +34,9 @@ function Conversation() {
         >
           <ArrowLeft />
         </Box>
-        <Text className={classes.nickname}>Anna</Text>
+        <Text className={classes.nickname} onClick={toggle}>
+          Anna
+        </Text>
         <Box>
           <Detail />
         </Box>

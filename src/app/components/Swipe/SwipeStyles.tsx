@@ -8,6 +8,7 @@ export const SwipeStyles = createStyles(() => ({
     margin: 0,
     transitionProperty: 'all',
     transitionDuration: '10ms',
+    zIndex: 99,
     [`@media (min-width:1200px) and (max-width:1439px)`]: {},
     [`@media (min-width:992px) and (max-width:1199px)`]: {},
     [`@media (min-width:768px) and (max-width:991px)`]: {},
@@ -52,5 +53,32 @@ export const SwipeStyles = createStyles(() => ({
   overlay: {
     padding: '0px !important',
     position: 'relative',
+  },
+
+  // Tinder card
+  swipe: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  draggable: {
+    padding: '0 !important',
+    width: '100%',
+    position: 'absolute',
+    aspectRatio: '0.69',
+  },
+  bio: {
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    position: 'absolute',
+    padding: '0 16px',
+    bottom: 104,
+    [`@media (max-width:799px)`]: {
+      bottom: 50,
+    },
+    [`@media (max-width:575px)`]: {
+      bottom: 20,
+    },
   },
 }));

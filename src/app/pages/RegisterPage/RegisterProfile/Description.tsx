@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Box, Button, Text, Textarea } from '@mantine/core';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { images } from 'assets/images';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,7 +13,7 @@ import {
 } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 export default function Desc() {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ export default function Desc() {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [intro, setIntro] = useState(profile.introduction);
   const [couterText, setCouterText] = useState(0);
 

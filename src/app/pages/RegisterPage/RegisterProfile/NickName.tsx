@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Text, TextInput } from '@mantine/core';
 
 import { images } from 'assets/images';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { ReactComponent as FaceName } from 'assets/icons/faceName.svg';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useNavigate } from 'react-router-dom';
@@ -15,11 +15,11 @@ import {
   getUserSelector,
 } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 export default function NickName() {
   const { t } = useTranslation();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [error, setError] = useState(false);
   const [disableBtn, setDisableBtn] = useState(true);
   //Global

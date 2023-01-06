@@ -4,7 +4,7 @@ import { IconChevronRight } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { images } from 'assets/images';
-import { ProfileLayoutStyle } from '../../../components/Layout/Profile/ProfileLayoutStyle';
+import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/CreateProfileStyles';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useTranslation } from 'react-i18next';
 import {
@@ -13,7 +13,7 @@ import {
 } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { ProfileLayout } from 'app/components/Layout/Profile/ProfileLayout';
+import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 
 const GENDER = [
   {
@@ -82,7 +82,7 @@ export default function Gender() {
   // Local
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { classes } = ProfileLayoutStyle();
+  const { classes } = CreateProfileStyles();
   const [sex, setSex] = useState<string[]>(profile.gender);
   const [disableBtn, setDisabel] = useState(true);
 

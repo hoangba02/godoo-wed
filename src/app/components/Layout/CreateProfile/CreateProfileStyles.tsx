@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const ProfileLayoutStyle = createStyles(() => ({
+export const CreateProfileStyles = createStyles(() => ({
   // Profile
   container: {
     width: '100vw',

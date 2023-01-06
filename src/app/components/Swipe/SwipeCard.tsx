@@ -8,7 +8,9 @@ export default function SwipeCard({ image, radius }) {
     <Paper
       shadow="md"
       radius={radius}
-      sx={{ backgroundImage: `url(${image})` }}
+      sx={{
+        backgroundImage: `url(${image})`,
+      }}
       className={classes.card}
     />
   );
@@ -19,5 +21,9 @@ const useStyles = createStyles(theme => ({
     height: '100%',
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    objectFit: 'fill',
+    backdropFilter: 'blur(22px)',
+    imageRendering: 'pixelated',
+    objectPosition: 'center',
   },
 }));
