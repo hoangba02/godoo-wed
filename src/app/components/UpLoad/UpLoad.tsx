@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconPlus } from '@tabler/icons';
 import { ReactComponent as Blink } from 'assets/icons/blink.svg';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
@@ -13,16 +13,42 @@ import {
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
+import { apiPost } from 'utils/http/request';
 
 function UpLoad({ link, id, name, setImg, img }) {
+  const ImgFile = new FormData();
+  // Local
   const { t } = useTranslation();
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(2);
+  const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
+  // Global
   const profile = useSelector(getProfileSelector);
+
   const handleUploadImage = e => {
-    setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
-    setZIndex(4);
+    setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
   };
+  useEffect(() => {
+    ImgFile.append('file', selectedFile.filename);
+    if (selectedFile.filename) {
+      apiPost('/v1/uploadgeturl', ImgFile, {
+        'content-type': 'multipart/form-data',
+      })
+        .then(res => {
+          setImg({
+            ...img,
+            [selectedFile.name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
+          });
+          setZIndex(4);
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      return;
+    }
+  }, [selectedFile]);
   return (
     <Card className={classes.picCard}>
       {img[name] && (
@@ -30,7 +56,7 @@ function UpLoad({ link, id, name, setImg, img }) {
           className={classes.clearBtn}
           onClick={e => {
             // URL.revokeObjectURL(img.one);
-            setImg({ ...img, [name]: URL.revokeObjectURL(img[name]) });
+            setImg({ ...img, [name]: '' });
             setZIndex(2);
           }}
         >
@@ -59,13 +85,14 @@ function UpLoad({ link, id, name, setImg, img }) {
         <Blink width="100%" height="100%" />
       </Box>
       <input
+        id={id}
         name={name}
-        className={classes.upImg}
         type="file"
+        accept="image/*"
+        className={classes.upImg}
         onChange={e => {
           handleUploadImage(e);
         }}
-        id={id}
       />
       <label
         htmlFor={img.one ? id : ''}

@@ -24,8 +24,10 @@ import {
 import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
+import { apiPost } from 'utils/http/request';
 
 export default function Picture() {
+  const ImgFile = new FormData();
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
@@ -47,10 +49,10 @@ export default function Picture() {
   });
   const [zIndex, setZIndex] = useState(2);
   const [disableBtn, setDisableBtn] = useState(true);
+  const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
 
   const handleUploadImage = e => {
-    setZIndex(4);
-    setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
+    setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
   };
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
@@ -82,6 +84,27 @@ export default function Picture() {
       URL.revokeObjectURL(img.one);
     };
   }, [img]);
+  useEffect(() => {
+    ImgFile.append('file', selectedFile.filename);
+    if (selectedFile.filename) {
+      apiPost('/v1/uploadgeturl', ImgFile, {
+        'content-type': 'multipart/form-data',
+      })
+        .then(res => {
+          setImg({
+            ...img,
+            [selectedFile.name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
+          });
+          setZIndex(4);
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      return;
+    }
+  }, [selectedFile]);
   return (
     <ProfileLayout>
       <Box className={classes.children}>
