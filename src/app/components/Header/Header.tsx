@@ -71,7 +71,7 @@ export default Header;
 const useStyles = createStyles(() => ({
   container: {
     width: '100%',
-    position: 'absolute',
+    position: 'fixed',
     bottom: 0,
     height: 65,
     margin: 0,
