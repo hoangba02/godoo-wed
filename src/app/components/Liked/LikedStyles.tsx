@@ -21,32 +21,6 @@ export const LikedStyles = createStyles(() => ({
       padding: '28px 16.5px 75px',
     },
   },
-  btn: {
-    width: '48%',
-    height: 38,
-    border: 'none',
-    borderRadius: 8,
-    padding: 0,
-    color: '#E46125',
-    fontSize: 16,
-    fontWeight: 400,
-    lineHeight: '20px',
-    backgroundColor: '#F3F3F3',
-    '::before': {
-      display: 'none',
-    },
-    ':hover': {
-      color: '#E46125',
-      backgroundColor: '#F3F3F3',
-    },
-    '&.active': {
-      color: '#FFFFFF',
-      background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
-    },
-    [`@media (max-width:575px)`]: {
-      width: 165,
-      height: '38px ',
-    },
-  },
+  btn: {},
   content: {},
 }));

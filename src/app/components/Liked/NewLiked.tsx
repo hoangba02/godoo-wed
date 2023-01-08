@@ -1,21 +1,45 @@
-import { ClassNames } from '@emotion/react';
+import React, { useEffect, useState } from 'react';
 import { Box, createStyles, SimpleGrid } from '@mantine/core';
 import LikedAccount from 'app/components/LikedAccount/LikedAccount';
-import React from 'react';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { apiPost } from 'utils/http/request';
 
-function NewLiked() {
+interface Props {
+  status: string;
+}
+function NewLiked({ status }: Props) {
+  // Global
+  const user = useSelector(getUserSelector);
+  // Local
   const { classes } = useStyles();
+  const [likeMap, setLikeMap] = useState([]);
+  useEffect(() => {
+    apiPost(
+      `/v1/godoo/match/get${status}`,
+      {
+        quantity: 8,
+      },
+      {
+        userid: 101,
+        token: 'dsqh6c1o9j95cbw7031ux0afhras9ydy',
+        // userid: user.id,
+        // token: user.token,
+      },
+    )
+      .then(res => {
+        setLikeMap(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, [status]);
   return (
     <Box className={classes.container}>
       <SimpleGrid cols={2} className={classes.gird}>
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
-        <LikedAccount />
+        {likeMap.map((liked, index) => (
+          <LikedAccount key={index} data={liked} isLiked={status} />
+        ))}
       </SimpleGrid>
     </Box>
   );

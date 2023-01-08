@@ -66,6 +66,10 @@ function MatchAccount() {
             ':hover': {
               backgroundColor: 'transparent',
             },
+            [`@media (max-width:575px)`]: {
+              height: '100%',
+              width: '100%',
+            },
           }}
           variant="subtle"
         >

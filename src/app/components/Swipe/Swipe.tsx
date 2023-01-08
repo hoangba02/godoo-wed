@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SwipeStyles } from './SwipeStyles';
 import { Card, Container, Flex } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
@@ -14,6 +14,7 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
 import { ReactComponent as Undo } from 'assets/icons/undo.svg';
 import { ReactComponent as Gift } from 'assets/icons/box.svg';
+import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 function Swipe() {
   const characters = [
@@ -85,6 +86,7 @@ function Swipe() {
   const canGoBack = currentIndex < characters.length - 1;
   const canSwipe = currentIndex >= 0;
   const [lastDirection, setLastDirection] = useState();
+  const [offsetDrag, setOffsetDrag] = useState(0);
 
   // Function tinder
 
@@ -120,7 +122,6 @@ function Swipe() {
   };
   const swiped = (direction, swipeUserId, index) => {
     console.log('removing: ' + swipeUserId);
-    console.log(childRefs.current[currentIndex]);
 
     if (direction === 'right') {
       updateMatches(swipeUserId);
@@ -137,6 +138,16 @@ function Swipe() {
     updateCurrentIndex(newIndex);
     await childRefs.current[newIndex].restoreCard();
   };
+  // Motion function
+  const drag = (event, info) => {
+    setOffsetDrag(info.offset.x);
+    console.log(info.offset.x);
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      console.log(1);
+    });
+  });
   return (
     <Container
       fluid
@@ -182,37 +193,43 @@ function Swipe() {
               onSwipe={dir => swiped(dir, character.userId, index)}
               onCardLeftScreen={() => outOfFrame(character.nickname)}
             >
-              <Card
-                className={classes.draggable}
-                sx={{
-                  height: 'max-content',
-                  background: 'none',
-                  borderRadius: '20px !important',
-                  zIndex: 5,
-
-                  '::before': {
-                    content: '""',
-                    position: 'absolute',
-                    inset: 0,
-                    borderRadius: 20,
-                    background: 'transparent',
-                    zIndex: 6,
-                  },
-                  [`@media (max-width:575px)`]: {
-                    aspectRatio: `calc(${width - 30}/${height - 143})`,
-                  },
-                }}
+              <motion.div
+              // drag
+              // dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+              // onDrag={drag}
               >
-                <MyCarousel
-                  key={character.userId}
-                  setActive={setActive}
-                  data={character.profile.picture}
-                />
-                <Flex className={classes.bio}>
-                  <BioDescription />
-                  <Gift />
-                </Flex>
-              </Card>
+                <Card
+                  className={classes.draggable}
+                  sx={{
+                    height: 'max-content',
+                    background: 'none',
+                    borderRadius: '20px !important',
+                    zIndex: 5,
+
+                    '::before': {
+                      content: '""',
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: 20,
+                      background: 'transparent',
+                      zIndex: 6,
+                    },
+                    [`@media (max-width:575px)`]: {
+                      aspectRatio: `calc(${width - 30}/${height - 143})`,
+                    },
+                  }}
+                >
+                  <MyCarousel
+                    key={character.userId}
+                    setActive={setActive}
+                    data={character.profile.picture}
+                  />
+                  <Flex className={classes.bio}>
+                    <BioDescription />
+                    <Gift />
+                  </Flex>
+                </Card>
+              </motion.div>
             </TinderCard>
           );
         })}

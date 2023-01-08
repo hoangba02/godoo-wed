@@ -7,14 +7,9 @@ function Nav({ active, lengths }) {
       gap={6}
       sx={{
         height: 34,
+        width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-        [`@media (max-width:799px)`]: {
-          justifyContent: 'center',
-          width: '100%',
-          position: 'absolute',
-          bottom: 0,
-        },
       }}
     >
       {Array.from({ length: lengths }).map((value, index) => (

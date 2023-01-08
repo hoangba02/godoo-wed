@@ -3,6 +3,7 @@ import { ProfileStyles } from './ProfileStyles';
 import MyOverlay from '../Layout/MyOverlay/MyOverlay';
 import { createPortal } from 'react-dom';
 import {
+  Box,
   Button,
   Card,
   Chip,
@@ -33,6 +34,8 @@ import { ReactComponent as Transgender } from 'assets/icons/gender/Transgender.s
 interface Props {
   hide: () => void;
   isShowing: boolean;
+  status?: string;
+  profile?: any;
 }
 const genders = [
   {
@@ -70,37 +73,33 @@ const genders = [
     icon: <Transgender />,
   },
 ];
-function Profile({ hide, isShowing }: Props) {
-  const profiles = {
-    userId: 5,
-    nickname: 'natur5',
-    profile: {
-      picture: [
-        'https://i.pinimg.com/236x/c9/5b/7c/c95b7c87811061e3e82b0b02ebd5c24d.jpg',
-        'https://i.pinimg.com/236x/d8/29/d7/d829d71b48f5efbe37e4761e15a5aaf0.jpg',
-        'https://i.pinimg.com/236x/09/d3/51/09d3513c96669399a6ccc3ddc1d0a012.jpg',
-      ],
-    },
-  };
+function Profile({ hide, isShowing, status, profile }: Props) {
   const { classes } = ProfileStyles();
   const [active, setActive] = useState();
+  const listPicture = profile.picture.filter(value => value !== null);
+
+  const listGender = genders.filter(value =>
+    profile.gender.includes(value.name),
+  );
+
   if (!isShowing) return null;
   return createPortal(
     <MyOverlay hide={hide}>
       <>
         <Container fluid className={classes.carousel}>
-          <MyCarousel setActive={setActive} data={profiles.profile.picture} />
+          <MyCarousel setActive={setActive} data={listPicture} />
           <Card className={classes.bio}>
             <BioDescription />
           </Card>
         </Container>
-        <Nav active={active} lengths={3} />
+        <Nav active={active} lengths={listPicture.length} />
         <Card className={classes.card}>
           <Text className={classes.title}>Gender</Text>
           <Group className={classes.gender}>
             <Chip.Group defaultChecked={false} position="center"></Chip.Group>
-            {genders.map((gender, index) => (
+            {listGender.map((gender, index) => (
               <Chip
+                key={index}
                 styles={{
                   label: {
                     padding: '0 14px ',
@@ -114,7 +113,45 @@ function Profile({ hide, isShowing }: Props) {
             ))}
           </Group>
         </Card>
-        <ProfileOptions />
+        <Card className={classes.options}>
+          <Flex
+            sx={{
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            {status === undefined ? (
+              <Button variant="subtle" className={classes.optionBtn}>
+                <Unpair />
+              </Button>
+            ) : (
+              <Button variant="subtle" className={classes.optionBtn}>
+                <Hide />
+              </Button>
+            )}
+
+            {status === undefined ? (
+              <Flex>
+                <Button variant="subtle" className={classes.optionBtn}>
+                  <Report />
+                </Button>
+              </Flex>
+            ) : status === 'likedyou' ? (
+              <Flex>
+                <Button variant="subtle" className={classes.optionBtn}>
+                  <Nope />
+                </Button>
+                <Button variant="subtle" className={classes.optionBtn}>
+                  <Like />
+                </Button>
+              </Flex>
+            ) : null}
+
+            <Button variant="subtle" className={classes.optionBtn}>
+              <Share />
+            </Button>
+          </Flex>
+        </Card>
       </>
     </MyOverlay>,
     document.body,
@@ -123,28 +160,28 @@ function Profile({ hide, isShowing }: Props) {
 
 export default Profile;
 
-export function ProfileOptions() {
-  const { classes } = ProfileStyles();
-  return (
-    <Card className={classes.options}>
-      <Flex
-        sx={{
-          justifyContent: 'space-around',
-          alignItems: 'center',
-        }}
-      >
-        <Button variant="subtle" className={classes.optionBtn}>
-          <Unpair />
-        </Button>
-        <Flex>
-          <Button variant="subtle" className={classes.optionBtn}>
-            <Report />
-          </Button>
-        </Flex>
-        <Button variant="subtle" className={classes.optionBtn}>
-          <Share />
-        </Button>
-      </Flex>
-    </Card>
-  );
-}
+// export function ProfileOptions({}) {
+//   const { classes } = ProfileStyles();
+//   return (
+//     <Card className={classes.options}>
+//       <Flex
+//         sx={{
+//           justifyContent: 'space-around',
+//           alignItems: 'center',
+//         }}
+//       >
+//         <Button variant="subtle" className={classes.optionBtn}>
+//           <Unpair />
+//         </Button>
+//         <Flex>
+//           <Button variant="subtle" className={classes.optionBtn}>
+//             <Report />
+//           </Button>
+//         </Flex>
+//         <Button variant="subtle" className={classes.optionBtn}>
+//           <Share />
+//         </Button>
+//       </Flex>
+//     </Card>
+//   );
+// }

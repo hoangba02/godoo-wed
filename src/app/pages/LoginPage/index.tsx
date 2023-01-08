@@ -83,7 +83,6 @@ export function LoginPage() {
         navigate('/register/picture');
         dispatch(counterActions.setCounter({ value: 1 }));
       } else if (profile.date_of_birth === '') {
-        console.log(profile.date_of_birth);
         navigate('/register/birthday');
         dispatch(counterActions.setCounter({ value: 2 }));
       } else if (profile.zodiac === '' || profile.gender.length === 0) {

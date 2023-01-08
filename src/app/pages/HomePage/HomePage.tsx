@@ -25,6 +25,11 @@ export function HomePage() {
   //     navigate('/');
   //   }
   // }, [navigate]);
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      console.log(2);
+    });
+  });
   return (
     <>
       <Helmet>

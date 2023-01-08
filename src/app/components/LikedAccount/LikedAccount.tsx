@@ -1,51 +1,53 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  createStyles,
-  Overlay,
-  Paper,
-  Text,
-  Title,
-} from '@mantine/core';
+import { Box, createStyles, Overlay, Paper, Text } from '@mantine/core';
 import { ReactComponent as GiftBox } from 'assets/icons/gift.svg';
+import Profile from '../Profile/Profile';
+import useModal from 'hooks/useModal';
 
 interface Props {
-  image?: string;
-  title?: string;
-  decs?: string;
+  data: any;
+  isLiked: string;
 }
-function LikedAccount({ image, title, decs }: Props) {
+function LikedAccount({ data, isLiked }: Props) {
   const { classes } = useStyles();
+  const { isShowing, toggle } = useModal();
   return (
-    <Paper
-      shadow="md"
-      radius={0}
-      sx={{
-        backgroundImage: `url('https://i.pinimg.com/236x/83/73/1d/83731d9481ca21511b9bb1ddd385795f.jpg')`,
-      }}
-      className={classes.card}
-    >
-      <Overlay
-        sx={{
-          borderRadius: 8,
-          zIndex: 1,
-        }}
-        gradient={`linear-gradient(180deg, rgba(255, 255, 255, 0) -39.78%, rgba(255, 255, 255, 0.1) 29%, #000000 100%)`}
+    <>
+      <Profile
+        isShowing={isShowing}
+        hide={toggle}
+        status={isLiked}
+        profile={data}
       />
-      <Box className={classes.content}>
-        <Text className={classes.category} size="xs">
-          Marry, 21
-        </Text>
-        <Text lineClamp={2} className={classes.title}>
-          Just a free soul looking for someone to hike Just a free soul looking
-          for someone to hike
-        </Text>
-      </Box>
-      <Box className={classes.gift}>
-        <GiftBox />
-      </Box>
-    </Paper>
+      <Paper
+        shadow="md"
+        radius={0}
+        sx={{
+          backgroundImage: `url('https://i.pinimg.com/236x/83/73/1d/83731d9481ca21511b9bb1ddd385795f.jpg')`,
+        }}
+        className={classes.card}
+        onClick={toggle}
+      >
+        <Overlay
+          sx={{
+            borderRadius: 8,
+            zIndex: 1,
+          }}
+          gradient={`linear-gradient(180deg, rgba(255, 255, 255, 0) -39.78%, rgba(255, 255, 255, 0.1) 29%, #000000 100%)`}
+        />
+        <Box className={classes.content}>
+          <Text className={classes.category} size="xs">
+            {data.nickname}
+          </Text>
+          <Text lineClamp={2} className={classes.title}>
+            {data.introduction}
+          </Text>
+        </Box>
+        <Box className={classes.gift}>
+          <GiftBox />
+        </Box>
+      </Paper>
+    </>
   );
 }
 

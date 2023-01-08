@@ -62,6 +62,7 @@ export const FilterUser = () => {
             paddingTop: 28,
             paddingBottom: 12,
             borderBottom: '1px solid #FFE0D2',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
           }}
         >
           <Box
@@ -108,7 +109,29 @@ export const FilterUser = () => {
           </Box>
           <Box>
             <Text className={classes.indexing}>Distance</Text>
-            {/* <Select
+            <RangeSlider
+              styles={{
+                root: {
+                  padding: '0 15px',
+                },
+                thumb: {
+                  backgroundColor: '#FFE9E0',
+                  border: '4px solid #E46125',
+                },
+                bar: {
+                  background:
+                    'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+                },
+              }}
+              thumbSize={24}
+              mt="xl"
+              defaultValue={[0, 200]}
+              max={200}
+            />
+          </Box>
+          <Box>
+            <Text className={classes.indexing}>Advanced Filters</Text>
+            <Select
               rightSection={<ArrowDown />}
               defaultValue="No promblem"
               data={data}
@@ -138,7 +161,7 @@ export const FilterUser = () => {
                   height: 24,
                   borderRadius: '50%',
                   backgroundColor: 'var(--white)',
-                  transform: 'translateY(-50%)',
+                  transform: 'translateY(-50%) rotate(-90deg)',
                 },
 
                 input: {
@@ -150,31 +173,7 @@ export const FilterUser = () => {
                     'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
                 },
               }}
-            /> */}
-            <div>
-              <RangeSlider
-                styles={{
-                  root: {
-                    padding: '0 15px',
-                  },
-                  thumb: {
-                    backgroundColor: '#FFE9E0',
-                    border: '4px solid #E46125',
-                  },
-                  bar: {
-                    background:
-                      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
-                  },
-                }}
-                thumbSize={24}
-                mt="xl"
-                defaultValue={[0, 200]}
-                max={200}
-              />
-            </div>
-          </Box>
-          <Box>
-            <Text className={classes.indexing}>Advanced Filters</Text>
+            />
           </Box>
         </Stack>
       </Modal>
@@ -215,7 +214,7 @@ const useStyles = createStyles(() => ({
   question: {
     textAlign: 'center',
     color: 'var(--black)',
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: '22px',
     fontWeight: 400,
   },

@@ -10,6 +10,9 @@ function NewMatch() {
       fluid
       sx={{
         maxWidth: 308,
+        [`@media (max-width:575px)`]: {
+          maxWidth: '100%',
+        },
       }}
       className={classes.container}
     >

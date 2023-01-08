@@ -5,6 +5,9 @@ export const ProfileStyles = createStyles(() => ({
     position: 'relative',
     height: '61%',
     padding: 0,
+    [`@media (max-width:575px)`]: {
+      minHeight: 448,
+    },
   },
   bio: {
     position: 'absolute',
@@ -13,6 +16,9 @@ export const ProfileStyles = createStyles(() => ({
   },
   card: {
     padding: '0 48px !important',
+    [`@media (max-width:575px)`]: {
+      padding: '0 7.5px !important',
+    },
   },
   title: {
     fontWeight: 700,
@@ -40,9 +46,17 @@ export const ProfileStyles = createStyles(() => ({
     bottom: 0,
     width: '100%',
     padding: '8px 16px !important',
+    [`@media (max-width:575px)`]: {
+      position: 'static',
+      padding: '8px 0 !important',
+    },
   },
   optionBtn: {
     width: 'max-content',
     height: 'max-content',
+    [`@media (max-width:799px)`]: {
+      width: 'max-content',
+      height: 'max-content',
+    },
   },
 }));

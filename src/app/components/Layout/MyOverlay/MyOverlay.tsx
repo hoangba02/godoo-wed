@@ -1,19 +1,29 @@
-import React, { ReactElement, useState } from 'react';
+import React, {
+  createRef,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { Card, Container, createStyles } from '@mantine/core';
+import { current } from '@reduxjs/toolkit';
 
 interface Props {
   hide: () => void;
   children: ReactElement;
 }
 const MyOverlay = ({ children, hide }: Props) => {
+  const cardRef = React.useRef<HTMLDivElement | null>(null);
   const { classes } = useStyles();
-  const handleCloseOverlay = e => {
-    hide();
-    e.stopPropagation();
-    // e.preventDefault();
 
-    // e.stopImmediatePropagation();
+  const handleCloseOverlay = event => {
+    const { target } = event;
+    if (cardRef.current !== null) {
+      if (!cardRef.current.contains(target)) {
+        hide();
+      }
+    }
   };
   return (
     <Container
@@ -21,7 +31,9 @@ const MyOverlay = ({ children, hide }: Props) => {
       className={classes.container}
       onClick={e => handleCloseOverlay(e)}
     >
-      <Card className={classes.wrapper}>{children}</Card>
+      <Card className={classes.wrapper} ref={cardRef}>
+        {children}
+      </Card>
     </Container>
   );
 };
@@ -40,6 +52,9 @@ const useStyles = createStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
+    [`@media (max-width:575px)`]: {
+      padding: '70px 16px 20px',
+    },
   },
   wrapper: {
     width: 430,
@@ -48,5 +63,14 @@ const useStyles = createStyles(() => ({
     borderRadius: 20,
     padding: '0px !important',
     transform: 'translateX(50%)',
+    [`@media (max-width:575px)`]: {
+      // position: 'relative',
+      width: '100%',
+      height: '100%',
+      minWidth: 343,
+      transform: 'translateX(0)',
+      overflow: 'scroll',
+      // paddingBottom: '60px !important',
+    },
   },
 }));
