@@ -78,7 +78,7 @@ root.render(
             },
             'html *::-webkit-scrollbar': {
               borderRadius: 0,
-              width: 8,
+              width: 2,
             },
             'html *::-webkit-scrollbar-thumb': {
               borderRadius: 4,

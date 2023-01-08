@@ -80,6 +80,7 @@ function Swipe() {
   const [active, setActive] = useState<number>();
   const { width, height } = useViewportSize();
   const tablet = useMediaQuery('(max-width:799px)');
+  const phone = useMediaQuery('(max-width:575px)');
   const user = useSelector(getUserSelector);
   // State
   const currentIndexRef = useRef(currentIndex);
@@ -189,7 +190,7 @@ function Swipe() {
               key={character.nickname}
               swipeRequirementType="position"
               preventSwipe={['up', 'down']}
-              swipeThreshold={300}
+              swipeThreshold={phone ? 150 : 300}
               onSwipe={dir => swiped(dir, character.userId, index)}
               onCardLeftScreen={() => outOfFrame(character.nickname)}
             >
