@@ -108,7 +108,7 @@ const useStyles = createStyles(() => ({
   },
   border: {
     height: 112,
-    width: 87,
+    width: '24.5%',
     position: 'absolute',
     left: -3,
     bottom: -1,

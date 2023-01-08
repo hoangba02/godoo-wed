@@ -22,7 +22,7 @@ const useStyles = createStyles(theme => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     objectFit: 'fill',
-    backdropFilter: 'blur(22px)',
+    // backdropFilter: 'blur(22px)',
     imageRendering: 'pixelated',
     objectPosition: 'center',
   },

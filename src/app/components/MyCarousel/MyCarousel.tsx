@@ -6,7 +6,7 @@ import { createStyles, Paper, Text, Title } from '@mantine/core';
 import SwipeCard from '../Swipe/SwipeCard';
 
 function MyCarousel({ setActive, data }) {
-  const autoplay = useRef(Autoplay({ delay: 2000 }));
+  const autoplay = useRef(Autoplay({ delay: 4000 }));
   return (
     <>
       <Carousel

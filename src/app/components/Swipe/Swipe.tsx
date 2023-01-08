@@ -186,6 +186,8 @@ function Swipe() {
                 className={classes.draggable}
                 sx={{
                   height: 'max-content',
+                  background: 'none',
+                  borderRadius: '20px !important',
                   zIndex: 5,
 
                   '::before': {
