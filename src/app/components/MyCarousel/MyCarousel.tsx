@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { createStyles, Paper, Text, Title } from '@mantine/core';
@@ -6,6 +6,7 @@ import { createStyles, Paper, Text, Title } from '@mantine/core';
 import SwipeCard from '../Swipe/SwipeCard';
 
 function MyCarousel({ setActive, data }) {
+  const listPicture = data.picture.filter(value => value !== null);
   const autoplay = useRef(Autoplay({ delay: 4000 }));
   return (
     <>
@@ -29,7 +30,7 @@ function MyCarousel({ setActive, data }) {
         plugins={[autoplay.current]}
         onSlideChange={value => setActive(value)}
       >
-        {data.map((item, index) => (
+        {listPicture.map((item, index) => (
           <Carousel.Slide key={index}>
             <SwipeCard image={item} radius={0} />
           </Carousel.Slide>

@@ -1,19 +1,20 @@
-import React, {
-  createRef,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { createPortal } from 'react-dom';
+import React, { ReactElement } from 'react';
 import { Card, Container, createStyles } from '@mantine/core';
-import { current } from '@reduxjs/toolkit';
 
 interface Props {
   hide: () => void;
   children: ReactElement;
+  height?: number | string;
+  width?: number | string;
+  translateX?: number | string;
 }
-const MyOverlay = ({ children, hide }: Props) => {
+const MyOverlay = ({
+  children,
+  hide,
+  height = '89%',
+  width = 430,
+  translateX,
+}: Props) => {
   const cardRef = React.useRef<HTMLDivElement | null>(null);
   const { classes } = useStyles();
 
@@ -31,7 +32,15 @@ const MyOverlay = ({ children, hide }: Props) => {
       className={classes.container}
       onClick={e => handleCloseOverlay(e)}
     >
-      <Card className={classes.wrapper} ref={cardRef}>
+      <Card
+        sx={{
+          width: width,
+          height: height,
+          transform: `translateX(${translateX})`,
+        }}
+        className={classes.wrapper}
+        ref={cardRef}
+      >
         {children}
       </Card>
     </Container>
@@ -57,12 +66,9 @@ const useStyles = createStyles(() => ({
     },
   },
   wrapper: {
-    width: 430,
-    height: '89%',
     minWidth: 430,
     borderRadius: 20,
     padding: '0px !important',
-    transform: 'translateX(50%)',
     [`@media (max-width:575px)`]: {
       // position: 'relative',
       width: '100%',

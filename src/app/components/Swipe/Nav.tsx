@@ -1,7 +1,11 @@
 import React from 'react';
 import { Box, Flex } from '@mantine/core';
 
-function Nav({ active, lengths }) {
+function Nav({ active, data }) {
+  // console.log(data);
+  const listPicture = data.picture.filter(value => {
+    if (value) return value;
+  });
   return (
     <Flex
       gap={6}
@@ -12,7 +16,7 @@ function Nav({ active, lengths }) {
         justifyContent: 'center',
       }}
     >
-      {Array.from({ length: lengths }).map((value, index) => (
+      {Array.from({ length: listPicture.length }).map((value, index) => (
         <Box
           key={index}
           className={index === active ? 'active' : ''}

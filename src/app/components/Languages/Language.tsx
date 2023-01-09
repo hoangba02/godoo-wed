@@ -1,176 +1,80 @@
-import { forwardRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useMediaQuery } from '@mantine/hooks';
-import { IconChevronDown } from '@tabler/icons';
-import React, { useEffect, useState } from 'react';
-import { Group, Avatar, Text, Select, createStyles, Flex } from '@mantine/core';
+import React from 'react';
+import { Menu, createStyles, Button } from '@mantine/core';
+import { useSelector } from 'react-redux';
 
-import { images } from 'assets/images';
-import { useDispatch, useSelector } from 'react-redux';
+import { ReactComponent as Vn } from 'assets/icons/vi.svg';
+import { ReactComponent as En } from 'assets/icons/en.svg';
+import { ReactComponent as Arrow } from 'assets/icons/arrowDownBlack.svg';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
+import { dataLanguage } from './Nation/Nation';
+import { ListMenu } from './ListMenu';
 
-const data = [
-  {
-    image: images.vi,
-    label: 'VIE',
-    value: 'vi',
-  },
+export default function Languages() {
+  UserSlice();
+  const user = useSelector(getUserSelector);
+  const { classes } = useStyles();
 
-  {
-    image: images.en,
-    label: 'ENG',
-    value: 'en',
-    description: 'One of the richest people on Earth',
-  },
-];
-interface ItemProps extends React.ComponentPropsWithoutRef<'div'> {
-  image: string;
-  label: string;
-  description: string;
-}
-
-const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ image, label, description, ...others }: ItemProps, ref) => (
-    <div ref={ref} {...others}>
-      <Group noWrap align="center" spacing={0}>
-        <Avatar
-          src={image}
+  return (
+    <Menu withArrow>
+      <Menu.Target>
+        <Button
           styles={{
-            root: {
-              height: 'max-content',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+            inner: {
+              justifyContent: 'space-around',
+              [`@media (max-width:575px)`]: {
+                justifyContent: 'center',
+              },
             },
-            image: {
-              width: 22.5,
-              height: 22.5,
+
+            leftIcon: {
+              marginRight: 3,
+            },
+            rightIcon: {
+              marginLeft: 3,
             },
           }}
-        />
-        <div>
-          <Text size="sm">{label}</Text>
-        </div>
-      </Group>
-    </div>
-  ),
-);
-export default function Languages() {
-  const { classes } = useStyles();
-  const [t, i18n] = useTranslation();
-  const phone = useMediaQuery('(max-width:575px)');
-  const dispatch = useDispatch();
-  const { actions } = UserSlice();
-  const user = useSelector(getUserSelector);
-
-  useEffect(() => {
-    i18n.changeLanguage(`${user.language}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.language]);
-  return (
-    <Flex className={classes.wrapper}>
-      <img
-        className={classes.img}
-        src={user.language === 'vi' ? images.vi : images.en}
-        alt="lang"
-      />
-      <IconChevronDown />
-      <Select
-        styles={{
-          wrapper: {
-            height: '100%',
-            width: '100%',
-            position: 'absolute',
-            inset: 0,
-          },
-          input: {
-            height: '100%',
-            width: '100%',
-            margin: 0,
-            padding: '4px 16px 4px 42px',
-            fontSize: 18,
-            fontWeight: 600,
-            lineHeight: '22px',
-            border: 'none',
-            outline: 'none',
-            background: 'transparent',
-            position: 'absolute',
-            inset: 0,
-            zIndex: 99,
-            '&:focus': {
-              border: 'none',
-            },
-            [`@media (max-width:575px)`]: {
-              height: 28,
-              width: 88,
-              fontSize: 14,
-              fontWeight: 600,
-              lineHeight: '18px',
-              padding: '4px 16px 4px 32px',
-            },
-          },
-          rightSection: {
-            display: 'none',
-          },
-          item: {
-            padding: '6px 0',
-          },
-        }}
-        onChange={value => {
-          dispatch(
-            actions.setLanguage({
-              language: value,
-            }),
-          );
-        }}
-        itemComponent={SelectItem}
-        data={data}
-        maxDropdownHeight={400}
-        defaultValue={user.language}
-        rightSection={
-          <IconChevronDown width={phone ? 30 : 50} height={phone ? 20 : 30} />
-        }
-      />
-    </Flex>
+          className={classes.button}
+          leftIcon={user.language === 'vi' ? <Vn /> : <En />}
+          rightIcon={<Arrow />}
+          fs={'12px'}
+          fw={500}
+          style={{ color: '#000000' }}
+        >
+          {user.language === 'vi' ? 'VIE' : 'ENG'}
+        </Button>
+      </Menu.Target>
+      <ListMenu dataLanguage={dataLanguage} />
+    </Menu>
   );
 }
 
-const useStyles = createStyles(() => ({
-  wrapper: {
-    width: 132,
+const useStyles = createStyles({
+  button: {
     height: 38,
-    borderRadius: '8px',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'var(--white)',
-    padding: '0 10px',
+    width: 132,
+    padding: 0,
+    fontWeight: 600,
+    fontSize: 18,
+    lineHeight: '22px',
     position: 'absolute',
-    top: -20,
     right: '-50%',
-    zIndex: 1,
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      top: -50,
+    top: -18,
+    color: 'var(--black)',
+    background: 'var(--white)',
+    borderRadius: 8,
+    '::before': {
+      display: 'none',
     },
-    [`@media (min-width:576px) and (max-width:768px)`]: {
-      right: '16px',
-      top: -40,
+    ':hover': {
+      backgroundColor: 'var(--white)',
     },
     [`@media (max-width:575px)`]: {
+      right: 30,
       top: 0,
-      right: '16px',
-      width: 84,
+      height: 28,
+      width: 90,
+      fontSize: 14,
     },
   },
-  img: {
-    width: 22.5,
-    height: 22.5,
-    borderRadius: '50%',
-  },
-  button: {
-    background: 'var(--white)',
-    borderRadius: '27px',
-    color: 'var(--black)',
-    height: '32px',
-  },
-}));
+});

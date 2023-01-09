@@ -36,7 +36,12 @@ function Conversation() {
   const { classes } = ConversationStyles();
   return (
     <Container fluid className={classes.container}>
-      <Profile hide={toggle} isShowing={isShowing} profile={profiles} />
+      <Profile
+        hide={toggle}
+        isShowing={isShowing}
+        profile={profiles}
+        translateX="45%"
+      />
       <Flex className={classes.header}>
         <Box
           onClick={() => {

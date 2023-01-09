@@ -141,12 +141,12 @@ function Demo() {
           <button className={classes.btn}>
             <Undo />
           </button>
-          {!tablet && (
+          {/* {!tablet && (
             <Nav
               active={active}
               lengths={picture[picture.length - 1].profile.picture.length}
             />
-          )}
+          )} */}
           <FilterUser />
         </Flex>
         <Flex className={classes.swipes}>
@@ -198,12 +198,12 @@ function Demo() {
           })}
         </Flex>
         {/* {!tablet && onSwipe={onSwipe}} */}
-        {tablet && (
+        {/* {tablet && (
           <Nav
             active={active}
             lengths={picture[picture.length - 1].profile.picture.length}
           />
-        )}
+        )} */}
       </Container>
     </Center>
   );

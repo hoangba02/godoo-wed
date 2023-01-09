@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Carousel } from '@mantine/carousel';
 import { Container, createStyles, Text } from '@mantine/core';
 import Card from '../Swipe/SwipeCard';
@@ -30,14 +30,10 @@ const data = [
       'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
   },
 ];
-function MatchList() {
-  const slides = data.map((item, index) => (
-    <Carousel.Slide key={index}>
-      <Card {...item} radius={8} />
-    </Carousel.Slide>
-  ));
-
+function MatchList({ listMatch }) {
   const { classes } = useStyles();
+
+  useEffect(() => {}, []);
   return (
     <Container fluid className={classes.container}>
       <Text className={classes.text}>Pairing list (20)</Text>
@@ -83,7 +79,11 @@ function MatchList() {
         nextControlIcon={<IconChevronRight stroke={2.5} />}
         previousControlIcon={<IconChevronLeft stroke={2.5} />}
       >
-        {slides}
+        {data.map((item, index) => (
+          <Carousel.Slide key={index}>
+            <Card {...item} radius={8} />
+          </Carousel.Slide>
+        ))}
       </Carousel>
       <div className={classes.border}></div>
     </Container>

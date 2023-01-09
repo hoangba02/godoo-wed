@@ -36,6 +36,10 @@ interface Props {
   isShowing: boolean;
   status?: string;
   profile?: any;
+  isSlide?: boolean;
+  height?: number | string;
+  width?: number | string;
+  translateX?: number | string;
 }
 const genders = [
   {
@@ -73,10 +77,18 @@ const genders = [
     icon: <Transgender />,
   },
 ];
-function Profile({ hide, isShowing, status, profile }: Props) {
+function Profile({
+  hide,
+  isShowing,
+  status,
+  profile,
+  isSlide = true,
+  height,
+  width,
+  translateX,
+}: Props) {
   const { classes } = ProfileStyles();
   const [active, setActive] = useState();
-  const listPicture = profile.picture.filter(value => value !== null);
 
   const listGender = genders.filter(value =>
     profile.gender.includes(value.name),
@@ -84,15 +96,24 @@ function Profile({ hide, isShowing, status, profile }: Props) {
 
   if (!isShowing) return null;
   return createPortal(
-    <MyOverlay hide={hide}>
+    <MyOverlay
+      hide={hide}
+      width={width}
+      height={height}
+      translateX={translateX}
+    >
       <>
-        <Container fluid className={classes.carousel}>
-          <MyCarousel setActive={setActive} data={listPicture} />
-          <Card className={classes.bio}>
-            <BioDescription />
-          </Card>
-        </Container>
-        <Nav active={active} lengths={listPicture.length} />
+        {isSlide && (
+          <>
+            <Container fluid className={classes.carousel}>
+              <MyCarousel setActive={setActive} data={profile} />
+              <Card className={classes.bio}>
+                <BioDescription />
+              </Card>
+            </Container>
+            <Nav active={active} data={profile} />
+          </>
+        )}
         <Card className={classes.card}>
           <Text className={classes.title}>Gender</Text>
           <Group className={classes.gender}>

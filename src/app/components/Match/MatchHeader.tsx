@@ -2,9 +2,15 @@ import React from 'react';
 import { Avatar, Flex, Stack, Text, createStyles, Group } from '@mantine/core';
 import { ReactComponent as Square } from 'assets/icons/square.svg';
 import { motion } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProfileSelector } from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 function MatchHeader() {
   const { classes } = useStyles();
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
+  const profile = useSelector(getProfileSelector);
   return (
     <motion.div
       initial={{ y: -150, opacity: 0 }}
@@ -25,8 +31,11 @@ function MatchHeader() {
               fontSize: 18,
               lineHeight: '22px',
             }}
+            onClick={() => {
+              dispatch(actions.logoutSuccess());
+            }}
           >
-            John sayhi!
+            {profile.nickname}
           </Text>
           <Group
             sx={{

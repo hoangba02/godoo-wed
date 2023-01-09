@@ -13,7 +13,10 @@ function Control({ childRefs, currentIndex, canSwipe, length }) {
   const { classes } = useStyles();
   const onSwipe = dir => {
     if (canSwipe && currentIndex < length) {
+      // console.log('swipe');
       childRefs.current[currentIndex].swipe(dir);
+    } else {
+      // console.log('no swipe');
     }
   };
   return (

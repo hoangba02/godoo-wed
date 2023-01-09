@@ -16,21 +16,21 @@ import { ChatPage } from 'app/pages/ChatPage/Loadable';
 import Demo2 from 'app/pages/Demo/Demo2';
 
 export const routes = [
-  { path: '/', component: HomePage },
-  { path: '/chat/:useId', component: ChatPage },
-
   { path: '/login', component: LoginPage },
   { path: '/forgot', component: ForgotPass },
-
   { path: '/register', component: RegisterPage },
+  { path: '*', component: NotFoundPage },
+  { path: '/demo', component: Demo },
+  { path: '/demo2', component: Demo2 },
+];
+
+export const privateRoutes = [
+  { path: '/', component: HomePage },
+  { path: '/chat/:useId', component: ChatPage },
   { path: '/register/nickname', component: NickName },
   { path: '/register/picture', component: Picture },
   { path: '/register/birthday', component: Birth },
   { path: '/register/gender', component: Gender },
   { path: '/register/description', component: Desc },
   { path: '/register/mode', component: Mode },
-
-  { path: '*', component: NotFoundPage },
-  { path: '/demo', component: Demo },
-  { path: '/demo2', component: Demo2 },
 ];

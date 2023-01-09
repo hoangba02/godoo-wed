@@ -8,13 +8,13 @@ export const initialState: UserState = {
   // Account
   id: -1,
   token: '',
-  language: 'vi',
   isLogin: false,
   loading: false,
   telegram_fullname: '',
   messenger_fullname: '',
   username: '',
   password: '',
+  language: 'vi',
   // Status
   register: {
     error: -1,
@@ -79,11 +79,28 @@ const slice = createSlice({
       state.id = -1;
       state.token = '';
       state.username = '';
-      state.password = '';
       state.isLogin = false;
+      state.register = {
+        error: -1,
+        message: '',
+      };
+      state.login = {
+        error: -1,
+        message: '',
+        savePassword: false,
+      };
+      state.profile = {
+        nickname: '',
+        picture: [],
+        date_of_birth: '',
+        zodiac: '',
+        gender: [],
+        introduction: '',
+        relationship: -1,
+      };
     },
-    setLanguage(state: UserState, action: PayloadAction<UserState>) {
-      state.language = action.payload.language;
+    setLanguage(state: UserState, action: PayloadAction<'vi' | 'en'>) {
+      state.language = action.payload;
     },
     // Lấy user id và tên tele hoặc tên mess khi quên mật khẩu
     getUserForgotPass(state: UserState, action: PayloadAction<UserState>) {

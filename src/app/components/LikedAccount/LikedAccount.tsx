@@ -18,12 +18,13 @@ function LikedAccount({ data, isLiked }: Props) {
         hide={toggle}
         status={isLiked}
         profile={data}
+        translateX="4%"
       />
       <Paper
         shadow="md"
         radius={0}
         sx={{
-          backgroundImage: `url('https://i.pinimg.com/236x/83/73/1d/83731d9481ca21511b9bb1ddd385795f.jpg')`,
+          backgroundImage: `url(${data.picture[0]})`,
         }}
         className={classes.card}
         onClick={toggle}

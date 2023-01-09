@@ -2,7 +2,7 @@ export interface UserState {
   //Account
   id?: number;
   token?: string;
-  language?: any;
+  language?: 'vi' | 'en';
   isLogin?: boolean;
   loading?: boolean;
   telegram_fullname?: string;

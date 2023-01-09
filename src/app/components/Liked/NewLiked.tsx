@@ -21,10 +21,8 @@ function NewLiked({ status }: Props) {
         quantity: 8,
       },
       {
-        userid: 101,
-        token: 'dsqh6c1o9j95cbw7031ux0afhras9ydy',
-        // userid: user.id,
-        // token: user.token,
+        userid: user.id,
+        token: user.token,
       },
     )
       .then(res => {
