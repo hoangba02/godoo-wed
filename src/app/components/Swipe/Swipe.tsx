@@ -9,7 +9,7 @@ import SwipeTutorial from './SwipeTutorial';
 import Control from './Control';
 import TinderCard from 'react-tinder-card';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
 import { ReactComponent as Undo } from 'assets/icons/undo.svg';
@@ -18,10 +18,13 @@ import { motion, useMotionValue, useTransform } from 'framer-motion';
 import { apiGet } from 'utils/http/request';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
+import { UserSlice } from 'store/slice/userSlice';
 
 function Swipe() {
   const childRefs = useRef<any>({});
   // Others
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   const { classes } = SwipeStyles();
   const { width, height } = useViewportSize();
@@ -43,35 +46,16 @@ function Swipe() {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  const updateMatches = async matchesUserId => {
-    try {
-      console.log('start');
-      await axios
-        .post(
-          'https://ttvnapi.com/v1/godoo/match/like',
-          {
-            user_id_2: matchesUserId,
-            // user_id_2: 101,
-          },
-          {
-            headers: {
-              userid: user.id,
-              token: user.token,
-              // userid: 326,
-              // token: 'ibaggwnr10xxs0zw7e58ael5siq2mo6d',
-            },
-          },
-        )
-        .then(res => {
-          console.log(res);
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const swiped = (direction, swipeUserId, index) => {
+  const swiped = (direction, swipedUser, index) => {
     if (direction === 'right') {
-      updateMatches(swipeUserId);
+      // updateMatches(swipeUserId);
+      dispatch(
+        actions.requestLikeAction({
+          id: user.id,
+          token: user.token,
+          user_2: swipedUser,
+        }),
+      );
     }
     updateCurrentIndex(index - 1);
   };
@@ -110,7 +94,6 @@ function Swipe() {
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
-  console.log(listSwipe[currentIndex]);
   return (
     <Container
       ref={containerRef}
@@ -169,7 +152,7 @@ function Swipe() {
               swipeRequirementType="position"
               preventSwipe={['up', 'down']}
               swipeThreshold={phone ? 150 : 300}
-              onSwipe={dir => swiped(dir, data.userId, index)}
+              onSwipe={dir => swiped(dir, data, index)}
             >
               <motion.div
               // drag

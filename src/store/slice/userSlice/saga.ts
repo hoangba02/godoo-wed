@@ -148,8 +148,47 @@ export function* Login(action) {
     );
   }
 }
+
+// export function* GetList(action) {
+//   const data = {
+//     quantity: action.payload.quantity,
+//   };
+//   const header = {
+//     userid: action.payload.id,
+//     token: action.payload.token,
+//   };
+//   if (action.type === 'youliked') {
+//     const res: BaseResponse = yield apiPost(
+//       `/v1/godoo/match/getyouliked`,
+//       data,
+//       header,
+//     );
+//     if (res.error === 0) {
+//       console.log(res.data);
+//       // yield put(usersActions.updateYouLikedList(res.data));
+//     }
+//   }
+// }
+
+export function* CheckMatch(action) {
+  const data = {
+    user_id_2: action.payload.user_2.userId,
+  };
+  const header = {
+    userid: action.payload.id,
+    token: action.payload.token,
+  };
+  const res: BaseResponse = yield apiPost(`/v1/godoo/match/like`, data, header);
+  console.log(res);
+  if (res.error === 0) {
+    console.log(action.payload.user_2);
+    yield put(usersActions.updateYouLikedList(action.payload.user_2));
+  }
+}
 export function* userSaga() {
   yield takeLatest(usersActions.requestRegister.type, Register);
   yield takeLatest(usersActions.requestLogin.type, Login);
   yield takeLatest(usersActions.requestProfile.type, SetProfile);
+  // yield takeLatest(usersActions.requestUpdateList.type, GetList);
+  yield takeLatest(usersActions.requestLikeAction.type, CheckMatch);
 }

@@ -1,6 +1,7 @@
 export interface UserState {
   //Account
   id?: number;
+  user_2?: any;
   token?: string;
   language?: 'vi' | 'en';
   isLogin?: boolean;
@@ -29,6 +30,11 @@ export interface UserState {
     introduction?: string;
     relationship?: number;
   };
+
+  matchList?: [];
+  youLikedList?: any[];
+  likedYouList?: [];
+  chatList?: [];
 }
 
 export interface CounterState {

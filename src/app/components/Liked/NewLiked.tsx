@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Box, createStyles, SimpleGrid } from '@mantine/core';
 import LikedAccount from 'app/components/LikedAccount/LikedAccount';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
+import { UserSlice } from 'store/slice/userSlice';
 
 interface Props {
   status: string;
 }
 function NewLiked({ status }: Props) {
   // Global
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = useStyles();
-  const [likeMap, setLikeMap] = useState([]);
+  console.log(user.likedYouList);
   useEffect(() => {
     apiPost(
       `/v1/godoo/match/get${status}`,
@@ -26,19 +29,31 @@ function NewLiked({ status }: Props) {
       },
     )
       .then(res => {
-        setLikeMap(res.data);
+        if (status === 'youliked') {
+          dispatch(actions.getYouLikedList(res.data));
+        } else {
+          dispatch(actions.getLikedYouList(res.data));
+        }
       })
       .catch(err => {
         console.log(err);
       });
-  }, [status]);
+  }, []);
   return (
     <Box className={classes.container}>
-      <SimpleGrid cols={2} className={classes.gird}>
-        {likeMap.map((liked, index) => (
-          <LikedAccount key={index} data={liked} isLiked={status} />
-        ))}
-      </SimpleGrid>
+      {status === 'youliked' ? (
+        <SimpleGrid cols={2} className={classes.gird}>
+          {user.youLikedList.map((liked, index) => (
+            <LikedAccount key={index} data={liked} isLiked={status} />
+          ))}
+        </SimpleGrid>
+      ) : (
+        <SimpleGrid cols={2} className={classes.gird}>
+          {user.likedYouList.map((liked, index) => (
+            <LikedAccount key={index} data={liked} isLiked={status} />
+          ))}
+        </SimpleGrid>
+      )}
     </Box>
   );
 }

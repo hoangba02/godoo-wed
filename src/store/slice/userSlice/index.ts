@@ -7,6 +7,7 @@ import { userSaga } from './saga';
 export const initialState: UserState = {
   // Account
   id: -1,
+  user_2: {},
   token: '',
   isLogin: false,
   loading: false,
@@ -15,6 +16,7 @@ export const initialState: UserState = {
   username: '',
   password: '',
   language: 'vi',
+
   // Status
   register: {
     error: -1,
@@ -34,6 +36,11 @@ export const initialState: UserState = {
     introduction: '',
     relationship: -1,
   },
+
+  matchList: [],
+  youLikedList: [],
+  likedYouList: [],
+  chatList: [],
 };
 
 const slice = createSlice({
@@ -52,6 +59,10 @@ const slice = createSlice({
       state.loading = false;
       state.login = action.payload.login;
       state.username = action.payload.username;
+      state.matchList = [];
+      state.youLikedList = [];
+      state.likedYouList = [];
+      state.chatList = [];
     },
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
@@ -116,12 +127,26 @@ const slice = createSlice({
     // Create Information Profile User
     createProfile(state: UserState, action: PayloadAction<UserState>) {
       state.profile = action.payload.profile;
+      state.loading = false;
+    },
+    requestLikeAction(state: UserState, action: PayloadAction<UserState>) {
+      state.id = action.payload.id;
+      state.token = action.payload.token;
+      state.user_2 = action.payload.user_2;
+    },
+    // Manager lists Friend of User
+    getYouLikedList(state: UserState, action: PayloadAction<[]>) {
+      state.youLikedList = [...action.payload];
+    },
+    updateYouLikedList(state: UserState, action: PayloadAction<UserState>) {
+      state.youLikedList?.unshift(action.payload);
+    },
 
-      console.log('sao k vào');
+    getLikedYouList(state: UserState, action: PayloadAction<[]>) {
+      state.likedYouList = [...action.payload];
     },
   },
 });
-
 export const { actions: usersActions, reducer } = slice;
 export const UserSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
