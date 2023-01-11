@@ -120,8 +120,6 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
-  console.log(res);
-  console.log('login');
   if (res.error === 0) {
     yield CheckProfile(res.data);
     yield put(
@@ -180,9 +178,11 @@ export function* CheckMatch(action) {
   };
   const res: BaseResponse = yield apiPost(`/v1/godoo/match/like`, data, header);
   console.log(res);
-  if (res.error === 0) {
+  if (res.error === 0 && !res.hasOwnProperty('data')) {
     console.log(action.payload.user_2);
     yield put(usersActions.updateYouLikedList(action.payload.user_2));
+  } else if (res.error === 0 && res.hasOwnProperty('data')) {
+    yield put(usersActions.updateMatchList(action.payload.user_2));
   }
 }
 export function* userSaga() {

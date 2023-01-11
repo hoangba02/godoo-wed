@@ -18,9 +18,7 @@ function NewMatch() {
     >
       <Text className={classes.text}>Conversations</Text>
       <div>
-        <Link to="chat/:20">
-          <MatchAccount />
-        </Link>
+        <MatchAccount />
         <MatchAccount />
         <MatchAccount />
         <MatchAccount />

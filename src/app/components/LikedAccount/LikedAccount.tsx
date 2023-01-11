@@ -18,7 +18,7 @@ function LikedAccount({ data, isLiked }: Props) {
         hide={toggle}
         status={isLiked}
         profile={data}
-        translateX="4%"
+        translateX="0"
       />
       <Paper
         shadow="md"

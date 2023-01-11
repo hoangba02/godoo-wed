@@ -11,8 +11,8 @@ interface Props {
 const MyOverlay = ({
   children,
   hide,
-  height = '89%',
-  width = 430,
+  height = '89.5%',
+  width = 445,
   translateX,
 }: Props) => {
   const cardRef = React.useRef<HTMLDivElement | null>(null);

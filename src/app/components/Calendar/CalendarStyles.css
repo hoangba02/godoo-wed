@@ -1,0 +1,49 @@
+.mbsc-windows.mbsc-datepicker-inline,
+.mbsc-windows.mbsc-calendar-slide {
+  background-color: #ffe9e0;
+}
+.mbsc-datepicker-inline {
+  height: initial;
+}
+.mbsc-windows.mbsc-calendar-cell {
+  border-radius: 4px !important;
+}
+.mbsc-windows.mbsc-calendar-cell > div:first-child {
+  display: 'none';
+}
+.mbsc-calendar-controls {
+  justify-content: space-between;
+}
+.mbsc-windows.mbsc-calendar-controls {
+  padding: 10px 0;
+}
+.mbsc-windows.mbsc-calendar-button.mbsc-button {
+  color: #e46125;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+.mbsc-windows.mbsc-icon-button {
+  width: 28px;
+  height: 28px;
+}
+.mbsc-calendar-body {
+  border: 1px solid #e46125;
+  border-radius: 20px;
+}
+.mbsc-windows.mbsc-calendar-today,
+.mbsc-windows.mbsc-calendar-week-nr {
+  color: #ffffff;
+}
+.mbsc-selected {
+  color: #ffffff;
+  background: #ff9565;
+}
+.mbsc-windows.mbsc-range-day .mbsc-calendar-cell-inner,
+.mbsc-windows.mbsc-selected .mbsc-calendar-cell-inner {
+  background: #ff9565;
+  border-radius: 4px !important;
+}
+.mbsc-calendar-day div:first-child div {
+  color: #ffe9e0;
+}

@@ -145,6 +145,13 @@ const slice = createSlice({
     getLikedYouList(state: UserState, action: PayloadAction<[]>) {
       state.likedYouList = [...action.payload];
     },
+
+    getMatchList(state: UserState, action: PayloadAction<[]>) {
+      state.matchList = [...action.payload];
+    },
+    updateMatchList(state: UserState, action: PayloadAction<UserState>) {
+      state.matchList?.unshift(action.payload);
+    },
   },
 });
 export const { actions: usersActions, reducer } = slice;

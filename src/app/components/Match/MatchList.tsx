@@ -30,7 +30,8 @@ const data = [
       'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
   },
 ];
-function MatchList({ listMatch }) {
+function MatchList({ matchList }) {
+  console.log(matchList);
   const { classes } = useStyles();
 
   useEffect(() => {}, []);
@@ -79,9 +80,9 @@ function MatchList({ listMatch }) {
         nextControlIcon={<IconChevronRight stroke={2.5} />}
         previousControlIcon={<IconChevronLeft stroke={2.5} />}
       >
-        {data.map((item, index) => (
+        {matchList.map((item, index) => (
           <Carousel.Slide key={index}>
-            <Card {...item} radius={8} />
+            <Card data={item} image={item.picture[0]} radius={8} />
           </Carousel.Slide>
         ))}
       </Carousel>

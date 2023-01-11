@@ -44,7 +44,7 @@ export function App() {
       <Routes>
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/chat/:useId" element={<ChatPage />} />
+          <Route path="/chat" element={<ChatPage />} />
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
           <Route path="/register/birthday" element={<Birth />} />

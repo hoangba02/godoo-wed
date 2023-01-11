@@ -186,7 +186,7 @@ function Swipe() {
                     data={data}
                   />
                   <Flex className={classes.bio}>
-                    <BioDescription />
+                    <BioDescription data={data} />
                     <Gift />
                   </Flex>
                 </Card>

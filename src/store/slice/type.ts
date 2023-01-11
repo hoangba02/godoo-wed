@@ -31,10 +31,10 @@ export interface UserState {
     relationship?: number;
   };
 
-  matchList?: [];
+  matchList?: any[];
   youLikedList?: any[];
-  likedYouList?: [];
-  chatList?: [];
+  likedYouList?: any[];
+  chatList?: any[];
 }
 
 export interface CounterState {

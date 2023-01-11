@@ -7,9 +7,11 @@ import { ReactComponent as Hide } from 'assets/icons/hide.svg';
 import Swipe from 'app/components/Swipe/Swipe';
 import Liked from 'app/components/Liked/Liked';
 import HomeWebLayout from 'app/components/Layout/HomeWeb/HomeWebLayout';
+import { useMediaQuery } from '@mantine/hooks';
 
 export function HomeWeb() {
   const { classes } = HomeWebStyles();
+  const tablet = useMediaQuery('(max-width: 800px)');
   const [drawer, setDrawer] = useState(false);
 
   const handleDrawerLike = () => {
@@ -30,12 +32,12 @@ export function HomeWeb() {
         </Flex>
         <motion.div
           className={classes.liked}
-          initial={{ translateX: '15vh', width: 0 }}
+          initial={{ translateX: '15vh', width: '0%' }}
           animate={{
             translateX: drawer ? '0' : '100vh',
-            width: drawer ? 350 : 0,
+            width: drawer ? '42.5%' : '0%',
           }}
-          transition={{ delay: 0, duration: 0.5 }}
+          transition={{ delay: 0, duration: 1 }}
         >
           <Liked />
         </motion.div>
@@ -81,9 +83,13 @@ const HomeWebStyles = createStyles(() => ({
     top: 32,
   },
   liked: {
-    padding: '32px 16px 32px 26px',
+    // width: '42%',
+    // minWidth: 370,
+    padding: '32px 31px 32px 31px',
     borderLeft: '1px solid #D6D6D6',
     [`@media (min-width:768px) and (max-width:991px)`]: {
+      minWidth: 0,
+      width: '60%',
       padding: '32px 10px 32px 10px',
     },
   },

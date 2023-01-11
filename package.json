@@ -17,6 +17,7 @@
     "@mantine/prism": "5.9.3",
     "@mantine/rte": "5.9.3",
     "@mantine/spotlight": "5.9.3",
+    "@mobiscroll/react": "https://npm.mobiscroll.com/@mobiscroll/react-trial/-/react-trial-5.21.1.tgz",
     "@react-spring/web": "9.5.5",
     "@reduxjs/toolkit": "1.8.5",
     "@testing-library/jest-dom": "5.16.5",

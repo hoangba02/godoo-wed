@@ -108,7 +108,7 @@ function Profile({
             <Container fluid className={classes.carousel}>
               <MyCarousel setActive={setActive} data={profile} />
               <Card className={classes.bio}>
-                <BioDescription />
+                <BioDescription data={profile} />
               </Card>
             </Container>
             <Nav active={active} data={profile} />

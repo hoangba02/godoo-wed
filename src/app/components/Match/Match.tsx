@@ -7,16 +7,19 @@ import MatchList from './MatchList';
 import MatchHeader from './MatchHeader';
 import { useMediaQuery } from '@mantine/hooks';
 import { apiPost } from 'utils/http/request';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 function Match() {
+  // Global
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
-  const { classes } = MatchStyles();
-  const phone = useMediaQuery('(max-width:575px)');
 
   // Local
-  const [listMatch, setListMatch] = useState([]);
+  const { classes } = MatchStyles();
+  const phone = useMediaQuery('(max-width:575px)');
 
   useEffect(() => {
     apiPost(
@@ -31,7 +34,7 @@ function Match() {
     )
       .then(res => {
         // console.log(res.data);
-        setListMatch(res.data);
+        dispatch(actions.getMatchList(res.data));
       })
       .catch(err => {
         console.log(err);
@@ -42,9 +45,9 @@ function Match() {
       <div className={classes.wrapper}>
         {!phone && <MatchHeader />}
         <Search />
-        {listMatch.length !== 0 ? (
+        {user.matchList.length !== 0 ? (
           <>
-            <MatchList listMatch={listMatch} />
+            <MatchList matchList={user.matchList} />
             <NewMatch />
           </>
         ) : (

@@ -41,13 +41,16 @@ function MyCarousel({ setActive, data }) {
 }
 export default MyCarousel;
 
-export function BioDescription() {
+interface DescProps {
+  data: any;
+}
+export function BioDescription({ data }: DescProps) {
   const { classes } = BioStyles();
   return (
     <Paper className={classes.paper}>
-      <Text className={classes.nickname}>Anna, 24</Text>
+      <Text className={classes.nickname}>{data.nickname}, 24</Text>
       <Title order={3} className={classes.title}>
-        Just a free soul looking for someone to hike up with
+        {data.description}
       </Title>
     </Paper>
   );
