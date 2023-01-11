@@ -38,7 +38,7 @@ export const ScheduleStyles = createStyles(() => ({
   coming: {
     backgroundColor: '#FFFFFF',
     borderRadius: '20px 20px 0px 0px',
-    height: '100%',
+    overflow: 'scroll',
   },
   calendar: {
     backgroundColor: '#FFE9E0',

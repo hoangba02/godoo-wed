@@ -17,18 +17,19 @@ import { ConversationStyles } from './ConversationStyles';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as Detail } from 'assets/icons/detail.svg';
 import { ReactComponent as ArrowRight } from 'assets/icons/arrowRight.svg';
-import { ReactComponent as Calendar } from 'assets/icons/calendar.svg';
-import { ReactComponent as Gift } from 'assets/icons/giftMess.svg';
+import { ReactComponent as Calendar } from 'assets/icons/chat/calendar.svg';
+import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatColor.svg';
+import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
+import { ReactComponent as GiftColor } from 'assets/icons/chat/giftMessColor.svg';
+import DateForm from '../DateForm/DateForm';
 
 interface Props {
   location?: any;
 }
 function Conversation({ location }: Props) {
-  console.log(location);
-
   const navigate = useNavigate();
-  const { isShowing, toggle } = useModal();
   const { classes } = ConversationStyles();
+  const { isShowing, isShowing2, toggle, toggle2 } = useModal();
   return (
     <Container fluid className={classes.container}>
       <Profile
@@ -64,12 +65,16 @@ function Conversation({ location }: Props) {
         </Card>
       </Card>
       <Flex className={classes.footer}>
-        <Box>
+        <Button variant="subtle" className={classes.footerBtn}>
           <Gift />
-        </Box>
-        <Box>
-          <Calendar />
-        </Box>
+        </Button>
+        <Button
+          variant="subtle"
+          className={classes.footerBtn}
+          onClick={toggle2}
+        >
+          {isShowing2 ? <Calendarcolor /> : <Calendar />}
+        </Button>
         <Flex className={classes.chatBox}>
           <input
             type="text"
@@ -81,6 +86,7 @@ function Conversation({ location }: Props) {
           </button>
         </Flex>
       </Flex>
+      <DateForm hide={toggle2} isShowing={isShowing2} translateX="45%" />
     </Container>
   );
 }

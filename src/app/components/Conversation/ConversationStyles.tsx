@@ -88,4 +88,13 @@ export const ConversationStyles = createStyles(() => ({
     borderRadius: '50%',
     background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
   },
+  footerBtn: {
+    width: '32px !important',
+    height: '32px !important',
+    backgroundColor: 'transparent',
+    ':hover': {
+      color: 'var(--primary-4)',
+      backgroundColor: 'transparent',
+    },
+  },
 }));

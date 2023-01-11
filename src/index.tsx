@@ -78,11 +78,11 @@ root.render(
             },
             'html *::-webkit-scrollbar': {
               borderRadius: 0,
-              width: 2,
+              width: 1,
             },
             'html *::-webkit-scrollbar-thumb': {
               borderRadius: 4,
-              backgroundColor: 'rgba(0, 0, 0, 0.15)',
+              backgroundColor: 'rgba(0, 0, 0, 0.01)',
             },
             'html *::-webkit-scrollbar-track': {
               borderRadius: 0,

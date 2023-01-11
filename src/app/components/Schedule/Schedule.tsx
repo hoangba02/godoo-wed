@@ -25,7 +25,12 @@ function Schedule({ hide, isShowing }) {
           <Card className={classes.calendar}>
             <Calendar />
           </Card>
-          <Card className={classes.coming}>
+          <Card
+            sx={{
+              height: 'calc(100% - 315px)',
+            }}
+            className={classes.coming}
+          >
             <Text className={classes.text}>Upcoming</Text>
             <Stack spacing={0}>
               <Coming color="#46DF9F" background="#DCFCEF" hour="20:20" />
