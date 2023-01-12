@@ -21,7 +21,7 @@ import { ReactComponent as Calendar } from 'assets/icons/chat/calendar.svg';
 import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatColor.svg';
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { ReactComponent as GiftColor } from 'assets/icons/chat/giftMessColor.svg';
-import DateForm from '../DateForm/DateForm';
+import { DateForm } from '../DateForm/DateForm';
 
 interface Props {
   location?: any;

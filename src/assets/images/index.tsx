@@ -37,4 +37,7 @@ export const images = {
   ScorpionZ: require('assets/images/ScorpionZ.svg').default,
   VirgoZ: require('assets/images/VirgoZ.svg').default,
   TaurusZ: require('assets/images/TaurusZ.svg').default,
+
+  // Home
+  noYet: require('assets/images/noYet.svg').default,
 };

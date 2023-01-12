@@ -1,8 +1,16 @@
 import React from 'react';
-import { Box, createStyles, Overlay, Paper, Text } from '@mantine/core';
+import {
+  Button,
+  createStyles,
+  Group,
+  Overlay,
+  Paper,
+  Text,
+} from '@mantine/core';
 import { ReactComponent as GiftBox } from 'assets/icons/gift.svg';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
+import { motion } from 'framer-motion';
 
 interface Props {
   data: any;
@@ -11,8 +19,18 @@ interface Props {
 function LikedAccount({ data, isLiked }: Props) {
   const { classes } = useStyles();
   const { isShowing, toggle } = useModal();
+  const handleGiveGift = (e, receiveUserId) => {
+    e.stopPropagation();
+    console.log(receiveUserId);
+  };
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.5,
+      }}
+    >
       <Profile
         isShowing={isShowing}
         hide={toggle}
@@ -36,19 +54,23 @@ function LikedAccount({ data, isLiked }: Props) {
           }}
           gradient={`linear-gradient(180deg, rgba(255, 255, 255, 0) -39.78%, rgba(255, 255, 255, 0.1) 29%, #000000 100%)`}
         />
-        <Box className={classes.content}>
+        <Group className={classes.content}>
           <Text className={classes.category} size="xs">
             {data.nickname}
           </Text>
           <Text lineClamp={2} className={classes.title}>
             {data.introduction}
           </Text>
-        </Box>
-        <Box className={classes.gift}>
-          <GiftBox />
-        </Box>
+        </Group>
+        <Button
+          variant="subtle"
+          className={classes.gift}
+          onClick={e => handleGiveGift(e, data.userId)}
+        >
+          {true && <GiftBox />}
+        </Button>
       </Paper>
-    </>
+    </motion.div>
   );
 }
 
@@ -83,6 +105,7 @@ const useStyles = createStyles(() => ({
     },
   },
   content: {
+    gap: 2,
     position: 'relative',
     zIndex: 2,
     backgroundColor: 'transparent',
@@ -102,6 +125,11 @@ const useStyles = createStyles(() => ({
     textTransform: 'uppercase',
   },
   gift: {
+    padding: 0,
+    width: '32px !important',
+    height: '32px !important',
+    borderRadius: '50%',
+    backgroundColor: 'transparent',
     position: 'absolute',
     top: 6,
     right: 6,

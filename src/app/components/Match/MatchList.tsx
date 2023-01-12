@@ -4,32 +4,6 @@ import { Container, createStyles, Text } from '@mantine/core';
 import Card from '../Swipe/SwipeCard';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 
-const data = [
-  {
-    image:
-      'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1559494007-9f5847c49d94?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    image:
-      'https://images.unsplash.com/photo-1608481337062-4093bf3ed404?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80',
-  },
-];
 function MatchList({ matchList }) {
   console.log(matchList);
   const { classes } = useStyles();
@@ -47,9 +21,9 @@ function MatchList({ matchList }) {
               position: 'absolute',
               right: -1,
               height: '100%',
-              width: '50%',
+              width: '5%',
               background:
-                'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.22) 25%, rgba(255, 255, 255, 0) 50%)',
+                'linear-gradient(270deg, #FFFFFF 0%, rgba(255, 255, 255, 0.22) 82%, rgba(255, 255, 255, 0) 100%)',
               zIndex: 1,
             },
           },

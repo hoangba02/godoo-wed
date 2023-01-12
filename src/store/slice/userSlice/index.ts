@@ -145,6 +145,13 @@ const slice = createSlice({
     getLikedYouList(state: UserState, action: PayloadAction<[]>) {
       state.likedYouList = [...action.payload];
     },
+    updateLikedYouList(state: UserState, action: PayloadAction<UserState>) {
+      console.log(action.payload);
+      let newList = state.likedYouList?.filter(
+        value => value.userId !== action.payload,
+      );
+      state.likedYouList = newList;
+    },
 
     getMatchList(state: UserState, action: PayloadAction<[]>) {
       state.matchList = [...action.payload];

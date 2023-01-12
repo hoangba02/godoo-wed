@@ -183,6 +183,7 @@ export function* CheckMatch(action) {
     yield put(usersActions.updateYouLikedList(action.payload.user_2));
   } else if (res.error === 0 && res.hasOwnProperty('data')) {
     yield put(usersActions.updateMatchList(action.payload.user_2));
+    yield put(usersActions.updateLikedYouList(action.payload.user_2.userId));
   }
 }
 export function* userSaga() {

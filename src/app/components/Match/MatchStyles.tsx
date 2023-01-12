@@ -25,4 +25,11 @@ export const MatchStyles = createStyles(() => ({
     width: '100%',
     height: '100%',
   },
+  hollow: {
+    marginTop: 100,
+    padding: '0 !important',
+    [`@media (max-width:575px)`]: {
+      marginTop: 50,
+    },
+  },
 }));

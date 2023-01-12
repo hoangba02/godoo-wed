@@ -9,10 +9,31 @@ export const DateFormStylyes = createStyles(() => ({
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
     borderBottom: '1px solid #FF9565',
   },
+
   datebtn: {
     border: 'none',
     backgroundColor: 'transparent',
     cursor: 'pointer',
+  },
+  picker: {
+    position: 'absolute',
+    right: 5,
+    top: 80,
+    background: 'transparent',
+    padding: '0 !important',
+    overflow: 'initial',
+    zIndex: 10,
+    '::after': {
+      width: 15,
+      height: 15,
+      content: '""',
+      position: 'absolute',
+      right: 20,
+      top: -7.5,
+      backgroundColor: '#FFFFFF',
+      transform: 'rotate(225deg)',
+      boxShadow: 'rgba(0, 0, 0, 0.15) 1px 1px 2.6px',
+    },
   },
   title: {
     fontWeight: 600,
@@ -20,9 +41,31 @@ export const DateFormStylyes = createStyles(() => ({
     lineHeight: '30px',
   },
   form: {
+    height: 'calc(100% - 74px)',
     backgroundColor: 'transparent',
   },
   time: {
     flex: 1,
+  },
+  save: {
+    gap: 5,
+    paddingTop: 16,
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 2,
+  },
+  remember: {
+    width: '100%',
+    padding: '0 16px',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  saveBtn: {
+    width: '100%',
+    height: 45,
+    fontSize: 20,
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
   },
 }));

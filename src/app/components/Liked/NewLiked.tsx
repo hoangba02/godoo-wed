@@ -16,7 +16,6 @@ function NewLiked({ status }: Props) {
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = useStyles();
-  console.log(user.likedYouList);
   useEffect(() => {
     apiPost(
       `/v1/godoo/match/get${status}`,

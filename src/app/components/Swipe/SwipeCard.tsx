@@ -37,5 +37,6 @@ const useStyles = createStyles(theme => ({
     // backdropFilter: 'blur(22px)',
     imageRendering: 'pixelated',
     objectPosition: 'center',
+    cursor: 'pointer',
   },
 }));

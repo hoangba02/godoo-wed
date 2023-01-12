@@ -7,6 +7,7 @@ interface Props {
   height?: number | string;
   width?: number | string;
   translateX?: number | string;
+  fullScreen?: boolean;
 }
 const MyOverlay = ({
   children,
@@ -14,6 +15,7 @@ const MyOverlay = ({
   height = '89.5%',
   width = 445,
   translateX,
+  fullScreen = false,
 }: Props) => {
   const cardRef = React.useRef<HTMLDivElement | null>(null);
   const { classes } = useStyles();
@@ -22,6 +24,7 @@ const MyOverlay = ({
     const { target } = event;
     if (cardRef.current !== null) {
       if (!cardRef.current.contains(target)) {
+        console.log('Click');
         hide();
       }
     }
@@ -29,6 +32,11 @@ const MyOverlay = ({
   return (
     <Container
       fluid
+      sx={{
+        [`@media (max-width:575px)`]: {
+          padding: fullScreen ? 0 : '70px 16px 20px',
+        },
+      }}
       className={classes.container}
       onClick={e => handleCloseOverlay(e)}
     >
@@ -37,6 +45,9 @@ const MyOverlay = ({
           width: width,
           height: height,
           transform: `translateX(${translateX})`,
+          [`@media (max-width:575px)`]: {
+            borderRadius: fullScreen ? 0 : 20,
+          },
         }}
         className={classes.wrapper}
         ref={cardRef}
@@ -61,22 +72,18 @@ const useStyles = createStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
-    [`@media (max-width:575px)`]: {
-      padding: '70px 16px 20px',
-    },
   },
   wrapper: {
     minWidth: 430,
-    borderRadius: 20,
     padding: '0px !important',
+    borderRadius: 20,
+
     [`@media (max-width:575px)`]: {
-      // position: 'relative',
       width: '100%',
       height: '100%',
       minWidth: 343,
       transform: 'translateX(0)',
       overflow: 'scroll',
-      // paddingBottom: '60px !important',
     },
   },
 }));
