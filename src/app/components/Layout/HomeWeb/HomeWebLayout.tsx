@@ -10,22 +10,23 @@ interface Props {
 }
 export default function HomeWebLayout({ children, drawer }: Props) {
   const { classes } = HomeWebStyles();
-  const tablet = useMediaQuery('(max-width:990px)');
+  const ipad = useMediaQuery('(min-width:800px) and (max-width:991px)');
 
   return (
     <Container fluid className={classes.container}>
-      <Container className={classes.navbar}>
-        <motion.div
-          initial={{ translateX: '0', opacity: 1 }}
-          animate={{
-            translateX: tablet && drawer ? '-55vh' : '0',
-            opacity: tablet && drawer ? 0.5 : 1,
-          }}
-          transition={{ delay: 0, duration: 0.5 }}
-        >
+      <motion.div
+        initial={{ translateX: '0', opacity: 1, display: 'block' }}
+        animate={{
+          translateX: ipad && drawer ? '-55vh' : '0',
+          opacity: ipad && drawer ? 0.5 : 1,
+          width: ipad && drawer ? 0 : '65%',
+        }}
+        transition={{ delay: 0, duration: 1 }}
+      >
+        <Container className={classes.navbar}>
           <Match />
-        </motion.div>
-      </Container>
+        </Container>
+      </motion.div>
       {children}
     </Container>
   );

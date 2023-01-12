@@ -11,7 +11,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 export function HomeWeb() {
   const { classes } = HomeWebStyles();
-  const tablet = useMediaQuery('(max-width: 800px)');
+  const ipad = useMediaQuery('(min-width: 800px) and (max-width: 992px)');
   const [drawer, setDrawer] = useState(false);
 
   const handleDrawerLike = () => {
@@ -19,29 +19,34 @@ export function HomeWeb() {
   };
   return (
     <HomeWebLayout drawer={drawer}>
-      <Flex className={classes.home}>
-        <Flex
-          sx={{
-            width: '100%',
-            justifyContent: 'center',
-            padding: '32px 0',
-            borderLeft: '1.5px solid #D6D6D6',
-          }}
-        >
-          <Swipe />
-        </Flex>
-        <motion.div
-          className={classes.liked}
-          initial={{ translateX: '15vh', width: '0%' }}
-          animate={{
-            translateX: drawer ? '0' : '100vh',
-            width: drawer ? '42.5%' : '0%',
-          }}
-          transition={{ delay: 0, duration: 1 }}
-        >
-          <Liked />
-        </motion.div>
+      <Flex
+        sx={{
+          width: '100%',
+          justifyContent: 'center',
+          padding: '32px 0',
+          borderLeft: '1.5px solid #D6D6D6',
+        }}
+      >
+        <Swipe />
       </Flex>
+      <motion.div
+        className={classes.liked}
+        initial={{ translateX: '15vh', width: '0%' }}
+        animate={
+          ipad
+            ? {
+                translateX: drawer ? '0' : '100vh',
+                width: drawer ? '65%' : '0%',
+              }
+            : {
+                translateX: drawer ? '0' : '100vh',
+                width: drawer ? '42.5%' : '0%',
+              }
+        }
+        transition={{ delay: 0, duration: 1 }}
+      >
+        <Liked />
+      </motion.div>
       <motion.button
         animate={{ width: drawer ? 22 : 37 }}
         transition={{ duration: 0.5 }}

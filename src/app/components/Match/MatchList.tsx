@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Carousel } from '@mantine/carousel';
-import { Container, createStyles, Text } from '@mantine/core';
-import Card from '../Swipe/SwipeCard';
+import { useMediaQuery } from '@mantine/hooks';
+import { Box, Container, createStyles, Text } from '@mantine/core';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
+import Card from '../Swipe/SwipeCard';
 
 function MatchList({ matchList }) {
   console.log(matchList);
   const { classes } = useStyles();
+  const ipad = useMediaQuery('(min-width:800px) and (max-width:991px)');
 
   useEffect(() => {}, []);
   return (
@@ -51,8 +53,13 @@ function MatchList({ matchList }) {
         draggable={false}
         withControls={true}
         controlsOffset={0}
+        slidesToScroll={1}
         nextControlIcon={<IconChevronRight stroke={2.5} />}
         previousControlIcon={<IconChevronLeft stroke={2.5} />}
+        breakpoints={[
+          { maxWidth: 991, slideSize: '33%' },
+          { maxWidth: 800, slideSize: '25.5%' },
+        ]}
       >
         {matchList.map((item, index) => (
           <Carousel.Slide key={index}>
@@ -60,7 +67,12 @@ function MatchList({ matchList }) {
           </Carousel.Slide>
         ))}
       </Carousel>
-      <div className={classes.border}></div>
+      <Box
+        sx={{
+          width: ipad ? '32%' : '24.5%',
+        }}
+        className={classes.border}
+      ></Box>
     </Container>
   );
 }
@@ -83,7 +95,6 @@ const useStyles = createStyles(() => ({
   },
   border: {
     height: 112,
-    width: '24.5%',
     position: 'absolute',
     left: -3,
     bottom: -1,

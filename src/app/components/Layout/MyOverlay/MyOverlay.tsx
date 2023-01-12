@@ -46,6 +46,7 @@ const MyOverlay = ({
           height: height,
           transform: `translateX(${translateX})`,
           [`@media (max-width:575px)`]: {
+            // height: '100vh',
             borderRadius: fullScreen ? 0 : 20,
           },
         }}

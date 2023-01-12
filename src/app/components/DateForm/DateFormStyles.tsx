@@ -41,7 +41,7 @@ export const DateFormStylyes = createStyles(() => ({
     lineHeight: '30px',
   },
   form: {
-    height: 'calc(100% - 74px)',
+    // height: 'calc(100% - 200px)',
     backgroundColor: 'transparent',
   },
   time: {
@@ -49,10 +49,13 @@ export const DateFormStylyes = createStyles(() => ({
   },
   save: {
     gap: 5,
-    paddingTop: 16,
+    paddingTop: 'calc(100vh - 592px)',
     position: 'absolute',
     bottom: 0,
     zIndex: 2,
+    [`@media (max-width:575px)`]: {
+      position: 'static',
+    },
   },
   remember: {
     width: '100%',
