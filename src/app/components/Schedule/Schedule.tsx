@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import Lottie from 'react-lottie';
+import Lottie from 'react-lottie';
 import { createPortal } from 'react-dom';
 
 import { Button, Card, Flex, Stack, Text } from '@mantine/core';
@@ -49,7 +49,7 @@ function Schedule({ hide, isShowing }) {
               <Coming color="#46DF9F" background="#DCFCEF" hour="20:20" />
             </Stack> */}
             <Stack>
-              {/* <Lottie options={defaultOptions} /> */}
+              <Lottie options={defaultOptions} />
               <Text className={classes.note}>You have no plans for today!</Text>
             </Stack>
           </Card>

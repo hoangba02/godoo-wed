@@ -194,15 +194,16 @@ function Swipe() {
             </TinderCard>
           );
         })}
+        {!tablet && (
+          <Control
+            childRefs={childRefs}
+            currentIndex={currentIndex}
+            canSwipe={canSwipe}
+            length={listSwipe.length}
+          />
+        )}
       </Flex>
-      {!tablet && (
-        <Control
-          childRefs={childRefs}
-          currentIndex={currentIndex}
-          canSwipe={canSwipe}
-          length={listSwipe.length}
-        />
-      )}
+
       <SwipeTutorial />
       {tablet && listSwipe[currentIndex] && (
         <Nav active={active} data={listSwipe[currentIndex]} />

@@ -10,7 +10,8 @@ interface Props {
 }
 export default function HomeWebLayout({ children, drawer }: Props) {
   const { classes } = HomeWebStyles();
-  const ipad = useMediaQuery('(min-width:800px) and (max-width:991px)');
+  const ipad = useMediaQuery('(max-width:991px)');
+  console.log(ipad);
 
   return (
     <Container fluid className={classes.container}>
@@ -19,7 +20,7 @@ export default function HomeWebLayout({ children, drawer }: Props) {
         animate={{
           translateX: ipad && drawer ? '-55vh' : '0',
           opacity: ipad && drawer ? 0.5 : 1,
-          width: ipad && drawer ? 0 : '65%',
+          width: ipad && drawer ? '0%' : 'max-content',
         }}
         transition={{ delay: 0, duration: 1 }}
       >
@@ -52,15 +53,16 @@ const HomeWebStyles = createStyles(() => ({
     height: '100%',
     margin: '0 0 0 135px',
     padding: '32px 0',
+    borderRight: '1.5px solid #D6D6D6',
     [`@media (min-width:1200px) and (max-width:1439px)`]: {},
     [`@media (min-width:992px) and (max-width:1199px)`]: {
       margin: '0',
       padding: '16px 0',
     },
     [`@media (min-width:800px) and (max-width:991px)`]: {
+      width: '100%',
       margin: '0',
       overflow: 'hidden',
-      width: '100%',
       minWidth: 0,
     },
     [`@media (min-width:576px) and (max-width:767px)`]: {},

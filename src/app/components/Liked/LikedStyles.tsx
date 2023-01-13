@@ -2,10 +2,10 @@ import { createStyles } from '@mantine/core';
 
 export const LikedStyles = createStyles(() => ({
   container: {
-    maxWidth: 308,
-    minWidth: 308,
+    padding: '32px 31px 32px 31px',
+    maxWidth: '100%',
+    minWidth: '100%',
     margin: 0,
-    padding: 0,
     aspectRatio: '2 / 3',
     transition: 'all 1s ease',
     [`@media (min-width:1200px) and (max-width:1439px)`]: {},

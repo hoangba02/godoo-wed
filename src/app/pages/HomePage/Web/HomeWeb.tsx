@@ -11,7 +11,7 @@ import { useMediaQuery } from '@mantine/hooks';
 
 export function HomeWeb() {
   const { classes } = HomeWebStyles();
-  const ipad = useMediaQuery('(min-width: 800px) and (max-width: 992px)');
+  const ipad = useMediaQuery('(max-width: 991px)');
   const [drawer, setDrawer] = useState(false);
 
   const handleDrawerLike = () => {
@@ -21,13 +21,19 @@ export function HomeWeb() {
     <HomeWebLayout drawer={drawer}>
       <Flex
         sx={{
-          width: '100%',
+          // width: '100%',
           justifyContent: 'center',
           padding: '32px 0',
-          borderLeft: '1.5px solid #D6D6D6',
         }}
       >
-        <Swipe />
+        <motion.div
+          className={classes.swipe}
+          transition={{
+            duration: 1,
+          }}
+        >
+          <Swipe />
+        </motion.div>
       </Flex>
       <motion.div
         className={classes.liked}
@@ -40,7 +46,7 @@ export function HomeWeb() {
               }
             : {
                 translateX: drawer ? '0' : '100vh',
-                width: drawer ? '42.5%' : '0%',
+                width: drawer ? '19%' : '0%',
               }
         }
         transition={{ delay: 0, duration: 1 }}
@@ -60,22 +66,9 @@ export function HomeWeb() {
 }
 
 const HomeWebStyles = createStyles(() => ({
-  home: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginRight: 135,
-    backgroundColor: '#FFFFFF',
-    [`@media (min-width:1200px) and (max-width:1439px)`]: {},
-    [`@media (min-width:992px) and (max-width:1199px)`]: {
-      marginRight: 0,
-    },
-    [`@media (min-width:800px) and (max-width:991px)`]: {
-      marginRight: 16,
-    },
-    [`@media (min-width:576px) and (max-width:767px)`]: {},
-    [`@media (max-width:575px)`]: {},
+  swipe: {
+    width: 'max-content',
+    height: 'max-content',
   },
   wrapper: {
     width: '100%',
@@ -88,14 +81,14 @@ const HomeWebStyles = createStyles(() => ({
     top: 32,
   },
   liked: {
-    // width: '42%',
+    maxWidth: '42.5%',
     // minWidth: 370,
-    padding: '32px 31px 32px 31px',
+    marginRight: 135,
     borderLeft: '1px solid #D6D6D6',
     [`@media (min-width:768px) and (max-width:991px)`]: {
       minWidth: 0,
-      width: '60%',
-      padding: '32px 10px 32px 10px',
+      width: '65%',
+      marginRight: 0,
     },
   },
   drawerBtn: {

@@ -7,6 +7,7 @@ export const ConversationStyles = createStyles(() => ({
     padding: '32px 0 0 30px',
     borderLeft: '1px solid #BFBFBF',
     position: 'relative',
+    backgroundColor: 'var(--white)',
     [`@media (max-width:575px)`]: {
       height: '100%',
       padding: 0,
@@ -32,16 +33,21 @@ export const ConversationStyles = createStyles(() => ({
     lineHeight: '30px',
   },
   body: {
-    height: 'calc(100% - 150px)',
+    height: 'calc(100% - 125px)',
     padding: '0 16px !important',
     overflowY: 'scroll',
     [`@media (max-width:575px)`]: {},
   },
   avatar: {
+    marginBottom: 16,
     alignItems: 'center',
   },
   message: {
-    height: '1000px',
+    height: 'max-content',
+    gap: 0,
+    justifyContent: 'flex-end',
+    padding: ' 0 !important',
+    position: 'relative',
   },
   text: {
     marginTop: 32,

@@ -2,16 +2,7 @@ import React, { useState } from 'react';
 import { ProfileStyles } from './ProfileStyles';
 import MyOverlay from '../Layout/MyOverlay/MyOverlay';
 import { createPortal } from 'react-dom';
-import {
-  Box,
-  Button,
-  Card,
-  Chip,
-  Container,
-  Flex,
-  Group,
-  Text,
-} from '@mantine/core';
+import { Button, Card, Container, Flex, Group, Text } from '@mantine/core';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
 import Nav from '../Swipe/Nav';
 
@@ -36,6 +27,8 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import HideModal from '../Modals/HideModal';
 import UnpairModal from '../Modals/UnpairModal';
 import ReportModal from '../Modals/ReportModal';
+import { images } from 'assets/images';
+import AutoModal from '../Modals/AutoModal';
 
 interface Props {
   hide: () => void;
@@ -102,6 +95,7 @@ function Profile({
   const [hideModal, setHideModal] = useState(false);
   const [unpairModal, setUnpairModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
+  const [autoModal, setAutoModal] = useState(false);
   const listGender = genders.filter(value =>
     profile.gender.includes(value.name),
   );
@@ -219,8 +213,16 @@ function Profile({
         />
         <HideModal hideModal={hideModal} setHideModal={setHideModal} />
         <ReportModal
+          reportId={profile.userId}
           reportModal={reportModal}
           setReportModal={setReportModal}
+          setAutoModal={setAutoModal}
+        />
+        <AutoModal
+          image={images.warn}
+          autoModal={autoModal}
+          notification="Our system has recieved your concern. We will keep an eye on this account!"
+          setAutoModal={setAutoModal}
         />
       </>
     </MyOverlay>,

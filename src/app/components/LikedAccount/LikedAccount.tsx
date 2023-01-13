@@ -106,9 +106,11 @@ const useStyles = createStyles(() => ({
   },
   content: {
     gap: 2,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     position: 'relative',
-    zIndex: 2,
     backgroundColor: 'transparent',
+    zIndex: 2,
   },
   title: {
     fontWeight: 400,

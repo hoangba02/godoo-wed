@@ -33,6 +33,7 @@ function ModalLayout({
         },
         modal: {
           width: 570,
+          borderRadius: 8,
           padding: '60px 16px 20px !important',
           backgroundImage: `url(${images.bgPopUp})`,
           transform: `${position} !important`,

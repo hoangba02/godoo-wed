@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Avatar,
   Box,
@@ -6,6 +6,7 @@ import {
   Card,
   Container,
   Flex,
+  Group,
   Stack,
   Text,
 } from '@mantine/core';
@@ -22,14 +23,35 @@ import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatC
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { ReactComponent as GiftColor } from 'assets/icons/chat/giftMessColor.svg';
 import { DateForm } from '../DateForm/DateForm';
+import AuthMess from '../Message/AuthMess';
+import OppoMess from '../Message/OppoMess';
+import { useScrollIntoView } from '@mantine/hooks';
 
+const ChatHistory = [
+  {
+    type: 'text',
+    message: 'Hello',
+  },
+];
 interface Props {
   location?: any;
 }
 function Conversation({ location }: Props) {
   const navigate = useNavigate();
+  const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { classes } = ConversationStyles();
   const { isShowing, isShowing2, toggle, toggle2 } = useModal();
+  // const { scrollIntoView, targetRef, scrollableRef } =
+  //   useScrollIntoView<HTMLDivElement>({
+  //     offset: 60,
+  //   });
+  useEffect(() => {
+    // console.log('first');
+    if (messagesEndRef) {
+      messagesEndRef.current?.scrollIntoView();
+    }
+    // scrollIntoView({ alignment: 'center' });
+  }, [location.profile.userId]);
   return (
     <Container fluid className={classes.container}>
       <Profile
@@ -53,16 +75,117 @@ function Conversation({ location }: Props) {
           <Detail />
         </Box>
       </Flex>
-      <Card className={classes.body}>
-        <Stack className={classes.avatar}>
-          <Text className={classes.text}>
-            {`${location.profile.nickname} is your new match!`}
-          </Text>
-          <Avatar radius={9999} size={176} src={location.profile.picture[0]} />
-        </Stack>
-        <Card className={classes.message}>
+      <Card
+        // ref={scrollableRef}
+        className={classes.body}
+      >
+        <Stack className={classes.message}>
+          <Stack className={classes.avatar}>
+            <Text className={classes.text}>
+              {`${location.profile.nickname} is your new match!`}
+            </Text>
+            <Avatar
+              radius={9999}
+              size={176}
+              src={location.profile.picture[0]}
+            />
+          </Stack>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="left"
+            sx={{
+              overflow: 'initial',
+              width: '100%',
+              marginBottom: 16,
+            }}
+          >
+            <OppoMess />
+          </Group>
+          <Group
+            position="left"
+            sx={{
+              overflow: 'initial',
+              width: '100%',
+              marginBottom: 16,
+            }}
+          >
+            <OppoMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
+          <Group
+            position="right"
+            sx={{
+              width: '100%',
+              overflow: 'initial',
+              marginBottom: 16,
+            }}
+          >
+            <AuthMess />
+          </Group>
           <></>
-        </Card>
+        </Stack>
+        <div
+          style={{ float: 'left', clear: 'both' }}
+          ref={messagesEndRef}
+        ></div>
       </Card>
       <Flex className={classes.footer}>
         <Button variant="subtle" className={classes.footerBtn}>

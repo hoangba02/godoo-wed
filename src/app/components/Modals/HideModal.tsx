@@ -1,5 +1,5 @@
 import { Button, createStyles, Flex } from '@mantine/core';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ModalLayout from '../Layout/Modal/ModalLayout';
 
 interface Props {
@@ -8,6 +8,12 @@ interface Props {
 }
 function HideModal({ hideModal, setHideModal }: Props) {
   const { classes } = useStyles();
+  useEffect(() => {
+    return () => {
+      console.log('unmoute');
+      setHideModal(false);
+    };
+  }, []);
   return (
     <ModalLayout
       openModal={hideModal}

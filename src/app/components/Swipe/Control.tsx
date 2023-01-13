@@ -20,41 +20,39 @@ function Control({ childRefs, currentIndex, canSwipe, length }) {
     }
   };
   return (
-    <Box>
-      <Flex className={classes.control}>
-        <motion.button
-          className={classes.skip}
-          whileHover={{
-            scale: 1.1,
-            boxShadow: '0 0 8px #FF9565',
-          }}
-          onClick={(): void => onSwipe('left')}
-        >
-          <UnLike />
+    <Flex className={classes.control}>
+      <motion.button
+        className={classes.skip}
+        whileHover={{
+          scale: 1.1,
+          boxShadow: '0 0 8px #FF9565',
+        }}
+        onClick={(): void => onSwipe('left')}
+      >
+        <UnLike />
+      </motion.button>
+      <Flex gap={18}>
+        <motion.button className={classes.arrow}>
+          <Arrow />
         </motion.button>
-        <Flex gap={18}>
-          <motion.button className={classes.arrow}>
-            <Arrow />
-          </motion.button>
-          <motion.button className={classes.arrow}>
-            <ArrowUp />
-          </motion.button>
-          <motion.button className={classes.arrow}>
-            <Arrow />
-          </motion.button>
-        </Flex>
-        <motion.button
-          className={classes.skip}
-          whileHover={{
-            scale: 1.1,
-            boxShadow: '0 0 8px #FF9565',
-          }}
-          onClick={(): void => onSwipe('right')}
-        >
-          <Like />
+        <motion.button className={classes.arrow}>
+          <ArrowUp />
+        </motion.button>
+        <motion.button className={classes.arrow}>
+          <Arrow />
         </motion.button>
       </Flex>
-    </Box>
+      <motion.button
+        className={classes.skip}
+        whileHover={{
+          scale: 1.1,
+          boxShadow: '0 0 8px #FF9565',
+        }}
+        onClick={(): void => onSwipe('right')}
+      >
+        <Like />
+      </motion.button>
+    </Flex>
   );
 }
 
@@ -70,7 +68,7 @@ const useStyles = createStyles(() => ({
     borderRadius: 33,
     padding: '0 12.5px',
     position: 'absolute',
-    bottom: '25%',
+    bottom: '65px',
     left: '50%',
     transform: 'translateX(-50%)',
     backgroundColor: 'rgba(255, 161, 118, 0.2)',

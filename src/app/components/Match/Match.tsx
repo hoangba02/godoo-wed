@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-// import Lottie from 'react-lottie';
+import Lottie from 'react-lottie';
 import { MatchStyles } from './MatchStyles';
 import { useMediaQuery } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
@@ -63,11 +63,11 @@ function Match() {
           </>
         ) : (
           <Card className={classes.hollow}>
-            {/* {phone ? (
+            {phone ? (
               <Lottie options={defaultOptions} />
             ) : (
               <Image src={images.noYet} />
-            )} */}
+            )}
 
             <Text
               sx={{
