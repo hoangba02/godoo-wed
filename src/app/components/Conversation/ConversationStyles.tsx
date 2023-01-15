@@ -36,7 +36,9 @@ export const ConversationStyles = createStyles(() => ({
     height: 'calc(100% - 125px)',
     padding: '0 16px !important',
     overflowY: 'scroll',
-    [`@media (max-width:575px)`]: {},
+    [`@media (max-width:575px)`]: {
+      height: 'calc(100% - 150px)',
+    },
   },
   avatar: {
     marginBottom: 16,
@@ -49,6 +51,7 @@ export const ConversationStyles = createStyles(() => ({
     padding: ' 0 !important',
     position: 'relative',
   },
+
   text: {
     marginTop: 32,
     color: '#E46125',
@@ -57,6 +60,7 @@ export const ConversationStyles = createStyles(() => ({
     lineHeight: '22px',
   },
   footer: {
+    gap: 10,
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 75,
@@ -71,11 +75,20 @@ export const ConversationStyles = createStyles(() => ({
       left: 0,
     },
   },
+  options: {
+    position: 'absolute',
+    top: '-110px',
+    left: 3,
+    borderRadius: 8,
+    background: '#FFE9E0',
+    padding: '10px',
+  },
+
   chatBox: {
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 40,
-    width: '90%',
+    width: 'calc(100% - 84px)',
     borderRadius: 32,
     padding: '0 8px 0 16px',
     backgroundColor: 'var(--white)',
@@ -87,10 +100,15 @@ export const ConversationStyles = createStyles(() => ({
     outline: 'none',
     border: 'none',
   },
-  sendBtn: {
+  emoij: {
+    background: 'transparent',
+    '::before': {
+      display: 'none',
+    },
+  },
+  chatBtn: {
     width: 32,
     height: 32,
-    border: 'none',
     borderRadius: '50%',
     background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
   },

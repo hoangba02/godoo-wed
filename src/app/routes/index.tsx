@@ -1,7 +1,7 @@
 import Demo from 'app/pages/Demo/Demo';
 import ForgotPass from 'app/pages/ForgotPass';
 import { HomePage } from 'app/pages/HomePage/Loadable';
-import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
+import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 
 import { RegisterPage } from 'app/pages/RegisterPage/Loadable';

@@ -20,7 +20,7 @@ import Demo2 from './pages/Demo/Demo2';
 import ForgotPass from 'app/pages/ForgotPass';
 import { ChatPage } from './pages/ChatPage/Loadable';
 import { HomePage } from 'app/pages/HomePage/Loadable';
-import { NotFoundPage } from 'app/components/NotFoundPage/Loadable';
+import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable';
 import { LoginPage } from 'app/pages/LoginPage/Loadable';
 import { RegisterPage } from 'app/pages/RegisterPage/Loadable';
 import NickName from 'app/pages/RegisterPage/RegisterProfile/NickName';

@@ -24,8 +24,9 @@ export const ScheduleStyles = createStyles(() => ({
     lineHeight: '30px',
   },
   schedule: {
+    marginTop: 1,
     position: 'static',
-    height: 'calc(100% - 74px)',
+    height: 'calc(100% - 75px)',
     padding: '0 !important',
     backgroundColor: '#FFE9E0',
   },

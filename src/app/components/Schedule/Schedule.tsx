@@ -23,7 +23,7 @@ function Schedule({ hide, isShowing }) {
   const [date, setDate] = useState(new Date());
   if (!isShowing) return null;
   return createPortal(
-    <MyOverlay hide={hide}>
+    <MyOverlay hide={hide} fullScreen>
       <>
         <Flex className={classes.header}>
           <button className={classes.backBtn} onClick={hide}>

@@ -88,8 +88,8 @@ const useStyles = createStyles(() => ({
   },
   button: {
     gap: 0,
-    width: 36,
-    height: 58.5,
+    width: '36px !important',
+    height: '58.5px !important',
     padding: 0,
     display: 'flex',
     flexDirection: 'column',

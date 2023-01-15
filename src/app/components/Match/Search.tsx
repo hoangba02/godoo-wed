@@ -1,11 +1,15 @@
 import React from 'react';
+import useModal from 'hooks/useModal';
+import { useMediaQuery } from '@mantine/hooks';
+
+import Schedule from '../Schedule/Schedule';
 import { createStyles, Flex, Group, Input } from '@mantine/core';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 import { ReactComponent as Square } from 'assets/icons/square.svg';
-import { useMediaQuery } from '@mantine/hooks';
 
 function Search() {
   const { classes } = useStyles();
+  const { isShowing, toggle } = useModal();
   const phone = useMediaQuery('(max-width:575px');
   return (
     <Flex className={classes.wrapper}>
@@ -39,10 +43,12 @@ function Search() {
             padding: '0 4px 0 10px',
             cursor: 'pointer',
           }}
+          onClick={toggle}
         >
           <Square />
         </Group>
       )}
+      <Schedule hide={toggle} isShowing={isShowing} />
     </Flex>
   );
 }

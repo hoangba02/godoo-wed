@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Flex, Stack, Text, createStyles, Group } from '@mantine/core';
-import { ReactComponent as Square } from 'assets/icons/square.svg';
+import useModal from 'hooks/useModal';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
+import { Avatar, Flex, Stack, Text, createStyles, Group } from '@mantine/core';
+
+import { ReactComponent as Square } from 'assets/icons/square.svg';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
-import useModal from 'hooks/useModal';
 import Schedule from '../Schedule/Schedule';
 
 function MatchHeader() {

@@ -94,6 +94,11 @@ root.render(
             a: {
               textDecoration: 'none',
             },
+            button: {
+              cursor: 'pointer',
+              border: 'none',
+              outline: 'none',
+            },
           }),
           fontFamily: 'Lexend, sans-serif',
           defaultGradient: {
