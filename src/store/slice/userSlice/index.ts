@@ -1,4 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { persistor } from 'index';
+import { useEffect } from 'react';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { UserState } from '../type';
@@ -91,6 +93,7 @@ const slice = createSlice({
       state.token = '';
       state.username = '';
       state.isLogin = false;
+      state.loading = false;
       state.register = {
         error: -1,
         message: '',
@@ -165,5 +168,8 @@ export const { actions: usersActions, reducer } = slice;
 export const UserSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
   useInjectSaga({ key: slice.name, saga: userSaga });
+  useEffect(() => {
+    persistor.persist();
+  }, []);
   return { actions: slice.actions };
 };

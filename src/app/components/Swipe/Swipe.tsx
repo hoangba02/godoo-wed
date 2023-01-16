@@ -8,7 +8,6 @@ import { FilterUser } from './FilterUser';
 import SwipeTutorial from './SwipeTutorial';
 import Control from './Control';
 import TinderCard from 'react-tinder-card';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
@@ -20,7 +19,10 @@ import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
 import { UserSlice } from 'store/slice/userSlice';
 
-function Swipe() {
+interface Props {
+  drawer?: boolean;
+}
+function Swipe({ drawer }: Props) {
   const childRefs = useRef<any>({});
   // Others
   const dispatch = useDispatch();
@@ -115,7 +117,7 @@ function Swipe() {
           profile={listSwipe[currentIndex]}
           height={566}
           width={470}
-          translateX="34%"
+          translateX={drawer ? '0%' : '40%'}
         />
       )}
 
@@ -166,7 +168,6 @@ function Swipe() {
                     background: 'none',
                     borderRadius: '20px !important',
                     zIndex: 5,
-
                     '::before': {
                       content: '""',
                       position: 'absolute',

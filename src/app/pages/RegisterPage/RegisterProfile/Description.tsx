@@ -48,13 +48,13 @@ export default function Desc() {
     dispatch(counterActions.increase());
     // navigate('/register/mode');
   };
-  useEffect(() => {
-    if (couterText >= 500) {
-      setCouterText(500);
-    } else if (couterText <= 0) {
-      setCouterText(0);
-    }
-  }, [couterText]);
+  // useEffect(() => {
+  //   if (couterText >= 500) {
+  //     setCouterText(500);
+  //   } else if (couterText <= 0) {
+  //     setCouterText(0);
+  //   }
+  // }, [couterText]);
   return (
     <ProfileLayout>
       <Box className={classes.children}>
@@ -116,7 +116,7 @@ export default function Desc() {
             <span>/500 {t('Profile.text.characters')}</span>
           </Text>
           <Button
-            disabled={couterText > 1 ? false : true}
+            // disabled={couterText > 1 ? false : true}+
             onClick={() => handleCreateIntro()}
             variant="gradient"
             className={classes.nextBtn}

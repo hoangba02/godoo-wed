@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Flex } from '@mantine/core';
 
 function Nav({ active, data }) {
-  // console.log(data);
   const listPicture = data.picture.filter(value => {
     if (value) return value;
   });

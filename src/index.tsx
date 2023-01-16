@@ -11,6 +11,7 @@ import 'react-app-polyfill/stable';
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import persistStore from 'redux-persist/es/persistStore';
 
 // Use consistent styling
 import 'sanitize.css/sanitize.css';
@@ -29,6 +30,7 @@ import './locales/i18n';
 import { ButtonStylesParams, MantineProvider } from '@mantine/core';
 
 const store = configureAppStore();
+export const persistor = persistStore(store);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );

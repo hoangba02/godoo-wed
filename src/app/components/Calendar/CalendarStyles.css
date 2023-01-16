@@ -34,7 +34,8 @@
   line-height: 20px;
 }
 .mbsc-ios.mbsc-calendar-week-day,
-.mbsc-material.mbsc-calendar-week-day {
+.mbsc-material.mbsc-calendar-week-day,
+.mbsc-windows.mbsc-calendar-week-day {
   color: #e46125;
   font-weight: 400;
   font-size: 16px;
@@ -53,12 +54,14 @@
 .mbsc-ios.mbsc-datepicker .mbsc-hover .mbsc-calendar-day-text,
 .mbsc-ios.mbsc-datepicker .mbsc-range-hover-end .mbsc-calendar-day-text,
 .mbsc-ios.mbsc-datepicker .mbsc-range-hover-start .mbsc-calendar-day-text,
-.mbsc-ios.mbsc-datepicker .mbsc-selected .mbsc-calendar-day-text {
+.mbsc-ios.mbsc-datepicker .mbsc-selected .mbsc-calendar-day-text,
+.mbsc-windows.mbsc-calendar-cell.mbsc-hover:after
+  .mbsc-windows.mbsc-calendar-day-text {
   color: #ffffff;
 }
 .mbsc-selected {
   border-radius: 4px;
-  color: #ffffff;
+  color: #ffffff !important;
   background: #ff9565;
 }
 .mbsc-windows.mbsc-range-day .mbsc-calendar-cell-inner,
@@ -78,9 +81,7 @@
   border-color: #ff9565;
   color: #fff;
 }
-.mbsc-ios.mbsc-hover .mbsc-calendar-cell-text {
-  background: #ff9565;
-}
+
 .mbsc-ios.mbsc-calendar-today,
 .mbsc-ios.mbsc-calendar-week-nr,
 .mbsc-material.mbsc-calendar-today,
@@ -90,4 +91,12 @@
 .mbsc-ios.mbsc-calendar-day-text,
 .mbsc-material.mbsc-calendar-cell-text {
   border-radius: 4px;
+}
+.mbsc-ios.mbsc-hover .mbsc-calendar-cell-text,
+.mbsc-windows.mbsc-ltr.mbsc-hover {
+  color: #ffffff;
+  background: #ff9565;
+}
+.mbsc-windows.mbsc-ltr.mbsc-hover div:first-child div {
+  color: #ff9565;
 }

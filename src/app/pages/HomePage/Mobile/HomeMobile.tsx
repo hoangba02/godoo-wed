@@ -4,7 +4,7 @@ import Header from 'app/components/Header/Header';
 import Swipe from 'app/components/Swipe/Swipe';
 import Liked from 'app/components/Liked/Liked';
 import Navbar from 'app/components/Match/Match';
-import About from 'app/components/About/About';
+import { AboutPage } from 'app/pages/AboutPage/Loadable';
 
 function HomeMobile() {
   const { classes } = HomeMobileStyles();
@@ -18,7 +18,7 @@ function HomeMobile() {
       ) : active === 2 ? (
         <Navbar />
       ) : (
-        <About />
+        <AboutPage />
       )}
       <Header active={active} setActive={setActive} />
     </Container>

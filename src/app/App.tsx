@@ -29,6 +29,8 @@ import Birth from 'app/pages/RegisterPage/RegisterProfile/Birthday';
 import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
+import { AboutPage } from './pages/AboutPage/Loadable';
+import Settings from './pages/AboutPage/Settings/Settings';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -45,6 +47,8 @@ export function App() {
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/chat/setting" element={<Settings />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
           <Route path="/register/birthday" element={<Birth />} />

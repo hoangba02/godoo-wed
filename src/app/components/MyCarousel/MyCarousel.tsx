@@ -6,7 +6,6 @@ import { createStyles, Paper, Text, Title } from '@mantine/core';
 import SwipeCard from '../Swipe/SwipeCard';
 
 function MyCarousel({ setActive, data }) {
-  const listPicture = data.picture.filter(value => value !== null);
   const autoplay = useRef(Autoplay({ delay: 4000 }));
   return (
     <>
@@ -21,7 +20,6 @@ function MyCarousel({ setActive, data }) {
           },
         }}
         loop
-        // speed={5}
         height="100%"
         slideSize="100%"
         slideGap={0}
@@ -30,11 +28,13 @@ function MyCarousel({ setActive, data }) {
         plugins={[autoplay.current]}
         onSlideChange={value => setActive(value)}
       >
-        {listPicture.map((item, index) => (
-          <Carousel.Slide key={index}>
-            <SwipeCard image={item} radius={0} />
-          </Carousel.Slide>
-        ))}
+        {data.picture
+          .filter(value => value !== null)
+          .map((item, index) => (
+            <Carousel.Slide key={index}>
+              <SwipeCard image={item} radius={0} />
+            </Carousel.Slide>
+          ))}
       </Carousel>
     </>
   );

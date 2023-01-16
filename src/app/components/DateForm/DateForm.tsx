@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import MyOverlay from '../Layout/MyOverlay/MyOverlay';
 import { createPortal } from 'react-dom';
 import {
+  Box,
   Button,
   Card,
   Checkbox,
@@ -55,17 +56,28 @@ export const DateForm = ({
     >
       <>
         <Flex className={classes.header}>
-          <button className={classes.datebtn} onClick={hide}>
+          <button className={classes.dateBtn} onClick={hide}>
             <ArrowLeft />
           </button>
           <Text className={classes.title}>Add a date</Text>
           <button
-            className={classes.datebtn}
+            className={classes.dateBtn}
             onClick={() => {
               setColorPicker(prev => !prev);
             }}
           >
-            <Gradient />
+            {bgInput.top !== '' ? (
+              <Box
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: bgInput.top || '#FFFFFF',
+                }}
+              />
+            ) : (
+              <Gradient />
+            )}
           </button>
           {colorPicker && (
             <Card className={classes.picker}>

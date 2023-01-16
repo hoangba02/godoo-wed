@@ -32,7 +32,7 @@ export function HomeWeb() {
             duration: 1,
           }}
         >
-          <Swipe />
+          <Swipe drawer={drawer} />
         </motion.div>
       </Flex>
       <motion.div

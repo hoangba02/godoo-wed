@@ -64,13 +64,13 @@ const GENDER = [
     color: '#EF7627',
     background: '#FFE5D3',
   },
-  {
-    id: 8,
-    text: 'Others',
-    color: '#000000',
-    background:
-      'linear-gradient(81.84deg,#0099ff -9.4%,#a033ff 51.57%,#ff5280 84.07%,#ff7061 90.59%)',
-  },
+  // {
+  //   id: 8,
+  //   text: 'Others',
+  //   color: '#000000',
+  //   background:
+  //     'linear-gradient(81.84deg,#0099ff -9.4%,#a033ff 51.57%,#ff5280 84.07%,#ff7061 90.59%)',
+  // },
 ];
 export default function Gender() {
   const dispatch = useDispatch();
@@ -107,7 +107,7 @@ export default function Gender() {
     // navigate('/register/description');
   };
   useEffect(() => {
-    if (sex.length > 2 || sex.length < 1) {
+    if (sex.length > 2) {
       setDisabel(true);
     } else {
       setDisabel(false);

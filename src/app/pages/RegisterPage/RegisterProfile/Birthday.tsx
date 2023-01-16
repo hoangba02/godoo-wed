@@ -38,12 +38,21 @@ export default function Birth() {
   const [disableBtn, setDisableBtn] = useState(true);
   const phone = useMediaQuery('(max-width:575px)');
 
+  console.log(
+    profile.date_of_birth.slice(0, 2),
+    profile.date_of_birth.slice(3, 5),
+    profile.date_of_birth.slice(6),
+  );
   const form = useForm({
     initialValues: {
       date:
         profile.date_of_birth === ''
           ? new Date()
-          : new Date(profile.date_of_birth),
+          : new Date(
+              profile.date_of_birth.slice(6),
+              profile.date_of_birth.slice(3, 5) - 1,
+              profile.date_of_birth.slice(0, 2),
+            ),
     },
   });
   const handleCreateBirthDay = () => {
@@ -55,8 +64,14 @@ export default function Birth() {
     } else if (age < 15) {
       setAge(true);
     } else {
-      let day = new Date(form.values.date).getDate();
-      let month = new Date(form.values.date).getMonth();
+      let day =
+        new Date(form.values.date).getDate() < 10
+          ? `0${new Date(form.values.date).getDate()}`
+          : new Date(form.values.date).getDate();
+      let month =
+        new Date(form.values.date).getMonth() < 10
+          ? `0${new Date(form.values.date).getMonth()}`
+          : new Date(form.values.date).getMonth();
       let year = new Date(form.values.date).getFullYear();
       dispatch(
         actions.requestProfile({
@@ -66,7 +81,7 @@ export default function Birth() {
           profile: {
             nickname: profile.nickname,
             picture: profile.picture,
-            date_of_birth: new Date(year, month, day).toString(),
+            date_of_birth: `${day}/${month}/${year}`,
             gender: profile.gender,
             zodiac: Zodiac(form.values.date)?.name,
             introduction: profile.introduction,
@@ -156,7 +171,7 @@ export default function Birth() {
               <Text
                 sx={{
                   textAlign: 'center',
-                  color: 'var(--grey-dark)',
+                  color: 'var(--red)',
                   fontSize: 14,
                   fontWeight: 400,
                   marginTop: 4,

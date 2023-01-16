@@ -5,10 +5,6 @@ import {
   CalendarPrev,
   CalendarNav,
   CalendarNext,
-  CalendarToday,
-  SegmentedGroup,
-  SegmentedItem,
-  setOptions,
 } from '@mobiscroll/react';
 import './CalendarStyles.css';
 

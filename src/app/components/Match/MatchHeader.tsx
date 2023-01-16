@@ -8,12 +8,14 @@ import { ReactComponent as Square } from 'assets/icons/square.svg';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { UserSlice } from 'store/slice/userSlice';
 import Schedule from '../Schedule/Schedule';
+import { useNavigate } from 'react-router-dom';
 
 function MatchHeader() {
   const { classes } = useStyles();
   const { isShowing, toggle } = useModal();
 
   // Global
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
@@ -24,7 +26,15 @@ function MatchHeader() {
       transition={{ delay: 0.1, duration: 0.5 }}
     >
       <Flex align="center">
-        <Avatar size={50} radius="xl" src={profile.picture[0]} alt="it's me" />
+        <Avatar
+          size={50}
+          radius="xl"
+          src={profile.picture[0]}
+          alt="it's me"
+          onClick={() => {
+            navigate('/about');
+          }}
+        />
         <Stack className={classes.user}>
           <Text
             sx={{

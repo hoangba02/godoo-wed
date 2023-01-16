@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
 import { MatchStyles } from './MatchStyles';
 import { useMediaQuery } from '@mantine/hooks';
@@ -13,7 +13,7 @@ import MatchHeader from './MatchHeader';
 import { apiPost } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
-import NoYetGift from 'assets/lotties/Search.json';
+import NoYetGift from 'assets/lotties/NoYet.json';
 
 function Match() {
   const defaultOptions = {
@@ -23,6 +23,12 @@ function Match() {
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
+    eventListeners: [
+      {
+        eventName: 'complete',
+        callback: () => console.log('the animation completed:'),
+      },
+    ],
   };
   // Global
   const dispatch = useDispatch();
@@ -31,6 +37,7 @@ function Match() {
   // Local
   const { classes } = MatchStyles();
   const phone = useMediaQuery('(max-width:575px)');
+  const [pause, setPause] = useState(false);
 
   useEffect(() => {
     apiPost(
@@ -50,6 +57,12 @@ function Match() {
       .catch(err => {
         console.log(err);
       });
+
+    const timer = setTimeout(() => {
+      setPause(true);
+      console.log('first');
+    }, 6900);
+    return () => clearTimeout(timer);
   }, []);
   return (
     <Container fluid className={classes.container}>
@@ -63,12 +76,7 @@ function Match() {
           </>
         ) : (
           <Card className={classes.hollow}>
-            {phone ? (
-              <Lottie options={defaultOptions} />
-            ) : (
-              <Image src={images.noYet} />
-            )}
-
+            <Lottie options={defaultOptions} isPaused={phone ? true : pause} />
             <Text
               sx={{
                 fontWeight: 400,
@@ -76,7 +84,7 @@ function Match() {
                 lineHeight: '20px',
                 textAlign: 'center',
                 color: '#929292',
-                marginTop: 45,
+                marginTop: 25,
                 [`@media (max-width:575px)`]: {
                   marginTop: 0,
                 },

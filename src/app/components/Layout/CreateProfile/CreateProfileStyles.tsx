@@ -88,6 +88,7 @@ export const CreateProfileStyles = createStyles(() => ({
       background:
         'linear-gradient(90deg, rgba(228, 97, 37, 0.6) -0.01%, rgba(161, 47, 163, 0.6) 100%)',
     },
+
     [`@media (max-width:575px)`]: {
       position: 'fixed',
       width: 65,
@@ -310,6 +311,10 @@ export const CreateProfileStyles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 32,
     lineHeight: '40px',
+    transition: 'all 0.25s ease',
+    '&:hover': {
+      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    },
     [`@media (min-width:768px) and (max-width:991px)`]: {
       fontSize: 24,
     },

@@ -10,7 +10,10 @@ export const DateFormStylyes = createStyles(() => ({
     borderBottom: '1px solid #FF9565',
   },
 
-  datebtn: {
+  dateBtn: {
+    width: 24,
+    height: 24,
+    borderRadius: '50%',
     border: 'none',
     backgroundColor: 'transparent',
     cursor: 'pointer',
