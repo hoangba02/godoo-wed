@@ -4,7 +4,6 @@ import {
   Button,
   Group,
   createStyles,
-  Box,
   Text,
   Stack,
   Center,
@@ -15,6 +14,7 @@ import { ReactComponent as FilterBtn } from 'assets/icons/filter.svg';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrowDown.svg';
 import { useMediaQuery } from '@mantine/hooks';
+import GendersList from '../GendersList/GendersList';
 
 const data = [
   'No promblem',
@@ -26,7 +26,10 @@ const data = [
   '< 10 000 km',
 ];
 
-export const FilterUser = () => {
+interface Props {
+  drawer?: boolean;
+}
+export const FilterUser = ({ drawer }: Props) => {
   const { classes } = useStyles();
   const [opened, setOpened] = useState(false);
   const phone = useMediaQuery('(max-width:575px)');
@@ -35,11 +38,15 @@ export const FilterUser = () => {
     <>
       <Modal
         styles={{
+          inner: {
+            padding: '40px 16px',
+          },
           modal: {
-            width: 470,
+            width: 475,
             height: 722,
             padding: '0 !important',
             borderRadius: 20,
+            transform: drawer ? 'translateX(0%)' : 'translateX(40%) !important',
             [`@media (max-width:575px)`]: {
               width: '100%',
               height: '100%',
@@ -65,50 +72,18 @@ export const FilterUser = () => {
             boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
           }}
         >
-          <Box
-            sx={{
-              position: 'absolute',
-              left: 50,
-              cursor: 'pointer',
-              [`@media (max-width:575px)`]: {
-                left: 20,
-              },
-            }}
-            onClick={() => setOpened(false)}
-          >
+          <button onClick={() => setOpened(false)} className={classes.backBtn}>
             <ArrowLeft />
-          </Box>
+          </button>
           <Text className={classes.title}>Filter</Text>
         </Center>
         <Stack className={classes.content}>
           <Text className={classes.question}>
             What you are looking for in your match?
           </Text>
-          <Box>
+          <GendersList />
+          <Stack spacing={20} mb={20}>
             <Text className={classes.indexing}>Age</Text>
-            <div>
-              <RangeSlider
-                styles={{
-                  root: {
-                    padding: '0 15px',
-                  },
-                  thumb: {
-                    backgroundColor: '#FFE9E0',
-                    border: '4px solid #E46125',
-                  },
-                  bar: {
-                    background:
-                      'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
-                  },
-                }}
-                thumbSize={24}
-                mt="xl"
-                defaultValue={[20, 80]}
-              />
-            </div>
-          </Box>
-          <Box>
-            <Text className={classes.indexing}>Distance</Text>
             <RangeSlider
               styles={{
                 root: {
@@ -124,12 +99,32 @@ export const FilterUser = () => {
                 },
               }}
               thumbSize={24}
-              mt="xl"
+              defaultValue={[20, 80]}
+              min={15}
+            />
+          </Stack>
+          <Stack spacing={20} mb={20}>
+            <Text className={classes.indexing}>Distance (km)</Text>
+            <RangeSlider
+              styles={{
+                root: {
+                  padding: '0 15px',
+                },
+                thumb: {
+                  backgroundColor: '#FFE9E0',
+                  border: '4px solid #E46125',
+                },
+                bar: {
+                  background:
+                    'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+                },
+              }}
+              thumbSize={24}
               defaultValue={[0, 200]}
               max={200}
             />
-          </Box>
-          <Box>
+          </Stack>
+          <Stack spacing={5} mb={20}>
             <Text className={classes.indexing}>Advanced Filters</Text>
             <Select
               rightSection={<ArrowDown />}
@@ -174,7 +169,7 @@ export const FilterUser = () => {
                 },
               }}
             />
-          </Box>
+          </Stack>
         </Stack>
       </Modal>
 
@@ -224,5 +219,15 @@ const useStyles = createStyles(() => ({
     fontSize: 18,
     lineHeight: '22px',
     fontWeight: 500,
+  },
+  backBtn: {
+    width: '32px',
+    height: '32px',
+    position: 'absolute',
+    left: 50,
+    background: 'transparent',
+    [`@media (max-width:575px)`]: {
+      left: 20,
+    },
   },
 }));

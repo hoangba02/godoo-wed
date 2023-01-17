@@ -1,7 +1,8 @@
 import React from 'react';
 import MatchAccount from 'app/components/MatchAccount/MatchAccount';
 import { Link } from 'react-router-dom';
-import { Container, createStyles, Text } from '@mantine/core';
+import { Container, createStyles, Image, Text } from '@mantine/core';
+import { images } from 'assets/images';
 
 function NewMatch() {
   const { classes } = useStyles();
@@ -16,15 +17,20 @@ function NewMatch() {
       }}
       className={classes.container}
     >
-      <Text className={classes.text}>Conversations</Text>
+      <Text className={classes.text}>{`Conversations (0)`}</Text>
       <div>
-        <MatchAccount />
-        <MatchAccount />
-        <MatchAccount />
-        <MatchAccount />
-        <MatchAccount />
-        <MatchAccount />
-        <MatchAccount />
+        <Image width={150} height={200} src={images.noConver} />
+        <Text
+          sx={{
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: '20px',
+            textAlign: 'center',
+            color: '#929292',
+          }}
+        >
+          Let’s start a conversation now!
+        </Text>
       </div>
     </Container>
   );

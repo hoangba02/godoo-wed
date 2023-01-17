@@ -147,7 +147,7 @@ function Demo() {
               lengths={picture[picture.length - 1].profile.picture.length}
             />
           )} */}
-          <FilterUser />
+          {/* <FilterUser /> */}
         </Flex>
         <Flex className={classes.swipes}>
           {picture.map((data, index) => {

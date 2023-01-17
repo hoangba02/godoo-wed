@@ -60,7 +60,6 @@ function Match() {
 
     const timer = setTimeout(() => {
       setPause(true);
-      console.log('first');
     }, 6900);
     return () => clearTimeout(timer);
   }, []);

@@ -13,7 +13,7 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
 import { ReactComponent as Undo } from 'assets/icons/undo.svg';
 import { ReactComponent as Gift } from 'assets/icons/box.svg';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { apiGet } from 'utils/http/request';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
@@ -133,7 +133,7 @@ function Swipe({ drawer }: Props) {
         {!tablet && listSwipe[currentIndex] && (
           <Nav active={active} data={listSwipe[currentIndex]} />
         )}
-        <FilterUser />
+        <FilterUser drawer={drawer} />
       </Flex>
       <Flex
         sx={{

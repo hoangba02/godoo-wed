@@ -1,12 +1,11 @@
 import React from 'react';
 import useModal from 'hooks/useModal';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Avatar, Flex, Stack, Text, createStyles, Group } from '@mantine/core';
 
 import { ReactComponent as Square } from 'assets/icons/square.svg';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
-import { UserSlice } from 'store/slice/userSlice';
 import Schedule from '../Schedule/Schedule';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,8 +15,6 @@ function MatchHeader() {
 
   // Global
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
   return (
     <motion.div
@@ -41,9 +38,6 @@ function MatchHeader() {
               fontWeight: 500,
               fontSize: 18,
               lineHeight: '22px',
-            }}
-            onClick={() => {
-              dispatch(actions.logoutSuccess());
             }}
           >
             {profile.nickname}

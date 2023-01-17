@@ -41,4 +41,5 @@ export const images = {
   // Home
   noYet: require('assets/images/noYet.svg').default,
   messBox: require('assets/images/messBox.svg').default,
+  noConver: require('assets/images/noConver.svg').default,
 };

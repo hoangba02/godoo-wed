@@ -224,24 +224,7 @@ export default function Gender() {
                       height: 42,
                     },
                   }}
-                  onClick={e => {
-                    if (gender.id === index) {
-                      let boolean = sex.find(value => {
-                        return value === gender.text;
-                      });
-                      if (boolean) {
-                        e.currentTarget.classList.remove('active');
-                        setSex(
-                          sex.filter(value => {
-                            return value !== boolean;
-                          }),
-                        );
-                      } else {
-                        e.currentTarget.classList.add('active');
-                        setSex([...sex, gender.text]);
-                      }
-                    }
-                  }}
+                  onClick={e => {}}
                 >
                   <Text
                     sx={{

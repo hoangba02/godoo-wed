@@ -47,8 +47,8 @@ export function App() {
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
-          <Route path="/chat/setting" element={<Settings />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/about/setting" element={<Settings />} />
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
           <Route path="/register/birthday" element={<Birth />} />

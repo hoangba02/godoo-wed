@@ -10,6 +10,7 @@ export const AboutStyles = createStyles(() => ({
     width: '100%',
     maxWidth: 570,
     margin: 0,
+    padding: '50px 20px 0',
   },
   header: {
     width: '100%',
@@ -56,11 +57,17 @@ export const AboutStyles = createStyles(() => ({
     height: 82,
     borderRadius: 8,
     alignItems: 'center',
+    transition: 'all 0.5s ease',
+    cursor: 'pointer',
+    ':active': {
+      transform: 'scale(0.9)',
+    },
   },
   textWallet: {
     color: 'var(--white)',
     fontWeight: 600,
     fontSize: 20,
     lineHeight: '25px',
+    userSelect: 'none',
   },
 }));

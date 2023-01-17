@@ -15,7 +15,7 @@ export const ProfileStyles = createStyles(() => ({
     backgroundColor: 'transparent',
   },
   card: {
-    padding: '0 48px !important',
+    padding: '18px 48px 0 !important',
     [`@media (max-width:575px)`]: {
       padding: '0 7.5px !important',
     },

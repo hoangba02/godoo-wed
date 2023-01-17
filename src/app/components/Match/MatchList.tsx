@@ -6,14 +6,15 @@ import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import Card from '../Swipe/SwipeCard';
 
 function MatchList({ matchList }) {
-  console.log(matchList);
   const { classes } = useStyles();
   const ipad = useMediaQuery('(min-width:800px) and (max-width:991px)');
 
   useEffect(() => {}, []);
   return (
     <Container fluid className={classes.container}>
-      <Text className={classes.text}>Pairing list (20)</Text>
+      <Text className={classes.text}>
+        {`Pairing list (${matchList.length})`}
+      </Text>
       <Carousel
         styles={{
           root: {

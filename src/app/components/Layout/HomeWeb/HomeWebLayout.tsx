@@ -11,7 +11,6 @@ interface Props {
 export default function HomeWebLayout({ children, drawer }: Props) {
   const { classes } = HomeWebStyles();
   const ipad = useMediaQuery('(max-width:991px)');
-  console.log(ipad);
 
   return (
     <Container fluid className={classes.container}>
