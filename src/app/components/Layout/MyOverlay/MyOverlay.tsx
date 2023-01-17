@@ -13,7 +13,7 @@ const MyOverlay = ({
   children,
   hide,
   height = '89.5%',
-  width = 445,
+  width = 470,
   translateX,
   fullScreen = false,
 }: Props) => {
@@ -68,14 +68,14 @@ const useStyles = createStyles(() => ({
     width: '100vw',
     height: '100vh',
     padding: '30px 0 0 0',
-    background: 'rgba(0, 0, 0, 0.15)',
+    background: 'rgba(0, 0, 0, 0.8)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
   },
   wrapper: {
-    minWidth: 430,
+    minWidth: 440,
     padding: '0px !important',
     borderRadius: 20,
 

@@ -46,7 +46,7 @@ export function HomeWeb() {
               }
             : {
                 translateX: drawer ? '0' : '100vh',
-                width: drawer ? '19%' : '0%',
+                width: drawer ? '19.75%' : '0%',
               }
         }
         transition={{ delay: 0, duration: 1 }}

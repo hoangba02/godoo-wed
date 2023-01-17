@@ -66,9 +66,7 @@ function TextMess(
           padding: auth ? '5px 10px' : ' 5px 10px 5px 16px',
           borderRadius: auth ? 14 : '14px 8px 8px 8px',
           color: auth ? '#FFFFFF' : '#000000',
-          background: auth
-            ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
-            : '#EAEAEA',
+          background: auth ? '#E46125' : '#EAEAEA',
           position: 'relative',
           '::after': {
             display: auth ? 'none' : 'block',

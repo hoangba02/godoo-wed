@@ -33,20 +33,26 @@ function MatchList({ matchList }) {
           container: {
             height: '100%',
           },
+          controls: {
+            justifyContent: 'flex-end',
+          },
           control: {
             color: '#FFFFFF',
             border: 'none',
             background: 'rgba(0, 0, 0, 0.3)',
             zIndex: 3,
-            '&[data-inactive]': {
-              opacity: 0,
-              cursor: 'default',
+            '&:first-child': {
+              display: 'none',
             },
           },
           slide: {
-            position: 'relative',
+            '&:first-child div': {
+              position: 'relative',
+              border: '2px solid rgba(228,97,37,1)',
+            },
           },
         }}
+        loop
         align="start"
         height="100%"
         slideSize="25.5%"
@@ -68,12 +74,6 @@ function MatchList({ matchList }) {
           </Carousel.Slide>
         ))}
       </Carousel>
-      <Box
-        sx={{
-          width: ipad ? '32%' : '24.5%',
-        }}
-        className={classes.border}
-      ></Box>
     </Container>
   );
 }

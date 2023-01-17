@@ -17,7 +17,7 @@ function HeaderChild({ title, children, onMotion }: Props) {
       <button
         className={classes.backBtn}
         onClick={() => {
-          navigate('/about');
+          navigate(-1);
           if (onMotion) {
             onMotion();
           }

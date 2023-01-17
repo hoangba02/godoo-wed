@@ -76,7 +76,12 @@ function Settings() {
             <Box />
           </Flex>
           <Stack className={classes.options}>
-            <Flex className={classes.option}>
+            <Flex
+              className={classes.option}
+              onClick={() => {
+                navigate('/about/notification');
+              }}
+            >
               <Notifi />
               <Text className={classes.name}>Notification</Text>
               <Box className={classes.icon}>
