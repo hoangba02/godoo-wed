@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/core';
 
 export const AboutStyles = createStyles(() => ({
   wrapper: {
-    width: '100%',
+    minWidth: 378,
     display: 'flex',
     justifyContent: 'center',
   },

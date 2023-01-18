@@ -1,42 +1,52 @@
-import React from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import React, { useState } from 'react';
+import {
+  motion,
+  useAnimation,
+  useDragControls,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
 import { Card, Container, createStyles, Flex, Paper } from '@mantine/core';
+import Draggable from 'react-draggable';
+import { useViewportSize } from '@mantine/hooks';
 interface Props {
   data?: any;
+  onSwipe?: any;
+  animControls?: any;
+  x?: any;
 }
-function Demo({ data }: Props) {
+function Test({ data, onSwipe, animControls, x }: Props, ref) {
   const { classes } = useStyles();
-  const x = useMotionValue(0);
-  const xInput = [-100, 0, 100];
-  const background = useTransform(x, xInput, [
-    'linear-gradient(90deg, rgba(0, 0, 0, 0.87) 0%, rgba(255, 255, 255, 0) 108.76%)',
-    'transparent',
-    'linear-gradient(90deg, rgba(228, 97, 37, 0) 54.32%, rgba(228, 97, 37, 0.51) 80.87%, rgba(201, 26, 68, 0.96) 109.52%)',
-  ]);
-  const color = useTransform(x, xInput, [
-    'rgb(211, 9, 225)',
-    'rgb(68, 0, 255)',
-    'rgb(3, 209, 0)',
-  ]);
-  // const  = useTransform(x, xInput, [
-  //   'rgb(211, 9, 225)',
-  //   'rgb(68, 0, 255)',
-  //   'rgb(3, 209, 0)',
-  // ]);
+  const { width } = useViewportSize();
+  const [position, setPosition] = useState({ left: 0, right: 0 });
+  const dragControls = useDragControls();
+  const rotate = useTransform(x, [-500, 500], [-15, 15]);
+  const opacity = useTransform(x, [-500, -250, 0, 250, 500], [0, 1, 1, 1, 0]);
+
   return (
     <motion.div
-      className={classes.wrapper}
-      // style={{ x }}
-      drag="x"
+      drag
+      style={{ x, rotate }}
+      dragConstraints={{
+        left: position.left,
+        right: position.right,
+        top: 0,
+        bottom: 0,
+      }}
       onDragEnd={(event, info) => {
-        if (info.offset.x > 100) {
-          console.log('first');
+        if (Math.abs(info.point.x) <= 300) {
+          animControls.start({ x: 0 });
+        } else {
+          if (info.point.x < 0) {
+            onSwipe('left');
+          } else {
+            onSwipe('right');
+          }
         }
       }}
-      dragConstraints={{ left: 0, right: 0 }}
+      className={classes.wrapper}
     >
-      <Card className={classes.content}>
-        <motion.div style={{ background }} className={classes.overlay} />
+      <Card className={classes.content} ref={ref}>
         <Paper
           shadow="md"
           radius={20}
@@ -52,6 +62,7 @@ function Demo({ data }: Props) {
     </motion.div>
   );
 }
+const Demo = React.forwardRef(Test);
 
 export default Demo;
 const useStyles = createStyles(() => ({
@@ -59,7 +70,7 @@ const useStyles = createStyles(() => ({
     width: '100%',
     height: '100%',
     padding: '0px !important',
-    position: 'relative',
+    position: 'absolute',
   },
   wrapper: {
     position: 'absolute',

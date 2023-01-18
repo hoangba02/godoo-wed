@@ -8,7 +8,6 @@ import {
   Card,
   Container,
   Flex,
-  Group,
   Stack,
   Text,
 } from '@mantine/core';

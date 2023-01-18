@@ -32,6 +32,7 @@ import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 import { AboutPage } from './pages/AboutPage/Loadable';
 import Settings from './pages/AboutPage/Settings/Settings';
 import Notification from './pages/AboutPage/Notification/Notification';
+import Account from './pages/AboutPage/Account/Account';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -51,6 +52,7 @@ export function App() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/about/setting" element={<Settings />} />
           <Route path="/about/notification" element={<Notification />} />
+          <Route path="/about/account" element={<Account />} />
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
           <Route path="/register/birthday" element={<Birth />} />

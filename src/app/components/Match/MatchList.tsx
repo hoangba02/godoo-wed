@@ -41,12 +41,12 @@ function MatchList({ matchList }) {
             border: 'none',
             background: 'rgba(0, 0, 0, 0.3)',
             zIndex: 3,
-            '&:first-child': {
+            '&:first-of-type': {
               display: 'none',
             },
           },
           slide: {
-            '&:first-child div': {
+            '&:first-of-type div': {
               position: 'relative',
               border: '2px solid rgba(228,97,37,1)',
             },

@@ -5,7 +5,7 @@ import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as Detail } from 'assets/icons/detail.svg';
 
 interface Props {
-  title: string;
+  title?: string;
   onMotion?: any;
   children?: JSX.Element;
 }
@@ -17,7 +17,14 @@ function HeaderChild({ title, children, onMotion }: Props) {
       <button
         className={classes.backBtn}
         onClick={() => {
-          navigate(-1);
+          if (title === 'Notification') {
+            navigate('/about/setting', {
+              state: {
+                animation: false,
+              },
+            });
+          }
+
           if (onMotion) {
             onMotion();
           }

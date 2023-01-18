@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import { motion } from 'framer-motion';
 import About from 'app/components/About/About';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as CaretDown } from 'assets/icons/setting/caretDown.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
@@ -26,34 +26,33 @@ function Settings() {
   const dispatch = useDispatch();
   const { actions } = UserSlice();
   const { classes } = useStyles();
-  const [settingMotion, setSettingMotion] = useState(true);
-
-  const handleMotionAbout = () => {
-    setSettingMotion(false);
+  const location = useLocation();
+  const [settingMotion, setSettingMotion] = useState<any>(location.state);
+  const handleAnimationComplete = () => {
+    if (!settingMotion) {
+      navigate('/about');
+    }
   };
-
   return (
     <Flex className={classes.container}>
+      <About
+        animation={settingMotion.animation}
+        onAnimationEnd={handleAnimationComplete}
+      />
       <motion.div
-        initial={{ width: '100%' }}
-        animate={settingMotion ? { width: '32%' } : { width: '100%' }}
-        transition={{ duration: 1.5 }}
-        onAnimationComplete={() => {
-          if (!settingMotion) {
-            navigate('/about');
-          }
-        }}
-        className={classes.wrapper}
-      >
-        <About />
-      </motion.div>
-      <motion.div
-        initial={{
-          x: '100vw',
-          width: '0%',
-        }}
+        initial={
+          !settingMotion.animation
+            ? {
+                x: '100vw',
+                width: '0%',
+              }
+            : {
+                x: 0,
+                width: '100%',
+              }
+        }
         animate={
-          settingMotion
+          settingMotion.animation
             ? { x: 0, width: '100%' }
             : {
                 x: '100vw',
@@ -79,7 +78,11 @@ function Settings() {
             <Flex
               className={classes.option}
               onClick={() => {
-                navigate('/about/notification');
+                navigate('/about/notification', {
+                  state: {
+                    motion: true,
+                  },
+                });
               }}
             >
               <Notifi />
@@ -88,7 +91,12 @@ function Settings() {
                 <ChevronRight />
               </Box>
             </Flex>
-            <Flex className={classes.option}>
+            <Flex
+              className={classes.option}
+              onClick={() => {
+                navigate('/about/account');
+              }}
+            >
               <User />
               <Text className={classes.name}>My account</Text>
               <Box className={classes.icon}>

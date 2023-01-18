@@ -1,6 +1,18 @@
-import React from 'react';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
-import { Card, Container, createStyles, Flex, Paper } from '@mantine/core';
+import React, { useRef } from 'react';
+import {
+  motion,
+  useAnimation,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
+import {
+  Card,
+  Container,
+  createStyles,
+  Flex,
+  Group,
+  Paper,
+} from '@mantine/core';
 import Demo from './Demo';
 
 function Demo2() {
@@ -26,22 +38,40 @@ function Demo2() {
         'https://ttvnapi.com/v1/getfile/9cf5d4a2-3596-400b-81d9-b1dbed156c12',
       ],
     },
-    {
-      userId: 497,
-      nickname: 'Quang036',
-      picture: [
-        'https://ttvnapi.com/v1/getfile/db833932-65f4-4a84-9ede-db17f2b40e6b',
-      ],
-    },
   ];
   const { classes } = useStyles();
+  const cardRef = useRef<HTMLDivElement[]>([]);
+  const animControls = useAnimation();
+  const x = useMotionValue(0);
+
+  const handleSwipe = direction => {
+    if (direction === 'right') {
+      animControls.start({ x: 200 });
+      console.log('right');
+    } else {
+      console.log('left');
+
+      animControls.start({ x: -200 });
+    }
+  };
   return (
     <Container fluid className={classes.container}>
       <Flex className={classes.swipe}>
         {swipeList.map((item, index) => (
-          <Demo data={item} />
+          <Demo
+            key={index}
+            data={item}
+            ref={(el: never) => (cardRef.current[index] = el)}
+            onSwipe={handleSwipe}
+            animControls={animControls}
+            x={x}
+          />
         ))}
       </Flex>
+      <Group position="center">
+        <button onClick={() => handleSwipe('left')}>Left</button>
+        <button onClick={() => handleSwipe('right')}>Right</button>
+      </Group>
     </Container>
   );
 }
