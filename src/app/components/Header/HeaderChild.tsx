@@ -29,6 +29,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
                 animation: false,
               },
             });
+          } else if (title === 'Setting') {
+            navigate('/about/');
           }
 
           if (onMotion) {

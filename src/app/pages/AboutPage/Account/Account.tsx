@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import AboutLayout from 'app/components/Layout/About/AboutLayout';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { createStyles, Flex, Stack, Text } from '@mantine/core';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
 import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
+import AboutLayout from 'app/components/Layout/About/AboutLayout';
 function Account() {
   const { classes } = useStyles();
   const profile = useSelector(getProfileSelector);
+
   return (
     <AboutLayout title="Account">
       <Stack className={classes.container}>

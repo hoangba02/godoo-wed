@@ -1,5 +1,8 @@
 import React from 'react';
-import { createStyles, Flex, Stack, Switch, Text } from '@mantine/core';
+import { createStyles, Flex, Switch, Text } from '@mantine/core';
+import AboutMobile from 'app/components/Layout/About/Mobile/AboutMobile';
+import { useMediaQuery } from '@mantine/hooks';
+import AboutWeb from 'app/components/Layout/About/Web/AboutWeb';
 import AboutLayout from 'app/components/Layout/About/AboutLayout';
 
 function Notification() {

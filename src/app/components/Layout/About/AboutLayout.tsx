@@ -1,77 +1,27 @@
-import HeaderChild from 'app/components/Header/HeaderChild';
-import { Box, Container, createStyles, Flex, Stack } from '@mantine/core';
-import React from 'react';
-import About from 'app/components/About/About';
 import { useMediaQuery } from '@mantine/hooks';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from 'react';
+import AboutMobile from './Mobile/AboutMobile';
+import AboutWeb from './Web/AboutWeb';
 
 interface Props {
-  children?: JSX.Element | JSX.Element[];
   title?: string;
+  children?: JSX.Element | JSX.Element[];
 }
-function AboutLayout({ children, title }: Props) {
-  const { classes } = useStyles();
-  const phone = useMediaQuery('(max-width: 575px)');
-  if (!phone)
-    return (
-      <Flex className={classes.container}>
-        <Box
-          sx={{
-            width: '32%',
-            minWidth: 378,
-          }}
-        >
-          <About />
-        </Box>
-        <Container fluid className={classes.content}>
-          <HeaderChild title={title} />
+function AboutLayout({ title, children }: Props) {
+  const [isPhone, setIsPhone] = useState(false);
+  const phone = useMediaQuery('(max-width:575px)', !isPhone, {
+    getInitialValueInEffect: isPhone,
+  });
+  console.log(phone);
 
-          <Stack className={classes.child}>{children}</Stack>
-        </Container>
-      </Flex>
-    );
-  return (
-    <Container fluid className={classes.content}>
-      <HeaderChild title={title} />
-      <motion.div
-        initial={{
-          x: '-100vw',
-        }}
-        animate={{ x: 0 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        exit={{ opacity: 1 }}
-      >
-        <Stack className={classes.child}>{children}</Stack>
-      </motion.div>
-    </Container>
+  useEffect(() => {
+    setIsPhone(phone);
+  }, [phone]);
+  return isPhone ? (
+    <AboutMobile title={title}>{children}</AboutMobile>
+  ) : (
+    <AboutWeb title={title}>{children}</AboutWeb>
   );
 }
 
 export default AboutLayout;
-const useStyles = createStyles(() => ({
-  container: {
-    width: '100%',
-    height: '100%',
-    padding: '0 135px',
-    [`@media (max-width:799px)`]: {
-      padding: 0,
-    },
-  },
-  content: {
-    width: '100%',
-    padding: '45px 30px 0',
-    borderLeft: '1px solid #BFBFBF',
-    [`@media (max-width:799px)`]: {
-      padding: 0,
-    },
-  },
-  child: {
-    gap: 10,
-    width: '100%',
-    paddingTop: 24,
-    alignItems: 'center',
-    [`@media (max-width:575px)`]: {
-      padding: '24px 16px 0',
-    },
-  },
-}));

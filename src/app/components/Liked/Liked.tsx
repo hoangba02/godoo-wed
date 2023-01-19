@@ -1,11 +1,12 @@
 import { Container, Tabs } from '@mantine/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { LikedStyles } from './LikedStyles';
 import NewLiked from './NewLiked';
 
 function Liked() {
   const { classes } = LikedStyles();
-  // const [opened, setOpened] = useState(false);
+  const [amountLikedYou, setAmountLikedYou] = useState(0);
+  const [amountYouLiked, setAmountYouLiked] = useState(0);
 
   return (
     <Container fluid className={classes.container}>
@@ -58,14 +59,14 @@ function Liked() {
         }}
       >
         <Tabs.List>
-          <Tabs.Tab value="first">Liked you (50+)</Tabs.Tab>
-          <Tabs.Tab value="second">You liked (50+)</Tabs.Tab>
+          <Tabs.Tab value="first">Liked you ({`${amountLikedYou}`})</Tabs.Tab>
+          <Tabs.Tab value="second">You liked ({`${amountYouLiked}`})</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="first">
-          <NewLiked status="likedyou" />
+          <NewLiked status="likedyou" setAmountLikedYou={setAmountLikedYou} />
         </Tabs.Panel>
         <Tabs.Panel value="second">
-          <NewLiked status="youliked" />
+          <NewLiked status="youliked" setAmountYouLiked={setAmountYouLiked} />
         </Tabs.Panel>
       </Tabs>
     </Container>

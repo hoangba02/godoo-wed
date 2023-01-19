@@ -8,8 +8,10 @@ import { UserSlice } from 'store/slice/userSlice';
 
 interface Props {
   status: string;
+  setAmountYouLiked?: any;
+  setAmountLikedYou?: any;
 }
-function NewLiked({ status }: Props) {
+function NewLiked({ status, setAmountYouLiked, setAmountLikedYou }: Props) {
   // Global
   const dispatch = useDispatch();
   const { actions } = UserSlice();
@@ -29,8 +31,11 @@ function NewLiked({ status }: Props) {
     )
       .then(res => {
         if (status === 'youliked') {
+          setAmountYouLiked(res.data.length);
           dispatch(actions.getYouLikedList(res.data));
         } else {
+          setAmountLikedYou(res.data.length);
+
           dispatch(actions.getLikedYouList(res.data));
         }
       })

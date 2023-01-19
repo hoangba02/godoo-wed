@@ -5,19 +5,17 @@ import {
   Container,
   createStyles,
   Flex,
-  Stack,
   Text,
 } from '@mantine/core';
 import { useDispatch } from 'react-redux';
-import { useMediaQuery } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
 import { ReactComponent as Globe } from 'assets/icons/setting/globe.svg';
 import { ReactComponent as Notifi } from 'assets/icons/setting/noti.svg';
 import { ReactComponent as Support } from 'assets/icons/setting/support.svg';
 import { ReactComponent as User } from 'assets/icons/setting/user.svg';
 import { UserSlice } from 'store/slice/userSlice';
+import AboutLayout from 'app/components/Layout/About/AboutLayout';
 
 interface Props {
   onMotion?: any;
@@ -27,81 +25,60 @@ function Setting({ onMotion }: Props) {
   const dispatch = useDispatch();
   const { actions } = UserSlice();
   const { classes } = useStyles();
-  const phone = useMediaQuery('(max-width: 575px)');
 
   return (
-    <Container fluid className={classes.setting}>
-      <Flex className={classes.header}>
-        <button
-          className={classes.backBtn}
-          onClick={() => {
-            console.log('left');
-            if (phone) {
-              navigate('/about');
-            }
-            if (onMotion) {
-              onMotion(false);
-            }
-          }}
-        >
-          <ArrowLeft />
-        </button>
-        <Text className={classes.title}>Setting</Text>
-        <Box />
+    <AboutLayout title="Setting">
+      <Flex
+        className={classes.option}
+        onClick={() => {
+          navigate('/about/notification', {
+            state: {
+              motion: true,
+            },
+          });
+        }}
+      >
+        <Notifi />
+        <Text className={classes.name}>Notification</Text>
+        <Box className={classes.icon}>
+          <ChevronRight />
+        </Box>
       </Flex>
-      <Stack className={classes.options}>
-        <Flex
-          className={classes.option}
-          onClick={() => {
-            navigate('/about/notification', {
-              state: {
-                motion: true,
-              },
-            });
-          }}
-        >
-          <Notifi />
-          <Text className={classes.name}>Notification</Text>
-          <Box className={classes.icon}>
-            <ChevronRight />
-          </Box>
-        </Flex>
-        <Flex
-          className={classes.option}
-          onClick={() => {
-            navigate('/about/account');
-          }}
-        >
-          <User />
-          <Text className={classes.name}>My account</Text>
-          <Box className={classes.icon}>
-            <ChevronRight />
-          </Box>
-        </Flex>
-        <Flex className={classes.option}>
-          <Globe />
-          <Text className={classes.name}>Language</Text>
-          <Box className={classes.icon}>
-            <ChevronRight />
-          </Box>
-        </Flex>
-        <Flex className={classes.option}>
-          <Support />
-          <Text className={classes.name}>Support</Text>
-          <Box className={classes.icon}>
-            <ChevronRight />
-          </Box>
-        </Flex>
-        <Button
-          className={classes.logout}
-          onClick={() => {
-            dispatch(actions.logoutSuccess());
-          }}
-        >
-          Log out
-        </Button>
-      </Stack>
-    </Container>
+      <Flex
+        className={classes.option}
+        onClick={() => {
+          navigate('/about/account');
+        }}
+      >
+        <User />
+        <Text className={classes.name}>My account</Text>
+        <Box className={classes.icon}>
+          <ChevronRight />
+        </Box>
+      </Flex>
+      <Flex className={classes.option}>
+        <Globe />
+        <Text className={classes.name}>Language</Text>
+        <Box className={classes.icon}>
+          <ChevronRight />
+        </Box>
+      </Flex>
+      <Flex className={classes.option}>
+        <Support />
+        <Text className={classes.name}>Support</Text>
+        <Box className={classes.icon}>
+          <ChevronRight />
+        </Box>
+      </Flex>
+      <Button
+        className={classes.logout}
+        onClick={() => {
+          dispatch(actions.logoutSuccess());
+        }}
+      >
+        Log out
+      </Button>
+    </AboutLayout>
   );
 }
 
@@ -205,7 +182,7 @@ const useStyles = createStyles(() => ({
     background: '#FFFFFF',
     border: '0.5px solid #E46125',
     position: 'absolute',
-    bottom: 0,
+    bottom: '30%',
     ':hover': {
       background: '#FFFFFF',
     },
