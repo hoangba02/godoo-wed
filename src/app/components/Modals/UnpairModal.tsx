@@ -20,6 +20,11 @@ function UnpairModal({ unpairModal, setUnpairModal }: Props) {
         sx={{
           gap: 20,
           width: '100%',
+          [`@media (max-width:575px)`]: {
+            gap: 8,
+            alignItems: 'center',
+            flexDirection: 'column',
+          },
         }}
       >
         <Button className={classes.button} variant="outline">
@@ -42,5 +47,8 @@ const useStyles = createStyles(() => ({
   button: {
     height: 45,
     fontSize: 20,
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
   },
 }));

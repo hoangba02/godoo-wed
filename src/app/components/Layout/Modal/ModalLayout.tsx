@@ -37,6 +37,10 @@ function ModalLayout({
           padding: '60px 16px 20px !important',
           backgroundImage: `url(${images.bgPopUp})`,
           transform: `${position} !important`,
+
+          [`@media (max-width:575px)`]: {
+            transform: `translate(0%) !important`,
+          },
         },
       }}
     >
@@ -79,10 +83,18 @@ const useStyles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 48,
     lineHeight: '60px',
+    [`@media (max-width:575px)`]: {
+      fontSize: 32,
+      lineHeight: '40px',
+    },
   },
   content: {
     fontWeight: 400,
     fontSize: 24,
     lineHeight: '30px',
+    [`@media (max-width:575px)`]: {
+      fontSize: 14,
+      lineHeight: '18px',
+    },
   },
 }));

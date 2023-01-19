@@ -50,6 +50,7 @@ export const FilterUser = ({ drawer }: Props) => {
             [`@media (max-width:575px)`]: {
               width: '100%',
               height: '100%',
+              transform: 'translateX(0%) !important',
             },
           },
           close: {

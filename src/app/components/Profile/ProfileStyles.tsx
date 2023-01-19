@@ -46,10 +46,6 @@ export const ProfileStyles = createStyles(() => ({
     bottom: 0,
     width: '100%',
     padding: '8px 16px !important',
-    [`@media (max-width:575px)`]: {
-      position: 'static',
-      padding: '8px 0 !important',
-    },
   },
   optionBtn: {
     width: 'max-content',

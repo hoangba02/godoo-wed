@@ -10,7 +10,6 @@ function HideModal({ hideModal, setHideModal }: Props) {
   const { classes } = useStyles();
   useEffect(() => {
     return () => {
-      console.log('unmoute');
       setHideModal(false);
     };
   }, []);
@@ -47,5 +46,8 @@ const useStyles = createStyles(() => ({
   button: {
     height: 45,
     fontSize: 20,
+    [`@media (max-width:575px)`]: {
+      width: '145px !important',
+    },
   },
 }));

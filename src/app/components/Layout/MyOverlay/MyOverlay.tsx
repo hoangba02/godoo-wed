@@ -8,13 +8,15 @@ interface Props {
   width?: number | string;
   translateX?: number | string;
   fullScreen?: boolean;
+  fullHalf?: boolean;
 }
 const MyOverlay = ({
-  children,
   hide,
-  height = '89.5%',
-  width = 470,
+  children,
+  fullHalf,
   translateX,
+  width = 470,
+  height = '89.5%',
   fullScreen = false,
 }: Props) => {
   const cardRef = React.useRef<HTMLDivElement | null>(null);
@@ -34,7 +36,7 @@ const MyOverlay = ({
       fluid
       sx={{
         [`@media (max-width:575px)`]: {
-          padding: fullScreen ? 0 : '70px 16px 20px',
+          padding: fullScreen ? 0 : fullHalf ? ' 35% 0 0 0' : '70px 16px 20px',
         },
       }}
       className={classes.container}
@@ -47,7 +49,7 @@ const MyOverlay = ({
           transform: `translateX(${translateX})`,
           [`@media (max-width:575px)`]: {
             // height: '100vh',
-            borderRadius: fullScreen ? 0 : 20,
+            borderRadius: fullScreen ? 0 : fullHalf ? '20px 20px 0 0' : 20,
           },
         }}
         className={classes.wrapper}

@@ -77,11 +77,24 @@ export const ConversationStyles = createStyles(() => ({
   },
   options: {
     position: 'absolute',
-    top: '-110px',
-    left: 3,
+    top: -40,
+    left: 10,
     borderRadius: 8,
-    background: '#FFE9E0',
+    background: '#FFFFFF',
     padding: '10px',
+    filter: 'drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.2))',
+    zIndex: 99,
+
+    ':before': {
+      content: "''",
+      position: 'absolute',
+      bottom: -5,
+      left: 17,
+      width: 10,
+      height: 10,
+      background: '#FFFFFF',
+      transform: 'rotate(45deg)',
+    },
   },
 
   chatBox: {

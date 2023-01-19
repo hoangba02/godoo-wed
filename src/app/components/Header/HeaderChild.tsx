@@ -23,6 +23,12 @@ function HeaderChild({ title, children, onMotion }: Props) {
                 animation: false,
               },
             });
+          } else if (title === 'Account') {
+            navigate('/about/setting', {
+              state: {
+                animation: false,
+              },
+            });
           }
 
           if (onMotion) {
@@ -51,8 +57,8 @@ const useStyles = createStyles(() => ({
       height: 74,
       alignItems: 'flex-end',
       padding: '0 10px 12px',
-      background: '#FF9565',
-      borderRadius: '0px 0px 20px 20px',
+      background: '#FFFFFF',
+      borderRadius: 0,
     },
   },
   backBtn: {

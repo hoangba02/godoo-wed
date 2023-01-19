@@ -103,7 +103,6 @@ function Conversation({ location }: Props) {
       messagesEndRef.current?.scrollIntoView();
     }
   }, [location.profile.userId]);
-  console.log(messRef);
   return (
     <Container fluid className={classes.container}>
       <Profile
@@ -165,7 +164,7 @@ function Conversation({ location }: Props) {
           }}
           variants={variants}
         >
-          <Stack>
+          <Flex>
             <Button variant="subtle" className={classes.footerBtn}>
               <Gift />
             </Button>
@@ -176,7 +175,7 @@ function Conversation({ location }: Props) {
             >
               {isShowing2 ? <Calendarcolor /> : <Calendar />}
             </Button>
-          </Stack>
+          </Flex>
         </motion.div>
         <motion.button
           animate={{

@@ -15,9 +15,9 @@ function AutoModal({ image, autoModal, setAutoModal, notification }: Props) {
     if (!autoModal) {
       return;
     } else {
-      setTimeout(function () {
-        setAutoModal(false);
-      }, 2000);
+      // setTimeout(function () {
+      //   setAutoModal(false);
+      // }, 2000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoModal]);
@@ -38,6 +38,9 @@ function AutoModal({ image, autoModal, setAutoModal, notification }: Props) {
             height: 201,
             backgroundColor: 'var(--white)',
             transform: 'translateX(70%) !important',
+            [`@media (max-width:575px)`]: {
+              transform: 'translateX(0%) !important',
+            },
           },
         }}
         centered

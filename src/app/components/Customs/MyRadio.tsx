@@ -1,3 +1,4 @@
+import { createStyles } from '@mantine/core';
 import React from 'react';
 import './MyRadio.css';
 
@@ -6,6 +7,7 @@ interface Props {
   label: string;
 }
 function MyRadio({ value, label }: Props) {
+  const { classes } = useStyles();
   return (
     <div className="radio">
       <input id={value} name="radio" type="radio" />
@@ -17,3 +19,5 @@ function MyRadio({ value, label }: Props) {
 }
 
 export default MyRadio;
+
+const useStyles = createStyles(() => ({}));

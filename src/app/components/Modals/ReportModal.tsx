@@ -59,6 +59,9 @@ function ReportModal({
         sx={{
           gap: 20,
           width: '100%',
+          [`@media (max-width:575px)`]: {
+            alignItems: 'center',
+          },
         }}
       >
         <Group
@@ -66,6 +69,10 @@ function ReportModal({
             flexDirection: 'column',
             alignItems: 'flex-start',
             padding: '0 80px',
+            [`@media (max-width:575px)`]: {
+              gap: 0,
+              padding: '0 20px',
+            },
           }}
         >
           <MyRadio value="one" label="Fake account" />

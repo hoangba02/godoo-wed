@@ -111,13 +111,14 @@ function Swipe({ drawer }: Props) {
     >
       {listSwipe[currentIndex] && (
         <Profile
-          hide={toggle}
-          isSlide={false}
-          isShowing={isShowing}
-          status="likedyou"
-          profile={listSwipe[currentIndex]}
+          fullHalf
           height={566}
           width={470}
+          hide={toggle}
+          isSlide={false}
+          status="likedyou"
+          isShowing={isShowing}
+          profile={listSwipe[currentIndex]}
           translateX={drawer ? '0%' : '40%'}
         />
       )}

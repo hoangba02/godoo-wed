@@ -4,7 +4,7 @@ import { ProfileStyles } from './ProfileStyles';
 import MyOverlay from '../Layout/MyOverlay/MyOverlay';
 import { useDispatch, useSelector } from 'react-redux';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
-import { Button, Card, Container, Flex, Group, Text } from '@mantine/core';
+import { Button, Card, Container, Flex } from '@mantine/core';
 
 import Nav from '../Swipe/Nav';
 import { UserSlice } from 'store/slice/userSlice';
@@ -20,7 +20,7 @@ import { ReactComponent as Nope } from 'assets/icons/profile/Nope.svg';
 import { ReactComponent as Report } from 'assets/icons/profile/Report.svg';
 import { ReactComponent as Share } from 'assets/icons/profile/Share.svg';
 import { ReactComponent as Unpair } from 'assets/icons/profile/Unpair.svg';
-import GendersList, { genders } from '../GendersList/GendersList';
+import GendersList from '../GendersList/GendersList';
 
 interface Props {
   hide: () => void;
@@ -31,6 +31,7 @@ interface Props {
   height?: number | string;
   width?: number | string;
   translateX?: number | string;
+  fullHalf?: boolean;
 }
 function Profile({
   hide,
@@ -41,6 +42,7 @@ function Profile({
   height,
   width,
   translateX,
+  fullHalf,
 }: Props) {
   const dispatch = useDispatch();
   const { actions } = UserSlice();
@@ -64,6 +66,7 @@ function Profile({
   if (!isShowing) return null;
   return createPortal(
     <MyOverlay
+      fullHalf
       hide={hide}
       width={width}
       height={height}
@@ -84,7 +87,15 @@ function Profile({
         <Card className={classes.card}>
           <GendersList profile={profile} />
         </Card>
-        <Card className={classes.options}>
+        <Card
+          sx={{
+            [`@media (max-width:575px)`]: {
+              position: fullHalf ? 'absolute' : 'static',
+              padding: '8px 0 !important',
+            },
+          }}
+          className={classes.options}
+        >
           <Flex
             sx={{
               justifyContent: 'space-between',

@@ -30,9 +30,9 @@ import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 import { AboutPage } from './pages/AboutPage/Loadable';
-import Settings from './pages/AboutPage/Settings/Settings';
 import Notification from './pages/AboutPage/Notification/Notification';
 import Account from './pages/AboutPage/Account/Account';
+import SettingPage from './pages/AboutPage/Settings';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -50,7 +50,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/about/setting" element={<Settings />} />
+          <Route path="/about/setting" element={<SettingPage />} />
           <Route path="/about/notification" element={<Notification />} />
           <Route path="/about/account" element={<Account />} />
           <Route path="/register/nickname" element={<NickName />} />
