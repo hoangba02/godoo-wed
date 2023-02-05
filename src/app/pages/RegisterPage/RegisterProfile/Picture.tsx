@@ -104,6 +104,7 @@ export default function Picture() {
     } else {
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFile]);
   return (
     <ProfileLayout>
