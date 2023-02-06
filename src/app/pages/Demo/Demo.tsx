@@ -1,45 +1,91 @@
-import React from 'react';
-
-import { useForm } from '@mantine/form';
-import { NumberInput, TextInput, Button } from '@mantine/core';
-
-export default function Demo() {
-  const form = useForm({
-    initialValues: { name: '', email: '', age: 0 },
-
-    // functions will be used to validate values at corresponding key
-    validate: {
-      name: value =>
-        value.length < 2 ? 'Name must have at least 2 letters' : null,
-      email: value => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      age: value => (value < 18 ? 'You must be at least 18 to register' : null),
-    },
-  });
+import React, { useState } from 'react';
+import {
+  motion,
+  useAnimation,
+  useDragControls,
+  useMotionValue,
+  useTransform,
+} from 'framer-motion';
+import { Card, Container, createStyles, Flex, Paper } from '@mantine/core';
+import Draggable from 'react-draggable';
+import { useViewportSize } from '@mantine/hooks';
+interface Props {
+  data?: any;
+  onSwipe?: any;
+  animControls?: any;
+  x?: any;
+}
+function Test({ data, onSwipe, animControls, x }: Props, ref) {
+  const { classes } = useStyles();
+  const { width } = useViewportSize();
+  const [position, setPosition] = useState({ left: 0, right: 0 });
+  const dragControls = useDragControls();
+  const rotate = useTransform(x, [-500, 500], [-15, 15]);
+  const opacity = useTransform(x, [-500, -250, 0, 250, 500], [0, 1, 1, 1, 0]);
 
   return (
-    <form onSubmit={form.onSubmit(console.log)}>
-      <TextInput
-        label="Name"
-        placeholder="Name"
-        {...form.getInputProps('name')}
-      />
-      <TextInput
-        mt="sm"
-        label="Email"
-        placeholder="Email"
-        {...form.getInputProps('email')}
-      />
-      <NumberInput
-        mt="sm"
-        label="Age"
-        placeholder="Age"
-        min={0}
-        max={99}
-        {...form.getInputProps('age')}
-      />
-      <Button type="submit" mt="sm">
-        Submit
-      </Button>
-    </form>
+    <motion.div
+      drag
+      style={{ x, rotate }}
+      dragConstraints={{
+        left: position.left,
+        right: position.right,
+        top: 0,
+        bottom: 0,
+      }}
+      onDragEnd={(event, info) => {
+        if (Math.abs(info.point.x) <= 300) {
+          animControls.start({ x: 0 });
+        } else {
+          if (info.point.x < 0) {
+            onSwipe('left');
+          } else {
+            onSwipe('right');
+          }
+        }
+      }}
+      className={classes.wrapper}
+    >
+      <Card className={classes.content} ref={ref}>
+        <Paper
+          shadow="md"
+          radius={20}
+          sx={{
+            position: 'absolute',
+            backgroundImage: `url(${data.picture[0]})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+          className={classes.card}
+        />
+      </Card>
+    </motion.div>
   );
 }
+const Demo = React.forwardRef(Test);
+
+export default Demo;
+const useStyles = createStyles(() => ({
+  content: {
+    width: '100%',
+    height: '100%',
+    padding: '0px !important',
+    position: 'absolute',
+  },
+  wrapper: {
+    position: 'absolute',
+    width: 470,
+    height: 700,
+    overflow: 'initial',
+  },
+  card: {
+    width: '100%',
+    height: '100%',
+    padding: '0px !important',
+  },
+  overlay: {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 1,
+  },
+}));

@@ -13,10 +13,30 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { useTranslation } from 'react-i18next';
-import { routes } from './routes';
-import Layout from './Layout';
-import NullLayout from './Layout/NullLayout';
+import PrivateRouter from './routes/PrivateRouter';
 
+import Demo from 'app/pages/Demo/Demo';
+import Demo2 from './pages/Demo/Demo2';
+import Demo3 from './pages/Demo/Demo3';
+import ForgotPass from 'app/pages/ForgotPass';
+import { ChatPage } from './pages/ChatPage/Loadable';
+import { HomePage } from 'app/pages/HomePage/Loadable';
+import { NotFoundPage } from 'app/pages/NotFoundPage/Loadable';
+import { LoginPage } from 'app/pages/LoginPage/Loadable';
+import { RegisterPage } from 'app/pages/RegisterPage/Loadable';
+import NickName from 'app/pages/RegisterPage/RegisterProfile/NickName';
+import Picture from 'app/pages/RegisterPage/RegisterProfile/Picture';
+import Birth from 'app/pages/RegisterPage/RegisterProfile/Birthday';
+import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
+import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
+import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
+
+import About from './components/About/About';
+import Account from './pages/AboutPage/Account/Account';
+import Delete from './pages/AboutPage/Delete/Delete';
+import Setting from './pages/AboutPage/Settings/Setting';
+import ChangePass from './pages/AboutPage/ChangePasss/ChangePass';
+import Notification from './pages/AboutPage/Notification/Notification';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -30,24 +50,39 @@ export function App() {
       </Helmet>
 
       <Routes>
-        {routes.map(function (route, index) {
-          const Page = route.component;
-          let element = (
-            <Layout>
-              <Page />
-            </Layout>
-          );
-
-          if (!route.layout) {
-            element = (
-              <NullLayout>
-                <Page />
-              </NullLayout>
-            );
-          }
-          return <Route key={index} path={route.path} element={element} />;
-        })}
+        <Route element={<PrivateRouter />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/chat" element={<ChatPage />} />
+          {/* About Page */}
+          <Route path="/about" element={<About />} />
+          <Route path="/about/setting" element={<Setting />} />
+          <Route
+            path="/about/setting/notification"
+            element={<Notification />}
+          />
+          <Route path="/about/setting/account" element={<Account />} />
+          <Route
+            path="/about/setting/account/changepass"
+            element={<ChangePass />}
+          />
+          <Route path="/about/setting/account/delete" element={<Delete />} />
+          {/* Register Page*/}
+          <Route path="/register/nickname" element={<NickName />} />
+          <Route path="/register/picture" element={<Picture />} />
+          <Route path="/register/birthday" element={<Birth />} />
+          <Route path="/register/gender" element={<Gender />} />
+          <Route path="/register/description" element={<Desc />} />
+          <Route path="/register/mode" element={<Mode />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot" element={<ForgotPass />} />
+        <Route path="/demo" element={<Demo />} />
+        <Route path="/demo2" element={<Demo2 />} />
+        <Route path="/demo3" element={<Demo3 />} />
       </Routes>
+
       <GlobalStyle />
     </BrowserRouter>
   );

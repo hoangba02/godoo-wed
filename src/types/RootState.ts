@@ -1,9 +1,17 @@
 // [IMPORT NEW CONTAINERSTATE ABOVE] < Needed for generating containers seamlessly
 
+import { ChatState, CounterState, UserState } from 'store/slice/type';
+
 /* 
   Because the redux-injectors injects your reducers asynchronously somewhere in your code
   You have to declare them here manually
 */
 export interface RootState {
-  // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
+  user?: UserState;
+}
+export interface RootState {
+  counter?: CounterState;
+}
+export interface RootState {
+  chat?: ChatState;
 }
