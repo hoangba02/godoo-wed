@@ -1,12 +1,5 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Button,
-  Container,
-  createStyles,
-  Flex,
-  Text,
-} from '@mantine/core';
+import React from 'react';
+import { Box, Button, createStyles, Flex, Image, Text } from '@mantine/core';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
@@ -15,8 +8,9 @@ import { ReactComponent as Notifi } from 'assets/icons/setting/noti.svg';
 import { ReactComponent as Support } from 'assets/icons/setting/support.svg';
 import { ReactComponent as User } from 'assets/icons/setting/user.svg';
 import { UserSlice } from 'store/slice/userSlice';
-import AboutLayout from 'app/components/Layout/About/AboutLayout';
-
+import { AboutPage } from '../Loadable';
+import Languages from 'app/components/Languages/Language';
+import { images } from 'assets/images';
 interface Props {
   onMotion?: any;
 }
@@ -27,11 +21,11 @@ function Setting({ onMotion }: Props) {
   const { classes } = useStyles();
 
   return (
-    <AboutLayout title="Setting">
+    <AboutPage title="Setting">
       <Flex
         className={classes.option}
         onClick={() => {
-          navigate('/about/notification', {
+          navigate('/about/setting/notification', {
             state: {
               motion: true,
             },
@@ -47,7 +41,7 @@ function Setting({ onMotion }: Props) {
       <Flex
         className={classes.option}
         onClick={() => {
-          navigate('/about/account');
+          navigate('/about/setting/account');
         }}
       >
         <User />
@@ -56,13 +50,7 @@ function Setting({ onMotion }: Props) {
           <ChevronRight />
         </Box>
       </Flex>
-      <Flex className={classes.option}>
-        <Globe />
-        <Text className={classes.name}>Language</Text>
-        <Box className={classes.icon}>
-          <ChevronRight />
-        </Box>
-      </Flex>
+
       <Flex className={classes.option}>
         <Support />
         <Text className={classes.name}>Support</Text>
@@ -70,15 +58,29 @@ function Setting({ onMotion }: Props) {
           <ChevronRight />
         </Box>
       </Flex>
+      <Flex
+        className={classes.option}
+        sx={{
+          ':active': {
+            transform: 'scale(1)',
+          },
+        }}
+      >
+        <Globe />
+        <Text className={classes.name}>Language</Text>
+        <Box className={classes.lang}>
+          <Languages />
+        </Box>
+      </Flex>
       <Button
-        className={classes.logout}
+        className="aboutBtn"
         onClick={() => {
           dispatch(actions.logoutSuccess());
         }}
       >
         Log out
       </Button>
-    </AboutLayout>
+    </AboutPage>
   );
 }
 
@@ -139,7 +141,6 @@ const useStyles = createStyles(() => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     position: 'relative',
-    cursor: 'pointer',
     [`@media (max-width:575px)`]: {
       height: 'calc(100% - 74px)',
       padding: '24px 16px 0',
@@ -172,26 +173,12 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     right: 8,
   },
-  logout: {
-    width: '343px !important',
-    height: '52px !important',
-    color: '#E46125',
-    fontWeight: 600,
-    fontSize: 20,
-    lineHeight: '25px',
-    background: '#FFFFFF',
-    border: '0.5px solid #E46125',
+  lang: {
     position: 'absolute',
-    bottom: '30%',
-    ':hover': {
-      background: '#FFFFFF',
-    },
-    ':before': {
-      display: 'none',
-    },
-
+    right: 0,
+    top: '50%',
     [`@media (max-width:575px)`]: {
-      bottom: 24,
+      transform: 'translateY(4px)',
     },
   },
 }));

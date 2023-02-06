@@ -3,11 +3,25 @@ import { Avatar, Card, createStyles, Flex, Stack, Text } from '@mantine/core';
 import { ReactComponent as MapPin } from 'assets/icons/mapPin.svg';
 
 interface Props {
+  title: string;
+  content: string;
+  address: string;
+  avatar: string;
+  people: string;
   background: string;
   color: string;
   hour: string;
 }
-function Coming({ background, color, hour }: Props) {
+function Coming({
+  title,
+  content,
+  address,
+  avatar,
+  people,
+  background,
+  color,
+  hour,
+}: Props) {
   const { classes } = useStyles();
   return (
     <Flex className={classes.container}>
@@ -47,20 +61,16 @@ function Coming({ background, color, hour }: Props) {
             linHeight: '22px',
           }}
         >
-          Cafe Dating
+          {title}
         </Text>
-        <Text className={classes.time}>Có làm người yêu em không thì bảo</Text>
+        <Text className={classes.time}>{content}</Text>
         <Flex align="center">
           <MapPin />
-          <Text className={classes.location}>Kayla Cafe - 101 Cầu Giấy</Text>
+          <Text className={classes.location}>{address}</Text>
         </Flex>
         <Flex>
-          <Avatar
-            size={24}
-            radius="lg"
-            src="https://i.pinimg.com/236x/fe/d7/93/fed793198a515471a728c4dba8397f56.jpg"
-          />
-          <Text className={classes.location}>Anna</Text>
+          <Avatar size={24} radius="lg" src={avatar} />
+          <Text className={classes.location}>{people}</Text>
         </Flex>
       </Stack>
     </Flex>

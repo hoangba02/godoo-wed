@@ -1,10 +1,6 @@
 import React from 'react';
 import { createStyles, Flex, Switch, Text } from '@mantine/core';
-import AboutMobile from 'app/components/Layout/About/Mobile/AboutMobile';
-import { useMediaQuery } from '@mantine/hooks';
-import AboutWeb from 'app/components/Layout/About/Web/AboutWeb';
-import AboutLayout from 'app/components/Layout/About/AboutLayout';
-
+import { AboutPage } from '../Loadable';
 function Notification() {
   const notifications = [
     {
@@ -22,7 +18,7 @@ function Notification() {
   ];
   const { classes } = useStyles();
   return (
-    <AboutLayout title="Notification">
+    <AboutPage title="Notification">
       {notifications.map((item, index) => (
         <Flex key={index} className={classes.switch}>
           <Text>{item.name}</Text>
@@ -38,7 +34,7 @@ function Notification() {
           />
         </Flex>
       ))}
-    </AboutLayout>
+    </AboutPage>
   );
 }
 

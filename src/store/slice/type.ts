@@ -1,6 +1,7 @@
 export interface UserState {
   //Account
   id?: number;
+  ws?: any;
   user_2?: any;
   token?: string;
   language?: 'vi' | 'en';
@@ -10,7 +11,7 @@ export interface UserState {
   messenger_fullname?: string;
   username?: string;
   password?: string | number;
-
+  device?: boolean;
   // Status
   register?: {
     error?: number;
@@ -35,12 +36,12 @@ export interface UserState {
   youLikedList?: any[];
   likedYouList?: any[];
   chatList?: any[];
+  comingList?: any[];
 }
 
 export interface CounterState {
   value: number;
 }
-
 // Chat
 export interface Message {
   id: number;

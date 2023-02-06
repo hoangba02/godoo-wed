@@ -10,24 +10,53 @@ import {
   clsx,
   createStyles,
 } from '@mantine/core';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
+import { CounterSlice } from 'store/slice/counterSlice';
+import { UserSlice } from 'store/slice/userSlice';
 
 function UpLoad({ link, id, name, setImg, img }) {
   const ImgFile = new FormData();
   // Local
   const { t } = useTranslation();
   const { classes } = useStyles();
-  const [zIndex, setZIndex] = useState(2);
+  const [zIndex, setZIndex] = useState(() => {
+    if (link) return 4;
+    return 2;
+  });
   const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
   // Global
+  const dispatch = useDispatch();
+  const { counterActions } = CounterSlice();
+  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
     setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
   };
+
+  const handleClearImg = url => {
+    apiPost(
+      '/v1/deletefile',
+      {
+        url: url,
+      },
+      {},
+    )
+      .then(res => {
+        if (res.error === 0) {
+          setImg({ ...img, [name]: '' });
+          setZIndex(2);
+        }
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   useEffect(() => {
     ImgFile.append('file', selectedFile.filename);
     if (selectedFile.filename) {
@@ -49,15 +78,22 @@ function UpLoad({ link, id, name, setImg, img }) {
       return;
     }
   }, [selectedFile]);
+  console.log(img);
   return (
-    <Card className={classes.picCard}>
+    <Card
+      sx={{
+        [`@media (max-width:575px)`]: {
+          height: id === '0' ? '100%' : 106,
+          width: id === '0' ? '100%' : 106,
+        },
+      }}
+      className={classes.picCard}
+    >
       {img[name] && (
         <button
           className={classes.clearBtn}
-          onClick={e => {
-            // URL.revokeObjectURL(img.one);
-            setImg({ ...img, [name]: '' });
-            setZIndex(2);
+          onClick={() => {
+            handleClearImg(img[name]);
           }}
         >
           <Clear width={20} height={20} />
@@ -87,27 +123,66 @@ function UpLoad({ link, id, name, setImg, img }) {
       <input
         id={id}
         name={name}
-        type="file"
+        type={id === '0' ? 'file' : img.one ? 'file' : 'text'}
         accept="image/*"
+        capture
         className={classes.upImg}
         onChange={e => {
           handleUploadImage(e);
         }}
       />
       <label
-        htmlFor={img.one ? id : ''}
-        className={clsx(classes.label, img.one ? '' : 'disable')}
+        htmlFor={id}
+        style={{ height: id === '0' ? 56 : 26 }}
+        className={classes.label}
       >
         <Button
           styles={{
             leftIcon: {
               margin: 0,
             },
+            root: {
+              fontSize: id === '0' ? 32 : 14,
+              [`@media (min-width:768px) and (max-width:991px)`]: {
+                fontSize: 24,
+              },
+            },
           }}
           component="span"
           disabled={!img.one}
-          leftIcon={<IconPlus width={18} height={18} />}
-          className={classes.addBtn}
+          leftIcon={
+            <IconPlus
+              width={id === '0' ? 29 : 18}
+              height={id === '0' ? 29 : 18}
+            />
+          }
+          sx={{
+            width: '49%',
+            height: '100%',
+            color: 'var(--white)',
+            padding: 0,
+            backgroundColor: '#E46125',
+            borderRadius: 34,
+            fontWeight: 400,
+            lineHeight: '18px',
+            '&::before': {
+              display: 'none',
+            },
+            '&:hover': {
+              transition: '0.5s',
+              backgroundColor: '#E46125 !important',
+              boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            },
+            '&[data-disabled]': {
+              cursor: id === '0' ? 'default' : 'no-drop',
+              color: 'var(--white) !important',
+              backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
+            },
+            [`@media (max-width:575px)`]: {
+              width: '100%',
+              height: '100%',
+            },
+          }}
         >
           {t('Profile.text.Add')}
         </Button>
@@ -128,16 +203,11 @@ const useStyles = createStyles(() => ({
     backgroundColor: 'var(--white)',
     display: 'flex',
     justifyContent: 'center',
-    [`@media (max-width:575px)`]: {
-      height: 106,
-      width: 106,
-    },
   },
   label: {
     display: 'flex',
     justifyContent: 'center',
     width: '100%',
-    height: 26,
     position: 'absolute',
     bottom: '8%',
     zIndex: 3,
@@ -147,34 +217,6 @@ const useStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       width: '58%',
-    },
-  },
-  addBtn: {
-    width: '49%',
-    height: '100%',
-    color: 'var(--white)',
-    padding: 0,
-    backgroundColor: '#E46125',
-    borderRadius: 34,
-    fontWeight: 400,
-    fontSize: '14px !important',
-    lineHeight: '18px',
-    '&::before': {
-      display: 'none',
-    },
-    '&:hover': {
-      transition: '0.5s',
-      backgroundColor: '#E46125 !important',
-      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-    },
-    '&[data-disabled]': {
-      cursor: 'no-drop',
-      color: 'var(--white) !important',
-      backgroundColor: '#BFBFBF',
-    },
-    [`@media (max-width:575px)`]: {
-      width: '100%',
-      height: '100%',
     },
   },
   icon: {

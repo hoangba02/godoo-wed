@@ -55,7 +55,7 @@ function Search() {
 
 export default Search;
 
-export const useStyles = createStyles(() => ({
+const useStyles = createStyles(() => ({
   wrapper: {
     width: '100%',
     height: 38,

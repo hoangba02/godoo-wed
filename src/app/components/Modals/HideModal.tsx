@@ -1,6 +1,6 @@
 import { Button, createStyles, Flex } from '@mantine/core';
 import React, { useEffect } from 'react';
-import ModalLayout from '../Layout/Modal/ModalLayout';
+import ModalLayout from './ModalLayout';
 
 interface Props {
   hideModal: boolean;

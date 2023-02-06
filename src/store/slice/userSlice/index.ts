@@ -18,7 +18,7 @@ export const initialState: UserState = {
   username: '',
   password: '',
   language: 'vi',
-
+  device: false,
   // Status
   register: {
     error: -1,
@@ -38,11 +38,11 @@ export const initialState: UserState = {
     introduction: '',
     relationship: -1,
   },
-
   matchList: [],
   youLikedList: [],
   likedYouList: [],
   chatList: [],
+  comingList: [],
 };
 
 const slice = createSlice({
@@ -65,12 +65,12 @@ const slice = createSlice({
       state.youLikedList = [];
       state.likedYouList = [];
       state.chatList = [];
+      state.comingList = [];
     },
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
       state.login = action.payload.login;
     },
-
     requestRegister(state: UserState, action: PayloadAction<UserState>) {
       state.loading = true;
     },
@@ -91,8 +91,11 @@ const slice = createSlice({
     logoutSuccess(state: UserState) {
       state.id = -1;
       state.token = '';
+      state.ws = {};
       state.username = '';
       state.isLogin = false;
+      state.telegram_fullname = '';
+      state.messenger_fullname = '';
       state.loading = false;
       state.register = {
         error: -1,
@@ -161,6 +164,30 @@ const slice = createSlice({
     },
     updateMatchList(state: UserState, action: PayloadAction<UserState>) {
       state.matchList?.unshift(action.payload);
+    },
+
+    getComingList(state: UserState, action: PayloadAction<[]>) {
+      state.comingList = [...action.payload];
+    },
+    updateComingList(state: UserState, action: PayloadAction<any>) {
+      const newComing = state.comingList?.find(
+        coming => coming.date === action.payload.date,
+      );
+      if (!newComing) {
+        state.comingList?.push(action.payload);
+      } else {
+        // console.log([...action.payload.list]);
+        state.comingList?.map(coming => {
+          if (coming.date === action.payload.date) {
+            coming.list.push(action.payload.list[0]);
+          }
+        });
+      }
+    },
+
+    // Set device
+    setDevice(state: UserState, action: PayloadAction<UserState>) {
+      state.device = action.payload.device;
     },
   },
 });

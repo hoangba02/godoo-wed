@@ -21,6 +21,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
 import Social from 'app/components/Social/Social';
+import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -97,6 +98,14 @@ export function RegisterPage() {
           : handleClearSpecialCharacter(e.target.value),
     });
   };
+  const handleOnFocusInput = () => {
+    setErrName(true);
+    setErrPass(true);
+    form.setErrors({ password: '' });
+  };
+  const handleOnInput = () => {
+    setErrPass(true);
+  };
   useEffect(() => {
     if (user.register.error === -1) {
       return;
@@ -152,68 +161,28 @@ export function RegisterPage() {
             </Text>
           )}
 
-          <PasswordInput
-            styles={{
-              rightSection: {
-                right: 10,
-              },
-            }}
+          <MyPassInput
+            form={form}
             name="password"
-            className={classes.input}
-            label={t('LoginPage.password.Password')}
-            placeholder={t('LoginPage.password.Enter your password')}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <IconEye stroke={2.5} size={21} color="#000000" />
-              ) : (
-                <IconEyeOff stroke={2.5} size={21} color="#000000" />
-              )
-            }
-            {...form.getInputProps('password')}
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            onFocus={() => {
-              setErrName(true);
-              setErrPass(true);
-              form.setErrors({ password: '' });
-            }}
-            onInput={() => setErrPass(true)}
-            onKeyUp={e => {
-              handleConvertEng(e);
-            }}
+            label="Password"
+            placeholder="Password"
+            handleKeyDown={handleClearSpace}
+            handleKeyUp={handleConvertEng}
+            handleFocus={handleOnFocusInput}
+            handleInput={handleOnInput}
           />
           {errPass && (
             <Text className={classes.error}>
               {t('LoginPage.password.At least 8 characters')}
             </Text>
           )}
-
-          <PasswordInput
-            styles={{
-              rightSection: {
-                right: 10,
-              },
-            }}
-            className={classes.input}
-            mt="sm"
+          <MyPassInput
+            form={form}
             name="confirmPassword"
-            label={t('LoginPage.password.Confirm password')}
-            placeholder={t('LoginPage.password.Confirm password')}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <IconEye stroke={2.5} size={21} color="#000000" />
-              ) : (
-                <IconEyeOff stroke={2.5} size={21} color="#000000" />
-              )
-            }
-            {...form.getInputProps('confirmPassword')}
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            onKeyUp={e => {
-              handleConvertEng(e);
-            }}
+            label="Confirm password"
+            placeholder="Confirm password"
+            handleKeyDown={handleClearSpace}
+            handleKeyUp={handleConvertEng}
           />
 
           <Flex align="center">

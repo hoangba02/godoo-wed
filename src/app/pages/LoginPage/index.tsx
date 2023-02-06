@@ -25,6 +25,8 @@ import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertL
 import Background from 'app/components/Background/Background';
 import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 import Social from 'app/components/Social/Social';
+import { useMediaQuery } from '@mantine/hooks';
+import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
 
 export function LoginPage() {
   const { t } = useTranslation();
@@ -37,6 +39,7 @@ export function LoginPage() {
 
   const { classes } = useStyles();
   const [error, setError] = useState(false);
+  const phone = useMediaQuery('(max-width: 575px)');
 
   const form = useForm({
     initialValues: {
@@ -58,6 +61,7 @@ export function LoginPage() {
           login: { savePassword: form.values.termsOfService },
         }),
       );
+      dispatch(actions.setDevice({ device: phone }));
     }
   };
   const handleClearSpace = e => {
@@ -119,6 +123,7 @@ export function LoginPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogin]);
+
   return (
     <Background>
       <LoginLayout islogin={true}>
@@ -140,33 +145,13 @@ export function LoginPage() {
               handleConvertEng(e);
             }}
           />
-          <PasswordInput
-            styles={{
-              rightSection: {
-                right: 10,
-              },
-            }}
+          <MyPassInput
+            form={form}
             name="password"
-            value={user.password}
-            // defaultValue={user.password}
-            className={classes.input}
-            label={t('LoginPage.password.Password')}
-            placeholder={t('LoginPage.password.Enter your password')}
-            visibilityToggleIcon={({ reveal }) =>
-              reveal ? (
-                <IconEye stroke={2.5} size={21} color="#000000" />
-              ) : (
-                <IconEyeOff stroke={2.5} size={21} color="#000000" />
-              )
-            }
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            onKeyUp={e => {
-              // const target = e.target as HTMLInputElement;
-              handleConvertEng(e);
-            }}
-            {...form.getInputProps('password')}
+            label="Password"
+            placeholder="Password"
+            handleKeyDown={handleClearSpace}
+            handleKeyUp={handleConvertEng}
           />
           {error || user.login.error > 0 ? (
             <Text className={classes.error}>

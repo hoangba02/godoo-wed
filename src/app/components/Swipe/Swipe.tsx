@@ -173,10 +173,21 @@ function Swipe({ drawer }: Props) {
                     '::before': {
                       content: '""',
                       position: 'absolute',
+                      bottom: '0',
+                      width: '100%',
+                      height: '50%',
+                      borderRadius: 20,
+                      background:
+                        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
+                      zIndex: 6,
+                    },
+                    '::after': {
+                      content: '""',
+                      position: 'absolute',
                       inset: 0,
                       borderRadius: 20,
                       background: 'transparent',
-                      zIndex: 6,
+                      zIndex: 5,
                     },
                     [`@media (max-width:575px)`]: {
                       aspectRatio: `calc(${width - 30}/${height - 143})`,

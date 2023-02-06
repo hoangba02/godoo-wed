@@ -1,10 +1,10 @@
-import { Button, createStyles, Flex, Group, Radio, Stack } from '@mantine/core';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Button, createStyles, Group, Stack } from '@mantine/core';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
-import MyRadio from '../Customs/MyRadio';
-import ModalLayout from '../Layout/Modal/ModalLayout';
+import MyRadio from '../Customs/MyRadio/MyRadio';
+import ModalLayout from './ModalLayout';
 
 interface Props {
   reportModal: boolean;

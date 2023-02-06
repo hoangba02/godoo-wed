@@ -1,16 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {
-  Avatar,
-  Box,
-  Button,
-  Card,
-  Container,
-  Flex,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Box, Button, Container, Flex, Text } from '@mantine/core';
 
 import useModal from 'hooks/useModal';
 import Profile from '../Profile/Profile';
@@ -24,49 +16,20 @@ import { ReactComponent as Calendar } from 'assets/icons/chat/calendar.svg';
 import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatColor.svg';
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { DateForm } from '../DateForm/DateForm';
-import TextMessage from '../Message/TextMess';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import ConversationContent from './Content';
 
-const ChatHistory = [
-  {
-    type: 'text',
-    auth: false,
-    content: 'Hello',
-  },
-  {
-    type: 'text',
-    auth: true,
-    content:
-      ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias, debitis ipsum officia a deserunt, in repellendus aliquam iure qui laboriosam rem, modi excepturi saepe similique eos vero facilis.',
-  },
-  {
-    type: 'text',
-    auth: false,
-    content: 'Hello',
-  },
-  {
-    type: 'text',
-    auth: true,
-    content:
-      ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias, debitis ipsum officia a deserunt, in repellendus aliquam iure qui laboriosam rem, modi excepturi saepe similique eos vero facilis.',
-  },
-  {
-    type: 'text',
-    auth: false,
-    content:
-      ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias, debitis ipsum officia a deserunt, in repellendus aliquam iure qui laboriosam rem, modi excepturi saepe similique eos vero facilis.',
-  },
-  {
-    type: 'text',
-    auth: true,
-    content:
-      ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde alias, debitis ipsum officia a deserunt, in repellendus aliquam iure qui laboriosam rem, modi excepturi saepe similique eos vero facilis.',
-  },
-];
 interface Props {
   location?: any;
 }
 function Conversation({ location }: Props) {
   const navigate = useNavigate();
+  const user = useSelector(getUserSelector);
+  // const ws = new WebSocket(
+  //   `ws://ttvnapi.com/v1/?id=${user.id}&token=${user.token}`,
+  // );
+  // Local
+  const ws = useRef<any>(null);
   const messRef = useRef<HTMLDivElement[]>([]);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { classes } = ConversationStyles();
@@ -74,6 +37,8 @@ function Conversation({ location }: Props) {
   const [showTime, setShowTime] = useState(-1);
   const [showOptions, setShowOptions] = useState(false);
 
+  const [message, setMessage] = useState<any>();
+  const [messages, setMessages] = useState<any>([]);
   const variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -81,6 +46,7 @@ function Conversation({ location }: Props) {
       opacity: 1,
     },
   };
+
   const handleShowTime = (event, position) => {
     const { target } = event;
     if (messRef.current !== null) {
@@ -98,11 +64,58 @@ function Conversation({ location }: Props) {
   const handleShowOptions = () => {
     setShowOptions(prev => !prev);
   };
-  useEffect(() => {
-    if (messagesEndRef) {
-      messagesEndRef.current?.scrollIntoView();
+  const handleNewMessage = e => {
+    setMessage(e.target.value);
+    console.log(message);
+  };
+  const handleSendMessage = () => {
+    if (message) {
+      const content = {
+        id: 1001,
+        d: {
+          t: location.profile.userId,
+          cv: location.profile.userId,
+          c: { txt: message },
+        },
+      };
+      console.log(content);
+      setMessages([...messages, content]);
+      setMessage('');
     }
-  }, [location.profile.userId]);
+  };
+  const handleEnterKey = e => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  };
+  // useEffect(() => {
+  //   ws.current = new WebSocket(
+  //     `ws://ttvnapi.com/v1/?id=${user.id}&token=${user.token}`,
+  //   );
+  //   if (messagesEndRef) {
+  //     messagesEndRef.current?.scrollIntoView();
+  //   }
+  // }, [location.profile.userId]);
+  // useEffect(() => {
+  //   ws.current.onopen = e => {
+  //     console.log('Connected', e);
+  //   };
+
+  //   ws.current.onclose = e => {
+  //     console.log(' Disconnected', e);
+  //   };
+  //   return () => {
+  //     ws.current.close();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   ws.current.onmessage = e => {
+  //     const message = JSON.parse(e.data);
+  //     // setMessages([...messages, message]);
+  //     console.log(message);
+  //   };
+  // }, [message]);
   return (
     <Container fluid className={classes.container}>
       <Profile
@@ -126,35 +139,12 @@ function Conversation({ location }: Props) {
           <Detail />
         </Box>
       </Flex>
-      <Card className={classes.body}>
-        <Stack className={classes.message}>
-          <Stack className={classes.avatar}>
-            <Text className={classes.text}>
-              {`${location.profile.nickname} is your new match!`}
-            </Text>
-            <Avatar
-              radius={9999}
-              size={176}
-              src={location.profile.picture[0]}
-            />
-          </Stack>
-          {ChatHistory.map((chat, index) => (
-            <TextMessage
-              key={index}
-              content={chat.content}
-              auth={chat.auth}
-              ref={(el: never) => (messRef.current[index] = el)}
-              showTime={showTime}
-              position={index}
-              handleShowTime={handleShowTime}
-            />
-          ))}
-        </Stack>
-        <div
-          style={{ float: 'left', clear: 'both' }}
-          ref={messagesEndRef}
-        ></div>
-      </Card>
+      <ConversationContent
+        profile={location.profile}
+        messages={messages}
+        messEnd={messagesEndRef}
+        ref={messRef}
+      />
       <Flex className={classes.footer}>
         <motion.div
           className={classes.options}
@@ -194,16 +184,24 @@ function Conversation({ location }: Props) {
             type="text"
             className={classes.input}
             placeholder="Write message"
+            value={message}
+            onChange={e => handleNewMessage(e)}
+            onKeyDown={handleEnterKey}
           />
           <button className={classes.emoij}>
             <Smiley />
           </button>
         </Flex>
-        <button className={classes.chatBtn}>
+        <button className={classes.chatBtn} onClick={handleSendMessage}>
           <ArrowRight />
         </button>
       </Flex>
-      <DateForm hide={toggle2} isShowing={isShowing2} translateX="45%" />
+      <DateForm
+        hide={toggle2}
+        isShowing={isShowing2}
+        profile={location.profile}
+        translateX="45%"
+      />
     </Container>
   );
 }

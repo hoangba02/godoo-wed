@@ -43,13 +43,6 @@ export const ScheduleStyles = createStyles(() => ({
   },
   calendar: {
     backgroundColor: '#FFE9E0',
-    padding: '0 16px !important',
-  },
-  note: {
-    fontWeight: 400,
-    fontSize: 16,
-    lineHeight: '20px',
-    textAlign: 'center',
-    color: '#929292',
+    padding: '0 16px 20px !important',
   },
 }));

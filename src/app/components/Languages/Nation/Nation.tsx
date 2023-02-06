@@ -7,6 +7,7 @@ export interface DataLanguageProps {
   id: number;
   icon: React.ReactNode;
   title: string;
+
   value: 'vi' | 'en';
 }
 

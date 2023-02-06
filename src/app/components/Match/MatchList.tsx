@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
-import { Box, Container, createStyles, Text } from '@mantine/core';
+import { Container, createStyles, Text } from '@mantine/core';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import Card from '../Swipe/SwipeCard';
 

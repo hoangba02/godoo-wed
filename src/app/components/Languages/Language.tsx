@@ -16,7 +16,7 @@ export default function Languages() {
   const { classes } = useStyles();
 
   return (
-    <Menu withArrow>
+    <Menu withArrow zIndex={9999}>
       <Menu.Target>
         <Button
           styles={{

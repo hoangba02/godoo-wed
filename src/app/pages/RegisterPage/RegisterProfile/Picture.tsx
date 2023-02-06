@@ -27,7 +27,7 @@ import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile
 import { apiPost } from 'utils/http/request';
 
 export default function Picture() {
-  const ImgFile = new FormData();
+  // const ImgFile = new FormData();
   // Global
   const dispatch = useDispatch();
   const { counterActions } = CounterSlice();
@@ -72,40 +72,27 @@ export default function Picture() {
         },
       }),
     );
-    // navigate('/register/birthday');
   };
   useEffect(() => {
+    dispatch(
+      actions.createProfile({
+        profile: {
+          nickname: profile.nickname,
+          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
+          date_of_birth: profile.date_of_birth,
+          zodiac: profile.zodiac,
+          gender: profile.gender,
+          introduction: profile.introduction,
+          relationship: profile.relationship,
+        },
+      }),
+    );
     if (img.one) {
       setDisableBtn(false);
     } else {
       setDisableBtn(true);
     }
-    return () => {
-      URL.revokeObjectURL(img.one);
-    };
   }, [img]);
-  useEffect(() => {
-    ImgFile.append('file', selectedFile.filename);
-    if (selectedFile.filename) {
-      apiPost('/v1/uploadgeturl', ImgFile, {
-        'content-type': 'multipart/form-data',
-      })
-        .then(res => {
-          setImg({
-            ...img,
-            [selectedFile.name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
-          });
-          setZIndex(4);
-          console.log(res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      return;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFile]);
   return (
     <ProfileLayout>
       <Box className={classes.children}>
@@ -165,71 +152,13 @@ export default function Picture() {
                   zIndex: 99,
                 }}
               >
-                <Card className={classes.picCard}>
-                  {img.one && (
-                    <button
-                      className={classes.clearBtn}
-                      onClick={e => {
-                        // URL.revokeObjectURL(img.one);
-                        setImg({ ...img, one: URL.revokeObjectURL(img.one) });
-                        setZIndex(2);
-                      }}
-                    >
-                      <Clear />
-                    </button>
-                  )}
-                  <BackgroundImage
-                    sx={{
-                      position: 'absolute',
-                      inset: 0,
-                      zIndex: zIndex,
-                    }}
-                    src={profile.picture[0] || img.one}
-                  ></BackgroundImage>
-                  <Box
-                    sx={{
-                      width: '35%',
-                      height: '38%',
-                      position: 'absolute',
-                      top: '20%',
-                      left: '50%',
-                      transform: 'translateX(-50%)',
-                      zIndex: 1,
-                    }}
-                  >
-                    <Blink width="100%" height="100%" />
-                  </Box>
-                  <input
-                    name="one"
-                    className={classes.upImg}
-                    type="file"
-                    accept="image/*"
-                    onChange={e => {
-                      handleUploadImage(e);
-                    }}
-                    id="0"
-                  />
-                  <label htmlFor="0" className={classes.label}>
-                    <Button
-                      styles={{
-                        leftIcon: {
-                          margin: 0,
-                        },
-                        root: {
-                          fontSize: 32,
-                          [`@media (min-width:768px) and (max-width:991px)`]: {
-                            fontSize: 24,
-                          },
-                        },
-                      }}
-                      component="span"
-                      leftIcon={<IconPlus width={29} height={29} />}
-                      className={classes.addBtnSmall}
-                    >
-                      {t('Profile.text.Add')}
-                    </Button>
-                  </label>
-                </Card>
+                <UpLoad
+                  link={img.one}
+                  id="0"
+                  name="one"
+                  setImg={setImg}
+                  img={img}
+                />
               </Box>
               <Stack
                 sx={{

@@ -21,13 +21,15 @@ export function HomeWeb() {
     <HomeWebLayout drawer={drawer}>
       <Flex
         sx={{
-          // width: '100%',
+          // minWidth: 'calc(100% - 1010px)',
           justifyContent: 'center',
-          padding: '32px 0',
+          padding: '32px 79px',
+          flex: 1,
         }}
       >
         <motion.div
           className={classes.swipe}
+          initial={{ translateX: 0 }}
           transition={{
             duration: 1,
           }}
@@ -67,7 +69,7 @@ export function HomeWeb() {
 
 const HomeWebStyles = createStyles(() => ({
   swipe: {
-    width: 'max-content',
+    // width: '100%',
     height: 'max-content',
   },
   wrapper: {

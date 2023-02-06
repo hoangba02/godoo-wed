@@ -17,6 +17,7 @@ import PrivateRouter from './routes/PrivateRouter';
 
 import Demo from 'app/pages/Demo/Demo';
 import Demo2 from './pages/Demo/Demo2';
+import Demo3 from './pages/Demo/Demo3';
 import ForgotPass from 'app/pages/ForgotPass';
 import { ChatPage } from './pages/ChatPage/Loadable';
 import { HomePage } from 'app/pages/HomePage/Loadable';
@@ -29,10 +30,13 @@ import Birth from 'app/pages/RegisterPage/RegisterProfile/Birthday';
 import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
-import { AboutPage } from './pages/AboutPage/Loadable';
-import Notification from './pages/AboutPage/Notification/Notification';
+
+import About from './components/About/About';
 import Account from './pages/AboutPage/Account/Account';
+import Delete from './pages/AboutPage/Delete/Delete';
 import Setting from './pages/AboutPage/Settings/Setting';
+import ChangePass from './pages/AboutPage/ChangePasss/ChangePass';
+import Notification from './pages/AboutPage/Notification/Notification';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -49,10 +53,20 @@ export function App() {
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/chat" element={<ChatPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          {/* About Page */}
+          <Route path="/about" element={<About />} />
           <Route path="/about/setting" element={<Setting />} />
-          <Route path="/about/notification" element={<Notification />} />
-          <Route path="/about/account" element={<Account />} />
+          <Route
+            path="/about/setting/notification"
+            element={<Notification />}
+          />
+          <Route path="/about/setting/account" element={<Account />} />
+          <Route
+            path="/about/setting/account/changepass"
+            element={<ChangePass />}
+          />
+          <Route path="/about/setting/account/delete" element={<Delete />} />
+          {/* Register Page*/}
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
           <Route path="/register/birthday" element={<Birth />} />
@@ -66,6 +80,7 @@ export function App() {
         <Route path="/forgot" element={<ForgotPass />} />
         <Route path="/demo" element={<Demo />} />
         <Route path="/demo2" element={<Demo2 />} />
+        <Route path="/demo3" element={<Demo3 />} />
       </Routes>
 
       <GlobalStyle />

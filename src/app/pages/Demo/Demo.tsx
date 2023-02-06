@@ -7,7 +7,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { Card, Container, createStyles, Flex, Paper } from '@mantine/core';
-// import Draggable from 'react-draggable';
+import Draggable from 'react-draggable';
 import { useViewportSize } from '@mantine/hooks';
 interface Props {
   data?: any;

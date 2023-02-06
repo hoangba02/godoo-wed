@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { clsx, createStyles, Menu } from '@mantine/core';
+import { createStyles, Menu } from '@mantine/core';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { DataLanguageProps, lengthLanguage } from './Nation/Nation';
 import { UserSlice } from 'store/slice/userSlice';
@@ -17,7 +17,8 @@ const MenuLanguage = props => {
   const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
 
-  function handleConvertLanguage() {
+  function handleConvertLanguage(e) {
+    e.defaultPrevent();
     if (props.value !== user.language) {
       i18n.changeLanguage(`${props.value}`);
       dispatch(actions.setLanguage(props.value));
@@ -28,7 +29,7 @@ const MenuLanguage = props => {
     <Menu.Item
       className={cx(classes.menuItem, classes.item)}
       icon={props.icon}
-      onClick={() => handleConvertLanguage()}
+      onClick={e => handleConvertLanguage(e)}
     >
       {props.title}
     </Menu.Item>
@@ -62,6 +63,7 @@ const useStyleMenu = createStyles((theme, params: { id: number }) => {
     },
     item: {
       width: '150px',
+      // backgroundColor: 'var(--while)',
       [`@media (max-width:575px)`]: {
         width: '120px',
       },

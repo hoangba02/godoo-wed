@@ -183,7 +183,6 @@ export default function Gender() {
               return (
                 <Button
                   key={index}
-                  // variant={gender.text === 'Others' ? 'outline' : undefined}
                   className={
                     profile.gender.includes(gender.text) ? 'active' : ''
                   }
@@ -198,8 +197,7 @@ export default function Gender() {
                     border: `1px solid var(--white)`,
 
                     '&::before': {
-                      display: gender.text === 'Others' ? 'block' : 'none',
-                      // display: 'none',
+                      display: 'none',
                       borderRadius: 200,
                       backgroundColor: 'inherit',
                     },
@@ -208,13 +206,9 @@ export default function Gender() {
                     },
                     '&.active': {
                       color: gender.color,
-                      backgroundImage:
-                        gender.text === 'Others' ? 'var(--primary-3)' : 'none',
+                      backgroundImage: 'none',
                       backgroundColor: gender.background,
-                      border:
-                        gender.text === 'Others'
-                          ? 'none'
-                          : `1px solid ${gender.color}`,
+                      border: `1px solid ${gender.color}`,
                       boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                     },
                     '&.active::before': {
@@ -224,7 +218,24 @@ export default function Gender() {
                       height: 42,
                     },
                   }}
-                  onClick={e => {}}
+                  onClick={e => {
+                    if (gender.id === index) {
+                      let boolean = sex.find(value => {
+                        return value === gender.text;
+                      });
+                      if (boolean) {
+                        e.currentTarget.classList.remove('active');
+                        setSex(
+                          sex.filter(value => {
+                            return value !== boolean;
+                          }),
+                        );
+                      } else {
+                        e.currentTarget.classList.add('active');
+                        setSex([...sex, gender.text]);
+                      }
+                    }
+                  }}
                 >
                   <Text
                     sx={{

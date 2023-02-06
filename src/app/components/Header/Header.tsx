@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Button, Container, createStyles, Flex } from '@mantine/core';
 import { ReactComponent as Swipe } from 'assets/icons/swipeIcon.svg';
@@ -40,28 +40,32 @@ const DATA = [
 interface Props {
   active?: number;
   setActive?: any;
+  children?: ReactNode;
 }
-function Header({ active, setActive }: Props) {
+function Header({ active, setActive, children }: Props) {
   const { classes } = useStyles();
   const profile = useSelector(getProfileSelector);
   return (
     <Container fluid className={classes.container}>
-      <Flex className={classes.wrapper}>
-        {DATA.map((value, index) => {
-          let mode = profile.relationship === 0 ? value.friend : value.love;
-          return (
-            <Button
-              key={index}
-              className={classes.navBtn}
-              onClick={() => {
-                setActive(index);
-              }}
-            >
-              {active !== index ? value.basic : mode}
-            </Button>
-          );
-        })}
-      </Flex>
+      {children}
+      <Container fluid className={classes.header}>
+        <Flex className={classes.wrapper}>
+          {DATA.map((value, index) => {
+            let mode = profile.relationship === 0 ? value.friend : value.love;
+            return (
+              <Button
+                key={index}
+                className={classes.navBtn}
+                onClick={() => {
+                  setActive(index);
+                }}
+              >
+                {active !== index ? value.basic : mode}
+              </Button>
+            );
+          })}
+        </Flex>
+      </Container>
     </Container>
   );
 }
@@ -70,6 +74,12 @@ export default Header;
 
 const useStyles = createStyles(() => ({
   container: {
+    minWidth: '100%',
+    maxHeight: '100vh',
+    overflow: 'hidden',
+    padding: 0,
+  },
+  header: {
     width: '100%',
     position: 'fixed',
     bottom: 0,

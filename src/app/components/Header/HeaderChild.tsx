@@ -23,7 +23,7 @@ function HeaderChild({ title, children, onMotion }: Props) {
                 animation: false,
               },
             });
-          } else if (title === 'Account') {
+          } else if (title === 'My account') {
             navigate('/about/setting', {
               state: {
                 animation: false,
@@ -31,6 +31,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
             });
           } else if (title === 'Setting') {
             navigate('/about/');
+          } else if (title === 'Delete account') {
+            navigate('/about/setting');
           }
 
           if (onMotion) {

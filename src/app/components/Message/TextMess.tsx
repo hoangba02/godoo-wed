@@ -7,8 +7,8 @@ interface Props {
   ref: HTMLDivElement | null;
   auth: boolean;
   content: string;
-  handleShowTime: any;
-  showTime: any;
+  handleShowTime?: any;
+  showTime?: any;
   position: number;
 }
 function TextMess(

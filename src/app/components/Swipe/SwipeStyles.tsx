@@ -74,6 +74,7 @@ export const SwipeStyles = createStyles(() => ({
     position: 'absolute',
     padding: '0 16px',
     bottom: 104,
+    zIndex: 7,
     [`@media (max-width:799px)`]: {
       bottom: 50,
     },

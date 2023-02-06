@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Avatar,
+  Box,
   Button,
   Center,
   Container,
+  createStyles,
   Flex,
+  Image,
   Stack,
   Text,
 } from '@mantine/core';
@@ -16,15 +19,16 @@ import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as Settings } from 'assets/icons/about/settings.svg';
 import { ReactComponent as Gift } from 'assets/icons/about/gift.svg';
 import { ReactComponent as Wallet } from 'assets/icons/about/wallet.svg';
+import { ReactComponent as ArrowRight } from 'assets/icons/about/chevronRight.svg';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { useNavigate } from 'react-router-dom';
+import { images } from 'assets/images';
 
 interface Props {
   animation?: any;
   onAnimationEnd?: any;
 }
 function About({ animation, onAnimationEnd }: Props) {
-  console.log(animation);
   const navigate = useNavigate();
   const { classes } = AboutStyles();
 
@@ -113,9 +117,169 @@ function About({ animation, onAnimationEnd }: Props) {
             <Text className={classes.textWallet}>Wallet</Text>
           </Stack>
         </Flex>
+        <Stack className={classes.premiums}>
+          <Premium
+            title="GoDoo Premium"
+            cost="250 000"
+            isRe={true}
+            desc="Unlock all features, enjoy your time."
+            diamond={images.diaYellow}
+          />
+          <Premium
+            title="Premium 1"
+            cost="50 000"
+            isRe={false}
+            desc="Undo if you swipe left by accident"
+            diamond={images.diaBlue}
+          />
+          <Premium
+            title="Premium 2"
+            cost="50 000"
+            isRe={false}
+            diamond={images.diaBlue}
+          />
+        </Stack>
       </Container>
     </motion.div>
   );
 }
 
 export default About;
+interface PremiumProps {
+  title: string;
+  cost: string;
+  isRe: boolean;
+  desc?: string;
+  diamond: any;
+}
+export function Premium({ title, cost, isRe, desc, diamond }: PremiumProps) {
+  const { classes } = PremiumStyles();
+  const [hover, setHover] = useState<boolean>(false);
+  const handleHoverPremium = () => {
+    setHover(prev => !prev);
+  };
+  return (
+    <Flex
+      sx={{
+        gap: 8,
+        width: '100%',
+        borderRadius: 9,
+        padding: 10,
+        border: isRe ? '2px solid #FFA800' : '2px solid #D6D6D6',
+        boxShadow: isRe ? '0px 8px 25px rgba(0, 0, 0, 0.2)' : 'initial',
+        position: 'relative',
+        cursor: 'pointer',
+        transition: 'all 0.45s ease',
+        ':hover': {
+          border: '2px solid #E46125',
+        },
+      }}
+      onMouseOver={handleHoverPremium}
+      onMouseOut={handleHoverPremium}
+    >
+      {isRe && (
+        <Text
+          sx={{
+            width: 113,
+            height: 24,
+            right: 12,
+            top: -12,
+            background: '#FFA800',
+            fontWeight: 400,
+            fontSize: 16,
+            lineHeight: '20px',
+            color: '#FFFFFF',
+            borderRadius: 8,
+            position: 'absolute',
+            padding: '0px 10px',
+          }}
+        >
+          recommend
+        </Text>
+      )}
+      <Image width={42} height={42} src={diamond} />
+      <Stack
+        sx={{
+          gap: 10,
+          flex: 1,
+        }}
+      >
+        <Box>
+          <Text
+            sx={{
+              fontWeight: 600,
+              fontSize: 20,
+              lineHeight: '25px',
+              color: isRe ? '#E46125' : '#000',
+            }}
+          >
+            {title}
+          </Text>
+          <Text
+            sx={{
+              fontWeight: 400,
+              fontSize: 14,
+              lineHeight: '18px',
+              color: '#929292',
+            }}
+          >
+            {desc ? (
+              desc
+            ) : (
+              <p>
+                "Keep the list <span className={classes.span}>You liked</span>{' '}
+                and <span className={classes.span}>Liked you</span> longer"
+              </p>
+            )}
+          </Text>
+        </Box>
+
+        <Flex
+          sx={{
+            width: '100%',
+            padding: '4px 4px 4px 20px',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: '#EAEAEA',
+            borderRadius: 32,
+            transition: 'all 0.45s linear',
+            backgroundColor: hover ? '#E46125' : '#EAEAEA',
+          }}
+        >
+          <Text
+            sx={{
+              fontWeight: 500,
+              fontSize: 16,
+              lineHeight: '20px',
+              transition: 'all 0.45s linear',
+              color: hover ? '#FFFFFF' : '#000',
+            }}
+          >
+            Upgrade now {cost}
+          </Text>
+          <Button
+            variant="subtle"
+            sx={{
+              width: '24px !important',
+              height: '24px !important',
+              borderRadius: '50%',
+              padding: 0,
+              color: hover ? '#E46125' : '#FFFFFF',
+              transition: 'all 0.45s linear',
+              backgroundColor: hover ? '#FFFFFF' : '#E46125',
+            }}
+          >
+            <ArrowRight />
+          </Button>
+        </Flex>
+      </Stack>
+    </Flex>
+  );
+}
+
+const PremiumStyles = createStyles(() => ({
+  span: {
+    color: '#000',
+    fontWeight: 600,
+  },
+}));

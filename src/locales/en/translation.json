@@ -17,7 +17,10 @@
       "Remember me": "Remember me",
       "Confirm password": "Confirm password",
       "Enter the password": "Enter the password",
-      "Password incorrect": "Password incorrect"
+      "Password incorrect": "Password incorrect",
+      "Enter your current password": "Enter your current password:",
+      "Enter new password": "Enter new password:",
+      "Confirm new password": "Confirm new password:"
     },
     "button": {
       "Sign up": "Sign up",

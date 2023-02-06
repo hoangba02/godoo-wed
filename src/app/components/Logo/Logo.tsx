@@ -1,5 +1,4 @@
-import { Avatar, Box, createStyles, Flex } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { Avatar, createStyles, Flex } from '@mantine/core';
 import { images } from 'assets/images';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +6,11 @@ import Languages from '../Languages/Language';
 
 interface Props {
   className?: string;
+  isLang?: boolean;
 }
-function Logo({ className }: Props) {
+function Logo({ className, isLang }: Props) {
   const { classes } = useStyles();
   const navigate = useNavigate();
-  const phone = useMediaQuery('(max-width:575px)');
 
   return (
     <Flex
@@ -33,7 +32,7 @@ function Logo({ className }: Props) {
         color="lime"
         src={images.logo}
       />
-      <Languages />
+      {isLang && <Languages />}
     </Flex>
   );
 }

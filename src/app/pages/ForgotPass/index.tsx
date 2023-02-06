@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { IconArrowLeft } from '@tabler/icons';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useMediaQuery } from '@mantine/hooks';
-import { BackgroundImage, Box, Container, Flex, Text } from '@mantine/core';
+import { Box, Container, Flex, Text } from '@mantine/core';
 
 import Code from './Code';
 import InputName from './InputName';
 import MethodOTP from './MethodOTP';
 import ChangePass from './ChangePass';
-import { images } from 'assets/images';
 import Logo from 'app/components/Logo/Logo';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import Background from 'app/components/Background/Background';
@@ -19,8 +17,6 @@ function ForgotPass() {
   const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
   const [next, setNext] = useState('');
-
-  const phone = useMediaQuery('(max-width:575px)');
   const handleComeBack = () => {
     navigate(-1);
   };
@@ -30,7 +26,7 @@ function ForgotPass() {
       <Container>
         <div className={classes.wrapper}>
           <Box className={classes.card}>
-            <Logo className={classes.logo} />
+            <Logo className={classes.logo} isLang={false} />
             <Flex className={classes.header}>
               <button className={classes.back} onClick={handleComeBack}>
                 <IconArrowLeft />

@@ -52,7 +52,7 @@ export const DateFormStylyes = createStyles(() => ({
   },
   save: {
     gap: 5,
-    paddingTop: 'calc(100vh - 592px)',
+    paddingTop: 'calc(100% - 604px)',
     position: 'absolute',
     bottom: 0,
     zIndex: 2,

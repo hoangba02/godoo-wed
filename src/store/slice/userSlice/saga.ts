@@ -1,4 +1,4 @@
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import { apiGet, apiPost } from 'utils/http/request';
 import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
@@ -8,7 +8,6 @@ export function* CheckProfile(data) {
     userId: data.id,
     token: data.token,
   });
-  console.log(res);
   if (res.data !== null) {
     yield put(
       usersActions.createProfile({
@@ -40,7 +39,6 @@ export function* CheckProfile(data) {
   }
 }
 export function* SetProfile(action) {
-  console.log(action);
   const data = {
     nickname: action.payload.profile.nickname,
     picture: action.payload.profile.picture,
@@ -61,7 +59,6 @@ export function* SetProfile(action) {
   );
   console.log(res);
   if (res.error === 0) {
-    console.log('vao k');
     yield put(
       usersActions.createProfile({
         profile: {
@@ -147,27 +144,6 @@ export function* Login(action) {
   }
 }
 
-// export function* GetList(action) {
-//   const data = {
-//     quantity: action.payload.quantity,
-//   };
-//   const header = {
-//     userid: action.payload.id,
-//     token: action.payload.token,
-//   };
-//   if (action.type === 'youliked') {
-//     const res: BaseResponse = yield apiPost(
-//       `/v1/godoo/match/getyouliked`,
-//       data,
-//       header,
-//     );
-//     if (res.error === 0) {
-//       console.log(res.data);
-//       // yield put(usersActions.updateYouLikedList(res.data));
-//     }
-//   }
-// }
-
 export function* CheckMatch(action) {
   const data = {
     user_id_2: action.payload.user_2.userId,
@@ -177,9 +153,7 @@ export function* CheckMatch(action) {
     token: action.payload.token,
   };
   const res: BaseResponse = yield apiPost(`/v1/godoo/match/like`, data, header);
-  console.log(res);
   if (res.error === 0 && !res.hasOwnProperty('data')) {
-    console.log(action.payload.user_2);
     yield put(usersActions.updateYouLikedList(action.payload.user_2));
   } else if (res.error === 0 && res.hasOwnProperty('data')) {
     yield put(usersActions.updateMatchList(action.payload.user_2));
@@ -190,6 +164,5 @@ export function* userSaga() {
   yield takeLatest(usersActions.requestRegister.type, Register);
   yield takeLatest(usersActions.requestLogin.type, Login);
   yield takeLatest(usersActions.requestProfile.type, SetProfile);
-  // yield takeLatest(usersActions.requestUpdateList.type, GetList);
   yield takeLatest(usersActions.requestLikeAction.type, CheckMatch);
 }

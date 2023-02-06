@@ -5,12 +5,19 @@ export const AboutStyles = createStyles(() => ({
     minWidth: 378,
     display: 'flex',
     justifyContent: 'center',
+    [`@media (max-width:575px)`]: {
+      height: '100vh',
+      overflow: 'scroll',
+    },
   },
   container: {
     width: '100%',
     maxWidth: 570,
     margin: 0,
-    padding: '50px 20px 0',
+    padding: '50px 20px 90px',
+    [`@media (max-width:575px)`]: {
+      height: 'max-content',
+    },
   },
   header: {
     width: '100%',
@@ -44,6 +51,9 @@ export const AboutStyles = createStyles(() => ({
     ':hover': {
       background: 'var(--light)',
     },
+    [`@media (max-width:575px)`]: {
+      fontSize: 16,
+    },
   },
   wallet: {
     gap: '2%',
@@ -69,5 +79,9 @@ export const AboutStyles = createStyles(() => ({
     fontSize: 20,
     lineHeight: '25px',
     userSelect: 'none',
+  },
+  premiums: {
+    width: '100%',
+    marginTop: 24,
   },
 }));
