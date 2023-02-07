@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Card,
-  clsx,
   createStyles,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +16,14 @@ import { apiPost } from 'utils/http/request';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { UserSlice } from 'store/slice/userSlice';
 
-function UpLoad({ link, id, name, setImg, img }) {
+interface Props {
+  id: string;
+  name: string;
+  link: string;
+  img: any;
+  setImg: any;
+}
+function UpLoad({ link, id, name, setImg, img }: Props) {
   const ImgFile = new FormData();
   // Local
   const { t } = useTranslation();

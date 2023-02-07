@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Image, List, Stack, Text, TextInput } from '@mantine/core';
 import { images } from 'assets/images';
-import { AboutPage } from '../Loadable';
+import { AboutPage } from '../../Loadable';
 
 function Delete() {
   const [isContinue, setIsContinue] = useState(true);

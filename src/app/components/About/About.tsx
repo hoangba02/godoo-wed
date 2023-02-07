@@ -77,7 +77,13 @@ function About({ animation, onAnimationEnd }: Props) {
               <Avatar size={150} radius={9999} src={profile.picture[0]} />
             </Center>
             <Text className={classes.nickname}>{profile.nickname}</Text>
-            <Button variant="subtle" className={classes.editBtn}>
+            <Button
+              variant="subtle"
+              className={classes.editBtn}
+              onClick={() => {
+                navigate('/about/profile');
+              }}
+            >
               edit my profile
             </Button>
           </Stack>

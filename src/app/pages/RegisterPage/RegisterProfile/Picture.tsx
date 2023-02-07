@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  BackgroundImage,
-  Box,
-  Button,
-  Card,
-  Flex,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Box, Button, Flex, Stack, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { IconPlus, IconChevronRight } from '@tabler/icons';
 
@@ -25,6 +17,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 import { apiPost } from 'utils/http/request';
+import Photographs from 'app/components/Photographs/Photographs';
 
 export default function Picture() {
   // const ImgFile = new FormData();
@@ -111,7 +104,6 @@ export default function Picture() {
           </Text>
           <Box
             sx={{
-              position: 'relative',
               width: '100%',
               height: '71%',
               [`@media (min-width:768px) and (max-width:991px)`]: {
@@ -125,104 +117,7 @@ export default function Picture() {
               // [`@media (max-width:375px)`]: {},
             }}
           >
-            <Flex
-              sx={{
-                width: '100%',
-                height: '65.5%',
-                gap: '5%',
-                justifyContent: 'space-between',
-                // [`@media (min-width:768px) and (max-width:991px)`]: {
-                //   height: '53.5%',
-                // },
-                // [`@media (min-width:576px) and (max-width:767px)`]: {
-                //   height: '65.5%',
-                // },
-                [`@media (max-width:575px)`]: {
-                  gap: 15,
-                  height: 225,
-                },
-              }}
-            >
-              <Box
-                sx={{
-                  width: '65%',
-                  height: '100%',
-                  aspectRatio: '1 / 1',
-                  position: 'relative',
-                  zIndex: 99,
-                }}
-              >
-                <UpLoad
-                  link={img.one}
-                  id="0"
-                  name="one"
-                  setImg={setImg}
-                  img={img}
-                />
-              </Box>
-              <Stack
-                sx={{
-                  gap: '7%',
-                  width: '30%',
-                  alignItems: 'flex-end',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <UpLoad
-                  link={img.two}
-                  id="1"
-                  name="two"
-                  setImg={setImg}
-                  img={img}
-                />
-                <UpLoad
-                  link={img.three}
-                  id="2"
-                  name="three"
-                  setImg={setImg}
-                  img={img}
-                />
-              </Stack>
-            </Flex>
-            <Flex
-              sx={{
-                height: '30%',
-                gap: '5%',
-                marginTop: 25,
-                justifyContent: 'space-between',
-                // [`@media (min-width:768px) and (max-width:991px)`]: {
-                //   height: '30%',
-                // },
-                [`@media (max-width:575px)`]: {
-                  gap: 0,
-                  height: 106,
-                  marginTop: 17,
-                  marginBottom: 20,
-                },
-              }}
-            >
-              <UpLoad
-                link={img.four}
-                id="3"
-                name="four"
-                setImg={setImg}
-                img={img}
-              />
-              <UpLoad
-                link={img.fire}
-                id="4"
-                name="fire"
-                setImg={setImg}
-                img={img}
-              />
-              <UpLoad
-                link={img.six}
-                id="5"
-                name="six"
-                setImg={setImg}
-                img={img}
-              />
-            </Flex>
+            <Photographs img={img} setImg={setImg} />
           </Box>
           <Text
             sx={{

@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, Flex, Switch, Text } from '@mantine/core';
-import { AboutPage } from '../Loadable';
+import { AboutPage } from '../../Loadable';
 function Notification() {
   const notifications = [
     {
