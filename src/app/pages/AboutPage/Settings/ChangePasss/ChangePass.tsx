@@ -10,7 +10,7 @@ import {
   Text,
 } from '@mantine/core';
 import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
-import { AboutPage } from '../Loadable';
+import { AboutPage } from '../../Loadable';
 import { useTranslation } from 'react-i18next';
 import ModalLayout from 'app/components/Modals/ModalLayout';
 import { images } from 'assets/images';

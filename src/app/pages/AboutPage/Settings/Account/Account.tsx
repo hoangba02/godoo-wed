@@ -10,7 +10,7 @@ import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRigh
 import { ReactComponent as Mes } from 'assets/icons/mes.svg';
 import { ReactComponent as Tele } from 'assets/icons/tele.svg';
 import { ReactComponent as Circle } from 'assets/icons/about/circle.svg';
-import { AboutPage } from '../Loadable';
+import { AboutPage } from '../../Loadable';
 import { apiGet, apiPost } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';
 function Account() {

@@ -32,11 +32,12 @@ import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
 import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
 import About from './components/About/About';
-import Account from './pages/AboutPage/Account/Account';
-import Delete from './pages/AboutPage/Delete/Delete';
+import Account from './pages/AboutPage/Settings/Account/Account';
+import Delete from './pages/AboutPage/Settings/Delete/Delete';
 import Setting from './pages/AboutPage/Settings/Setting';
-import ChangePass from './pages/AboutPage/ChangePasss/ChangePass';
-import Notification from './pages/AboutPage/Notification/Notification';
+import ChangePass from './pages/AboutPage/Settings/ChangePasss/ChangePass';
+import Notification from './pages/AboutPage/Settings/Notification/Notification';
+import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -66,6 +67,9 @@ export function App() {
             element={<ChangePass />}
           />
           <Route path="/about/setting/account/delete" element={<Delete />} />
+          {/* Edidt Profile */}
+          <Route path="/about/profile" element={<EditProfile />} />
+
           {/* Register Page*/}
           <Route path="/register/nickname" element={<NickName />} />
           <Route path="/register/picture" element={<Picture />} />
