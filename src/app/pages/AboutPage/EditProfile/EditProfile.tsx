@@ -5,6 +5,8 @@ import {
   Container,
   createStyles,
   Input,
+  Stack,
+  Text,
   TextInput,
 } from '@mantine/core';
 import { useSelector } from 'react-redux';
@@ -19,7 +21,10 @@ function EditProfile() {
   // Local
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { classes } = useStyles();
-  const [nickname, setNickname] = useState(profile.nickname);
+  const [info, setInfo] = useState({
+    nickname: profile.nickname,
+    bio: profile.introduction,
+  });
   const [photos, setPhotos] = useState({
     one: profile.picture[0],
     two: profile.picture[1],
@@ -30,13 +35,13 @@ function EditProfile() {
   });
 
   const handleClearNickname = () => {
-    setNickname('');
+    setInfo({ ...info, nickname: '' });
     if (inputRef.current !== null) {
       inputRef.current.focus();
     }
   };
   const handleChange = e => {
-    setNickname(e.target.value);
+    setInfo({ ...info, [e.target.name]: e.target.value });
   };
   return (
     <AboutPage title="Edit profile">
@@ -56,12 +61,13 @@ function EditProfile() {
             }}
             ref={inputRef}
             label="Nickname"
-            value={nickname}
+            name="nickname"
+            value={info.nickname}
             onChange={e => {
               handleChange(e);
             }}
           />
-          {nickname && (
+          {info.nickname && (
             <Button
               className={classes.clearBtn}
               variant="subtle"
@@ -89,13 +95,39 @@ function EditProfile() {
             {/* <option value="1">Looking for my destiny</option> */}
           </Input>
         </Input.Wrapper>
-        <Box
-          sx={{
-            height: 570,
-          }}
-        >
-          <Photographs img={photos} setImg={setPhotos}/>
-        </Box>
+        <Stack>
+          <Text className={classes.title}>Photos</Text>
+          <Box
+            sx={{
+              height: 570,
+            }}
+          >
+            <Photographs img={photos} setImg={setPhotos} isEdit={true} />
+          </Box>
+          <Text
+            sx={{
+              width: '60%',
+            }}
+            className={classes.label}
+          >
+            Upload at least one photo. Hold & drag photos to change the order.
+          </Text>
+        </Stack>
+        <Stack className={classes.stack}>
+          <Text className={classes.title}>Bio</Text>
+          <Box>
+            <Text className={classes.label}>
+              Write funny sentences to intro yourself
+            </Text>
+            <TextInput
+              value={profile.introduction}
+              name="introduction"
+              onChange={e => {
+                handleChange(e);
+              }}
+            />
+          </Box>
+        </Stack>
       </Container>
     </AboutPage>
   );
@@ -108,7 +140,8 @@ const useStyles = createStyles(() => ({
     width: 570,
     height: '100%',
     maxWidth: '100%',
-    padding: 0,
+    paddingTop: 24,
+    overflow: 'scroll',
   },
   clearBtn: {
     width: '24px !important',
@@ -117,5 +150,20 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     right: 10,
     top: '55%',
+  },
+  title: {
+    fontWeight: 500,
+    fontSize: 18,
+    lineHeight: '22px',
+    marginTop: 18,
+  },
+  label: {
+    color: '#929292',
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '18px',
+  },
+  stack: {
+    gap: 6,
   },
 }));

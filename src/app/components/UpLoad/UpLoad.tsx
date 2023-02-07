@@ -22,8 +22,9 @@ interface Props {
   link: string;
   img: any;
   setImg: any;
+  isEdit?: boolean;
 }
-function UpLoad({ link, id, name, setImg, img }: Props) {
+function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
   const ImgFile = new FormData();
   // Local
   const { t } = useTranslation();
@@ -88,6 +89,7 @@ function UpLoad({ link, id, name, setImg, img }: Props) {
   return (
     <Card
       sx={{
+        backgroundColor: isEdit ? '#F3F3F3' : '#FFFFFF',
         [`@media (max-width:575px)`]: {
           height: id === '0' ? '100%' : 106,
           width: id === '0' ? '100%' : 106,
@@ -124,7 +126,11 @@ function UpLoad({ link, id, name, setImg, img }: Props) {
           zIndex: 1,
         }}
       >
-        <Blink width="100%" height="100%" />
+        <Blink
+          width="100%"
+          height="100%"
+          color={isEdit ? '#D6D6D6' : '#F3F3F3'}
+        />
       </Box>
       <input
         id={id}

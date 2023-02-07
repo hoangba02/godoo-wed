@@ -117,7 +117,7 @@ export default function Picture() {
               // [`@media (max-width:375px)`]: {},
             }}
           >
-            <Photographs img={img} setImg={setImg} />
+            <Photographs img={img} setImg={setImg} isEdit={false} />
           </Box>
           <Text
             sx={{

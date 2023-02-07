@@ -32,7 +32,6 @@ export default memo(AboutWeb);
 const useStyles = createStyles(() => ({
   container: {
     width: '100%',
-    height: '100%',
     padding: '0 135px',
     [`@media (max-width:799px)`]: {
       padding: 0,
@@ -40,6 +39,7 @@ const useStyles = createStyles(() => ({
   },
   content: {
     width: '100%',
+    height: '100vh',
     padding: '45px 30px 0',
     borderLeft: '1px solid #BFBFBF',
     [`@media (max-width:799px)`]: {
@@ -49,7 +49,7 @@ const useStyles = createStyles(() => ({
   child: {
     gap: 10,
     width: '100%',
-    paddingTop: 24,
+    height: '100%',
     alignItems: 'center',
     [`@media (max-width:575px)`]: {
       padding: '24px 16px 0',
