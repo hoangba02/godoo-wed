@@ -125,6 +125,25 @@ root.render(
                 width: 'calc(100% - 48px)',
               },
             },
+            // '::file-selector-button': {
+            //   width: '49%',
+            //   height: '100%',
+            //   color: 'var(--white)',
+            //   padding: 0,
+            //   backgroundColor: '#E46125',
+            //   borderRadius: 34,
+            //   fontSize: 14,
+            //   fontWeight: 400,
+            //   lineHeight: '18px',
+            //   '&::before': {
+            //     display: 'none',
+            //   },
+            //   '&:hover': {
+            //     transition: '0.5s',
+            //     backgroundColor: '#E46125 !important',
+            //     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            //   },
+            // },
           }),
           fontFamily: 'Lexend, sans-serif',
           defaultGradient: {

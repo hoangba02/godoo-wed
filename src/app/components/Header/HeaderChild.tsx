@@ -29,7 +29,7 @@ function HeaderChild({ title, children, onMotion }: Props) {
                 animation: false,
               },
             });
-          } else if (title === 'Setting') {
+          } else if (title === 'Setting' || title === 'Edit profile') {
             navigate('/about/');
           } else if (title === 'Delete account') {
             navigate('/about/setting');

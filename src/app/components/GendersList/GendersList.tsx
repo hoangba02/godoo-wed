@@ -7,9 +7,15 @@ import { ReactComponent as Lesbian } from 'assets/icons/gender/Lesbian.svg';
 import { ReactComponent as Male } from 'assets/icons/gender/Male.svg';
 import { ReactComponent as Nonbinary } from 'assets/icons/gender/Nonbinary.svg';
 import { ReactComponent as Transgender } from 'assets/icons/gender/Transgender.svg';
-import { clsx, createStyles, Flex, Group, Stack, Text } from '@mantine/core';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import {
+  Box,
+  clsx,
+  createStyles,
+  Flex,
+  Group,
+  Stack,
+  Text,
+} from '@mantine/core';
 export const genders = [
   {
     id: 0,
@@ -56,9 +62,11 @@ export const genders = [
 ];
 
 interface Props {
+  isTitle: boolean;
   profile?: any;
+  label?: string;
 }
-function GendersList({ profile }: Props) {
+function GendersList({ profile, label, isTitle }: Props) {
   const { classes } = useStyles();
   const [filterList, setFilterList] = useState<string[]>([]);
   const genderUser = genders.filter(value =>
@@ -67,7 +75,7 @@ function GendersList({ profile }: Props) {
   const array = !!profile ? genderUser : genders;
   return (
     <Stack className={classes.container}>
-      <Text className={classes.title}>Gender</Text>
+      {isTitle && <Text className={classes.title}>Gender</Text>}
       <Group className={classes.gender}>
         {array.map((gender, index) => (
           <Flex
@@ -111,6 +119,7 @@ const useStyles = createStyles(() => ({
     fontSize: 18,
     lineHeight: '22px',
     fontWeight: 500,
+    marginBottom: 6,
   },
   gender: {
     gap: 8,

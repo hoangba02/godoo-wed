@@ -1,9 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { ReactComponentElement, useRef, useState } from 'react';
 import {
   Box,
   Button,
   Container,
-  createStyles,
+  Flex,
   Input,
   Stack,
   Text,
@@ -13,17 +13,22 @@ import { useSelector } from 'react-redux';
 import { AboutPage } from '../Loadable';
 import { ReactComponent as X } from 'assets/icons/edit/x.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/edit/arrowDown.svg';
+import { ReactComponent as ArrowRight } from 'assets/icons/edit/arrowRight.svg';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import Photographs from 'app/components/Photographs/Photographs';
+import { EditProfileStyles } from './EditProfileStyles';
+import { genders } from 'app/components/GendersList/GendersList';
+import { useNavigate } from 'react-router-dom';
 
 function EditProfile() {
+  const navigate = useNavigate();
   const profile = useSelector(getProfileSelector);
   // Local
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const { classes } = useStyles();
+  const { classes } = EditProfileStyles();
   const [info, setInfo] = useState({
     nickname: profile.nickname,
-    bio: profile.introduction,
+    introduction: profile.introduction,
   });
   const [photos, setPhotos] = useState({
     one: profile.picture[0],
@@ -33,7 +38,9 @@ function EditProfile() {
     fire: profile.picture[4],
     six: profile.picture[5],
   });
-
+  const [gendersUser, setGendersUser] = useState(() => {
+    return genders.filter(value => profile?.gender.includes(value.name));
+  });
   const handleClearNickname = () => {
     setInfo({ ...info, nickname: '' });
     if (inputRef.current !== null) {
@@ -95,7 +102,7 @@ function EditProfile() {
             {/* <option value="1">Looking for my destiny</option> */}
           </Input>
         </Input.Wrapper>
-        <Stack>
+        <Stack className={classes.stack}>
           <Text className={classes.title}>Photos</Text>
           <Box
             sx={{
@@ -120,13 +127,48 @@ function EditProfile() {
               Write funny sentences to intro yourself
             </Text>
             <TextInput
-              value={profile.introduction}
+              maxLength={100}
               name="introduction"
+              value={info.introduction}
               onChange={e => {
                 handleChange(e);
               }}
             />
           </Box>
+          <Flex justify="flex-end">
+            <Text className={classes.label}>
+              {info.introduction.length}/100 words
+            </Text>
+          </Flex>
+        </Stack>
+        <Stack className={classes.stack}>
+          <Text className={classes.title}>Interests</Text>
+        </Stack>
+        <Stack className={classes.stack}>
+          <Text className={classes.title}>Genders</Text>
+          <Text className={classes.label}>You can have maximum 2 genders</Text>
+
+          <Flex className={classes.options}>
+            {gendersUser.map((gender, index) => (
+              <Option key={index} name={gender.name} icon={gender.icon} />
+            ))}
+          </Flex>
+          <Flex
+            sx={{
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              color: '#929292',
+              transition: 'all 0.5s linear',
+              cursor: 'pointer',
+              ':hover': {
+                color: 'var(--primary-4)',
+              },
+            }}
+            onClick={() => navigate('/about/profile/gender')}
+          >
+            <Text className={classes.label}>Change gender</Text>
+            <ArrowRight />
+          </Flex>
         </Stack>
       </Container>
     </AboutPage>
@@ -135,35 +177,62 @@ function EditProfile() {
 
 export default EditProfile;
 
-const useStyles = createStyles(() => ({
-  container: {
-    width: 570,
-    height: '100%',
-    maxWidth: '100%',
-    paddingTop: 24,
-    overflow: 'scroll',
-  },
-  clearBtn: {
-    width: '24px !important',
-    height: '24px !important',
-    padding: 0,
-    position: 'absolute',
-    right: 10,
-    top: '55%',
-  },
-  title: {
-    fontWeight: 500,
-    fontSize: 18,
-    lineHeight: '22px',
-    marginTop: 18,
-  },
-  label: {
-    color: '#929292',
-    fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '18px',
-  },
-  stack: {
-    gap: 6,
-  },
-}));
+interface OptionProps {
+  name?: string;
+  icon?: JSX.Element;
+}
+export function Option({ name, icon }: OptionProps) {
+  // Local
+  const { classes } = EditProfileStyles();
+
+  return (
+    <Flex
+      sx={{
+        position: 'relative',
+      }}
+    >
+      <Flex
+        sx={{
+          height: '100%',
+          width: 'max-content',
+          padding: '2px 8px',
+          borderRadius: 200,
+          backgroundColor: '#FFE9E0',
+          border: '1px solid var(--primary-4)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+        }}
+      >
+        <Box
+          sx={{
+            width: 24,
+            height: 24,
+          }}
+        >
+          {icon}
+        </Box>
+        <Text
+          sx={{
+            fontWeight: 500,
+            fontSize: 14,
+            lineHeight: '18px',
+          }}
+        >
+          {name}
+        </Text>
+      </Flex>
+      <Button
+        sx={{
+          right: -24,
+          top: '52%',
+          transform: 'translateY(-50%)',
+        }}
+        className={classes.clearBtn}
+        variant="subtle"
+      >
+        <X />
+      </Button>
+    </Flex>
+  );
+}

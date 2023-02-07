@@ -117,6 +117,7 @@ export function* Login(action) {
   const res: BaseResponse = yield apiPost('/v1/login', data, {
     'content-type': 'appication/json',
   });
+  console.log(res);
   if (res.error === 0) {
     yield CheckProfile(res.data);
     yield put(

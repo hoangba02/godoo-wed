@@ -85,7 +85,7 @@ function Profile({
           </>
         )}
         <Card className={classes.card}>
-          <GendersList profile={profile} />
+          <GendersList profile={profile} isTitle={true} />
         </Card>
         <Card
           sx={{

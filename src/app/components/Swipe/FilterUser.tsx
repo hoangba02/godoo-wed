@@ -82,7 +82,7 @@ export const FilterUser = ({ drawer }: Props) => {
           <Text className={classes.question}>
             What you are looking for in your match?
           </Text>
-          <GendersList />
+          <GendersList isTitle={true} />
           <Stack spacing={20} mb={20}>
             <Text className={classes.indexing}>Age</Text>
             <RangeSlider

@@ -38,6 +38,7 @@ import Setting from './pages/AboutPage/Settings/Setting';
 import ChangePass from './pages/AboutPage/Settings/ChangePasss/ChangePass';
 import Notification from './pages/AboutPage/Settings/Notification/Notification';
 import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
+import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -69,6 +70,7 @@ export function App() {
           <Route path="/about/setting/account/delete" element={<Delete />} />
           {/* Edidt Profile */}
           <Route path="/about/profile" element={<EditProfile />} />
+          <Route path="/about/profile/gender" element={<EditGender />} />
 
           {/* Register Page*/}
           <Route path="/register/nickname" element={<NickName />} />

@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   createStyles,
+  Input,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -132,11 +133,11 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
           color={isEdit ? '#D6D6D6' : '#F3F3F3'}
         />
       </Box>
-      <input
+      <Input
         id={id}
         name={name}
         type={id === '0' ? 'file' : img.one ? 'file' : 'text'}
-        accept="image/*"
+        // accept="image/*"
         capture
         className={classes.upImg}
         onChange={e => {
@@ -145,7 +146,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
       />
       <label
         htmlFor={id}
-        style={{ height: id === '0' ? 56 : 26 }}
+        style={{ height: id === '0' ? 42 : 26 }}
         className={classes.label}
       >
         <Button
@@ -155,8 +156,8 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
             },
             root: {
               fontSize: id === '0' ? 32 : 14,
-              [`@media (min-width:768px) and (max-width:991px)`]: {
-                fontSize: 24,
+              [`@media (max-width:575px)`]: {
+                fontSize: id === '0' ? 24 : 14,
               },
             },
           }}
@@ -175,6 +176,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
             padding: 0,
             backgroundColor: '#E46125',
             borderRadius: 34,
+            fontSize: 14,
             fontWeight: 400,
             lineHeight: '18px',
             '&::before': {

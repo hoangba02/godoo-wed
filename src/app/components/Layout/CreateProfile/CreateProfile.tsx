@@ -10,6 +10,7 @@ import { getCounterSelector } from 'store/slice/counterSlice/selector';
 import Background from 'app/components/Background/Background';
 import { CreateProfileStyles } from './CreateProfileStyles';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { UserSlice } from 'store/slice/userSlice';
 
 const STEPS = [
   'nickname',
@@ -25,6 +26,7 @@ export function ProfileLayout({ children }) {
   // Global
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const { counterActions } = CounterSlice();
   const counter = useSelector(getCounterSelector);
   const user = useSelector(getUserSelector);
@@ -53,6 +55,12 @@ export function ProfileLayout({ children }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter]);
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', () =>
+      dispatch(actions.logoutSuccess()),
+    );
+  }, []);
   return (
     <>
       <Helmet>

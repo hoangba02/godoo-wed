@@ -49,7 +49,7 @@ const useStyles = createStyles(() => ({
   child: {
     gap: 10,
     width: '100%',
-    height: '100%',
+    height: 'calc(100vh - 91px)',
     alignItems: 'center',
     [`@media (max-width:575px)`]: {
       padding: '24px 16px 0',
