@@ -8,6 +8,7 @@ import {
   Button,
   Card,
   createStyles,
+  FileButton,
   Input,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -44,7 +45,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
   const handleUploadImage = e => {
     setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
   };
-
+  const [files, setFiles] = useState<File[]>([]);
   const handleClearImg = url => {
     apiPost(
       '/v1/deletefile',
@@ -86,7 +87,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
       return;
     }
   }, [selectedFile]);
-  console.log(img);
+  console.log(files);
   return (
     <Card
       sx={{
@@ -133,7 +134,20 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
           color={isEdit ? '#D6D6D6' : '#F3F3F3'}
         />
       </Box>
-      <Input
+      <FileButton onChange={() => setFiles} accept="image/png,image/jpeg">
+        {props => (
+          <Button
+            sx={{
+              position: 'absolute',
+              zIndex: 10,
+            }}
+            {...props}
+          >
+            {t('Profile.text.Add')}
+          </Button>
+        )}
+      </FileButton>
+      {/* <Input
         id={id}
         name={name}
         type={id === '0' ? 'file' : img.one ? 'file' : 'text'}
@@ -200,7 +214,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
         >
           {t('Profile.text.Add')}
         </Button>
-      </label>
+      </label> */}
     </Card>
   );
 }

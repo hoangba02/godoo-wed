@@ -59,12 +59,12 @@ function Demo2() {
       <Flex className={classes.swipe}>
         {swipeList.map((item, index) => (
           <Demo
-            key={index}
-            data={item}
-            ref={(el: never) => (cardRef.current[index] = el)}
-            onSwipe={handleSwipe}
-            animControls={animControls}
-            x={x}
+          // key={index}
+          // data={item}
+          // ref={(el: never) => (cardRef.current[index] = el)}
+          // onSwipe={handleSwipe}
+          // animControls={animControls}
+          // x={x}
           />
         ))}
       </Flex>
