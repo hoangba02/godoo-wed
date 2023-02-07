@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import PrivateRouter from './routes/PrivateRouter';
 
 import Demo from 'app/pages/Demo/Demo';
-import Demo2 from './pages/Demo/Demo2';
+// import Demo2 from './pages/Demo/Demo2';
 import Demo3 from './pages/Demo/Demo3';
 import ForgotPass from 'app/pages/ForgotPass';
 import { ChatPage } from './pages/ChatPage/Loadable';
@@ -85,7 +85,7 @@ export function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/forgot" element={<ForgotPass />} />
         <Route path="/demo" element={<Demo />} />
-        <Route path="/demo2" element={<Demo2 />} />
+        {/* <Route path="/demo2" element={<Demo2 />} /> */}
         <Route path="/demo3" element={<Demo3 />} />
       </Routes>
 
