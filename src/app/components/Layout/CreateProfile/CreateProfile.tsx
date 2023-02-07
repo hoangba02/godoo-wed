@@ -55,11 +55,11 @@ export function ProfileLayout({ children }) {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [counter]);
-
   useEffect(() => {
-    window.addEventListener('beforeunload', () =>
-      dispatch(actions.logoutSuccess()),
-    );
+    window.addEventListener('beforeunload', () => {
+      dispatch(actions.logoutSuccess());
+      // dispatch(counterActions.setCounter({ value: -1 }));
+    });
   }, []);
   return (
     <>

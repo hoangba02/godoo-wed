@@ -9,7 +9,6 @@ import {
   Card,
   createStyles,
   FileButton,
-  Input,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -36,46 +35,48 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
     return 2;
   });
   const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
+  const [file, setFile] = useState<File | null>(null);
   // Global
-  const dispatch = useDispatch();
-  const { counterActions } = CounterSlice();
-  const { actions } = UserSlice();
   const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
     setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
+    // setFile();
   };
-  const [files, setFiles] = useState<File[]>([]);
+  console.log(selectedFile);
   const handleClearImg = url => {
-    apiPost(
-      '/v1/deletefile',
-      {
-        url: url,
-      },
-      {},
-    )
-      .then(res => {
-        if (res.error === 0) {
-          setImg({ ...img, [name]: '' });
-          setZIndex(2);
-        }
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    setImg({ ...img, [name]: '' });
+    setZIndex(2);
+    // apiPost(
+    //   '/v1/deletefile',
+    //   {
+    //     url: url,
+    //   },
+    //   {},
+    // )
+    //   .then(res => {
+    //     if (res.error === 0) {
+    //       setImg({ ...img, [name]: '' });
+    //       setZIndex(2);
+    //     }
+    //     console.log(res);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   };
 
   useEffect(() => {
-    ImgFile.append('file', selectedFile.filename);
-    if (selectedFile.filename) {
+    if (file) {
+      ImgFile.append('file', file);
+      console.log(ImgFile);
       apiPost('/v1/uploadgeturl', ImgFile, {
         'content-type': 'multipart/form-data',
       })
         .then(res => {
           setImg({
             ...img,
-            [selectedFile.name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
+            [name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
           });
           setZIndex(4);
           console.log(res);
@@ -86,8 +87,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
     } else {
       return;
     }
-  }, [selectedFile]);
-  console.log(files);
+  }, [file]);
   return (
     <Card
       sx={{
@@ -134,87 +134,58 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
           color={isEdit ? '#D6D6D6' : '#F3F3F3'}
         />
       </Box>
-      <FileButton onChange={() => setFiles} accept="image/png,image/jpeg">
+      <FileButton
+        // resetRef={resetRef}
+        onChange={setFile}
+        accept="image/png,image/jpeg"
+      >
         {props => (
           <Button
             sx={{
               position: 'absolute',
-              zIndex: 10,
+              bottom: '8%',
+              width: '56%',
+              height: 26,
+              color: 'var(--white)',
+              padding: 0,
+              backgroundColor: '#E46125',
+              borderRadius: 34,
+              fontSize: 14,
+              fontWeight: 400,
+              lineHeight: '18px',
+              zIndex: 3,
+              '&::before': {
+                display: 'none',
+              },
+              '&:hover': {
+                transition: '0.5s',
+                backgroundColor: '#E46125 !important',
+
+                boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+              },
+              '&[data-disabled]': {
+                cursor: id === '0' ? 'default' : 'no-drop',
+                color: 'var(--white) !important',
+                backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
+              },
+              [`@media (max-width:575px)`]: {
+                width: '100%',
+                height: '100%',
+              },
             }}
+            disabled={id === '0' && !img.one ? false : true}
+            leftIcon={
+              <IconPlus
+                width={id === '0' ? 29 : 18}
+                height={id === '0' ? 29 : 18}
+              />
+            }
             {...props}
           >
             {t('Profile.text.Add')}
           </Button>
         )}
       </FileButton>
-      {/* <Input
-        id={id}
-        name={name}
-        type={id === '0' ? 'file' : img.one ? 'file' : 'text'}
-        // accept="image/*"
-        capture
-        className={classes.upImg}
-        onChange={e => {
-          handleUploadImage(e);
-        }}
-      />
-      <label
-        htmlFor={id}
-        style={{ height: id === '0' ? 42 : 26 }}
-        className={classes.label}
-      >
-        <Button
-          styles={{
-            leftIcon: {
-              margin: 0,
-            },
-            root: {
-              fontSize: id === '0' ? 32 : 14,
-              [`@media (max-width:575px)`]: {
-                fontSize: id === '0' ? 24 : 14,
-              },
-            },
-          }}
-          component="span"
-          disabled={!img.one}
-          leftIcon={
-            <IconPlus
-              width={id === '0' ? 29 : 18}
-              height={id === '0' ? 29 : 18}
-            />
-          }
-          sx={{
-            width: '49%',
-            height: '100%',
-            color: 'var(--white)',
-            padding: 0,
-            backgroundColor: '#E46125',
-            borderRadius: 34,
-            fontSize: 14,
-            fontWeight: 400,
-            lineHeight: '18px',
-            '&::before': {
-              display: 'none',
-            },
-            '&:hover': {
-              transition: '0.5s',
-              backgroundColor: '#E46125 !important',
-              boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-            },
-            '&[data-disabled]': {
-              cursor: id === '0' ? 'default' : 'no-drop',
-              color: 'var(--white) !important',
-              backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
-            },
-            [`@media (max-width:575px)`]: {
-              width: '100%',
-              height: '100%',
-            },
-          }}
-        >
-          {t('Profile.text.Add')}
-        </Button>
-      </label> */}
     </Card>
   );
 }
@@ -246,12 +217,6 @@ const useStyles = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       width: '58%',
     },
-  },
-  icon: {
-    // position: 'absolute',
-  },
-  upImg: {
-    display: 'none',
   },
   clearBtn: {
     position: 'absolute',
