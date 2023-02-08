@@ -32,6 +32,7 @@ export const EditProfileStyles = createStyles(() => ({
     gap: 6,
   },
   options: {
+    gap: 28,
     width: '100%',
     minHeight: 48,
     borderRadius: 8,

@@ -65,12 +65,13 @@ interface Props {
   isTitle: boolean;
   profile?: any;
   label?: string;
-  item?: string;
-  setItem?: string[];
+  items?: any;
+  setItems?: any;
 }
-function GendersList({ profile, label, isTitle, item, setItem }: Props) {
+function GendersList({ profile, label, isTitle, items, setItems }: Props) {
   const { classes } = useStyles();
-  const [filterList, setFilterList] = useState<string[]>([]);
+  // const [items, setItems] = useState<string[]>([]);
+  console.log(items);
   const genderUser = genders.filter(value =>
     profile?.gender.includes(value.name),
   );
@@ -84,19 +85,21 @@ function GendersList({ profile, label, isTitle, item, setItem }: Props) {
             key={index}
             onClick={e => {
               if (gender.id === index) {
-                let boolean = filterList.find(value => {
+                let boolean = items?.find(value => {
                   return value === gender.name;
                 });
                 if (boolean) {
                   e.currentTarget.classList.remove('active');
-                  setFilterList(
-                    filterList.filter(value => {
+                  setItems(
+                    items?.filter(value => {
                       return value !== boolean;
                     }),
                   );
                 } else {
-                  e.currentTarget.classList.add('active');
-                  setFilterList([...filterList, gender.name]);
+                  if (items.length < 2) {
+                    e.currentTarget.classList.add('active');
+                    setItems([...items, gender.name]);
+                  }
                 }
               }
             }}
