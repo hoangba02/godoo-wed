@@ -48,14 +48,7 @@ function Photographs({ img, setImg, isEdit }) {
             zIndex: 99,
           }}
         >
-          <UpLoad
-            link={img.one}
-            id="0"
-            name="one"
-            setImg={setImg}
-            img={img}
-            isEdit={isEdit}
-          />
+          <UpLoad id="0" name="one" setImg={setImg} img={img} isEdit={isEdit} />
         </Box>
         <Stack
           sx={{
@@ -65,16 +58,8 @@ function Photographs({ img, setImg, isEdit }) {
             justifyContent: 'space-between',
           }}
         >
+          <UpLoad id="1" name="two" setImg={setImg} img={img} isEdit={isEdit} />
           <UpLoad
-            link={img.two}
-            id="1"
-            name="two"
-            setImg={setImg}
-            img={img}
-            isEdit={isEdit}
-          />
-          <UpLoad
-            link={img.three}
             id="2"
             name="three"
             setImg={setImg}
@@ -100,30 +85,9 @@ function Photographs({ img, setImg, isEdit }) {
           },
         }}
       >
-        <UpLoad
-          link={img.four}
-          id="3"
-          name="four"
-          setImg={setImg}
-          img={img}
-          isEdit={isEdit}
-        />
-        <UpLoad
-          link={img.fire}
-          id="4"
-          name="fire"
-          setImg={setImg}
-          img={img}
-          isEdit={isEdit}
-        />
-        <UpLoad
-          link={img.six}
-          id="5"
-          name="six"
-          setImg={setImg}
-          img={img}
-          isEdit={isEdit}
-        />
+        <UpLoad id="3" name="four" setImg={setImg} img={img} isEdit={isEdit} />
+        <UpLoad id="4" name="fire" setImg={setImg} img={img} isEdit={isEdit} />
+        <UpLoad id="5" name="six" setImg={setImg} img={img} isEdit={isEdit} />
       </Flex>
     </Box>
   );

@@ -10,6 +10,7 @@ import {
   createStyles,
   FileButton,
   FileInput,
+  Image,
   Input,
 } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,30 +23,28 @@ import { UserSlice } from 'store/slice/userSlice';
 interface Props {
   id: string;
   name: string;
-  link: string;
   img: any;
   setImg: any;
   isEdit?: boolean;
 }
-function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
-  const ImgFile = new FormData();
+function UpLoad({ id, name, setImg, img, isEdit }: Props) {
+  // Global
+  const profile = useSelector(getProfileSelector);
   // Local
+  const ImgFile = new FormData();
   const { t } = useTranslation();
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(() => {
-    if (link) return 4;
+    if (profile.picture[id]) return 4;
     return 2;
   });
   const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
   const [file, setFile] = useState<File | null>(null);
-  // Global
-  const profile = useSelector(getProfileSelector);
 
   const handleUploadImage = e => {
     setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
     // setFile();
   };
-  console.log(selectedFile);
   const handleClearImg = url => {
     setImg({ ...img, [name]: '' });
     setZIndex(2);
@@ -90,6 +89,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
       return;
     }
   }, [file]);
+  console.log(profile.picture[id]);
   return (
     <Card
       sx={{
@@ -102,23 +102,26 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
       className={classes.picCard}
     >
       {img[name] && (
-        <button
-          className={classes.clearBtn}
-          onClick={() => {
-            handleClearImg(img[name]);
-          }}
-        >
-          <Clear width={20} height={20} />
-        </button>
+        <>
+          <button
+            className={classes.clearBtn}
+            onClick={() => {
+              handleClearImg(img[name]);
+            }}
+          >
+            <Clear width={20} height={20} />
+          </button>
+          <Image
+            sx={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: zIndex,
+            }}
+            src={profile.picture[id]}
+          />
+        </>
       )}
-      <BackgroundImage
-        sx={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: zIndex,
-        }}
-        src={profile.picture[id] || link}
-      ></BackgroundImage>
+
       <Box
         sx={{
           width: '35%',
