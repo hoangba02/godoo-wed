@@ -48,23 +48,6 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   const handleClearImg = url => {
     setImg({ ...img, [name]: '' });
     setZIndex(2);
-    // apiPost(
-    //   '/v1/deletefile',
-    //   {
-    //     url: url,
-    //   },
-    //   {},
-    // )
-    //   .then(res => {
-    //     if (res.error === 0) {
-    //       setImg({ ...img, [name]: '' });
-    //       setZIndex(2);
-    //     }
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
   };
 
   useEffect(() => {

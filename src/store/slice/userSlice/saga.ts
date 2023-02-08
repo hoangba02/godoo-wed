@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import { apiGet, apiPost } from 'utils/http/request';
 import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
