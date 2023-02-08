@@ -9,13 +9,8 @@ export default function Demo() {
   const [file, setFile] = useState<File | null>(null);
   const resetRef = useRef<() => void>(null);
 
-  const clearFile = () => {
-    setFile(null);
-    resetRef.current?.();
-  };
   const handleUploadImage = e => {
     setSelectedFile({ name: 'one', filename: '' });
-    // setFile();
   };
   console.log(selectedFile);
 
@@ -55,9 +50,9 @@ export default function Demo() {
         >
           {props => <Button {...props}>Upload image</Button>}
         </FileButton>
-        <Button disabled={!file} color="red" onClick={clearFile}>
+        {/* <Button disabled={!file} color="red" onClick={clearFile}>
           Reset
-        </Button>
+        </Button> */}
       </Group>
       {file && (
         <>
