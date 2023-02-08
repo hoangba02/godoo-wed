@@ -18,8 +18,6 @@ import { apiGet } from 'utils/http/request';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
 import { UserSlice } from 'store/slice/userSlice';
-import { CardSwiper } from '../CardSwiper/CardSwipe';
-// import { CardSwiper } from 'react-card-rotate-swiper';
 
 interface Props {
   drawer?: boolean;
@@ -39,6 +37,7 @@ function Swipe({ drawer }: Props) {
   const [active, setActive] = useState<number>();
   const [listSwipe, setListSwipe] = useState<any>([]);
   const [currentIndex, setCurrentIndex] = useState(listSwipe.length - 1);
+  const [offsetDrag, setOffsetDrag] = useState(0);
   const currentIndexRef = useRef(currentIndex);
   const containerRef = useRef<any>(null);
 
@@ -49,19 +48,25 @@ function Swipe({ drawer }: Props) {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  // const swiped = (direction, swipedUser, index) => {
-  //   if (direction === 'right') {
-  //     // updateMatches(swipeUserId);
-  //     dispatch(
-  //       actions.requestLikeAction({
-  //         id: user.id,
-  //         token: user.token,
-  //         user_2: swipedUser,
-  //       }),
-  //     );
-  //   }
-  //   updateCurrentIndex(index - 1);
-  // };
+  const swiped = (direction, swipedUser, index) => {
+    if (direction === 'right') {
+      // updateMatches(swipeUserId);
+      dispatch(
+        actions.requestLikeAction({
+          id: user.id,
+          token: user.token,
+          user_2: swipedUser,
+        }),
+      );
+    }
+    updateCurrentIndex(index - 1);
+  };
+  const goBack = async () => {
+    if (!canGoBack) return;
+    const newIndex = currentIndex + 1;
+    updateCurrentIndex(newIndex);
+    await childRefs.current[newIndex].restoreCard();
+  };
   useLayoutEffect(() => {
     apiGet('/v1/godoo/swipe/randomfriend', {
       userid: user.id,
@@ -77,16 +82,16 @@ function Swipe({ drawer }: Props) {
         console.log(err);
       });
   }, []);
-  // useEffect(() => {
-  //   containerRef.current.addEventListener('wheel', event => {
-  //     const delta = Math.sign(event.deltaY);
-  //     console.info(delta);
-  //     if (delta === 1) {
-  //       toggle();
-  //     }
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentIndex]);
+  useEffect(() => {
+    containerRef.current.addEventListener('wheel', event => {
+      const delta = Math.sign(event.deltaY);
+      console.info(delta);
+      if (delta === 1) {
+        toggle();
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
   return (
     <Container
       ref={containerRef}
@@ -116,9 +121,9 @@ function Swipe({ drawer }: Props) {
       <Flex className={classes.nav}>
         <button
           className={classes.btn}
-          // onClick={(): void => {
-          //   goBack();
-          // }}
+          onClick={(): void => {
+            goBack();
+          }}
         >
           <Undo />
         </button>
@@ -137,21 +142,29 @@ function Swipe({ drawer }: Props) {
         }}
         className={classes.overlay}
       >
-        {listSwipe.reverse().map((data, index) => {
+        {listSwipe.map((data, index) => {
           return (
-            <CardSwiper
-              key={index}
+            <TinderCard
+              ref={(el: never) => (childRefs.current[index] = el)}
               className={classes.swipe}
-              detectingSize={300}
-              throwLimit={5000}
-              contents={
+              key={index}
+              swipeRequirementType="position"
+              preventSwipe={['up', 'down']}
+              swipeThreshold={phone ? 150 : 300}
+              onSwipe={dir => swiped(dir, data, index)}
+            >
+              <motion.div
+              // drag
+              // dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+              // onDrag={drag}
+              >
                 <Card
                   className={classes.draggable}
                   sx={{
                     height: 'max-content',
                     background: 'none',
                     borderRadius: '20px !important',
-                    zIndex: index,
+                    zIndex: 5,
                     '::before': {
                       content: '""',
                       position: 'absolute',
@@ -176,14 +189,18 @@ function Swipe({ drawer }: Props) {
                     },
                   }}
                 >
-                  <MyCarousel setActive={setActive} data={data} />
+                  <MyCarousel
+                    key={data.userId}
+                    setActive={setActive}
+                    data={data}
+                  />
                   <Flex className={classes.bio}>
                     <BioDescription data={data} />
                     <Gift />
                   </Flex>
                 </Card>
-              }
-            />
+              </motion.div>
+            </TinderCard>
           );
         })}
         {!tablet && (

@@ -65,8 +65,10 @@ interface Props {
   isTitle: boolean;
   profile?: any;
   label?: string;
+  item?: string;
+  setItem?: string[];
 }
-function GendersList({ profile, label, isTitle }: Props) {
+function GendersList({ profile, label, isTitle, item, setItem }: Props) {
   const { classes } = useStyles();
   const [filterList, setFilterList] = useState<string[]>([]);
   const genderUser = genders.filter(value =>

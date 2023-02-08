@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Container, Text } from '@mantine/core';
 import { AboutPage } from '../../Loadable';
 import GendersList from 'app/components/GendersList/GendersList';
 
 function EditGender() {
+  const [showProfile, setShowProfile] = useState<boolean>(true);
   return (
     <AboutPage title="Gender">
       <Container
@@ -25,6 +26,10 @@ function EditGender() {
         </Text>
         <GendersList isTitle={false} />
         <Checkbox
+          checked={showProfile}
+          onChange={e => {
+            setShowProfile(e.currentTarget.checked);
+          }}
           sx={{ marginTop: 12 }}
           styles={{
             label: {

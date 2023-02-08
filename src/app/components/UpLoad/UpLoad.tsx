@@ -165,7 +165,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
               '&:hover': {
                 transition: '0.5s',
                 backgroundColor:
-                  id !== '0' && img.one === ''
+                  id !== '0' && !img.one
                     ? '#BFBFBF !important'
                     : '#E46125 !important',
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
@@ -181,7 +181,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
                 height: id === '0' ? 42 : 26,
               },
             }}
-            disabled={id !== '0' && img.one === '' ? true : false}
+            disabled={id !== '0' && !img.one ? true : false}
             leftIcon={
               <IconPlus
                 width={id === '0' ? 29 : 18}

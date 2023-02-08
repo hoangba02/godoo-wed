@@ -112,7 +112,7 @@ export function LoginPage() {
       }
     } else {
       navigate('/login');
-      // dispatch(counterActions.setCounter({ value: -1 }));
+      dispatch(counterActions.setCounter({ value: 0 }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
@@ -124,7 +124,6 @@ export function LoginPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogin]);
-
   return (
     <Background>
       <LoginLayout islogin={true}>

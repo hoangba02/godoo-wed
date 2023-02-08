@@ -25,7 +25,7 @@ function MyCarousel({ setActive, data }) {
         slideGap={0}
         draggable={false}
         withControls={false}
-        plugins={[autoplay.current]}
+        // plugins={[autoplay.current]}
         onSlideChange={value => setActive(value)}
       >
         {data.picture
