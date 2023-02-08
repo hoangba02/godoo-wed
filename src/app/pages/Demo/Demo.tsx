@@ -14,7 +14,7 @@ export default function Demo() {
     resetRef.current?.();
   };
   const handleUploadImage = e => {
-    setSelectedFile({ name: 'one', filename: e.target.files[0] });
+    setSelectedFile({ name: 'one', filename: '' });
     // setFile();
   };
   console.log(selectedFile);
@@ -66,6 +66,7 @@ export default function Demo() {
           </Text>
           <Image
             sx={{
+              position: 'relative',
               zIndex: 9999,
             }}
             width={100}
