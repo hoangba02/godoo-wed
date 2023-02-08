@@ -111,11 +111,14 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
           >
             <Clear width={20} height={20} />
           </button>
-          <Image
-            sx={{
+          <img
+            style={{
+              width: '100%',
+              height: '100%',
               position: 'absolute',
               inset: 0,
               zIndex: zIndex,
+              objectFit: 'cover',
             }}
             src={profile.picture[id]}
           />
