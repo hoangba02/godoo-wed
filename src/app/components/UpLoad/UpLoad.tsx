@@ -94,7 +94,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
           >
             <Clear width={20} height={20} />
           </button>
-          <img
+          <Image
             style={{
               width: '100%',
               height: '100%',

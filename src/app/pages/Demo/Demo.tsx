@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FileButton, Button, Group, Text, List } from '@mantine/core';
+import { FileButton, Button, Group, Text, List, Image } from '@mantine/core';
 import { apiPost } from 'utils/http/request';
 
 export default function Demo() {
@@ -27,6 +27,10 @@ export default function Demo() {
       })
         .then(res => {
           console.log(res);
+          setSelectedFile({
+            ...selectedFile,
+            filename: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
+          });
         })
         .catch(err => {
           console.log(err);
@@ -56,9 +60,18 @@ export default function Demo() {
         </Button>
       </Group>
       {file && (
-        <Text size="sm" align="center" mt="sm">
-          Picked file: {file.name}
-        </Text>
+        <>
+          <Text size="sm" align="center" mt="sm">
+            Picked file: {file.name}
+          </Text>
+          <Image
+            sx={{
+              zIndex: 9999,
+            }}
+            width={100}
+            src={selectedFile.filename}
+          />
+        </>
       )}
     </>
   );

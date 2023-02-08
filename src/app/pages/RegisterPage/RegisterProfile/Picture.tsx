@@ -13,6 +13,7 @@ import {
 import { UserSlice } from 'store/slice/userSlice';
 import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 import Photographs from 'app/components/Photographs/Photographs';
+import Demo from 'app/pages/Demo/Demo';
 
 export default function Picture() {
   // Global
@@ -65,6 +66,7 @@ export default function Picture() {
   return (
     <ProfileLayout>
       <Box className={classes.children}>
+        <Demo />
         <Box
           sx={{
             height: '93%',
