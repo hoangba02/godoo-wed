@@ -39,7 +39,6 @@ export default function Picture() {
     dispatch(counterActions.increase());
   };
   useEffect(() => {
-    const pictures = Object.values(img);
     dispatch(
       actions.requestProfile({
         id: user.id,
@@ -47,7 +46,7 @@ export default function Picture() {
         token: user.token,
         profile: {
           nickname: profile.nickname,
-          picture: pictures.filter(pic => !!pic),
+          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
           date_of_birth: profile.date_of_birth,
           zodiac: profile.zodiac,
           gender: profile.gender,

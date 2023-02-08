@@ -10,6 +10,7 @@ import {
   createStyles,
   FileButton,
   FileInput,
+  Group,
   Image,
   Input,
 } from '@mantine/core';
@@ -38,13 +39,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
     if (profile.picture[id]) return 4;
     return 2;
   });
-  const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
   const [file, setFile] = useState<File | null>(null);
-
-  const handleUploadImage = e => {
-    setSelectedFile({ name: e.target.name, filename: e.target.files[0] });
-    // setFile();
-  };
   const handleClearImg = url => {
     setImg({ ...img, [name]: '' });
     setZIndex(2);
@@ -53,7 +48,6 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   useEffect(() => {
     if (file) {
       ImgFile.append('file', file);
-      console.log(ImgFile);
       apiPost('/v1/uploadgeturl', ImgFile, {
         'content-type': 'multipart/form-data',
       })
@@ -63,7 +57,6 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
             [name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
           });
           setZIndex(4);
-          console.log(res);
         })
         .catch(err => {
           console.log(err);
@@ -72,7 +65,6 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
       return;
     }
   }, [file]);
-  console.log(profile.picture[id]);
   return (
     <Card
       sx={{
@@ -125,14 +117,16 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
           color={isEdit ? '#D6D6D6' : '#F3F3F3'}
         />
       </Box>
-      <FileInput
-        sx={{
-          zIndex: 3,
-        }}
-        name={name}
-        value={file}
-        onChange={setFile}
-      />
+      <Group position="center">
+        <FileButton
+          name={name}
+          // resetRef={resetRef}
+          onChange={setFile}
+          accept="image/png,image/jpeg"
+        >
+          {props => <Button {...props}>Upload image</Button>}
+        </FileButton>
+      </Group>
     </Card>
   );
 }

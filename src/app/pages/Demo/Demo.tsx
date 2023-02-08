@@ -50,9 +50,6 @@ export default function Demo() {
         >
           {props => <Button {...props}>Upload image</Button>}
         </FileButton>
-        {/* <Button disabled={!file} color="red" onClick={clearFile}>
-          Reset
-        </Button> */}
       </Group>
       {file && (
         <>
