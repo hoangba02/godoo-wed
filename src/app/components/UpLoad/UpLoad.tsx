@@ -117,16 +117,71 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
           color={isEdit ? '#D6D6D6' : '#F3F3F3'}
         />
       </Box>
-      <Group position="center">
-        <FileButton
-          name={name}
-          // resetRef={resetRef}
-          onChange={setFile}
-          accept="image/png,image/jpeg"
-        >
-          {props => <Button {...props}>Upload image</Button>}
-        </FileButton>
-      </Group>
+      {!img[name] && (
+        <Group position="center">
+          <FileButton
+            name={name}
+            // resetRef={resetRef}
+            onChange={setFile}
+            accept="image/png,image/jpeg"
+          >
+            {props => (
+              <Button
+                styles={{
+                  leftIcon: {
+                    margin: 0,
+                  },
+                }}
+                sx={{
+                  position: 'absolute',
+                  bottom: '8%',
+                  width: id === '0' ? '42%' : '50%',
+                  height: id === '0' ? 56 : 26,
+                  color: 'var(--white)',
+                  padding: 0,
+                  backgroundColor: '#E46125',
+                  borderRadius: 34,
+                  fontSize: id === '0' ? 24 : 14,
+                  fontWeight: 400,
+                  lineHeight: '18px',
+                  zIndex: 3,
+                  '&::before': {
+                    display: 'none',
+                  },
+                  '&:hover': {
+                    transition: '0.5s',
+                    backgroundColor:
+                      id !== '0' && !img.one
+                        ? '#BFBFBF !important'
+                        : '#E46125 !important',
+                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                  },
+                  '&[data-disabled]': {
+                    cursor: id === '0' ? 'default' : 'no-drop',
+                    color: 'var(--white) !important',
+                    backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
+                  },
+                  [`@media (max-width:575px)`]: {
+                    fontSize: id === '0' ? 24 : 14,
+                    width: id === '0' ? '50%' : '56%',
+                    height: id === '0' ? 42 : 26,
+                  },
+                }}
+                disabled={id !== '0' && !img.one ? true : false}
+                leftIcon={
+                  <IconPlus
+                    width={id === '0' ? 29 : 18}
+                    height={id === '0' ? 29 : 18}
+                  />
+                }
+                {...props}
+              >
+                {t('Profile.text.Add')}
+              </Button>
+            )}
+          </FileButton>
+        </Group>
+      )}
     </Card>
   );
 }

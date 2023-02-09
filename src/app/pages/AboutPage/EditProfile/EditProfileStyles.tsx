@@ -39,4 +39,27 @@ export const EditProfileStyles = createStyles(() => ({
     border: ' 1px solid #EAEAEA',
     padding: '8px 12px',
   },
+  more: {
+    width: '100%',
+    height: 55,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    border: '1px solid #A9A9A9',
+    borderRadius: 8,
+    padding: '16px 14px 16px 16px',
+  },
+  moreName: {},
+  addBtn: {
+    color: '#929292',
+    width: 52,
+    height: '100%',
+    border: 'none',
+    padding: 0,
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '18px',
+    ':hover': {
+      color: 'var(--primary-4)',
+    },
+  },
 }));

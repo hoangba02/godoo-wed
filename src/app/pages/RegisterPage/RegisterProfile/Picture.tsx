@@ -65,7 +65,6 @@ export default function Picture() {
   return (
     <ProfileLayout>
       <Box className={classes.children}>
-        <Demo />
         <Box
           sx={{
             height: '93%',

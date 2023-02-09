@@ -19,6 +19,7 @@ import Photographs from 'app/components/Photographs/Photographs';
 import { EditProfileStyles } from './EditProfileStyles';
 import { genders } from 'app/components/GendersList/GendersList';
 import { useNavigate } from 'react-router-dom';
+import { MORE } from './More';
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -169,6 +170,29 @@ function EditProfile() {
             <Text className={classes.label}>Change gender</Text>
             <ArrowRight />
           </Flex>
+        </Stack>
+        <Stack>
+          <Text className={classes.title}>More about me</Text>
+          {MORE.map((item, index) => (
+            <Flex className={classes.more} key={index}>
+              <Text m={0} className={classes.title}>
+                {item.name}
+              </Text>
+              <Button
+                styles={{
+                  rightIcon: {
+                    marginLeft: 0,
+                  },
+                }}
+                variant="subtle"
+                rightIcon={<ArrowRight />}
+                className={classes.addBtn}
+                onClick={() => navigate('/about/profile/more')}
+              >
+                Add
+              </Button>
+            </Flex>
+          ))}
         </Stack>
       </Container>
     </AboutPage>

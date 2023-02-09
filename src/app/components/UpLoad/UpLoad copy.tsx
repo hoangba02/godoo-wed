@@ -150,7 +150,7 @@ function UpLoad({ link, id, name, setImg, img, isEdit }: Props) {
               position: 'absolute',
               bottom: '8%',
               width: id === '0' ? '50%' : '56%',
-              height: id === '0' ? 42 : 26,
+              height: id === '0' ? 56 : 26,
               color: 'var(--white)',
               padding: 0,
               backgroundColor: '#E46125',

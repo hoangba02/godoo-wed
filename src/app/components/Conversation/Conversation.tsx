@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Container, Flex, Text } from '@mantine/core';
 
@@ -16,20 +15,17 @@ import { ReactComponent as Calendar } from 'assets/icons/chat/calendar.svg';
 import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatColor.svg';
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { DateForm } from '../DateForm/DateForm';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
 import ConversationContent from './Content';
+import { connectWebSocket } from 'socket/client';
 
 interface Props {
   location?: any;
 }
 function Conversation({ location }: Props) {
+  const ws = connectWebSocket();
   const navigate = useNavigate();
-  const user = useSelector(getUserSelector);
-  // const ws = new WebSocket(
-  //   `ws://ttvnapi.com/v1/?id=${user.id}&token=${user.token}`,
-  // );
+
   // Local
-  const ws = useRef<any>(null);
   const messRef = useRef<HTMLDivElement[]>([]);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { classes } = ConversationStyles();
@@ -78,7 +74,7 @@ function Conversation({ location }: Props) {
           c: { txt: message },
         },
       };
-      console.log(content);
+      // console.log(content);
       setMessages([...messages, content]);
       setMessage('');
     }
@@ -88,34 +84,16 @@ function Conversation({ location }: Props) {
       handleSendMessage();
     }
   };
-  // useEffect(() => {
-  //   ws.current = new WebSocket(
-  //     `ws://ttvnapi.com/v1/?id=${user.id}&token=${user.token}`,
-  //   );
-  //   if (messagesEndRef) {
-  //     messagesEndRef.current?.scrollIntoView();
-  //   }
-  // }, [location.profile.userId]);
-  // useEffect(() => {
-  //   ws.current.onopen = e => {
-  //     console.log('Connected', e);
-  //   };
 
-  //   ws.current.onclose = e => {
-  //     console.log(' Disconnected', e);
-  //   };
-  //   return () => {
-  //     ws.current.close();
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   ws.current.onmessage = e => {
-  //     const message = JSON.parse(e.data);
-  //     // setMessages([...messages, message]);
-  //     console.log(message);
-  //   };
-  // }, [message]);
+  useEffect(() => {
+    ws.onopen = () => {
+      console.log('Connect');
+    };
+    ws.onmessage = message => {
+      const data = JSON.parse(message.data);
+      console.log('Message', data);
+    };
+  }, []);
   return (
     <Container fluid className={classes.container}>
       <Profile

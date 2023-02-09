@@ -9,6 +9,7 @@ import { userSaga } from './saga';
 export const initialState: UserState = {
   // Account
   id: -1,
+  ws: {},
   user_2: {},
   token: '',
   isLogin: false,
@@ -66,6 +67,16 @@ const slice = createSlice({
       state.likedYouList = [];
       state.chatList = [];
       state.comingList = [];
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          id: action.payload.id,
+          token: action.payload.token,
+        }),
+      );
+    },
+    requestConnectWs(state: UserState, action: PayloadAction<any>) {
+      state.ws = action.payload;
     },
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;

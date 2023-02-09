@@ -1,7 +1,10 @@
-import { useSelector } from 'react-redux';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
+import React from 'react';
 
-// const user = useSelector(getUserSelector);
-// export const ws = new WebSocket(
-//   `ws://ttvnapi.com/v1/?id=${user.id}&token=${user.token}`,
-// );
+export const connectWebSocket = () => {
+  const user = JSON.parse(localStorage.getItem('user') || '');
+  console.log(user);
+  const ws = new WebSocket(
+    `ws://ttvnapi.com/v1?id=${user.id}&token=${user.token}`,
+  );
+  return ws;
+};

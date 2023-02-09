@@ -10,15 +10,6 @@ function Photographs({ img, setImg, isEdit }) {
         position: 'relative',
         width: '100%',
         height: '100%',
-        [`@media (min-width:768px) and (max-width:991px)`]: {
-          height: '58%',
-        },
-        [`@media (min-width:576px) and (max-width:767px)`]: {
-          height: '61%',
-        },
-
-        [`@media (max-width:575px)`]: { height: 'max-content' },
-        // [`@media (max-width:375px)`]: {},
       }}
     >
       <Flex
@@ -27,12 +18,6 @@ function Photographs({ img, setImg, isEdit }) {
           height: '65.5%',
           gap: '5%',
           justifyContent: 'space-between',
-          // [`@media (min-width:768px) and (max-width:991px)`]: {
-          //   height: '53.5%',
-          // },
-          // [`@media (min-width:576px) and (max-width:767px)`]: {
-          //   height: '65.5%',
-          // },
           [`@media (max-width:575px)`]: {
             gap: 15,
             height: 225,
@@ -74,9 +59,6 @@ function Photographs({ img, setImg, isEdit }) {
           gap: '5%',
           marginTop: 25,
           justifyContent: 'space-between',
-          // [`@media (min-width:768px) and (max-width:991px)`]: {
-          //   height: '30%',
-          // },
           [`@media (max-width:575px)`]: {
             gap: 0,
             height: 106,

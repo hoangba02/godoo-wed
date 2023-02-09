@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import HeaderChild from 'app/components/Header/HeaderChild';
-import { Box, Container, createStyles, Flex, Stack } from '@mantine/core';
+import { Box, Container, Flex, Stack } from '@mantine/core';
 import About from 'app/components/About/About';
+import { AboutLayoutStyles } from '../AboutLayoutStyles';
 interface Props {
   children?: JSX.Element | JSX.Element[];
   title?: string;
 }
 function AboutWeb({ children, title }: Props) {
-  const { classes } = useStyles();
+  const { classes } = AboutLayoutStyles();
   return (
     <Flex className={classes.container}>
       <Box
@@ -29,30 +30,3 @@ function AboutWeb({ children, title }: Props) {
 }
 
 export default memo(AboutWeb);
-const useStyles = createStyles(() => ({
-  container: {
-    width: '100%',
-    padding: '0 135px',
-    [`@media (max-width:799px)`]: {
-      padding: 0,
-    },
-  },
-  content: {
-    width: '100%',
-    height: '100vh',
-    padding: '45px 30px 0',
-    borderLeft: '1px solid #BFBFBF',
-    [`@media (max-width:799px)`]: {
-      padding: 0,
-    },
-  },
-  child: {
-    gap: 10,
-    width: '100%',
-    height: 'calc(100vh - 91px)',
-    alignItems: 'center',
-    [`@media (max-width:575px)`]: {
-      padding: '24px 16px 0',
-    },
-  },
-}));

@@ -33,6 +33,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
             navigate('/about/');
           } else if (title === 'Delete account') {
             navigate('/about/setting');
+          } else if (title === 'More about me') {
+            navigate('/about/profile');
           }
 
           if (onMotion) {
