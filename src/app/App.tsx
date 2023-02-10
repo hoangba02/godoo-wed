@@ -1,11 +1,3 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -40,10 +32,12 @@ import Notification from './pages/AboutPage/Settings/Notification/Notification';
 import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 import MoreAbout from './pages/AboutPage/EditProfile/MoreAbout/MoreAbout';
-import { connectWebSocket } from 'socket/client';
+import Websocket from 'lib/socket/websocket';
 export function App() {
   const { i18n } = useTranslation();
-
+  React.useEffect(() => {
+    Websocket.SocketConnect();
+  }, []);
   return (
     <BrowserRouter>
       <Helmet
@@ -57,7 +51,7 @@ export function App() {
       <Routes>
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/chat" element={<ChatPage />} />
+          <Route path="/chat/:userId" element={<ChatPage />} />
           {/* About Page */}
           <Route path="/about" element={<About />} />
           <Route path="/about/setting" element={<Setting />} />

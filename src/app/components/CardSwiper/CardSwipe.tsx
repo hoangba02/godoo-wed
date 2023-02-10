@@ -199,10 +199,8 @@ export const CardSwiper = (props: TProps) => {
       target.current.addEventListener('touchstart', ev => {
         ev.preventDefault();
       });
-
       target.current.addEventListener('mousedown', ev => {
         ev.preventDefault();
-        console.log(target.current);
       });
 
       target.current.addEventListener('touchmove', ev => {

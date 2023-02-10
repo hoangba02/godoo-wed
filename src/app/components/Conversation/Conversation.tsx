@@ -16,15 +16,18 @@ import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatC
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { DateForm } from '../DateForm/DateForm';
 import ConversationContent from './Content';
-import { connectWebSocket } from 'socket/client';
+import Websocket from 'lib/socket/websocket';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 interface Props {
-  location?: any;
+  profile?: any;
+  messages?: any;
+  setMessages?: any;
 }
-function Conversation({ location }: Props) {
-  const ws = connectWebSocket();
+function Conversation({ profile, messages, setMessages }: Props) {
   const navigate = useNavigate();
-
+  const user = useSelector(getUserSelector);
   // Local
   const messRef = useRef<HTMLDivElement[]>([]);
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
@@ -32,9 +35,10 @@ function Conversation({ location }: Props) {
   const { isShowing, isShowing2, toggle, toggle2 } = useModal();
   const [showTime, setShowTime] = useState(-1);
   const [showOptions, setShowOptions] = useState(false);
+  const [res, setRes] = useState();
 
   const [message, setMessage] = useState<any>();
-  const [messages, setMessages] = useState<any>([]);
+  // const [messages, setMessages] = useState<any>([]);
   const variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
@@ -69,12 +73,13 @@ function Conversation({ location }: Props) {
       const content = {
         id: 1001,
         d: {
-          t: location.profile.userId,
-          cv: location.profile.userId,
+          t: profile.userId,
+          cv: `${user.id}-${profile.userId}`,
           c: { txt: message },
         },
       };
       // console.log(content);
+      Websocket.onSend(content);
       setMessages([...messages, content]);
       setMessage('');
     }
@@ -84,22 +89,12 @@ function Conversation({ location }: Props) {
       handleSendMessage();
     }
   };
-
-  useEffect(() => {
-    ws.onopen = () => {
-      console.log('Connect');
-    };
-    ws.onmessage = message => {
-      const data = JSON.parse(message.data);
-      console.log('Message', data);
-    };
-  }, []);
   return (
     <Container fluid className={classes.container}>
       <Profile
         hide={toggle}
         isShowing={isShowing}
-        profile={location.profile}
+        profile={profile}
         translateX="45%"
       />
       <Flex className={classes.header}>
@@ -111,14 +106,14 @@ function Conversation({ location }: Props) {
           <ArrowLeft />
         </Box>
         <Text className={classes.nickname} onClick={toggle}>
-          {location.profile.nickname}
+          {profile?.nickname}
         </Text>
         <Box>
           <Detail />
         </Box>
       </Flex>
       <ConversationContent
-        profile={location.profile}
+        profile={profile}
         messages={messages}
         messEnd={messagesEndRef}
         ref={messRef}
@@ -177,7 +172,7 @@ function Conversation({ location }: Props) {
       <DateForm
         hide={toggle2}
         isShowing={isShowing2}
-        profile={location.profile}
+        profile={profile}
         translateX="45%"
       />
     </Container>

@@ -1,6 +1,4 @@
 import React from 'react';
-import MatchAccount from 'app/components/MatchAccount/MatchAccount';
-import { Link } from 'react-router-dom';
 import { Container, createStyles, Image, Text } from '@mantine/core';
 import { images } from 'assets/images';
 

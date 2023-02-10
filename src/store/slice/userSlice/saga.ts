@@ -6,7 +6,6 @@ import { usersActions } from '.';
 export function* CheckProfile(data) {
   const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
     userId: data.id,
-    token: data.token,
   });
   if (res.data !== null) {
     yield put(

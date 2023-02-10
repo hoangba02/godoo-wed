@@ -43,7 +43,6 @@ export default function Picture() {
       actions.requestProfile({
         id: user.id,
         isLogin: false,
-        token: user.token,
         profile: {
           nickname: profile.nickname,
           picture: [img.one, img.two, img.three, img.four, img.fire, img.six],

@@ -29,7 +29,11 @@ export default function LoginLayout({ children, islogin }) {
       fluid
       className={classes.container}
     >
-      <LoadingOverlay visible={user.loading} overlayBlur={2} />
+      <LoadingOverlay
+        visible={user.loading}
+        overlayBlur={2}
+        loaderProps={{ color: '#E46125' }}
+      />
       {phone && <Logo className={classes.logo} isLang />}
       <Card
         sx={{

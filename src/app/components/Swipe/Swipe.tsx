@@ -68,7 +68,6 @@ function Swipe({ drawer }: Props) {
       token: user.token,
     })
       .then(res => {
-        console.log(res.data);
         let newListSwipe = res.data.filter(value => value.picture.length !== 0);
         setListSwipe(newListSwipe);
         setCurrentIndex(newListSwipe.length - 1);

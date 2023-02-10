@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStyles, Paper } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 interface Props {
   image: string;
@@ -8,12 +10,12 @@ interface Props {
   data?: any;
 }
 export default function SwipeCard({ data, image, radius }: Props) {
+  const user = useSelector(getUserSelector);
+  // Local
   const navigate = useNavigate();
   const { classes } = useStyles();
   const handleNavigateChatPage = () => {
-    navigate('/chat', {
-      state: { profile: data },
-    });
+    navigate(`/chat/${data.userId}`);
   };
   return (
     <Paper

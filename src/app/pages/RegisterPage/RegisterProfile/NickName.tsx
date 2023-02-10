@@ -46,7 +46,6 @@ export default function NickName() {
         actions.requestProfile({
           id: user.id,
           isLogin: false,
-          token: user.token,
           profile: {
             nickname: form.values.nickname,
             picture: profile.picture,

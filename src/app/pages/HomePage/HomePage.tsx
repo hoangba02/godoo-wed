@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { useMediaQuery } from '@mantine/hooks';
@@ -6,6 +6,7 @@ import HomeMobile from './Mobile/HomeMobile';
 import { HomeWeb } from './Web/HomeWeb';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import Websocket from 'lib/socket/websocket';
 
 export function HomePage() {
   const user = useSelector(getUserSelector);
@@ -14,13 +15,6 @@ export function HomePage() {
     getInitialValueInEffect: !user.device,
   });
 
-  // useEffect(() => {
-  //   if (!user.token) {
-  //     navigate('/login');
-  //   } else {
-  //     navigate('/');
-  //   }
-  // }, [navigate]);
   return (
     <>
       <Helmet>

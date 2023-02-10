@@ -10,9 +10,9 @@ function Content({ profile, messages, messEnd }, ref) {
       <Stack className={classes.message}>
         <Stack className={classes.avatar}>
           <Text className={classes.text}>
-            {`${profile.nickname} is your new match!`}
+            {`${profile?.nickname} is your new match!`}
           </Text>
-          <Avatar radius={9999} size={176} src={profile.picture[0]} />
+          <Avatar radius={9999} size={176} src={profile?.picture[0]} />
         </Stack>
         {messages.map((chat, index) => (
           <TextMessage

@@ -92,7 +92,6 @@ export default function Gender() {
       actions.requestProfile({
         id: user.id,
         isLogin: false,
-        token: user.token,
         profile: {
           nickname: profile.nickname,
           picture: profile.picture,

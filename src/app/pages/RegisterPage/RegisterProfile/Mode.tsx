@@ -31,7 +31,6 @@ export default function Mode() {
       actions.requestProfile({
         id: user.id,
         isLogin: true,
-        token: user.token,
         profile: {
           nickname: profile.nickname,
           picture: profile.picture,
