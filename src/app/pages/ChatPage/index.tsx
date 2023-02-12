@@ -18,35 +18,35 @@ export function ChatPage() {
   const [profile, setProfile] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<any>([]);
-  useEffect(() => {
-    setLoading(true);
+  // useEffect(() => {
+  //   setLoading(true);
 
-    apiGet('/v1/godoo/profile/get', {
-      userId: userId,
-    })
-      .then(res => {
-        setProfile(res.data);
-        setLoading(false);
-        Websocket.onSend({
-          id: 1011,
-          d: {
-            t: res.data.userId,
-            n: `${user.id}-${res.data.userId}`,
-          },
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+  //   apiGet('/v1/godoo/profile/get', {
+  //     userId: userId,
+  //   })
+  //     .then(res => {
+  //       setProfile(res.data);
+  //       setLoading(false);
+  //       Websocket.onSend({
+  //         id: 1011,
+  //         d: {
+  //           t: res.data.userId,
+  //           n: `${user.id}-${res.data.userId}`,
+  //         },
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
-  useEffect(() => {
-    Websocket.onMessage(1011, response => {
-      console.log(response);
-    });
-  }, []);
-  console.log(loading);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [userId]);
+  // useEffect(() => {
+  //   Websocket.onMessage(1011, response => {
+  //     console.log(response);
+  //   });
+  // }, []);
+  // console.log(loading);
 
   if (phone) {
     return (
