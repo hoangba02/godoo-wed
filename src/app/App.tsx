@@ -35,9 +35,9 @@ import MoreAbout from './pages/AboutPage/EditProfile/MoreAbout/MoreAbout';
 import Websocket from 'lib/socket/websocket';
 export function App() {
   const { i18n } = useTranslation();
-  // React.useEffect(() => {
-  //   Websocket.SocketConnect();
-  // }, []);
+  React.useEffect(() => {
+    Websocket.SocketConnect();
+  }, []);
   return (
     <BrowserRouter>
       <Helmet
