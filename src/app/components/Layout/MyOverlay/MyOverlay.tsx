@@ -26,7 +26,6 @@ const MyOverlay = ({
     const { target } = event;
     if (cardRef.current !== null) {
       if (!cardRef.current.contains(target)) {
-        console.log('Click');
         hide();
       }
     }

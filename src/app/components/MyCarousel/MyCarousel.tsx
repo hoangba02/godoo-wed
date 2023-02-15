@@ -1,102 +1,97 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { createStyles, Flex, Paper, Stack, Text, Title } from '@mantine/core';
-import { ReactComponent as Gift } from 'assets/icons/home/giftBig.svg';
-import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
 
 import SwipeCard from '../Swipe/SwipeCard';
 
-function MyCarousel({ setActive, data }) {
+import { useEffect, useMemo, useState } from 'react';
+import Nav from '../Swipe/Nav';
+
+function MyCarousel({ data }) {
+  const carouselRef = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [active, setActive] = useState<number>(0);
+
+  // Other
+  const listPicture = data.picture.filter(value => {
+    if (value) return value;
+  });
+  const options = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.3,
+  };
+  const isVisibile = useElementOnScreen(options, carouselRef);
   const autoplay = useRef(Autoplay({ delay: 4000 }));
+
+  // useEffect(() => {
+  //   if (isVisibile) {
+  //     if (!playing) {
+  //       autoplay.current.play();
+  //       setPlaying(true);
+  //     }
+  //   } else {
+  //     if (playing) {
+  //       autoplay.current.stop();
+  //       setPlaying(false);
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isVisibile]);
   return (
     <>
+      <Nav active={active} data={data} />
       <Carousel
+        ref={carouselRef}
         styles={{
           root: { height: '100%' },
           container: {
             height: '100%',
-          },
-          viewport: {
-            borderRadius: 20,
           },
         }}
         loop
         height="100%"
         slideSize="100%"
         slideGap={0}
-        draggable={false}
+        draggable={true}
         withControls={false}
-        // plugins={[autoplay.current]}
-        onSlideChange={value => setActive(value)}
+        plugins={[autoplay.current]}
+        // onMouseEnter={autoplay.current.stop}
+        // onMouseUp={() => {
+        //   autoplay.current.play();
+        // }}
+        onSlideChange={value => {
+          console.log(value);
+          setActive(value);
+        }}
       >
-        {data.picture
-          .filter(value => value !== null)
-          .map((item, index) => (
-            <Carousel.Slide key={index}>
-              <SwipeCard image={item} radius={0} />
-            </Carousel.Slide>
-          ))}
+        {listPicture.map((item, index) => (
+          <Carousel.Slide key={index}>
+            <SwipeCard image={item} radius={0} />
+          </Carousel.Slide>
+        ))}
       </Carousel>
     </>
   );
 }
 export default MyCarousel;
 
-interface DescProps {
-  data: any;
-}
-export function BioDescription({ data }: DescProps) {
-  const { classes } = BioStyles();
-  return (
-    <Flex className={classes.container}>
-      <Paper className={classes.paper}>
-        <Text className={classes.nickname}>{data.nickname}, 24</Text>
-        <Title order={3} className={classes.title}>
-          {data.description}
-        </Title>
-      </Paper>
-      <Stack>
-        <Heart />
-        <Gift />
-      </Stack>
-    </Flex>
-  );
-}
-const BioStyles = createStyles(() => ({
-  container: {
-    gap: 18,
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    position: 'absolute',
-    padding: '0 16px',
-    bottom: 30,
-    zIndex: 7,
-    [`@media (max-width:799px)`]: {
-      bottom: 50,
-    },
-    [`@media (max-width:575px)`]: {
-      bottom: 20,
-    },
-  },
-  paper: {
-    color: 'var(--white)',
-    background: 'transparent',
-  },
-  title: {
-    width: 251,
-    fontWeight: 400,
-    lineHeight: '18px',
-    fontSize: 14,
-    marginTop: 2,
-    userSelect: 'none',
-  },
-
-  nickname: {
-    fontWeight: 600,
-    fontSize: 32,
-    lineHeight: '40px',
-    userSelect: 'none',
-  },
-}));
+export const useElementOnScreen = (options, targetRef) => {
+  const [isVisibile, setIsVisible] = useState();
+  const callbackFunction = entries => {
+    const [entry] = entries; //const entry = entries[0]
+    setIsVisible(entry.isIntersecting);
+  };
+  const optionsMemo = useMemo(() => {
+    return options;
+  }, [options]);
+  useEffect(() => {
+    const observer = new IntersectionObserver(callbackFunction, optionsMemo);
+    const currentTarget = targetRef.current;
+    if (currentTarget) observer.observe(currentTarget);
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [targetRef, optionsMemo]);
+  return isVisibile;
+};

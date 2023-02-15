@@ -5,7 +5,7 @@ import { CreateProfileStyles } from '../../../components/Layout/CreateProfile/Cr
 import { images } from 'assets/images';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { IconChevronRight } from '@tabler/icons';
+import { IconCheck } from '@tabler/icons';
 import { useTranslation } from 'react-i18next';
 import {
   getProfileSelector,
@@ -32,7 +32,7 @@ export default function Desc() {
     dispatch(
       actions.requestProfile({
         id: user.id,
-        isLogin: false,
+        isLogin: true,
         profile: {
           nickname: profile.nickname,
           picture: profile.picture,
@@ -40,7 +40,6 @@ export default function Desc() {
           zodiac: profile.zodiac,
           gender: profile.gender,
           introduction: intro,
-          relationship: profile.relationship,
         },
       }),
     );
@@ -54,6 +53,14 @@ export default function Desc() {
   //     setCouterText(0);
   //   }
   // }, [couterText]);
+  useEffect(() => {
+    if (!user.isLogin) {
+      return;
+    } else {
+      navigate('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.isLogin]);
   return (
     <ProfileLayout>
       <Box className={classes.children}>
@@ -120,7 +127,7 @@ export default function Desc() {
             variant="gradient"
             className={classes.nextBtn}
           >
-            <IconChevronRight width={40} height={40} stroke={2.5} />
+            <IconCheck width={40} height={40} stroke={2.5} />
           </Button>
         </Box>
       </Box>

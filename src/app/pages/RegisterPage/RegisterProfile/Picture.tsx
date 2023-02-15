@@ -51,7 +51,6 @@ export default function Picture() {
           zodiac: profile.zodiac,
           gender: profile.gender,
           introduction: profile.introduction,
-          relationship: profile.relationship,
         },
       }),
     );

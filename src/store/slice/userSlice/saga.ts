@@ -17,7 +17,6 @@ export function* CheckProfile(data) {
           zodiac: res.data.zodiac,
           gender: res.data.gender,
           introduction: res.data.introduction,
-          relationship: res.data.relationship,
         },
       }),
     );
@@ -31,7 +30,6 @@ export function* CheckProfile(data) {
           zodiac: '',
           gender: [],
           introduction: '',
-          relationship: -1,
         },
       }),
     );
@@ -67,7 +65,6 @@ export function* SetProfile(action) {
           zodiac: res.data.zodiac,
           gender: res.data.gender,
           introduction: res.data.introduction,
-          relationship: res.data.relationship,
         },
       }),
     );

@@ -37,7 +37,6 @@ export const initialState: UserState = {
     zodiac: '',
     gender: [],
     introduction: '',
-    relationship: -1,
   },
   matchList: [],
   youLikedList: [],
@@ -124,7 +123,6 @@ const slice = createSlice({
         zodiac: '',
         gender: [],
         introduction: '',
-        relationship: -1,
       };
     },
     setLanguage(state: UserState, action: PayloadAction<'vi' | 'en'>) {

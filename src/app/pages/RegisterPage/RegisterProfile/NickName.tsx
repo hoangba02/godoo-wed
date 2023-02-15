@@ -53,7 +53,6 @@ export default function NickName() {
             zodiac: profile.zodiac,
             gender: profile.gender,
             introduction: profile.introduction,
-            relationship: profile.relationship,
           },
         }),
       );

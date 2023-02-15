@@ -36,6 +36,7 @@ function Liked() {
             fontWeight: 400,
             lineHeight: '20px',
             backgroundColor: '#F3F3F3',
+            transition: 'none',
             '::before': {
               display: 'none',
             },

@@ -84,7 +84,6 @@ export default function Birth() {
             gender: profile.gender,
             zodiac: Zodiac(form.values.date)?.name,
             introduction: profile.introduction,
-            relationship: profile.relationship,
           },
         }),
       );

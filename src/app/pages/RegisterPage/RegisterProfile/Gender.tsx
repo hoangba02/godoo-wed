@@ -99,7 +99,6 @@ export default function Gender() {
           zodiac: profile.zodiac,
           gender: sex,
           introduction: profile.introduction,
-          relationship: profile.relationship,
         },
       }),
     );

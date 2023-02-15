@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Checkbox, Container, Flex, Stack, Text } from '@mantine/core';
+import { Button, Checkbox, Container, Flex, Text } from '@mantine/core';
 import { AboutPage } from '../../Loadable';
 import GendersList from 'app/components/GendersList/GendersList';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +28,6 @@ function EditGender() {
           zodiac: profile.zodiac,
           gender: items,
           introduction: profile.introduction,
-          relationship: profile.relationship,
         },
       }),
     );

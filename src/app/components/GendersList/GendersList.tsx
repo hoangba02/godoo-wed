@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as Asexual } from 'assets/icons/gender/Asexual.svg';
 import { ReactComponent as Bisexual } from 'assets/icons/gender/Bisexual.svg';
 import { ReactComponent as Female } from 'assets/icons/gender/Female.svg';
@@ -7,15 +7,7 @@ import { ReactComponent as Lesbian } from 'assets/icons/gender/Lesbian.svg';
 import { ReactComponent as Male } from 'assets/icons/gender/Male.svg';
 import { ReactComponent as Nonbinary } from 'assets/icons/gender/Nonbinary.svg';
 import { ReactComponent as Transgender } from 'assets/icons/gender/Transgender.svg';
-import {
-  Box,
-  clsx,
-  createStyles,
-  Flex,
-  Group,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { clsx, createStyles, Flex, Group, Stack, Text } from '@mantine/core';
 export const genders = [
   {
     id: 0,
@@ -71,7 +63,6 @@ interface Props {
 function GendersList({ profile, label, isTitle, items, setItems }: Props) {
   const { classes } = useStyles();
   // const [items, setItems] = useState<string[]>([]);
-  console.log(items);
   const genderUser = genders.filter(value =>
     profile?.gender.includes(value.name),
   );

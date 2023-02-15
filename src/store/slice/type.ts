@@ -29,7 +29,6 @@ export interface UserState {
     zodiac?: string;
     gender?: string[];
     introduction?: string;
-    relationship?: number;
   };
 
   matchList?: any[];

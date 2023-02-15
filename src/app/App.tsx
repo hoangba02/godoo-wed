@@ -21,7 +21,6 @@ import Picture from 'app/pages/RegisterPage/RegisterProfile/Picture';
 import Birth from 'app/pages/RegisterPage/RegisterProfile/Birthday';
 import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
-import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
 import About from './components/About/About';
 import Account from './pages/AboutPage/Settings/Account/Account';
@@ -76,7 +75,6 @@ export function App() {
           <Route path="/register/birthday" element={<Birth />} />
           <Route path="/register/gender" element={<Gender />} />
           <Route path="/register/description" element={<Desc />} />
-          <Route path="/register/mode" element={<Mode />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />

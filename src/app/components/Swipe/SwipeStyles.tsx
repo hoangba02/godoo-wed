@@ -26,17 +26,10 @@ export const SwipeStyles = createStyles(() => ({
     height: 48,
     padding: '8px 0 16px',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     [`@media (max-width:575px)`]: {
       padding: '8px 0',
     },
-  },
-  tutorial: {
-    gap: 14,
-    width: '100%',
-    marginTop: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   arrow: {
     width: 24,
@@ -44,22 +37,25 @@ export const SwipeStyles = createStyles(() => ({
     borderRadius: 4,
     border: 'none',
   },
-  overlay: {
-    padding: '0px !important',
-    position: 'relative',
-  },
-
-  // Tinder card
   swipe: {
     width: '100%',
     height: '100%',
-    position: 'absolute',
+    padding: 0,
+    borderRadius: '20px',
+    borderCollapse: 'separate',
+    perspective: 1,
+    overflow: 'overlay',
+    scrollSnapType: 'y mandatory',
+    scrollBehavior: 'smooth',
+    scrollSnapStop: 'always',
+    [`@media (max-width:575px)`]: {
+      height: 'max-content',
+    },
   },
-  draggable: {
-    padding: '0 !important',
+  overlay: {
+    gap: 0,
     width: '100%',
-    position: 'absolute',
-    aspectRatio: '0.69',
-    userSelect: 'none',
+    // height: 'max-content',
+    padding: '0px !important',
   },
 }));

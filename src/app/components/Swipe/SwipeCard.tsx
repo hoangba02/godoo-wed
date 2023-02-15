@@ -15,7 +15,9 @@ export default function SwipeCard({ data, image, radius }: Props) {
   const navigate = useNavigate();
   const { classes } = useStyles();
   const handleNavigateChatPage = () => {
-    navigate(`/chat/${data.userId}`);
+    if (data) {
+      navigate(`/chat/${data.userId}`);
+    }
   };
   return (
     <Paper

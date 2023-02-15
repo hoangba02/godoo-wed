@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import { ProfileStyles } from './ProfileStyles';
 import MyOverlay from '../Layout/MyOverlay/MyOverlay';
 import { useDispatch, useSelector } from 'react-redux';
-import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
 import { Button, Card, Container, Flex } from '@mantine/core';
 
 import Nav from '../Swipe/Nav';
@@ -21,6 +20,8 @@ import { ReactComponent as Report } from 'assets/icons/profile/Report.svg';
 import { ReactComponent as Share } from 'assets/icons/profile/Share.svg';
 import { ReactComponent as Unpair } from 'assets/icons/profile/Unpair.svg';
 import GendersList from '../GendersList/GendersList';
+import MyCarousel from '../MyCarousel/MyCarousel';
+import Bio from '../Bio/Bio';
 
 interface Props {
   hide: () => void;
@@ -49,7 +50,6 @@ function Profile({
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = ProfileStyles();
-  const [active, setActive] = useState();
   const [hideModal, setHideModal] = useState(false);
   const [unpairModal, setUnpairModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
@@ -76,12 +76,11 @@ function Profile({
         {isSlide && (
           <>
             <Container fluid className={classes.carousel}>
-              <MyCarousel setActive={setActive} data={profile} />
+              <MyCarousel data={profile} />
               <Card className={classes.bio}>
-                <BioDescription data={profile} />
+                <Bio data={profile} />
               </Card>
             </Container>
-            <Nav active={active} data={profile} />
           </>
         )}
         <Card className={classes.card}>

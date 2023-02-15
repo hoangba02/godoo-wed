@@ -7,7 +7,7 @@ import {
   Paper,
   Text,
 } from '@mantine/core';
-import { ReactComponent as GiftBox } from 'assets/icons/gift.svg';
+import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
 import { motion } from 'framer-motion';
@@ -67,7 +67,7 @@ function LikedAccount({ data, isLiked }: Props) {
           className={classes.gift}
           onClick={e => handleGiveGift(e, data.userId)}
         >
-          {true && <GiftBox />}
+          <Heart width="100%" height="100%" />
         </Button>
       </Paper>
     </motion.div>
@@ -135,5 +135,8 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     top: 6,
     right: 6,
+    ':hover': {
+      background: 'initial',
+    },
   },
 }));

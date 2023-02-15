@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Group, Text, TextInput } from '@mantine/core';
-import axios from 'axios';
 import { useForm } from '@mantine/form';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -11,6 +10,7 @@ import Modals from 'app/components/Modals/Modals';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import { convertLang } from 'app/components/ConvertLang/ConvertLang';
+import { apiPost } from 'utils/http/request';
 
 export default function InputName({ setNext }) {
   const dispatch = useDispatch();
@@ -30,25 +30,29 @@ export default function InputName({ setNext }) {
   });
 
   const handleNext = () => {
-    axios
-      .post('https://ttvnapi.com/v1/forgetpasswordsendusername', {
+    apiPost(
+      'https://ttvnapi.com/v1/forgetpasswordsendusername',
+      {},
+      {
         username: form.values.name,
-      })
+      },
+    )
       .then(res => {
-        if (res.data.error === 2) {
-          form.setErrors({ name: t('LoginPage.username.Username incorrect') });
-        } else if (res.data.error === 12) {
-          setOpenModal(true);
-        } else {
-          dispatch(
-            actions.getUserForgotPass({
-              id: res.data.data.id,
-              telegram_fullname: res.data.data.telegram_fullname,
-              messenger_fullname: res.data.data.messenger_fullname,
-            }),
-          );
-          setNext('method');
-        }
+        console.log(res);
+        // if (res.error === 2) {
+        //   form.setErrors({ name: t('LoginPage.username.Username incorrect') });
+        // } else if (res.error === 12) {
+        //   setOpenModal(true);
+        // } else {
+        //   dispatch(
+        //     actions.getUserForgotPass({
+        //       id: res.data.id,
+        //       telegram_fullname: res.data.telegram_fullname,
+        //       messenger_fullname: res.data.messenger_fullname,
+        //     }),
+        //   );
+        //   setNext('method');
+        // }
       })
       .catch(err => {
         console.log(err);

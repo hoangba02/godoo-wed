@@ -10,7 +10,6 @@ import Picture from 'app/pages/RegisterPage/RegisterProfile/Picture';
 import Birth from 'app/pages/RegisterPage/RegisterProfile/Birthday';
 import Gender from 'app/pages/RegisterPage/RegisterProfile/Gender';
 import Desc from 'app/pages/RegisterPage/RegisterProfile/Description';
-import Mode from 'app/pages/RegisterPage/RegisterProfile/Mode';
 
 import { ChatPage } from 'app/pages/ChatPage/Loadable';
 // import Demo2 from 'app/pages/Demo/Demo2';
@@ -32,5 +31,4 @@ export const privateRoutes = [
   { path: '/register/birthday', component: Birth },
   { path: '/register/gender', component: Gender },
   { path: '/register/description', component: Desc },
-  { path: '/register/mode', component: Mode },
 ];

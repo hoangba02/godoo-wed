@@ -13,6 +13,8 @@ function Nav({ active, data }) {
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        position: 'absolute',
+        zIndex: 7,
       }}
     >
       {Array.from({ length: listPicture.length }).map((value, index) => (
