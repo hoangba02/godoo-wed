@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { IconPlus } from '@tabler/icons';
-import { ReactComponent as Blink } from 'assets/icons/blink.svg';
+import { ReactComponent as Blink } from 'assets/icons/register/blink.svg';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
 import {
-  BackgroundImage,
   Box,
   Button,
   Card,
   createStyles,
   FileButton,
-  FileInput,
   Group,
   Image,
-  Input,
 } from '@mantine/core';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
-import { CounterSlice } from 'store/slice/counterSlice';
-import { UserSlice } from 'store/slice/userSlice';
 
 interface Props {
   id: string;
@@ -52,6 +47,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
         'content-type': 'multipart/form-data',
       })
         .then(res => {
+          console.log(res);
           setImg({
             ...img,
             [name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
@@ -100,87 +96,89 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
         </>
       )}
 
-      <Box
-        sx={{
-          width: '35%',
-          height: '35%',
-          position: 'absolute',
-          top: '20%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1,
-        }}
-      >
-        <Blink
-          width="100%"
-          height="100%"
-          color={isEdit ? '#D6D6D6' : '#F3F3F3'}
-        />
-      </Box>
       {!img[name] && (
-        <Group position="center">
-          <FileButton
-            name={name}
-            // resetRef={resetRef}
-            onChange={setFile}
-            accept="image/png,image/jpeg"
+        <>
+          <Box
+            sx={{
+              width: '43%',
+              height: '43%',
+              position: 'absolute',
+              top: '20%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 1,
+            }}
           >
-            {props => (
-              <Button
-                styles={{
-                  leftIcon: {
-                    margin: 0,
-                  },
-                }}
-                sx={{
-                  position: 'absolute',
-                  bottom: '8%',
-                  width: id === '0' ? '42%' : '50%',
-                  height: id === '0' ? 56 : 26,
-                  color: 'var(--white)',
-                  padding: 0,
-                  backgroundColor: '#E46125',
-                  borderRadius: 34,
-                  fontSize: id === '0' ? 24 : 14,
-                  fontWeight: 400,
-                  lineHeight: '18px',
-                  zIndex: 3,
-                  '&::before': {
-                    display: 'none',
-                  },
-                  '&:hover': {
-                    transition: '0.5s',
-                    backgroundColor:
-                      id !== '0' && !img.one
-                        ? '#BFBFBF !important'
-                        : '#E46125 !important',
-                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                  },
-                  '&[data-disabled]': {
-                    cursor: id === '0' ? 'default' : 'no-drop',
-                    color: 'var(--white) !important',
-                    backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
-                  },
-                  [`@media (max-width:575px)`]: {
+            <Blink
+              width="100%"
+              height="100%"
+              color={id === '0' ? '#FFE0D2' : '#F3F3F3'}
+            />
+          </Box>
+          <Group position="center">
+            <FileButton
+              name={name}
+              // resetRef={resetRef}
+              onChange={setFile}
+              accept="image/png,image/jpeg"
+            >
+              {props => (
+                <Button
+                  styles={{
+                    leftIcon: {
+                      margin: 0,
+                    },
+                  }}
+                  sx={{
+                    position: 'absolute',
+                    bottom: '8%',
+                    width: id === '0' ? '42%' : '50%',
+                    height: id === '0' ? 56 : 26,
+                    color: 'var(--white)',
+                    padding: 0,
+                    backgroundColor: '#E46125',
+                    borderRadius: 34,
                     fontSize: id === '0' ? 24 : 14,
-                    width: id === '0' ? '50%' : '56%',
-                    height: id === '0' ? 42 : 26,
-                  },
-                }}
-                disabled={id !== '0' && !img.one ? true : false}
-                leftIcon={
-                  <IconPlus
-                    width={id === '0' ? 29 : 18}
-                    height={id === '0' ? 29 : 18}
-                  />
-                }
-                {...props}
-              >
-                {t('Profile.text.Add')}
-              </Button>
-            )}
-          </FileButton>
-        </Group>
+                    fontWeight: 400,
+                    lineHeight: '18px',
+                    zIndex: 3,
+                    '&::before': {
+                      display: 'none',
+                    },
+                    '&:hover': {
+                      transition: '0.5s',
+                      backgroundColor:
+                        id !== '0' && !img.one
+                          ? '#BFBFBF !important'
+                          : '#E46125 !important',
+                      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+                    },
+                    '&[data-disabled]': {
+                      cursor: id === '0' ? 'default' : 'no-drop',
+                      color: 'var(--white) !important',
+                      backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
+                    },
+                    [`@media (max-width:575px)`]: {
+                      fontSize: id === '0' ? 24 : 14,
+                      width: id === '0' ? '50%' : '56%',
+                      height: id === '0' ? 42 : 26,
+                    },
+                  }}
+                  disabled={id !== '0' && !img.one ? true : false}
+                  leftIcon={
+                    <IconPlus
+                      width={id === '0' ? 29 : 18}
+                      height={id === '0' ? 29 : 18}
+                    />
+                  }
+                  {...props}
+                >
+                  {t('Profile.text.Add')}
+                </Button>
+              )}
+            </FileButton>
+          </Group>
+        </>
       )}
     </Card>
   );

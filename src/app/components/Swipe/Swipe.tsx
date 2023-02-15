@@ -6,20 +6,13 @@ import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 import Nav from './Nav';
 import { FilterUser } from './FilterUser';
 import SwipeTutorial from './SwipeTutorial';
-import Control from './Control';
-import TinderCard from 'react-tinder-card';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import MyCarousel, { BioDescription } from '../MyCarousel/MyCarousel';
-import { ReactComponent as Undo } from 'assets/icons/undo.svg';
-import { ReactComponent as Gift } from 'assets/icons/box.svg';
-import { motion } from 'framer-motion';
 import { apiGet } from 'utils/http/request';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
 import { UserSlice } from 'store/slice/userSlice';
-import { CardSwiper } from '../CardSwiper/CardSwipe';
-// import { CardSwiper } from 'react-card-rotate-swiper';
 
 interface Props {
   drawer?: boolean;
@@ -39,6 +32,7 @@ function Swipe({ drawer }: Props) {
   const [active, setActive] = useState<number>();
   const [listSwipe, setListSwipe] = useState<any>([]);
   const [currentIndex, setCurrentIndex] = useState(listSwipe.length - 1);
+  const [offsetDrag, setOffsetDrag] = useState(0);
   const currentIndexRef = useRef(currentIndex);
   const containerRef = useRef<any>(null);
 
@@ -49,25 +43,32 @@ function Swipe({ drawer }: Props) {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  // const swiped = (direction, swipedUser, index) => {
-  //   if (direction === 'right') {
-  //     // updateMatches(swipeUserId);
-  //     dispatch(
-  //       actions.requestLikeAction({
-  //         id: user.id,
-  //         token: user.token,
-  //         user_2: swipedUser,
-  //       }),
-  //     );
-  //   }
-  //   updateCurrentIndex(index - 1);
-  // };
+  const swiped = (direction, swipedUser, index) => {
+    if (direction === 'right') {
+      // updateMatches(swipeUserId);
+      dispatch(
+        actions.requestLikeAction({
+          id: user.id,
+          token: user.token,
+          user_2: swipedUser,
+        }),
+      );
+    }
+    updateCurrentIndex(index - 1);
+  };
+  const goBack = async () => {
+    if (!canGoBack) return;
+    const newIndex = currentIndex + 1;
+    updateCurrentIndex(newIndex);
+    await childRefs.current[newIndex].restoreCard();
+  };
   useLayoutEffect(() => {
     apiGet('/v1/godoo/swipe/randomfriend', {
       userid: user.id,
       token: user.token,
     })
       .then(res => {
+        console.log(res.data);
         let newListSwipe = res.data.filter(value => value.picture.length !== 0);
         setListSwipe(newListSwipe);
         setCurrentIndex(newListSwipe.length - 1);
@@ -76,16 +77,16 @@ function Swipe({ drawer }: Props) {
         console.log(err);
       });
   }, []);
-  // useEffect(() => {
-  //   containerRef.current.addEventListener('wheel', event => {
-  //     const delta = Math.sign(event.deltaY);
-  //     console.info(delta);
-  //     if (delta === 1) {
-  //       toggle();
-  //     }
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentIndex]);
+  useEffect(() => {
+    containerRef.current.addEventListener('wheel', event => {
+      const delta = Math.sign(event.deltaY);
+      console.info(delta);
+      if (delta === 1) {
+        toggle();
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentIndex]);
   return (
     <Container
       ref={containerRef}
@@ -113,15 +114,7 @@ function Swipe({ drawer }: Props) {
       )}
 
       <Flex className={classes.nav}>
-        <button
-          className={classes.btn}
-          // onClick={(): void => {
-          //   goBack();
-          // }}
-        >
-          <Undo />
-        </button>
-        {!tablet && listSwipe[currentIndex] && (
+        {listSwipe[currentIndex] && (
           <Nav active={active} data={listSwipe[currentIndex]} />
         )}
         <FilterUser drawer={drawer} />
@@ -136,69 +129,37 @@ function Swipe({ drawer }: Props) {
         }}
         className={classes.overlay}
       >
-        {listSwipe.reverse().map((data, index) => {
+        {listSwipe.map((data, index) => {
           return (
-            <CardSwiper
+            <Card
               key={index}
-              className={classes.swipe}
-              detectingSize={300}
-              throwLimit={5000}
-              contents={
-                <Card
-                  className={classes.draggable}
-                  sx={{
-                    height: 'max-content',
-                    background: 'none',
-                    borderRadius: '20px !important',
-                    zIndex: index,
-                    '::before': {
-                      content: '""',
-                      position: 'absolute',
-                      bottom: '0',
-                      width: '100%',
-                      height: '50%',
-                      borderRadius: 20,
-                      background:
-                        'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
-                      zIndex: 6,
-                    },
-                    '::after': {
-                      content: '""',
-                      position: 'absolute',
-                      inset: 0,
-                      borderRadius: 20,
-                      background: 'transparent',
-                      zIndex: 5,
-                    },
-                    [`@media (max-width:575px)`]: {
-                      aspectRatio: `calc(${width - 30}/${height - 143})`,
-                    },
-                  }}
-                >
-                  <MyCarousel setActive={setActive} data={data} />
-                  <Flex className={classes.bio}>
-                    <BioDescription data={data} />
-                    <Gift />
-                  </Flex>
-                </Card>
-              }
-            />
+              className={classes.draggable}
+              sx={{
+                height: 'max-content',
+                background: 'none',
+                borderRadius: '20px !important',
+                zIndex: 5,
+                '::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '0',
+                  width: '100%',
+                  height: '50%',
+                  background:
+                    'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
+                  zIndex: 6,
+                },
+                [`@media (max-width:575px)`]: {
+                  aspectRatio: `calc(${width - 30}/${height - 143})`,
+                },
+              }}
+            >
+              <MyCarousel key={data.userId} setActive={setActive} data={data} />
+              <BioDescription data={data} />
+            </Card>
           );
         })}
-        {!tablet && (
-          <Control
-            childRefs={childRefs}
-            currentIndex={currentIndex}
-            canSwipe={canSwipe}
-            length={listSwipe.length}
-          />
-        )}
       </Flex>
-
-      <SwipeTutorial />
-      {tablet && listSwipe[currentIndex] && (
-        <Nav active={active} data={listSwipe[currentIndex]} />
-      )}
     </Container>
   );
 }

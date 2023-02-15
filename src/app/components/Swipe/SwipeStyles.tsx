@@ -31,12 +31,6 @@ export const SwipeStyles = createStyles(() => ({
       padding: '8px 0',
     },
   },
-  btn: {
-    border: 'none',
-    background: 'inherit',
-    cursor: 'pointer',
-  },
-
   tutorial: {
     gap: 14,
     width: '100%',
@@ -66,20 +60,6 @@ export const SwipeStyles = createStyles(() => ({
     width: '100%',
     position: 'absolute',
     aspectRatio: '0.69',
-  },
-  bio: {
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    position: 'absolute',
-    padding: '0 16px',
-    bottom: 104,
-    zIndex: 7,
-    [`@media (max-width:799px)`]: {
-      bottom: 50,
-    },
-    [`@media (max-width:575px)`]: {
-      bottom: 20,
-    },
+    userSelect: 'none',
   },
 }));

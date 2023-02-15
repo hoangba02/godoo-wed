@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { createStyles, Paper, Text, Title } from '@mantine/core';
+import { createStyles, Flex, Paper, Stack, Text, Title } from '@mantine/core';
+import { ReactComponent as Gift } from 'assets/icons/home/giftBig.svg';
+import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
 
 import SwipeCard from '../Swipe/SwipeCard';
 
@@ -47,15 +49,37 @@ interface DescProps {
 export function BioDescription({ data }: DescProps) {
   const { classes } = BioStyles();
   return (
-    <Paper className={classes.paper}>
-      <Text className={classes.nickname}>{data.nickname}, 24</Text>
-      <Title order={3} className={classes.title}>
-        {data.description}
-      </Title>
-    </Paper>
+    <Flex className={classes.container}>
+      <Paper className={classes.paper}>
+        <Text className={classes.nickname}>{data.nickname}, 24</Text>
+        <Title order={3} className={classes.title}>
+          {data.description}
+        </Title>
+      </Paper>
+      <Stack>
+        <Heart />
+        <Gift />
+      </Stack>
+    </Flex>
   );
 }
 const BioStyles = createStyles(() => ({
+  container: {
+    gap: 18,
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    position: 'absolute',
+    padding: '0 16px',
+    bottom: 30,
+    zIndex: 7,
+    [`@media (max-width:799px)`]: {
+      bottom: 50,
+    },
+    [`@media (max-width:575px)`]: {
+      bottom: 20,
+    },
+  },
   paper: {
     color: 'var(--white)',
     background: 'transparent',
