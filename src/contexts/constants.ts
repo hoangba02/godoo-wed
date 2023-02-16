@@ -1,5 +1,5 @@
 const Constants = {
-  WEBSOCKET_URL: 'wss://ttvnapi.com/v1',
+  WEBSOCKET_URL: 'ws://ttvnapi.com/v1',
 };
 
 export const REQUEST_CREATE_MESSAGE: number = 1001;

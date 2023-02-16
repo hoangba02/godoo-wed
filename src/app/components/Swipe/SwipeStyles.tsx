@@ -16,10 +16,6 @@ export const SwipeStyles = createStyles(() => ({
       width: '70%',
       margin: '24px auto 0',
     },
-    [`@media (max-width:575px)`]: {
-      width: '100%',
-      margin: 0,
-    },
   },
   nav: {
     width: '100%',
@@ -48,14 +44,15 @@ export const SwipeStyles = createStyles(() => ({
     scrollSnapType: 'y mandatory',
     scrollBehavior: 'smooth',
     scrollSnapStop: 'always',
-    [`@media (max-width:575px)`]: {
-      height: 'max-content',
-    },
+    // scrollPaddingTop: -20,
+    // scrollPaddingBottom: 20,
   },
   overlay: {
     gap: 0,
     width: '100%',
-    // height: 'max-content',
     padding: '0px !important',
+    [`@media (max-width:575px)`]: {
+      // gap: 8,
+    },
   },
 }));

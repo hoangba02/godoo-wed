@@ -31,12 +31,10 @@ import Notification from './pages/AboutPage/Settings/Notification/Notification';
 import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 import MoreAbout from './pages/AboutPage/EditProfile/MoreAbout/MoreAbout';
-import Websocket from 'lib/socket/websocket';
+import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();
-  React.useEffect(() => {
-    Websocket.SocketConnect();
-  }, []);
+  const ws = Websocket;
   return (
     <BrowserRouter>
       <Helmet

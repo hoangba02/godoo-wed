@@ -1,5 +1,5 @@
 import { IRequestId, IErrorMessage } from './general';
-import { REQUEST_CREATE_MESSAGE, REQUEST_GET_MESSAGE } from './constants';
+import { REQUEST_CREATE_MESSAGE, REQUEST_GET_MESSAGE } from '../constants';
 
 /**
  *  
@@ -71,5 +71,5 @@ export interface ICreateMemberResponse extends IRequestId<1021>, IErrorMessage {
   d: { id: number; n: String; o: number };
 }
 export interface IGetMemberResponse extends IRequestId<1022>, IErrorMessage {
-  d: { l: { u: number }[] };
+  d: { l: { u: number }[]; cv: number };
 }

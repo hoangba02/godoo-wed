@@ -66,8 +66,13 @@ export interface Conversation {
   scrollHeight: number | null;
   loaded: boolean;
 }
+
 export interface ChatState {
-  id?: number | string;
-  conversation_id?: number | string;
-  conversations?: Conversation[];
+  sendingMessage: boolean;
+  sendingConversation: boolean;
+  createdConversation: boolean;
+  response: {
+    error: number;
+    message: String;
+  };
 }

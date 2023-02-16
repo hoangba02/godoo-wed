@@ -10,7 +10,7 @@ import 'react-app-polyfill/stable';
 
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import persistStore from 'redux-persist/es/persistStore';
 
 // Use consistent styling
@@ -28,9 +28,8 @@ import reportWebVitals from 'reportWebVitals';
 // Initialize languages
 import './locales/i18n';
 import { ButtonStylesParams, MantineProvider } from '@mantine/core';
-import { getUserSelector } from 'store/slice/userSlice/selectors';
 
-const store = configureAppStore();
+export const store = configureAppStore();
 export const persistor = persistStore(store);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

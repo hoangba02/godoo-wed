@@ -6,7 +6,6 @@ import HomeMobile from './Mobile/HomeMobile';
 import { HomeWeb } from './Web/HomeWeb';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
-import Websocket from 'lib/socket/websocket';
 
 export function HomePage() {
   const user = useSelector(getUserSelector);

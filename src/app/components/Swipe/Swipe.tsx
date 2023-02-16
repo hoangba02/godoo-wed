@@ -1,10 +1,9 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SwipeStyles } from './SwipeStyles';
-import { Card, Container, Flex, Stack } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
+import { Container, Flex, Stack } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
 
-import Bio from '../Bio/Bio';
 import { FilterUser } from './FilterUser';
 import { apiGet } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';
@@ -16,15 +15,14 @@ interface Props {
 }
 function Swipe({ drawer }: Props) {
   // Others
-  const dispatch = useDispatch();
-  const { actions } = UserSlice();
+  // const dispatch = useDispatch();
+  // const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   const { classes } = SwipeStyles();
   const { width, height } = useViewportSize();
-  const tablet = useMediaQuery('(max-width:799px)');
-  const phone = useMediaQuery('(max-width:575px)');
+  // const tablet = useMediaQuery('(max-width:799px)');
+  // const phone = useMediaQuery('(max-width:575px)');
   // State
-
   const [listSwipe, setListSwipe] = useState<any>([]);
   const containerRef = useRef<any>(null);
 
@@ -61,6 +59,7 @@ function Swipe({ drawer }: Props) {
   //   });
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [currentIndex]);
+  console.log(listSwipe);
   return (
     <Container
       ref={containerRef}
@@ -69,47 +68,35 @@ function Swipe({ drawer }: Props) {
       sx={{
         aspectRatio: '0.67',
         [`@media (max-width:575px)`]: {
-          aspectRatio: `calc(${width}/${height - 65})`,
+          aspectRatio: `calc(${width}/${height - 75})`,
+          width: '100%',
+          margin: 0,
         },
       }}
     >
       <Flex className={classes.nav}>
         <FilterUser drawer={drawer} />
       </Flex>
-      <Container fluid className={classes.swipe}>
+      <Container
+        sx={{
+          [`@media (max-width:575px)`]: {
+            height: 'auto',
+            // borderRadius: 0,
+            aspectRatio: `calc(${width}/${height - 80})`,
+          },
+        }}
+        fluid
+        className={classes.swipe}
+      >
         <Stack className={classes.overlay}>
-          {listSwipe.map((data, index) => {
+          {listSwipe.map((data, index, array) => {
             return (
-              <Card
+              <MyCarousel
                 key={index}
-                sx={{
-                  background: 'none',
-                  width: '100%',
-                  aspectRatio: '0.626',
-                  padding: '0 !important',
-                  userSelect: 'none',
-                  borderRadius: 0,
-                  zIndex: 5,
-                  scrollSnapAlign: 'center',
-                  scrollSnapStop: 'always',
-                  '::before': {
-                    content: '""',
-                    position: 'absolute',
-                    bottom: '0',
-                    width: '100%',
-                    height: '50%',
-                    background:
-                      'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
-                    zIndex: 6,
-                  },
-                  [`@media (max-width:575px)`]: {
-                    aspectRatio: `calc(${width - 30}/${height - 143})`,
-                  },
-                }}
-              >
-                <MyCarousel key={data.userId} data={data} />
-                <Bio data={data} drawer={drawer} onLike={handleLikedUser} />
-              </Card>
+                data={data}
+                drawer={drawer}
+                setListSwipe={setListSwipe}
+              />
             );
           })}
         </Stack>

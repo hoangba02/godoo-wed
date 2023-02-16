@@ -10,17 +10,32 @@ import {
 } from '@mantine/core';
 import { ReactComponent as Gift } from 'assets/icons/home/giftBig.svg';
 import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
+import { ReactComponent as GiftMobile } from 'assets/icons/home/giftBigMobile.svg';
+import { ReactComponent as HeartMobile } from 'assets/icons/home/heartMobile.svg';
 import Profile from '../Profile/Profile';
 import useModal from 'hooks/useModal';
+import { useMediaQuery } from '@mantine/hooks';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 interface DescProps {
   data: any;
   drawer?: any;
   onLike?: any;
+  onZoom?: any;
 }
-export default function Bio({ data, drawer, onLike }: DescProps) {
+export default function Bio({ data, drawer, onLike, onZoom }: DescProps) {
+  const user = useSelector(getUserSelector);
+  // Local
   const { classes } = BioStyles();
   const { isShowing, toggle } = useModal();
 
+  const phone = useMediaQuery('(max-width:575px)', user.device, {
+    getInitialValueInEffect: !user.device,
+  });
+
+  const handleZoomOutCard = () => {
+    onZoom(true);
+  };
   return (
     <>
       <Profile
@@ -45,12 +60,12 @@ export default function Bio({ data, drawer, onLike }: DescProps) {
           <Button
             variant="subtle"
             className={classes.swipeBtn}
-            onClick={onLike}
+            onClick={handleZoomOutCard}
           >
-            <Heart />
+            {phone ? <HeartMobile /> : <Heart />}
           </Button>
           <Button variant="subtle" className={classes.swipeBtn}>
-            <Gift />
+            {phone ? <GiftMobile /> : <Gift />}
           </Button>
         </Stack>
       </Flex>
@@ -67,11 +82,12 @@ const BioStyles = createStyles(() => ({
     padding: '0 16px',
     bottom: 30,
     zIndex: 7,
-    [`@media (max-width:799px)`]: {
-      bottom: 50,
-    },
+    // [`@media (max-width:799px)`]: {
+    //   bottom: 50,
+    // },
     [`@media (max-width:575px)`]: {
       bottom: 20,
+      gap: 0,
     },
   },
   paper: {
@@ -95,8 +111,8 @@ const BioStyles = createStyles(() => ({
     cursor: 'pointer',
   },
   swipeBtn: {
-    width: 'max-content',
-    height: 'max-content',
+    width: 'max-content !important',
+    height: 'max-content !important',
     padding: 0,
     backgroundColor: 'initial',
     ':hover': {

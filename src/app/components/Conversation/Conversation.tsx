@@ -16,7 +16,6 @@ import { ReactComponent as Calendarcolor } from 'assets/icons/chat/calendarChatC
 import { ReactComponent as Gift } from 'assets/icons/chat/giftMess.svg';
 import { DateForm } from '../DateForm/DateForm';
 import ConversationContent from './Content';
-import Websocket from 'lib/socket/websocket';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 
@@ -46,7 +45,6 @@ function Conversation({ profile, messages, setMessages }: Props) {
       opacity: 1,
     },
   };
-
   const handleShowTime = (event, position) => {
     const { target } = event;
     if (messRef.current !== null) {
@@ -79,7 +77,7 @@ function Conversation({ profile, messages, setMessages }: Props) {
         },
       };
       // console.log(content);
-      Websocket.onSend(content);
+
       setMessages([...messages, content]);
       setMessage('');
     }

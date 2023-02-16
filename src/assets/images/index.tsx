@@ -42,7 +42,7 @@ export const images = {
   noYet: require('assets/images/noYet.svg').default,
   messBox: require('assets/images/messBox.svg').default,
   messBoxRight: require('assets/images/messBoxRight.svg').default,
-  noConver: require('assets/images/noConver.svg').default,
+  noConver: require('assets/images/noConver.png'),
 
   // About
   diaBlue: require('assets/images/About/diaBlue.svg').default,
