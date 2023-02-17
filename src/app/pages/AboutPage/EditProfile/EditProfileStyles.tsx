@@ -17,6 +17,7 @@ export const EditProfileStyles = createStyles(() => ({
     top: '55%',
   },
   title: {
+    flex: 1,
     fontWeight: 500,
     fontSize: 18,
     lineHeight: '22px',
@@ -46,9 +47,8 @@ export const EditProfileStyles = createStyles(() => ({
     alignItems: 'center',
     border: '1px solid #A9A9A9',
     borderRadius: 8,
-    padding: '16px 14px 16px 16px',
+    padding: '16px 14px 16px 12px',
   },
-  moreName: {},
   addBtn: {
     color: '#929292',
     width: 52,

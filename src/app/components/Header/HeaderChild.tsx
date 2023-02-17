@@ -35,6 +35,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
             navigate('/about/setting');
           } else if (title === 'More about me') {
             navigate('/about/profile');
+          } else if (title === 'Gender') {
+            navigate('/about/profile');
           }
 
           if (onMotion) {

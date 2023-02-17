@@ -1,12 +1,31 @@
 import { Tabs, TabsProps } from '@mantine/core';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { AboutPage } from '../../Loadable';
 import { MORE } from '../More';
 
 function MoreAbout() {
+  const tabsRef = useRef<any>(null);
+  const [x, setX] = useState<number>(0);
+  const [distance, setDistance] = useState<number>(0);
+
+  useEffect(() => {
+    tabsRef.current?.addEventListener('mousedown', e => {
+      setX(e.offsetX);
+    });
+    tabsRef.current?.addEventListener('mousemove', e => {
+      setDistance(e.offsetX);
+    });
+  });
+  useEffect(() => {
+    // if (x < distance) {
+    //   tabsRef.current?.scrollLeft = distance - x;
+    // } else {
+    //   tabsRef.current?.scrollLeft = x - distance;
+    // }
+  }, [distance]);
   return (
     <AboutPage title="More about me">
-      <StyledTabs defaultValue="Height">
+      <StyledTabs defaultValue="Height" ref={tabsRef}>
         <Tabs.List>
           {MORE.map((tab, index) => (
             <Tabs.Tab key={index} value={tab.name}>
@@ -21,9 +40,10 @@ function MoreAbout() {
 
 export default MoreAbout;
 
-function StyledTabs(props: TabsProps) {
+function CustomerTabs(props: TabsProps, ref) {
   return (
     <Tabs
+      ref={ref}
       unstyled
       styles={theme => ({
         tab: {
@@ -36,6 +56,7 @@ function StyledTabs(props: TabsProps) {
           display: 'flex',
           alignItems: 'center',
           borderRadius: '0px 0px 8px 8px',
+          whiteSpace: 'nowrap',
 
           '&:disabled': {
             opacity: 0.5,
@@ -73,7 +94,7 @@ function StyledTabs(props: TabsProps) {
           height: '100%',
         },
         root: {
-          //   width: '100%',
+          width: '100%',
           overflow: 'scroll',
         },
       })}
@@ -81,3 +102,5 @@ function StyledTabs(props: TabsProps) {
     />
   );
 }
+
+const StyledTabs = React.forwardRef(CustomerTabs);

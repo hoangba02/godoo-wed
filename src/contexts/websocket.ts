@@ -30,7 +30,7 @@ var token = Storage.getFieldOfUser('token');
 class _Websocket {
   public IDBStorageChat = new IDBStorage(DatabaseChatIDB, 'chat');
   //WebSocket settings
-  private webSocketUrl = Constants.WEBSOCKET_URL || 'ws://ttvnapi.com/v1';
+  private webSocketUrl = Constants.WEBSOCKET_URL || 'wss://ttvnapi.com/v1';
   private reconnectTimeout = 5 * 1000; //10 Seconds
   //Reconnect timer
   private reconnectTimer: ReturnType<typeof setInterval> | null = null;

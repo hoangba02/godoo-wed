@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import useModal from 'hooks/useModal';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import Schedule from '../Schedule/Schedule';
 import { useNavigate } from 'react-router-dom';
 
 function MatchHeader() {
+  const headerRef = useRef<any>(null);
   const { classes } = useStyles();
   const { isShowing, toggle } = useModal();
 
@@ -18,6 +19,7 @@ function MatchHeader() {
   const profile = useSelector(getProfileSelector);
   return (
     <motion.div
+      ref={headerRef}
       initial={{ y: -150, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.1, duration: 0.5 }}

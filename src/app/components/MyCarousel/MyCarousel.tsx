@@ -1,28 +1,57 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Carousel } from '@mantine/carousel';
 import Autoplay from 'embla-carousel-autoplay';
 
 import SwipeCard from '../Swipe/SwipeCard';
-
-import { useEffect, useMemo, useState } from 'react';
 import Nav from '../Swipe/Nav';
-import { motion, useMotionValue, useTransform } from 'framer-motion';
+import {
+  Button,
+  Card,
+  createStyles,
+  Flex,
+  Paper,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
+import { motion } from 'framer-motion';
+import { useMediaQuery, useViewportSize } from '@mantine/hooks';
+import AniMatch from '../Swipe/AniMatch';
+import { useOnScreen } from 'hooks/useOnScreen';
+import Profile from '../Profile/Profile';
+import useModal from 'hooks/useModal';
+import { ReactComponent as Gift } from 'assets/icons/home/giftBig.svg';
+import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
+import { ReactComponent as GiftMobile } from 'assets/icons/home/giftBigMobile.svg';
+import { ReactComponent as HeartMobile } from 'assets/icons/home/heartMobile.svg';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { removeItem } from '../Functions/Functions';
 import Bio from '../Bio/Bio';
-import { Card } from '@mantine/core';
-import { useViewportSize } from '@mantine/hooks';
 
 interface Props {
   data: any;
   drawer?: boolean;
   setListSwipe?: any;
+  listSwipe?: any;
+  position?: number;
 }
-function MyCarousel({ data, drawer, setListSwipe }: Props) {
+function MyCarousel({
+  data,
+  drawer,
+  setListSwipe,
+  listSwipe,
+  position,
+}: Props) {
+  const user = useSelector(getUserSelector);
+  // Local
+  const { classes } = useStyles();
   const carouselRef = useRef<any>(null);
   const [active, setActive] = useState<number>(0);
-  const [zoom, setZoom] = useState<boolean>(false);
-  const [isAni, setIsAni] = useState<boolean>(false);
-  console.log(zoom);
+  const [isMatch, setIsMatch] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(false);
   // Other
+  const { isShowing, toggle } = useModal();
   const { width, height } = useViewportSize();
   const listPicture = data.picture.filter(value => {
     if (value) return value;
@@ -32,40 +61,57 @@ function MyCarousel({ data, drawer, setListSwipe }: Props) {
     rootMargin: '0px',
     threshold: 0.3,
   };
-  const isOnScreen = useElementOnScreen(options, carouselRef);
+  const isOnScreen = useOnScreen(options, carouselRef);
   const autoplay = useRef(Autoplay({ delay: 4000 }));
-  // useEffect(() => {
-  //   if (isOnScreen) {
-  //     autoplay.current.play();
-  //   } else {
-  //     autoplay.current.stop();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isOnScreen]);
+  const phone = useMediaQuery('(max-width:575px)', user.device, {
+    getInitialValueInEffect: !user.device,
+  });
+  console.log(isLike);
+  const handleAfterLikeUser = () => {
+    // setKey(true);
+    // dispatch(
+    //   actions.requestLikeAction({
+    //     id: user.id,
+    //     token: user.token,
+    //     user_2: data,
+    //   }),
+    // );
+    // const newItems = [...listSwipe];
+    // removeItem(newItems, data);
+    // setListSwipe(newItems);
+    setIsLike(true);
+  };
+  useEffect(() => {
+    if (isOnScreen) {
+      autoplay.current.play();
+    } else {
+      autoplay.current.stop();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOnScreen]);
 
   useEffect(() => {
     if (carouselRef) {
-      console.log(carouselRef.current.offsetWidth);
     }
   }, []);
+
   return (
     <motion.div
+      layout
       animate={
-        zoom
-          ? {
-              x: '100vw',
-              y: 0,
-              scale: 0.5,
-            }
-          : {
-              x: '0vw',
-              y: 0,
-              scale: 1,
-            }
+        isLike && {
+          scale: [1, 0.5],
+          borderRadius: ['0%', '50%'],
+        }
       }
-      transition={{ duration: 1 }}
-      onTransitionEnd={() => {
+      transition={{
+        duration: 1,
+        ease: 'easeInOut',
+        times: [0, 1],
+      }}
+      onAnimationComplete={() => {
         console.log('end');
+        setIsLike(false);
       }}
     >
       <Card
@@ -73,18 +119,12 @@ function MyCarousel({ data, drawer, setListSwipe }: Props) {
           margin: 'auto',
           position: 'relative',
           background: 'none',
-          width: zoom
-            ? carouselRef.current?.offsetWidth / 5
-            : carouselRef.current?.offsetWidth,
-          height: zoom
-            ? carouselRef.current?.offsetWidth / 5
-            : carouselRef.current?.offsetHeight,
+          width: '100%',
           aspectRatio: '0.626',
           padding: '0 !important',
           userSelect: 'none',
-          borderRadius: zoom ? '50%' : '0%',
-          zIndex: zoom ? 999 : 5,
-          scrollSnapAlign: 'center',
+          borderRadius: '0%',
+          scrollSnapAlign: 'start',
           scrollSnapStop: 'always',
           transition: 'all 1s linear',
           '::before': {
@@ -99,15 +139,12 @@ function MyCarousel({ data, drawer, setListSwipe }: Props) {
           },
 
           [`@media (max-width:575px)`]: {
-            // marginBottom: 8,
-            // borderRadius: 20,
-            // scrollMarginTop: -50,
-            // // scrollMarginBottom: 20,
             aspectRatio: `calc(${width - 30}/${height - 125})`,
           },
         }}
       >
         <Nav active={active} data={data} />
+        {isMatch && <AniMatch data={data} />}
         <Carousel
           ref={carouselRef}
           styles={{
@@ -122,7 +159,7 @@ function MyCarousel({ data, drawer, setListSwipe }: Props) {
           slideGap={0}
           draggable={listPicture.length > 1 ? true : false}
           withControls={false}
-          // plugins={[autoplay.current]}
+          plugins={[autoplay.current]}
           onSlideChange={value => {
             setActive(value);
           }}
@@ -133,34 +170,65 @@ function MyCarousel({ data, drawer, setListSwipe }: Props) {
             </Carousel.Slide>
           ))}
         </Carousel>
-        <Bio
-          data={data}
-          drawer={drawer}
-          onZoom={setZoom}
-          // onLike={handleLikedUser}
-        />
+        <Card>
+          <Profile
+            fullHalf
+            height={566}
+            width={470}
+            hide={toggle}
+            isSlide={false}
+            status="likedyou"
+            isShowing={isShowing}
+            profile={data}
+            translateX={drawer ? '0%' : '40%'}
+          />
+          <Flex className={classes.description}>
+            <Bio data={data} toggle={toggle} />
+            <Stack>
+              <Button
+                variant="subtle"
+                className={classes.swipeBtn}
+                onClick={handleAfterLikeUser}
+              >
+                {phone ? <HeartMobile /> : <Heart />}
+              </Button>
+              <Button variant="subtle" className={classes.swipeBtn}>
+                {phone ? <GiftMobile /> : <Gift />}
+              </Button>
+            </Stack>
+          </Flex>
+        </Card>
       </Card>
     </motion.div>
   );
 }
 export default MyCarousel;
 
-export const useElementOnScreen = (options, targetRef) => {
-  const [isOnScreen, setIsOnScreen] = useState();
-  const callbackFunction = entries => {
-    const [entry] = entries; //const entry = entries[0]
-    setIsOnScreen(entry.isIntersecting);
-  };
-  const optionsMemo = useMemo(() => {
-    return options;
-  }, [options]);
-  useEffect(() => {
-    const observer = new IntersectionObserver(callbackFunction, optionsMemo);
-    const currentTarget = targetRef.current;
-    if (currentTarget) observer.observe(currentTarget);
-    return () => {
-      if (currentTarget) observer.unobserve(currentTarget);
-    };
-  }, [targetRef, optionsMemo]);
-  return isOnScreen;
-};
+const useStyles = createStyles(() => ({
+  description: {
+    gap: 18,
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    position: 'absolute',
+    padding: '0 16px',
+    bottom: 30,
+    zIndex: 7,
+    // [`@media (max-width:799px)`]: {
+    //   bottom: 50,
+    // },
+    [`@media (max-width:575px)`]: {
+      bottom: 20,
+      gap: 0,
+    },
+  },
+  swipeBtn: {
+    width: 'max-content !important',
+    height: 'max-content !important',
+    padding: 0,
+    backgroundColor: 'initial',
+    ':hover': {
+      backgroundColor: 'initial',
+    },
+  },
+}));

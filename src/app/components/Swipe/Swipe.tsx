@@ -3,12 +3,14 @@ import { SwipeStyles } from './SwipeStyles';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Flex, Stack } from '@mantine/core';
 import { useMediaQuery, useViewportSize } from '@mantine/hooks';
+import { motion } from 'framer-motion';
 
 import { FilterUser } from './FilterUser';
 import { apiGet } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';
 import MyCarousel from '../MyCarousel/MyCarousel';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import { AnimatePresence } from 'framer-motion';
 
 interface Props {
   drawer?: boolean;
@@ -27,7 +29,6 @@ function Swipe({ drawer }: Props) {
   const containerRef = useRef<any>(null);
 
   const handleLikedUser = isLiked => {
-    console.log('like');
     // dispatch(
     //   actions.requestLikeAction({
     //     id: user.id,
@@ -42,7 +43,6 @@ function Swipe({ drawer }: Props) {
       token: user.token,
     })
       .then(res => {
-        console.log(res.data);
         let newListSwipe = res.data.filter(value => value.picture.length !== 0);
         setListSwipe(newListSwipe);
       })
@@ -50,22 +50,23 @@ function Swipe({ drawer }: Props) {
         console.log(err);
       });
   }, []);
-  // useEffect(() => {
-  //   containerRef.current.addEventListener('wheel', event => {
-  //     const delta = Math.sign(event.deltaY);
-  //     if (delta === 1) {
-  //       console.log('swipe');
-  //     }
-  //   });
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentIndex]);
-  console.log(listSwipe);
+  useEffect(() => {
+    containerRef.current.addEventListener('wheel', event => {
+      const delta = Math.sign(event.deltaY);
+      if (delta === 1) {
+        console.log('swipe');
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Container
       ref={containerRef}
       fluid
       className={classes.container}
       sx={{
+        transition: 'all 0.5s linear',
         aspectRatio: '0.67',
         [`@media (max-width:575px)`]: {
           aspectRatio: `calc(${width}/${height - 75})`,
@@ -89,16 +90,20 @@ function Swipe({ drawer }: Props) {
         className={classes.swipe}
       >
         <Stack className={classes.overlay}>
-          {listSwipe.map((data, index, array) => {
-            return (
-              <MyCarousel
-                key={index}
-                data={data}
-                drawer={drawer}
-                setListSwipe={setListSwipe}
-              />
-            );
-          })}
+          <AnimatePresence mode="sync">
+            {listSwipe.map((data, index) => {
+              return (
+                <MyCarousel
+                  key={index}
+                  data={data}
+                  drawer={drawer}
+                  setListSwipe={setListSwipe}
+                  listSwipe={listSwipe}
+                  position={index}
+                />
+              );
+            })}
+          </AnimatePresence>
         </Stack>
       </Container>
     </Container>

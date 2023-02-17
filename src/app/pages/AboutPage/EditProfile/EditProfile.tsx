@@ -5,6 +5,7 @@ import {
   Container,
   Flex,
   Input,
+  Space,
   Stack,
   Text,
   TextInput,
@@ -122,12 +123,13 @@ function EditProfile() {
           </Text>
         </Stack>
         <Stack className={classes.stack}>
-          <Text className={classes.title}>Bio</Text>
+          <Text className={classes.title}>Some words about me</Text>
           <Box>
             <Text className={classes.label}>
               Write funny sentences to intro yourself
             </Text>
             <TextInput
+              placeholder="Write something down ..."
               maxLength={100}
               name="introduction"
               value={info.introduction}
@@ -143,10 +145,12 @@ function EditProfile() {
           </Flex>
         </Stack>
         <Stack className={classes.stack}>
-          <Text className={classes.title}>Interests</Text>
+          <Text className={classes.title}>
+            Something that I’m interested in
+          </Text>
         </Stack>
         <Stack className={classes.stack}>
-          <Text className={classes.title}>Genders</Text>
+          <Text className={classes.title}>I’m proud to be a/ an ...</Text>
           <Text className={classes.label}>You can have maximum 2 genders</Text>
 
           <Flex className={classes.options}>
@@ -171,13 +175,16 @@ function EditProfile() {
             <ArrowRight />
           </Flex>
         </Stack>
-        <Stack>
+        <Stack spacing={4}>
           <Text className={classes.title}>More about me</Text>
           {MORE.map((item, index) => (
             <Flex className={classes.more} key={index}>
-              <Text m={0} className={classes.title}>
-                {item.name}
-              </Text>
+              <Flex align="center">
+                {item.icon}
+                <Text mx={8} mt={0} className={classes.title}>
+                  {item.name}
+                </Text>
+              </Flex>
               <Button
                 styles={{
                   rightIcon: {
