@@ -1,31 +1,57 @@
-import { Tabs, TabsProps } from '@mantine/core';
+import { Button, Tabs, TabsProps } from '@mantine/core';
 import React, { useEffect, useRef, useState } from 'react';
 import { AboutPage } from '../../Loadable';
 import { MORE } from '../More';
+import { motion } from 'framer-motion';
+import { right } from 'inquirer/lib/utils/readline';
 
 function MoreAbout() {
   const tabsRef = useRef<any>(null);
-  const [x, setX] = useState<number>(0);
-  const [distance, setDistance] = useState<number>(0);
+  const [startX, setStartX] = useState<number>(0);
+  // const [width, setWidth] = useState<number>(0);
+  const [scrollLeft, setScrollLeft] = useState<number>(0);
+  const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
 
+  const handleMouseDown = e => {
+    setIsMouseDown(true);
+    setStartX(e.pageX - tabsRef.current?.offsetLeft);
+    setScrollLeft(tabsRef.current?.scrollLeft);
+    tabsRef.current?.removeEventListener('mouseup', handleClearMouseEvent);
+  };
+  const handleMouseMove = e => {
+    if (isMouseDown) {
+      const { current } = tabsRef;
+      const x = e.pageX - tabsRef.current?.offsetLeft;
+      const walk = x - startX;
+      const width = scrollLeft - walk;
+      current.scrollLeft = width;
+    }
+  };
+  const handleClearMouseEvent = e => {
+    setIsMouseDown(false);
+  };
   useEffect(() => {
-    tabsRef.current?.addEventListener('mousedown', e => {
-      setX(e.offsetX);
-    });
-    tabsRef.current?.addEventListener('mousemove', e => {
-      setDistance(e.offsetX);
-    });
+    const { current } = tabsRef;
+    current.addEventListener('mousedown', handleMouseDown);
+    current.addEventListener('mousemove', handleMouseMove);
+    current.addEventListener('mouseleave', handleClearMouseEvent);
+    current.addEventListener('mouseup', handleClearMouseEvent);
+
+    return () => {
+      current.removeEventListener('mousedown', handleMouseDown);
+      current.removeEventListener('mousemove', handleMouseMove);
+      current.removeEventListener('mouseleave', handleClearMouseEvent);
+      current.removeEventListener('mouseup', handleClearMouseEvent);
+    };
   });
-  useEffect(() => {
-    // if (x < distance) {
-    //   tabsRef.current?.scrollLeft = distance - x;
-    // } else {
-    //   tabsRef.current?.scrollLeft = x - distance;
-    // }
-  }, [distance]);
   return (
     <AboutPage title="More about me">
       <StyledTabs defaultValue="Height" ref={tabsRef}>
+        {/* <motion.div
+          ref={tabsRef}
+          drag="x"
+          dragConstraints={{ right: 0, left: -width }}
+        > */}
         <Tabs.List>
           {MORE.map((tab, index) => (
             <Tabs.Tab key={index} value={tab.name}>
@@ -33,6 +59,7 @@ function MoreAbout() {
             </Tabs.Tab>
           ))}
         </Tabs.List>
+        {/* </motion.div> */}
       </StyledTabs>
     </AboutPage>
   );
@@ -95,7 +122,7 @@ function CustomerTabs(props: TabsProps, ref) {
         },
         root: {
           width: '100%',
-          overflow: 'scroll',
+          overflow: 'hidden',
         },
       })}
       {...props}
