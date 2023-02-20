@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, createStyles, Image, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
-import Websocket from 'contexts/websocket';
+// import Websocket from 'contexts/websocket';
 import ConversationList from '../Conversation/ConversationList';
 
 function NewMatch() {

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { apiGet } from 'utils/http/request';
 import { LoadingOverlay } from '@mantine/core';
-import Websocket from 'contexts/websocket';
+// import Websocket from 'contexts/websocket';
 import { UserSlice } from 'store/slice/userSlice';
 
 export function ChatPage() {

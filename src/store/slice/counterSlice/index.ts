@@ -1,4 +1,6 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import { persistor } from 'index';
+import { useEffect } from 'react';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer } from 'utils/redux-injectors';
 import { CounterState } from '../type';
@@ -27,5 +29,8 @@ export const { actions: counterActions, reducer } = slice;
 
 export const CounterSlice = () => {
   useInjectReducer({ key: slice.name, reducer: slice.reducer });
+  useEffect(() => {
+    persistor.persist();
+  }, []);
   return { counterActions: slice.actions };
 };

@@ -50,12 +50,11 @@ const slice = createSlice({
 export const { actions: chatActions, reducer } = slice;
 
 export const useChatSlice = () => {
+  useInjectReducer({ key: slice.name, reducer: slice.reducer });
+  useInjectSaga({ key: slice.name, saga: chatSaga });
   useEffect(() => {
     persistor.persist();
   }, []);
-
-  useInjectReducer({ key: slice.name, reducer: slice.reducer });
-  useInjectSaga({ key: slice.name, saga: chatSaga });
 
   return { actions: slice.actions };
 };
