@@ -1,15 +1,49 @@
 import { Container, Tabs } from '@mantine/core';
-import React, { useState } from 'react';
+import { useViewportSize } from '@mantine/hooks';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { UserSlice } from 'store/slice/userSlice';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { LikedStyles } from './LikedStyles';
 import NewLiked from './NewLiked';
 
-function Liked() {
-  const { classes } = LikedStyles();
-  const [amountLikedYou, setAmountLikedYou] = useState(0);
-  const [amountYouLiked, setAmountYouLiked] = useState(0);
+interface Props {
+  drawer?: boolean;
+}
+function Liked({ drawer }: Props) {
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
 
+  // Local
+  const pointRef = useRef<any>(null);
+  const { classes } = LikedStyles();
+  const { width } = useViewportSize();
+  const [amountLikedYou, setAmountLikedYou] = useState<number>(0);
+  const [amountYouLiked, setAmountYouLiked] = useState<number>(0);
+
+  useEffect(() => {
+    setAmountYouLiked(user.youLikedList.length);
+  }, [user.youLikedList]);
+  useEffect(() => {
+    setAmountLikedYou(user.likedYouList.length);
+  }, [user.likedYouList]);
+
+  useEffect(() => {
+    dispatch(
+      actions.setPoint({
+        width: pointRef.current?.getBoundingClientRect().width,
+        top: pointRef.current?.getBoundingClientRect().top,
+        left: pointRef.current?.getBoundingClientRect().left,
+        right: pointRef.current?.getBoundingClientRect().right,
+        bottom: pointRef.current?.getBoundingClientRect().bottom,
+      }),
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [drawer]);
   return (
     <Container fluid className={classes.container}>
+      <div ref={pointRef} className={classes.point} />
       <Tabs
         defaultValue="first"
         unstyled
@@ -64,10 +98,10 @@ function Liked() {
           <Tabs.Tab value="second">You liked ({`${amountYouLiked}`})</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="first">
-          <NewLiked status="likedyou" setAmountLikedYou={setAmountLikedYou} />
+          <NewLiked status="likedyou" />
         </Tabs.Panel>
         <Tabs.Panel value="second">
-          <NewLiked status="youliked" setAmountYouLiked={setAmountYouLiked} />
+          <NewLiked status="youliked" />
         </Tabs.Panel>
       </Tabs>
     </Container>

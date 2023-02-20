@@ -5,6 +5,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import SwipeCard from '../Swipe/SwipeCard';
 import Nav from '../Swipe/Nav';
 import {
+  Avatar,
   Button,
   Card,
   createStyles,
@@ -24,32 +25,38 @@ import { ReactComponent as Gift } from 'assets/icons/home/giftBig.svg';
 import { ReactComponent as Heart } from 'assets/icons/home/heart.svg';
 import { ReactComponent as GiftMobile } from 'assets/icons/home/giftBigMobile.svg';
 import { ReactComponent as HeartMobile } from 'assets/icons/home/heartMobile.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { removeItem } from '../Functions/Functions';
 import Bio from '../Bio/Bio';
+import { UserSlice } from 'store/slice/userSlice';
+import AniLiked from '../Swipe/AniLiked';
 
 interface Props {
   data: any;
   drawer?: boolean;
   setListSwipe?: any;
   listSwipe?: any;
-  position?: number;
+  setImgLike?: any;
 }
 function MyCarousel({
   data,
   drawer,
   setListSwipe,
   listSwipe,
-  position,
+  setImgLike,
 }: Props) {
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = useStyles();
+  const imgRef = useRef<any>(null);
   const carouselRef = useRef<any>(null);
   const [active, setActive] = useState<number>(0);
-  const [isMatch, setIsMatch] = useState<boolean>(false);
+  // const [isMatch, setIsMatch] = useState<boolean>(false);
   const [isLike, setIsLike] = useState<boolean>(false);
+  const [start, setStart] = useState<any>(0);
   // Other
   const { isShowing, toggle } = useModal();
   const { width, height } = useViewportSize();
@@ -66,7 +73,6 @@ function MyCarousel({
   const phone = useMediaQuery('(max-width:575px)', user.device, {
     getInitialValueInEffect: !user.device,
   });
-  console.log(isLike);
   const handleAfterLikeUser = () => {
     // setKey(true);
     // dispatch(
@@ -79,7 +85,7 @@ function MyCarousel({
     // const newItems = [...listSwipe];
     // removeItem(newItems, data);
     // setListSwipe(newItems);
-    setIsLike(true);
+    setImgLike(data.picture[0]);
   };
   useEffect(() => {
     if (isOnScreen) {
@@ -91,115 +97,96 @@ function MyCarousel({
   }, [isOnScreen]);
 
   useEffect(() => {
-    if (carouselRef) {
+    if (user.isYouLiked) {
     }
-  }, []);
-
+  }, [user.isYouLiked]);
   return (
-    <motion.div
-      layout
-      animate={
-        isLike && {
-          scale: [1, 0.5],
-          borderRadius: ['0%', '50%'],
-        }
-      }
-      transition={{
-        duration: 1,
-        ease: 'easeInOut',
-        times: [0, 1],
-      }}
-      onAnimationComplete={() => {
-        console.log('end');
-        setIsLike(false);
+    <Card
+      sx={{
+        margin: 'auto',
+        position: 'relative',
+        background: 'none',
+        width: '100%',
+        aspectRatio: '0.626',
+        padding: '0 !important',
+        userSelect: 'none',
+        borderRadius: '0%',
+        scrollSnapAlign: 'start',
+        scrollSnapStop: 'always',
+        transition: 'all 1s linear',
+        '::before': {
+          content: '""',
+          position: 'absolute',
+          bottom: '0',
+          width: '100%',
+          height: '50%',
+          background:
+            'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
+          zIndex: 6,
+        },
+
+        [`@media (max-width:575px)`]: {
+          aspectRatio: `calc(${width - 30}/${height - 125})`,
+        },
       }}
     >
-      <Card
-        sx={{
-          margin: 'auto',
-          position: 'relative',
-          background: 'none',
-          width: '100%',
-          aspectRatio: '0.626',
-          padding: '0 !important',
-          userSelect: 'none',
-          borderRadius: '0%',
-          scrollSnapAlign: 'start',
-          scrollSnapStop: 'always',
-          transition: 'all 1s linear',
-          '::before': {
-            content: '""',
-            position: 'absolute',
-            bottom: '0',
-            width: '100%',
-            height: '50%',
-            background:
-              'linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.567573) 48.44%, rgba(0, 0, 0, 0.79) 73.44%, rgba(0, 0, 0, 0.772727) 89.58%, rgba(0, 0, 0, 0.47) 100%)',
-            zIndex: 6,
-          },
+      <Nav active={active} data={data} />
+      {user.isMatch && <AniMatch data={data} />}
 
-          [`@media (max-width:575px)`]: {
-            aspectRatio: `calc(${width - 30}/${height - 125})`,
+      <Carousel
+        ref={carouselRef}
+        styles={{
+          root: { height: '100%' },
+          container: {
+            height: '100%',
           },
         }}
+        loop
+        height="100%"
+        slideSize="100%"
+        slideGap={0}
+        draggable={listPicture.length > 1 ? true : false}
+        withControls={false}
+        plugins={[autoplay.current]}
+        onSlideChange={value => {
+          setActive(value);
+        }}
       >
-        <Nav active={active} data={data} />
-        {isMatch && <AniMatch data={data} />}
-        <Carousel
-          ref={carouselRef}
-          styles={{
-            root: { height: '100%' },
-            container: {
-              height: '100%',
-            },
-          }}
-          loop
-          height="100%"
-          slideSize="100%"
-          slideGap={0}
-          draggable={listPicture.length > 1 ? true : false}
-          withControls={false}
-          plugins={[autoplay.current]}
-          onSlideChange={value => {
-            setActive(value);
-          }}
-        >
-          {listPicture.map((item, index) => (
-            <Carousel.Slide key={index}>
-              <SwipeCard image={item} radius={0} />
-            </Carousel.Slide>
-          ))}
-        </Carousel>
-        <Card>
-          <Profile
-            fullHalf
-            height={566}
-            width={470}
-            hide={toggle}
-            isSlide={false}
-            status="likedyou"
-            isShowing={isShowing}
-            profile={data}
-            translateX={drawer ? '0%' : '40%'}
-          />
-          <Flex className={classes.description}>
-            <Bio data={data} toggle={toggle} />
-            <Stack>
-              <Button
-                variant="subtle"
-                className={classes.swipeBtn}
-                onClick={handleAfterLikeUser}
-              >
-                {phone ? <HeartMobile /> : <Heart />}
-              </Button>
-              <Button variant="subtle" className={classes.swipeBtn}>
-                {phone ? <GiftMobile /> : <Gift />}
-              </Button>
-            </Stack>
-          </Flex>
-        </Card>
-      </Card>
-    </motion.div>
+        {listPicture.map((item, index) => (
+          <Carousel.Slide key={index}>
+            <SwipeCard image={item} radius={0} />
+          </Carousel.Slide>
+        ))}
+      </Carousel>
+      <>
+        <Profile
+          fullHalf
+          height={566}
+          width={470}
+          hide={toggle}
+          isSlide={false}
+          status="likedyou"
+          isShowing={isShowing}
+          profile={data}
+          translateX={drawer ? '0%' : '40%'}
+        />
+        <Flex className={classes.description}>
+          <Bio data={data} toggle={toggle} />
+          <Stack>
+            <Button
+              variant="subtle"
+              className={classes.swipeBtn}
+              onClick={handleAfterLikeUser}
+            >
+              {phone ? <HeartMobile /> : <Heart />}
+            </Button>
+            <Button variant="subtle" className={classes.swipeBtn}>
+              {phone ? <GiftMobile /> : <Gift />}
+            </Button>
+          </Stack>
+        </Flex>
+      </>
+    </Card>
   );
 }
 export default MyCarousel;

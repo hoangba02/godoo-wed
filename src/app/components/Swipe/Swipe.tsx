@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { SwipeStyles } from './SwipeStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Flex, Stack } from '@mantine/core';
-import { useMediaQuery, useViewportSize } from '@mantine/hooks';
+import { Avatar, Container, Flex, Stack } from '@mantine/core';
+import { useViewportSize } from '@mantine/hooks';
 import { motion } from 'framer-motion';
 
 import { FilterUser } from './FilterUser';
@@ -10,7 +10,7 @@ import { apiGet } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';
 import MyCarousel from '../MyCarousel/MyCarousel';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
-import { AnimatePresence } from 'framer-motion';
+import AniLiked from './AniLiked';
 
 interface Props {
   drawer?: boolean;
@@ -20,13 +20,13 @@ function Swipe({ drawer }: Props) {
   // const dispatch = useDispatch();
   // const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
+  // Local
   const { classes } = SwipeStyles();
   const { width, height } = useViewportSize();
-  // const tablet = useMediaQuery('(max-width:799px)');
-  // const phone = useMediaQuery('(max-width:575px)');
   // State
-  const [listSwipe, setListSwipe] = useState<any>([]);
   const containerRef = useRef<any>(null);
+  const [listSwipe, setListSwipe] = useState<any>([]);
+  const [imgLike, setImgLike] = useState<string>('');
 
   const handleLikedUser = isLiked => {
     // dispatch(
@@ -78,6 +78,7 @@ function Swipe({ drawer }: Props) {
       <Flex className={classes.nav}>
         <FilterUser drawer={drawer} />
       </Flex>
+      {imgLike && <AniLiked img={imgLike} setImgLike={setImgLike} />}
       <Container
         sx={{
           [`@media (max-width:575px)`]: {
@@ -90,20 +91,18 @@ function Swipe({ drawer }: Props) {
         className={classes.swipe}
       >
         <Stack className={classes.overlay}>
-          <AnimatePresence mode="sync">
-            {listSwipe.map((data, index) => {
-              return (
-                <MyCarousel
-                  key={index}
-                  data={data}
-                  drawer={drawer}
-                  setListSwipe={setListSwipe}
-                  listSwipe={listSwipe}
-                  position={index}
-                />
-              );
-            })}
-          </AnimatePresence>
+          {listSwipe.map((data, index) => {
+            return (
+              <MyCarousel
+                key={index}
+                data={data}
+                drawer={drawer}
+                setListSwipe={setListSwipe}
+                listSwipe={listSwipe}
+                setImgLike={setImgLike}
+              />
+            );
+          })}
         </Stack>
       </Container>
     </Container>

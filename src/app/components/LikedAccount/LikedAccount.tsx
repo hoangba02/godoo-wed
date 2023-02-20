@@ -14,7 +14,7 @@ import { motion } from 'framer-motion';
 
 interface Props {
   data: any;
-  isLiked: string;
+  isLiked?: string;
 }
 function LikedAccount({ data, isLiked }: Props) {
   const { classes } = useStyles();

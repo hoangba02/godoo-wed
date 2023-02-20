@@ -1,9 +1,7 @@
-import { Button, Tabs, TabsProps } from '@mantine/core';
+import { Tabs, TabsProps } from '@mantine/core';
 import React, { useEffect, useRef, useState } from 'react';
 import { AboutPage } from '../../Loadable';
 import { MORE } from '../More';
-import { motion } from 'framer-motion';
-import { right } from 'inquirer/lib/utils/readline';
 
 function MoreAbout() {
   const tabsRef = useRef<any>(null);

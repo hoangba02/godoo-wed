@@ -9,11 +9,11 @@ function NewMatch() {
   const { classes } = useStyles();
   const [conversations, setConversations] = useState<any[]>([]);
 
-  useEffect(() => {
-    Websocket.getAllConversation().then(data => {
-      console.log(data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   Websocket.getAllConversation().then(data => {
+  //     console.log(data);
+  //   });
+  // }, []);
   return (
     <Container
       fluid

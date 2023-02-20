@@ -17,6 +17,7 @@ export function HomeWeb() {
   const handleDrawerLike = () => {
     setDrawer(prev => !prev);
   };
+
   return (
     <HomeWebLayout drawer={drawer}>
       <Flex
@@ -53,7 +54,7 @@ export function HomeWeb() {
         }
         transition={{ delay: 0, duration: 1 }}
       >
-        <Liked />
+        <Liked drawer={drawer} />
       </motion.div>
       <motion.button
         animate={{ width: drawer ? 22 : 37 }}

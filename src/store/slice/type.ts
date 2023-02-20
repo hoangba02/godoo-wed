@@ -30,12 +30,16 @@ export interface UserState {
     gender?: string[];
     introduction?: string;
   };
-
+  isMatch?: boolean;
   matchList?: any[];
+  isYouLiked?: boolean;
   youLikedList?: any[];
+  isLikedYou?: boolean;
   likedYouList?: any[];
   chatList?: any[];
   comingList?: any[];
+
+  point?: any;
 }
 
 export interface CounterState {

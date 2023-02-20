@@ -38,11 +38,16 @@ export const initialState: UserState = {
     gender: [],
     introduction: '',
   },
+  isMatch: false,
   matchList: [],
+  isYouLiked: false,
   youLikedList: [],
+  isLikedYou: false,
   likedYouList: [],
   chatList: [],
   comingList: [],
+
+  point: {},
 };
 
 const slice = createSlice({
@@ -61,11 +66,15 @@ const slice = createSlice({
       state.loading = false;
       state.login = action.payload.login;
       state.username = action.payload.username;
+      state.isMatch = false;
       state.matchList = [];
+      state.isYouLiked = false;
       state.youLikedList = [];
+      state.isLikedYou = false;
       state.likedYouList = [];
       state.chatList = [];
       state.comingList = [];
+      state.point = {};
       localStorage.setItem(
         'user',
         JSON.stringify({
@@ -124,6 +133,14 @@ const slice = createSlice({
         gender: [],
         introduction: '',
       };
+      state.isMatch = false;
+      state.matchList = [];
+      state.isYouLiked = false;
+      state.youLikedList = [];
+      state.isLikedYou = false;
+      state.likedYouList = [];
+      state.chatList = [];
+      state.comingList = [];
     },
     setLanguage(state: UserState, action: PayloadAction<'vi' | 'en'>) {
       state.language = action.payload;
@@ -155,8 +172,11 @@ const slice = createSlice({
     },
     updateYouLikedList(state: UserState, action: PayloadAction<UserState>) {
       state.youLikedList?.unshift(action.payload);
+      state.isYouLiked = true;
     },
-
+    setYouLikedStatus(state: UserState) {
+      state.isYouLiked = false;
+    },
     getLikedYouList(state: UserState, action: PayloadAction<[]>) {
       state.likedYouList = [...action.payload];
     },
@@ -167,14 +187,16 @@ const slice = createSlice({
       );
       state.likedYouList = newList;
     },
-
     getMatchList(state: UserState, action: PayloadAction<[]>) {
       state.matchList = [...action.payload];
     },
     updateMatchList(state: UserState, action: PayloadAction<UserState>) {
       state.matchList?.unshift(action.payload);
+      state.isMatch = true;
     },
-
+    setMatchStatus(state: UserState) {
+      state.isMatch = false;
+    },
     getComingList(state: UserState, action: PayloadAction<[]>) {
       state.comingList = [...action.payload];
     },
@@ -197,6 +219,9 @@ const slice = createSlice({
     // Set device
     setDevice(state: UserState, action: PayloadAction<UserState>) {
       state.device = action.payload.device;
+    },
+    setPoint(state: UserState, action: PayloadAction<any>) {
+      state.point = action.payload;
     },
   },
 });

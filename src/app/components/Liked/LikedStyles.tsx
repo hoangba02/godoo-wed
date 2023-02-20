@@ -21,6 +21,14 @@ export const LikedStyles = createStyles(() => ({
       padding: '28px 16.5px 75px',
     },
   },
-  btn: {},
-  content: {},
+  point: {
+    background: '#ccc',
+    borderRadius: '50%',
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    left: 70,
+    top: 90,
+    zIndex: 99,
+  },
 }));

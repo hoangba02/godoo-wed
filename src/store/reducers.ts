@@ -1,23 +1,36 @@
-/**
- * Combine all reducers in this file and export the combined reducers.
- */
-
 import { combineReducers } from '@reduxjs/toolkit';
 
 import { InjectedReducersType } from 'utils/types/injector-typings';
 
-/**
- * Merges the main reducer with the router state and dynamically injected reducers
- */
-
-import { persistReducer } from 'redux-persist';
+import { persistReducer, createTransform } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { UserState } from './slice/type';
 
+// const formTransform = createTransform(
+//   (inboundState, key) => {
+//     return inboundState;
+//   },
+//   (outboundState: any, key): {} => {
+//     return {
+//       ...(outboundState as UserState),
+//       response: {
+//         error: -1,
+//         message: '',
+//         savePassword: outboundState.response.remember_password,
+//       },
+//     };
+//   },
+//   { whitelist: ['user'] },
+// );
 const persistConfig = {
   key: 'state',
   version: 1,
   storage,
+  // transforms: [formTransform],
   blacklist: [],
+  // migrate: state => {
+  //   return Promise.resolve(state);
+  // },
 };
 
 export function createReducer(injectedReducers: InjectedReducersType = {}) {

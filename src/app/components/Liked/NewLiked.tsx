@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Box, createStyles, SimpleGrid } from '@mantine/core';
 import LikedAccount from 'app/components/LikedAccount/LikedAccount';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,16 +8,15 @@ import { UserSlice } from 'store/slice/userSlice';
 
 interface Props {
   status: string;
-  setAmountYouLiked?: any;
-  setAmountLikedYou?: any;
 }
-function NewLiked({ status, setAmountYouLiked, setAmountLikedYou }: Props) {
+function NewLiked({ status }: Props) {
   // Global
   const dispatch = useDispatch();
   const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   // Local
   const { classes } = useStyles();
+
   useEffect(() => {
     apiPost(
       `/v1/godoo/match/get${status}`,
@@ -31,11 +30,8 @@ function NewLiked({ status, setAmountYouLiked, setAmountLikedYou }: Props) {
     )
       .then(res => {
         if (status === 'youliked') {
-          setAmountYouLiked(res.data.length);
           dispatch(actions.getYouLikedList(res.data));
         } else {
-          setAmountLikedYou(res.data.length);
-
           dispatch(actions.getLikedYouList(res.data));
         }
       })
@@ -43,6 +39,7 @@ function NewLiked({ status, setAmountYouLiked, setAmountLikedYou }: Props) {
         console.log(err);
       });
   }, []);
+
   return (
     <Box className={classes.container}>
       {status === 'youliked' ? (
@@ -61,9 +58,7 @@ function NewLiked({ status, setAmountYouLiked, setAmountLikedYou }: Props) {
     </Box>
   );
 }
-
 export default NewLiked;
-
 const useStyles = createStyles(() => ({
   container: {
     width: '100%',
