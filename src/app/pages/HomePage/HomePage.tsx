@@ -6,8 +6,10 @@ import HomeMobile from './Mobile/HomeMobile';
 import { HomeWeb } from './Web/HomeWeb';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import Websocket from 'contexts/websocket';
 
 export function HomePage() {
+  const ws = Websocket;
   const user = useSelector(getUserSelector);
   // Local
   const tablet = useMediaQuery('(max-width: 799px)', user.device, {

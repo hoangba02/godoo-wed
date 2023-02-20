@@ -64,7 +64,7 @@ class StorageService {
     const persist = this.get('persist:state');
     const persistParse = this.reverseToObject(persist);
     // get storage of user
-    const user: Object = this.reverseToObject(persistParse.user);
+    const user: Object = this.reverseToObject(persistParse?.user);
 
     return user[field];
   }

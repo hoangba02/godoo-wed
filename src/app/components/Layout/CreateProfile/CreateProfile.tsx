@@ -57,8 +57,13 @@ export function ProfileLayout({ children }) {
   }, [counter]);
   useEffect(() => {
     window.addEventListener('beforeunload', () => {
-      dispatch(actions.logoutSuccess());
-      // dispatch(counterActions.setCounter({ value: -1 }));
+      actions.logoutSuccess({
+        username: user.login.savePassword ? user.username : '',
+        password: user.login.savePassword ? user.password : '',
+        login: {
+          savePassword: user.login.savePassword,
+        },
+      });
     });
   }, []);
   return (

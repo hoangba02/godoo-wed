@@ -34,7 +34,6 @@ import MoreAbout from './pages/AboutPage/EditProfile/MoreAbout/MoreAbout';
 // import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();
-  // const ws = Websocket;
   return (
     <BrowserRouter>
       <Helmet

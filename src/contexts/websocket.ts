@@ -1,4 +1,5 @@
 import Storage from 'utils/Storage';
+import { store } from 'index';
 import Constants, {
   REQUEST_CREATE_MEMBER,
   REQUEST_CREATE_MESSAGE,
@@ -18,11 +19,10 @@ import {
   IReceivedMessageResponse,
 } from './interfaces/response';
 
-import { store } from 'index';
 import IDBStorage from './idb';
 import { DatabaseChatIDB } from './db';
-import { chatActions } from 'store/slice/chatSlice';
 import { IConversation, IMember } from './interfaces/indexDB';
+import { chatActions } from 'store/slice/chatSlice';
 
 var userId = Storage.getFieldOfUser('id');
 var token = Storage.getFieldOfUser('token');
@@ -30,7 +30,7 @@ var token = Storage.getFieldOfUser('token');
 class _Websocket {
   public IDBStorageChat = new IDBStorage(DatabaseChatIDB, 'chat');
   //WebSocket settings
-  private webSocketUrl = Constants.WEBSOCKET_URL || 'wss://ttvnapi.com/v1';
+  private webSocketUrl = Constants.WEBSOCKET_URL || 'ws://ttvnapi.com/v1';
   private reconnectTimeout = 5 * 1000; //10 Seconds
   //Reconnect timer
   private reconnectTimer: ReturnType<typeof setInterval> | null = null;
@@ -40,10 +40,11 @@ class _Websocket {
   constructor(protected userId: number, protected token: string) {
     // this.IDBStorageChat = ;
     this.connect(userId, token);
+
     return this;
   }
 
-  public connect(userId: number, token: string) {
+  public connect = (userId: number, token: string) => {
     this.ws = new WebSocket(
       this.webSocketUrl + '?id=' + userId + '&token=' + token,
     );
@@ -52,7 +53,9 @@ class _Websocket {
     this.ws.addEventListener('close', this.handleClose);
     this.ws.addEventListener('error', this.handleError);
     this.ws.addEventListener('message', this.handleMessage);
-  }
+
+    return this.ws;
+  };
 
   private removeListeners() {
     if (!this.ws) {
@@ -90,7 +93,7 @@ class _Websocket {
   };
 
   private handleClose = (e?: CloseEvent) => {
-    console.log(e);
+    this.removeListeners();
     console.log(
       `Socket is closed. Reconnect will be attempted in ${
         this.reconnectTimeout / 1000
@@ -99,25 +102,17 @@ class _Websocket {
     );
 
     this.reconnectTimer = setInterval(this.wsReconnect, this.reconnectTimeout);
-    // this.removeListeners();
-
-    //Extra closey stuff goes here
   };
 
   private wsReconnect = () => {
-    this.ws = new WebSocket(
-      this.webSocketUrl + '?id=' + this.userId + '&token=' + this.token,
-    );
-    if (this.ws && this.reconnectTimer) {
-      console.log(this.ws);
+    let socket = this.connect(this.userId, this.token);
+
+    if (socket && this.reconnectTimer) {
       console.log('Socket reconnected');
       clearInterval(this.reconnectTimer);
     }
 
-    //Extra error-y stuff goes here
-
-    //Return the new WebSocket connection
-    return this.ws;
+    return socket;
   };
 
   private handleMessage = (event: MessageEvent) => {
@@ -166,7 +161,7 @@ class _Websocket {
         await this.IDBStorageChat.get(String(res.d.cv), 'message');
       console.log(dataConversation);
       if (dataConversation === undefined)
-        return this.requestGetMessge(res.d.cv);
+        return this.requestGetMessage(res.d.cv);
       else {
         console.log(dataConversation);
         const conversationNew = {
@@ -250,7 +245,7 @@ class _Websocket {
 
       for (let conversation of res.d.l) {
         this.requestGetConversation(conversation.cv);
-        this.requestGetMember(conversation.cv);
+        this.requestGetMenber(conversation.cv);
       }
     }
   };
@@ -272,6 +267,7 @@ class _Websocket {
 
   // ! request
 
+  //create conversation
   public requestMakeConversation(friendId: number, chatName: String) {
     const body = {
       id: REQUEST_MAKE_CONVERSATION,
@@ -280,17 +276,19 @@ class _Websocket {
     this.send(body);
   }
 
+  // get all conversations
   public requestGetAllConversation() {
     this.send({ id: REQUEST_GET_LIST_CONVERSATIONS });
   }
 
+  // get singple conversation
   public requestGetConversation(cv: number) {
     const body = { id: REQUEST_GET_CONVERSATIONS, d: { cv } };
 
     this.send(body);
   }
 
-  public requestGetMessge(cv: number, page: number = 0, limit: number = 10) {
+  public requestGetMessage(cv: number, page: number = 0, limit: number = 10) {
     const body = {
       id: REQUEST_GET_MESSAGE,
       d: {
@@ -320,7 +318,7 @@ class _Websocket {
     this.send(body);
   }
 
-  public requestGetMember(cv: number) {
+  public requestGetMenber(cv: number) {
     const body = { id: REQUEST_GET_MEMBER, d: { cv } };
 
     this.send(body);
@@ -333,10 +331,21 @@ class _Websocket {
 
     this.ws.send(bodyString);
   };
-  // IDB
-  public getAllConversation = () => {
-    return this.IDBStorageChat.getAll('conversation');
+
+  // ! Check
+  public checkExistingConversationWithTwoPeople = async (userId: number) => {
+    const dataMemberIDB: IMember[] = await this.IDBStorageChat.getAll('member');
+
+    for (let member of dataMemberIDB) {
+      if (member.length === 2) {
+        if (member[0].u === userId) return true;
+        if (member[1].u === userId) return true;
+      }
+    }
+
+    return false;
   };
 }
+
 const Websocket = new _Websocket(userId, token);
 export default Websocket;

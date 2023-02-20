@@ -9,6 +9,7 @@ import { apiGet } from 'utils/http/request';
 import { LoadingOverlay } from '@mantine/core';
 // import Websocket from 'contexts/websocket';
 import { UserSlice } from 'store/slice/userSlice';
+import Websocket from 'contexts/websocket';
 
 export function ChatPage() {
   const dispatch = useDispatch();
@@ -20,7 +21,23 @@ export function ChatPage() {
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState<any>([]);
   const phone = useMediaQuery('(max-width:576px)');
+
+  const sendMakeConversation = async () => {
+    const hadConversation =
+      await Websocket.checkExistingConversationWithTwoPeople(Number(userId));
+
+    if (hadConversation) {
+      console.log('Tồn tại');
+      Websocket.requestGetMessage(10, 0, 10);
+      return;
+    }
+    //  else {
+    //   Websocket.requestMakeConversation(Number(userId), `${user.id}-${userId}`);
+    // }
+    console.log('Tồn tại');
+  };
   useEffect(() => {
+    sendMakeConversation();
     dispatch(actions.setMatchStatus());
     apiGet('/v1/godoo/profile/get', {
       userId: userId,
@@ -32,6 +49,7 @@ export function ChatPage() {
       .catch(err => {
         console.log(err);
       });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
   if (phone) {

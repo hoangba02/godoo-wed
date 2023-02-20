@@ -6,13 +6,11 @@ import {
   createStyles,
   Divider,
   Flex,
-  PasswordInput,
   Text,
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { UserSlice } from 'store/slice/userSlice';
-import { IconEyeOff, IconEye } from '@tabler/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -43,12 +41,11 @@ export function LoginPage() {
 
   const form = useForm({
     initialValues: {
-      username: '',
-      password: '',
-      termsOfService: true,
+      username: user.login.savePassword ? user.username : '',
+      password: user.login.savePassword ? user.password : '',
+      termsOfService: user.login.savePassword,
     },
   });
-
   const handleSubmitSignIn = () => {
     if (!form.values.username || !form.values.password) {
       setError(true);

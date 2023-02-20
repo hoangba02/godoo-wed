@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Button, createStyles, Flex, Image, Text } from '@mantine/core';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
 import { ReactComponent as Globe } from 'assets/icons/setting/globe.svg';
@@ -11,6 +11,7 @@ import { UserSlice } from 'store/slice/userSlice';
 import { AboutPage } from '../Loadable';
 import Languages from 'app/components/Languages/Language';
 import { images } from 'assets/images';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 interface Props {
   onMotion?: any;
 }
@@ -18,6 +19,8 @@ function Setting({ onMotion }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
+  // Local
   const { classes } = useStyles();
 
   return (
@@ -75,7 +78,15 @@ function Setting({ onMotion }: Props) {
       <Button
         className="aboutBtn"
         onClick={() => {
-          dispatch(actions.logoutSuccess());
+          dispatch(
+            actions.logoutSuccess({
+              username: user.login.savePassword ? user.username : '',
+              password: user.login.savePassword ? user.password : '',
+              login: {
+                savePassword: user.login.savePassword,
+              },
+            }),
+          );
         }}
       >
         Log out

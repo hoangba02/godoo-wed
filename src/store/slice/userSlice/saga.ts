@@ -120,6 +120,7 @@ export function* Login(action) {
         id: res.data.id,
         token: res.data.token,
         username: res.data.username,
+        password: action.payload.password,
         isLogin: false,
         login: {
           error: res.error,

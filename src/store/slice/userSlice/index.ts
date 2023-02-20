@@ -46,7 +46,6 @@ export const initialState: UserState = {
   likedYouList: [],
   chatList: [],
   comingList: [],
-
   point: {},
 };
 
@@ -66,6 +65,7 @@ const slice = createSlice({
       state.loading = false;
       state.login = action.payload.login;
       state.username = action.payload.username;
+      state.password = action.payload.password;
       state.isMatch = false;
       state.matchList = [];
       state.isYouLiked = false;
@@ -107,11 +107,12 @@ const slice = createSlice({
       state.register = action.payload.register;
     },
 
-    logoutSuccess(state: UserState) {
+    logoutSuccess(state: UserState, action: PayloadAction<any>) {
       state.id = -1;
       state.token = '';
       state.ws = {};
-      state.username = '';
+      state.username = action.payload.username;
+      state.password = action.payload.password;
       state.isLogin = false;
       state.telegram_fullname = '';
       state.messenger_fullname = '';
@@ -123,7 +124,7 @@ const slice = createSlice({
       state.login = {
         error: -1,
         message: '',
-        savePassword: false,
+        savePassword: action.payload.login.savePassword,
       };
       state.profile = {
         nickname: '',
@@ -181,7 +182,6 @@ const slice = createSlice({
       state.likedYouList = [...action.payload];
     },
     updateLikedYouList(state: UserState, action: PayloadAction<UserState>) {
-      console.log(action.payload);
       let newList = state.likedYouList?.filter(
         value => value.userId !== action.payload,
       );
