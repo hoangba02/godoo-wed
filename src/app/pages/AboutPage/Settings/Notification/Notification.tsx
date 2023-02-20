@@ -18,7 +18,7 @@ function Notification() {
   ];
   const { classes } = useStyles();
   return (
-    <AboutPage title="Notification">
+    <AboutPage title="Notification" isEdit={false}>
       {notifications.map((item, index) => (
         <Flex key={index} className={classes.switch}>
           <Text>{item.name}</Text>

@@ -74,7 +74,7 @@ function Account() {
         overlayBlur={2}
         loaderProps={{ color: '#E46125' }}
       />
-      <AboutPage title="My account">
+      <AboutPage title="My account" isEdit={false}>
         <Stack className={classes.container}>
           <Text className={classes.part}>Login method</Text>
           <Flex className={classes.option}>

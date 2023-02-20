@@ -8,8 +8,9 @@ import AboutWeb from './Web/AboutWeb';
 interface Props {
   title?: string;
   children?: JSX.Element | JSX.Element[];
+  isEdit: boolean;
 }
-export function AboutPage({ title, children }: Props) {
+export function AboutPage({ title, children, isEdit }: Props) {
   // Global
   const user = useSelector(getUserSelector);
   // Local
@@ -20,6 +21,8 @@ export function AboutPage({ title, children }: Props) {
   return phone ? (
     <AboutMobile title={title}>{children}</AboutMobile>
   ) : (
-    <AboutWeb title={title}>{children}</AboutWeb>
+    <AboutWeb title={title} isEdit={isEdit}>
+      {children}
+    </AboutWeb>
   );
 }

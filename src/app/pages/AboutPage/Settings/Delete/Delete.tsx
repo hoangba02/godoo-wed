@@ -12,7 +12,7 @@ function Delete() {
     }
   };
   return (
-    <AboutPage title="Delete account">
+    <AboutPage title="Delete account" isEdit={false}>
       {isContinue ? (
         <>
           <Stack

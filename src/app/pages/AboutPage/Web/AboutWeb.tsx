@@ -1,13 +1,14 @@
 import React, { memo } from 'react';
 import HeaderChild from 'app/components/Header/HeaderChild';
 import { Box, Container, Flex, Stack } from '@mantine/core';
-import About from 'app/components/About/About';
 import { AboutLayoutStyles } from '../AboutLayoutStyles';
+import About from 'app/components/About/About';
 interface Props {
   children?: JSX.Element | JSX.Element[];
   title?: string;
+  isEdit: boolean;
 }
-function AboutWeb({ children, title }: Props) {
+function AboutWeb({ children, title, isEdit }: Props) {
   const { classes } = AboutLayoutStyles();
   return (
     <Flex className={classes.container}>
@@ -17,7 +18,7 @@ function AboutWeb({ children, title }: Props) {
           minWidth: 378,
         }}
       >
-        <About />
+        <About isEdit={isEdit} />
       </Box>
       <Container fluid className={classes.content}>
         <HeaderChild title={title} />

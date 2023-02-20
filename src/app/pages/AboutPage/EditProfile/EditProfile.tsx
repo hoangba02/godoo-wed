@@ -53,7 +53,7 @@ function EditProfile() {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
   return (
-    <AboutPage title="Edit profile">
+    <AboutPage title="Edit profile" isEdit={true}>
       <Container className={classes.container}>
         <Input.Wrapper
           sx={{
@@ -175,7 +175,7 @@ function EditProfile() {
             <ArrowRight />
           </Flex>
         </Stack>
-        <Stack spacing={4}>
+        <Stack spacing={4} pb={20}>
           <Text className={classes.title}>More about me</Text>
           {MORE.map((item, index) => (
             <Flex className={classes.more} key={index}>
@@ -194,7 +194,7 @@ function EditProfile() {
                 variant="subtle"
                 rightIcon={<ArrowRight />}
                 className={classes.addBtn}
-                onClick={() => navigate('/about/profile/more')}
+                onClick={() => navigate(`/about/profile/more/${item.name}`)}
               >
                 Add
               </Button>

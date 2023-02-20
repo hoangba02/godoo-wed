@@ -39,7 +39,7 @@ function ChangePass() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openModal]);
   return (
-    <AboutPage title="Change password">
+    <AboutPage title="Change password" isEdit={false}>
       <ModalLayout
         openModal={openModal}
         setOpenModal={setOpenModal}

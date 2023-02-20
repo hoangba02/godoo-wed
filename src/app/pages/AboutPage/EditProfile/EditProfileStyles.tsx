@@ -6,7 +6,6 @@ export const EditProfileStyles = createStyles(() => ({
     height: '100%',
     maxWidth: '100%',
     paddingTop: 24,
-    overflow: 'scroll',
   },
   clearBtn: {
     width: '24px !important',

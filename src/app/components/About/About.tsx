@@ -27,8 +27,9 @@ import { images } from 'assets/images';
 interface Props {
   animation?: any;
   onAnimationEnd?: any;
+  isEdit?: boolean;
 }
-function About({ animation, onAnimationEnd }: Props) {
+function About({ animation, onAnimationEnd, isEdit }: Props) {
   const navigate = useNavigate();
   const { classes } = AboutStyles();
 
@@ -78,6 +79,10 @@ function About({ animation, onAnimationEnd }: Props) {
             </Center>
             <Text className={classes.nickname}>{profile.nickname}</Text>
             <Button
+              sx={{
+                color: isEdit ? '#E46125' : '#929292',
+                backgroundColor: isEdit ? '#FFE9E0' : '#EAEAEA',
+              }}
               variant="subtle"
               className={classes.editBtn}
               onClick={() => {

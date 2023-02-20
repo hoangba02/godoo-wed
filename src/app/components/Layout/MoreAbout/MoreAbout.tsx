@@ -1,12 +1,19 @@
-import { Tabs, TabsProps } from '@mantine/core';
 import React, { useEffect, useRef, useState } from 'react';
-import { AboutPage } from '../../Loadable';
-import { MORE } from '../More';
+import { Tabs, TabsProps } from '@mantine/core';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AboutPage } from '../../../pages/AboutPage/Loadable';
+import { MORE } from '../../../pages/AboutPage/EditProfile/More';
 
-function MoreAbout() {
+interface Props {
+  children?: JSX.Element;
+}
+function MoreAbout({ children }: Props) {
+  const navigate = useNavigate();
+  const { tab } = useParams();
+  // local
   const tabsRef = useRef<any>(null);
+  const tabList = useRef<any>(null);
   const [startX, setStartX] = useState<number>(0);
-  // const [width, setWidth] = useState<number>(0);
   const [scrollLeft, setScrollLeft] = useState<number>(0);
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false);
 
@@ -25,7 +32,7 @@ function MoreAbout() {
       current.scrollLeft = width;
     }
   };
-  const handleClearMouseEvent = e => {
+  const handleClearMouseEvent = () => {
     setIsMouseDown(false);
   };
   useEffect(() => {
@@ -42,22 +49,27 @@ function MoreAbout() {
       current.removeEventListener('mouseup', handleClearMouseEvent);
     };
   });
+
+  useEffect(() => {
+    const { current } = tabsRef;
+    const listWidth = current.getBoundingClientRect().width;
+    console.log(listWidth);
+  }, []);
   return (
-    <AboutPage title="More about me">
-      <StyledTabs defaultValue="Height" ref={tabsRef}>
-        {/* <motion.div
-          ref={tabsRef}
-          drag="x"
-          dragConstraints={{ right: 0, left: -width }}
-        > */}
-        <Tabs.List>
+    <AboutPage title="More about me" isEdit={true}>
+      <StyledTabs
+        ref={tabsRef}
+        value={tab}
+        onTabChange={value => navigate(`/about/profile/more/${value}`)}
+      >
+        <Tabs.List ref={tabList}>
           {MORE.map((tab, index) => (
             <Tabs.Tab key={index} value={tab.name}>
               {tab.name}
             </Tabs.Tab>
           ))}
         </Tabs.List>
-        {/* </motion.div> */}
+        {children}
       </StyledTabs>
     </AboutPage>
   );

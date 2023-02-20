@@ -30,7 +30,7 @@ import ChangePass from './pages/AboutPage/Settings/ChangePasss/ChangePass';
 import Notification from './pages/AboutPage/Settings/Notification/Notification';
 import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
-import MoreAbout from './pages/AboutPage/EditProfile/MoreAbout/MoreAbout';
+import MoreAbout from './components/Layout/MoreAbout/MoreAbout';
 // import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();
@@ -64,7 +64,7 @@ export function App() {
           {/* Edidt Profile */}
           <Route path="/about/profile" element={<EditProfile />} />
           <Route path="/about/profile/gender" element={<EditGender />} />
-          <Route path="/about/profile/more" element={<MoreAbout />} />
+          <Route path="/about/profile/more/:tab" element={<MoreAbout />} />
 
           {/* Register Page*/}
           <Route path="/register/nickname" element={<NickName />} />

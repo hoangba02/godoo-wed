@@ -33,7 +33,7 @@ function EditGender() {
     );
   };
   return (
-    <AboutPage title="Gender">
+    <AboutPage title="Gender" isEdit={true}>
       <Flex
         sx={{
           width: '100%',

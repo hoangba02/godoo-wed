@@ -24,7 +24,7 @@ function Setting({ onMotion }: Props) {
   const { classes } = useStyles();
 
   return (
-    <AboutPage title="Setting">
+    <AboutPage title="Setting" isEdit={false}>
       <Flex
         className={classes.option}
         onClick={() => {
