@@ -1,7 +1,7 @@
 import React from 'react';
 
-function StarSign() {
-  return <div>StarSign</div>;
+function Hometown() {
+  return <div>Hometown</div>;
 }
 
-export default StarSign;
+export default Hometown;

@@ -115,7 +115,7 @@ root.render(
               background: '#FFFFFF',
               border: '0.5px solid #E46125',
               position: 'absolute',
-              bottom: '30%',
+              bottom: '17%',
               borderRadius: 8,
               ':hover': {
                 background: '#FFFFFF',

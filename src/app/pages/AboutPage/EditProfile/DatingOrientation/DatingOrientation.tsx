@@ -1,7 +1,7 @@
 import React from 'react';
 
-function StarSign() {
-  return <div>StarSign</div>;
+function DatingOrientation() {
+  return <div>DatingOrientation</div>;
 }
 
-export default StarSign;
+export default DatingOrientation;

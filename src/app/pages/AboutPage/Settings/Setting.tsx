@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, createStyles, Flex, Image, Text } from '@mantine/core';
+import { Box, Button, createStyles, Flex, Text } from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
@@ -10,7 +10,6 @@ import { ReactComponent as User } from 'assets/icons/setting/user.svg';
 import { UserSlice } from 'store/slice/userSlice';
 import { AboutPage } from '../Loadable';
 import Languages from 'app/components/Languages/Language';
-import { images } from 'assets/images';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 interface Props {
   onMotion?: any;

@@ -55,13 +55,13 @@ export function Zodiac(date) {
         return { name: 'Gemini', zodiac: images.GeminiZ };
       }
       if (day > 21 && day <= 30) {
-        return { name: 'Caner', zodiac: images.CanerZ };
+        return { name: 'Caner', zodiac: images.CancerZ };
       }
       break;
 
     case 7:
       if (day <= 22 && day > 0) {
-        return { name: 'Caner', zodiac: images.CanerZ };
+        return { name: 'Caner', zodiac: images.CancerZ };
       }
       if (day > 22 && day <= 31) {
         return { name: 'Leo', zodiac: images.LeoZ };
@@ -116,3 +116,18 @@ export function Zodiac(date) {
       break;
   }
 }
+
+export const zodiacMap = [
+  { name: 'Aquarius', zodiac: images.AquariusE },
+  { name: 'Pisces', zodiac: images.PiscesE },
+  { name: 'Aries', zodiac: images.AriesE },
+  { name: 'Taurus', zodiac: images.TaurusE },
+  { name: 'Gemini', zodiac: images.GeminiE },
+  { name: 'Leo', zodiac: images.LeoE },
+  { name: 'Cancer', zodiac: images.CancerE },
+  { name: 'Virgo', zodiac: images.VirgoE },
+  { name: 'Libra', zodiac: images.LibraE },
+  { name: 'Scorpion', zodiac: images.ScorpionE },
+  { name: 'Sagittarius', zodiac: images.SagittariusE },
+  { name: 'Capricorn', zodiac: images.CapricornE },
+];

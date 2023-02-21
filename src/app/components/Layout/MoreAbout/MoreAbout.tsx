@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Tabs, TabsProps } from '@mantine/core';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { Box, Container, createStyles, Tabs, TabsProps } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AboutPage } from '../../../pages/AboutPage/Loadable';
 import { MORE } from '../../../pages/AboutPage/EditProfile/More';
+import NextTab from './NextTab';
 
 interface Props {
   children?: JSX.Element;
 }
 function MoreAbout({ children }: Props) {
-  const navigate = useNavigate();
   const { tab } = useParams();
+  const navigate = useNavigate();
   // local
+  const { classes } = useStyles();
   const tabsRef = useRef<any>(null);
   const tabList = useRef<any>(null);
   const [startX, setStartX] = useState<number>(0);
@@ -35,6 +37,16 @@ function MoreAbout({ children }: Props) {
   const handleClearMouseEvent = () => {
     setIsMouseDown(false);
   };
+
+  const tabAfter = useCallback(() => {
+    let next: string = '';
+    for (let i = 0; i < MORE.length; i++) {
+      if (MORE[i].name === tab) {
+        next = MORE[i + 1]?.name || MORE[0].name;
+      }
+    }
+    return next;
+  }, [tab]);
   useEffect(() => {
     const { current } = tabsRef;
     current.addEventListener('mousedown', handleMouseDown);
@@ -53,8 +65,8 @@ function MoreAbout({ children }: Props) {
   useEffect(() => {
     const { current } = tabsRef;
     const listWidth = current.getBoundingClientRect().width;
-    console.log(listWidth);
   }, []);
+
   return (
     <AboutPage title="More about me" isEdit={true}>
       <StyledTabs
@@ -69,8 +81,13 @@ function MoreAbout({ children }: Props) {
             </Tabs.Tab>
           ))}
         </Tabs.List>
-        {children}
       </StyledTabs>
+      <Container fluid className={classes.tab}>
+        {MORE.map((more, index) => {
+          if (tab === more.name) return <div key={index}>{more.component}</div>;
+        })}
+        <NextTab tab={tabAfter()} />
+      </Container>
     </AboutPage>
   );
 }
@@ -94,7 +111,6 @@ function CustomerTabs(props: TabsProps, ref) {
           alignItems: 'center',
           borderRadius: '0px 0px 8px 8px',
           whiteSpace: 'nowrap',
-
           '&:disabled': {
             opacity: 0.5,
             cursor: 'not-allowed',
@@ -133,11 +149,20 @@ function CustomerTabs(props: TabsProps, ref) {
         root: {
           width: '100%',
           overflow: 'hidden',
+          marginTop: -24,
         },
       })}
       {...props}
     />
   );
 }
-
 const StyledTabs = React.forwardRef(CustomerTabs);
+
+const useStyles = createStyles(() => ({
+  tab: {
+    position: 'relative',
+    width: 570,
+    height: '100%',
+    padding: '10px 0 0',
+  },
+}));

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function StarSign() {
-  return <div>StarSign</div>;
+function EducationLevel() {
+  return <div>EducationLevel</div>;
 }
 
-export default StarSign;
+export default EducationLevel;

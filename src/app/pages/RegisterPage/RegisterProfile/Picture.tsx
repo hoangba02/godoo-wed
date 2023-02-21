@@ -13,7 +13,6 @@ import {
 import { UserSlice } from 'store/slice/userSlice';
 import { ProfileLayout } from 'app/components/Layout/CreateProfile/CreateProfile';
 import Photographs from 'app/components/Photographs/Photographs';
-import Demo from 'app/pages/Demo/Demo';
 
 export default function Picture() {
   // Global
@@ -34,7 +33,6 @@ export default function Picture() {
     fire: profile.picture[4],
     six: profile.picture[5],
   });
-  const [disableBtn, setDisableBtn] = useState(true);
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
   };
@@ -54,11 +52,6 @@ export default function Picture() {
         },
       }),
     );
-    if (img.one) {
-      setDisableBtn(false);
-    } else {
-      setDisableBtn(true);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [img]);
   return (
@@ -115,7 +108,7 @@ export default function Picture() {
             )}
           </Text>
           <Button
-            disabled={disableBtn}
+            disabled={!img.one}
             variant="gradient"
             className={classes.nextBtn}
             onClick={handleCreatePicture}

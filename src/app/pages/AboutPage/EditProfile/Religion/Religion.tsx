@@ -1,7 +1,7 @@
 import React from 'react';
 
-function StarSign() {
-  return <div>StarSign</div>;
+function Religion() {
+  return <div>Religion</div>;
 }
 
-export default StarSign;
+export default Religion;

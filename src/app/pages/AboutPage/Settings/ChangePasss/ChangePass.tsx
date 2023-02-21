@@ -134,7 +134,7 @@ const useStyles = createStyles(() => ({
     fontSize: 20,
     lineHeight: '25px',
     position: 'absolute',
-    bottom: '30%',
+    bottom: '17%',
     background: 'linear-gradient(90deg, #C91A44 -0.01%, #A12FA3 100%)',
   },
 }));

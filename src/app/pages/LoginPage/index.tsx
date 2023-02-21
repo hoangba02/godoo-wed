@@ -76,11 +76,16 @@ export function LoginPage() {
     });
   };
   useEffect(() => {
+    const isImg = profile.picture.filter(img => {
+      if (img) {
+        return img;
+      }
+    });
     if (user.token !== '') {
       if (profile.nickname === '') {
         navigate('/register/nickname');
         dispatch(counterActions.setCounter({ value: 0 }));
-      } else if (profile.picture.length === 0) {
+      } else if (profile.picture.length === 0 || isImg.length === 0) {
         navigate('/register/picture');
         dispatch(counterActions.setCounter({ value: 1 }));
       } else if (profile.date_of_birth === '') {

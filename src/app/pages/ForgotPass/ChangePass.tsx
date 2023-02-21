@@ -4,14 +4,12 @@ import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { IconEyeOff, IconEye } from '@tabler/icons';
-import { useDispatch, useSelector } from 'react-redux';
-import { useInterval, useMediaQuery, useTimeout } from '@mantine/hooks';
+import { useSelector } from 'react-redux';
+import { useTimeout } from '@mantine/hooks';
 import { Box, Button, Group, PasswordInput, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
 import Modals from 'app/components/Modals/Modals';
-import Logo from 'app/components/Logo/Logo';
-import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 

@@ -24,7 +24,7 @@ export const AboutLayoutStyles = createStyles(() => ({
     height: 'calc(100vh - 91px)',
     alignItems: 'center',
     overflowY: 'scroll',
-
+    paddingTop: 24,
     [`@media (max-width:575px)`]: {
       padding: '24px 16px 0',
     },

@@ -1,7 +1,7 @@
 import React from 'react';
 
-function StarSign() {
-  return <div>StarSign</div>;
+function LangSpeak() {
+  return <div>LangSpeak</div>;
 }
 
-export default StarSign;
+export default LangSpeak;

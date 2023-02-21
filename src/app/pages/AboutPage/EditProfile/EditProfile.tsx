@@ -1,11 +1,10 @@
-import React, { ReactComponentElement, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Box,
   Button,
   Container,
   Flex,
   Input,
-  Space,
   Stack,
   Text,
   TextInput,
@@ -26,8 +25,8 @@ function EditProfile() {
   const navigate = useNavigate();
   const profile = useSelector(getProfileSelector);
   // Local
-  const inputRef = useRef<HTMLInputElement | null>(null);
   const { classes } = EditProfileStyles();
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const [info, setInfo] = useState({
     nickname: profile.nickname,
     introduction: profile.introduction,

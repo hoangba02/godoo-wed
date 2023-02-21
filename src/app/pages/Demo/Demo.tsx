@@ -1,34 +1,27 @@
-import React, { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
+import React, { useState } from 'react';
 
 export default function Demo() {
-  const handleUpload = file => {
-    console.log(file);
+  const [image, setImage] = useState<any>('');
+
+  const handleImageChange = e => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImage(reader.result);
+    };
   };
-  return <ImageUploader handleUpload={handleUpload} />;
-}
 
-function ImageUploader({ handleUpload }) {
-  const onDrop = useCallback(
-    acceptedFiles => {
-      // Gọi hàm handleUpload để xử lý các tệp tải lên
-      handleUpload(acceptedFiles);
-    },
-    [handleUpload],
-  );
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-  });
+  const handleSubmit = e => {
+    e.preventDefault();
+    // Send the image to the server
+    console.log(image);
+  };
 
   return (
-    <div {...getRootProps()} className="dropzone">
-      <input {...getInputProps()} accept="image/*" />
-      {isDragActive ? (
-        <p>Kéo và thả các tập tin ảnh vào đây</p>
-      ) : (
-        <p>Kéo và thả các tập tin ảnh vào đây, hoặc nhấp để chọn các tập tin</p>
-      )}
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input type="file" accept="image/*" onChange={handleImageChange} />
+      <button type="submit">Upload</button>
+    </form>
   );
 }

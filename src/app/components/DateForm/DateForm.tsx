@@ -54,7 +54,7 @@ export const DateForm = ({
   const [hour, setHour] = useState<any>(new Date());
   const [minute, setMinute] = useState<any>(0);
   const [optionTime, setOptionTime] = useState<string>('hours');
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState<boolean>(false);
   const [coming, setComing] = useState({
     title: '',
     content: '',
