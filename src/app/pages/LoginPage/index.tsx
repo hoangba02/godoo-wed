@@ -103,6 +103,7 @@ export function LoginPage() {
             isLogin: true,
             loading: false,
             username: form.values.username,
+            password: form.values.password,
             login: { savePassword: form.values.termsOfService },
           }),
         );

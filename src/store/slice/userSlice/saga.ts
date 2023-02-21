@@ -105,6 +105,7 @@ export function* Register(action) {
   }
 }
 export function* Login(action) {
+  console.log(action);
   const data = {
     username: action.payload.username,
     password: action.payload.password,

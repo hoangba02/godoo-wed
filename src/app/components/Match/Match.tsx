@@ -8,7 +8,6 @@ import { Card, Container, Image, Text } from '@mantine/core';
 import Search from './Search';
 import NewMatch from './NewMatch';
 import MatchList from './MatchList';
-import { images } from 'assets/images';
 import MatchHeader from './MatchHeader';
 import { apiPost } from 'utils/http/request';
 import { UserSlice } from 'store/slice/userSlice';

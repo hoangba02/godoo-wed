@@ -1,20 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { IconPlus } from '@tabler/icons';
 import { ReactComponent as Blink } from 'assets/icons/register/blink.svg';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
-import {
-  Box,
-  Button,
-  Card,
-  createStyles,
-  FileButton,
-  Group,
-  Image,
-} from '@mantine/core';
+import { Box, Button, Card, createStyles, Group, Image } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
+import { useDropzone } from 'react-dropzone';
 
 interface Props {
   id: string;
@@ -28,13 +21,16 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   const profile = useSelector(getProfileSelector);
   // Local
   const ImgFile = new FormData();
-  const { t } = useTranslation();
   const { classes } = useStyles();
   const [zIndex, setZIndex] = useState(() => {
     if (profile.picture[id]) return 4;
     return 2;
   });
   const [file, setFile] = useState<File | null>(null);
+
+  const handleUpload = file => {
+    setFile(file[0]);
+  };
   const handleClearImg = url => {
     setImg({ ...img, [name]: '' });
     setZIndex(2);
@@ -60,6 +56,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
     } else {
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file]);
   return (
     <Card
@@ -116,67 +113,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
             />
           </Box>
           <Group position="center">
-            <FileButton
-              name={name}
-              // resetRef={resetRef}
-              onChange={setFile}
-              accept="image/png,image/jpeg"
-            >
-              {props => (
-                <Button
-                  styles={{
-                    leftIcon: {
-                      margin: 0,
-                    },
-                  }}
-                  sx={{
-                    position: 'absolute',
-                    bottom: '8%',
-                    width: id === '0' ? '42%' : '50%',
-                    height: id === '0' ? 56 : 26,
-                    color: 'var(--white)',
-                    padding: 0,
-                    backgroundColor: '#E46125',
-                    borderRadius: 34,
-                    fontSize: id === '0' ? 24 : 14,
-                    fontWeight: 400,
-                    lineHeight: '18px',
-                    zIndex: 3,
-                    '&::before': {
-                      display: 'none',
-                    },
-                    '&:hover': {
-                      transition: '0.5s',
-                      backgroundColor:
-                        id !== '0' && !img.one
-                          ? '#BFBFBF !important'
-                          : '#E46125 !important',
-                      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    },
-                    '&[data-disabled]': {
-                      cursor: id === '0' ? 'default' : 'no-drop',
-                      color: 'var(--white) !important',
-                      backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
-                    },
-                    [`@media (max-width:575px)`]: {
-                      fontSize: id === '0' ? 24 : 14,
-                      width: id === '0' ? '50%' : '56%',
-                      height: id === '0' ? 42 : 26,
-                    },
-                  }}
-                  disabled={id !== '0' && !img.one ? true : false}
-                  leftIcon={
-                    <IconPlus
-                      width={id === '0' ? 29 : 18}
-                      height={id === '0' ? 29 : 18}
-                    />
-                  }
-                  {...props}
-                >
-                  {t('Profile.text.Add')}
-                </Button>
-              )}
-            </FileButton>
+            <ImageUploader id={id} img={img} handleUpload={handleUpload} />
           </Group>
         </>
       )}
@@ -229,3 +166,74 @@ const useStyles = createStyles(() => ({
     },
   },
 }));
+
+function ImageUploader({ id, img, handleUpload }) {
+  const { t } = useTranslation();
+  const onDrop = useCallback(
+    acceptedFiles => {
+      handleUpload(acceptedFiles);
+    },
+    [handleUpload],
+  );
+
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+  });
+
+  return (
+    <div {...getRootProps()} className="dropzone">
+      <input {...getInputProps()} accept="image/*" />
+      <Button
+        styles={{
+          leftIcon: {
+            margin: 0,
+          },
+        }}
+        sx={{
+          position: 'absolute',
+          bottom: '8%',
+          width: id === '0' ? '42%' : '50%',
+          height: id === '0' ? 56 : 26,
+          color: 'var(--white)',
+          padding: 0,
+          backgroundColor: '#E46125',
+          borderRadius: 34,
+          fontSize: id === '0' ? 24 : 14,
+          fontWeight: 400,
+          lineHeight: '18px',
+          zIndex: 3,
+          '&::before': {
+            display: 'none',
+          },
+          '&:hover': {
+            transition: '0.5s',
+            backgroundColor:
+              id !== '0' && !img.one
+                ? '#BFBFBF !important'
+                : '#E46125 !important',
+            boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+          },
+          '&[data-disabled]': {
+            cursor: id === '0' ? 'default' : 'no-drop',
+            color: 'var(--white) !important',
+            backgroundColor: id === '0' ? '#E46125' : '#BFBFBF',
+          },
+          [`@media (max-width:575px)`]: {
+            fontSize: id === '0' ? 24 : 14,
+            width: id === '0' ? '50%' : '56%',
+            height: id === '0' ? 42 : 26,
+          },
+        }}
+        disabled={id !== '0' && !img.one ? true : false}
+        leftIcon={
+          <IconPlus
+            width={id === '0' ? 29 : 18}
+            height={id === '0' ? 29 : 18}
+          />
+        }
+      >
+        {t('Profile.text.Add')}
+      </Button>
+    </div>
+  );
+}

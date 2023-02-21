@@ -1,7 +1,6 @@
 export interface UserState {
   //Account
   id?: number;
-  ws?: any;
   user_2?: any;
   token?: string;
   language?: 'vi' | 'en';

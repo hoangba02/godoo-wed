@@ -9,7 +9,6 @@ import { userSaga } from './saga';
 export const initialState: UserState = {
   // Account
   id: -1,
-  ws: {},
   user_2: {},
   token: '',
   isLogin: false,
@@ -83,9 +82,7 @@ const slice = createSlice({
         }),
       );
     },
-    requestConnectWs(state: UserState, action: PayloadAction<any>) {
-      state.ws = action.payload;
-    },
+
     loginFail(state: UserState, action: PayloadAction<UserState>) {
       state.loading = false;
       state.login = action.payload.login;
@@ -110,7 +107,6 @@ const slice = createSlice({
     logoutSuccess(state: UserState, action: PayloadAction<any>) {
       state.id = -1;
       state.token = '';
-      state.ws = {};
       state.username = action.payload.username;
       state.password = action.payload.password;
       state.isLogin = false;

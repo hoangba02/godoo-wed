@@ -7,7 +7,6 @@ import { GlobalStyle } from 'styles/global-styles';
 import { useTranslation } from 'react-i18next';
 import PrivateRouter from './routes/PrivateRouter';
 
-import Demo from 'app/pages/Demo/Demo';
 // import Demo2 from './pages/Demo/Demo2';
 import Demo3 from './pages/Demo/Demo3';
 import ForgotPass from 'app/pages/ForgotPass';
@@ -31,6 +30,7 @@ import Notification from './pages/AboutPage/Settings/Notification/Notification';
 import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 import MoreAbout from './components/Layout/MoreAbout/MoreAbout';
+import Demo from './pages/Demo/Demo';
 // import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();

@@ -1,94 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FileButton, Button, Group, Text, List, Image } from '@mantine/core';
-import { apiPost } from 'utils/http/request';
+import React, { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 export default function Demo() {
-  const ImgFile = new FormData();
-  const [selectedFile, setSelectedFile] = useState({ name: '', filename: '' });
-
-  const [file, setFile] = useState<File | null>(null);
-  const resetRef = useRef<() => void>(null);
-
-  const handleUploadImage = e => {
-    setSelectedFile({ name: 'one', filename: '' });
+  const handleUpload = file => {
+    console.log(file);
   };
-  console.log(selectedFile);
+  return <ImageUploader handleUpload={handleUpload} />;
+}
 
-  useEffect(() => {
-    if (file) {
-      ImgFile.append('file', file);
-      apiPost('/v1/uploadgeturl', ImgFile, {
-        'content-type': 'multipart/form-data',
-      })
-        .then(res => {
-          console.log(res);
-          setSelectedFile({
-            ...selectedFile,
-            filename: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
-          });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      return;
-    }
-  }, [file]);
-  return (
-    <>
-      <Group
-        position="center"
-        onClick={e => {
-          handleUploadImage(e);
-        }}
-      >
-        <FileButton
-          name="one"
-          resetRef={resetRef}
-          onChange={setFile}
-          accept="image/png,image/jpeg"
-        >
-          {props => <Button {...props}>Upload image</Button>}
-        </FileButton>
-      </Group>
-      {file && (
-        <>
-          <Text size="sm" align="center" mt="sm">
-            Picked file: {file.name}
-          </Text>
-          <Image
-            sx={{
-              position: 'relative',
-              zIndex: 9999,
-            }}
-            width={100}
-            src={selectedFile.filename}
-          />
-        </>
-      )}
-    </>
+function ImageUploader({ handleUpload }) {
+  const onDrop = useCallback(
+    acceptedFiles => {
+      // Gọi hàm handleUpload để xử lý các tệp tải lên
+      handleUpload(acceptedFiles);
+    },
+    [handleUpload],
   );
 
-  // const [files, setFiles] = useState<File[]>([]);
-  // return (
-  //   <>
-  //     <Group position="center">
-  //       <FileButton onChange={setFiles} accept="image/png,image/jpeg" multiple>
-  //         {props => <Button {...props}>Upload image</Button>}
-  //       </FileButton>
-  //     </Group>
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+  });
 
-  //     {files.length > 0 && (
-  //       <Text size="sm" mt="sm">
-  //         Picked files:
-  //       </Text>
-  //     )}
-
-  //     <List size="sm" mt={5} withPadding>
-  //       {files.map((file, index) => (
-  //         <List.Item key={index}>{file.name}</List.Item>
-  //       ))}
-  //     </List>
-  //   </>
-  // );
+  return (
+    <div {...getRootProps()} className="dropzone">
+      <input {...getInputProps()} accept="image/*" />
+      {isDragActive ? (
+        <p>Kéo và thả các tập tin ảnh vào đây</p>
+      ) : (
+        <p>Kéo và thả các tập tin ảnh vào đây, hoặc nhấp để chọn các tập tin</p>
+      )}
+    </div>
+  );
 }

@@ -61,6 +61,7 @@
     "react-app-polyfill": "3.0.0",
     "react-card-rotate-swiper": "0.0.14",
     "react-dom": "18.2.0",
+    "react-dropzone": "14.2.3",
     "react-helmet-async": "1.3.0",
     "react-i18next": "11.18.6",
     "react-is": "18.2.0",
