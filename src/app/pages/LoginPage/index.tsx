@@ -76,12 +76,12 @@ export function LoginPage() {
     });
   };
   useEffect(() => {
-    const isImg = profile.picture.filter(img => {
-      if (img) {
-        return img;
-      }
-    });
     if (user.token !== '') {
+      const isImg = profile.picture.filter(img => {
+        if (img) {
+          return img;
+        }
+      });
       if (profile.nickname === '') {
         navigate('/register/nickname');
         dispatch(counterActions.setCounter({ value: 0 }));

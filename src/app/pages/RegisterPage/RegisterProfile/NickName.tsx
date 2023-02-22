@@ -47,6 +47,8 @@ export default function NickName() {
           id: user.id,
           isLogin: false,
           profile: {
+            additional_information: profile.additional_information,
+            schedule_id: profile.schedule_id,
             nickname: form.values.nickname,
             picture: profile.picture,
             date_of_birth: profile.date_of_birth,

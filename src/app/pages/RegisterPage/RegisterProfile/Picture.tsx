@@ -43,6 +43,8 @@ export default function Picture() {
         isLogin: false,
         token: user.token,
         profile: {
+          additional_information: profile.additional_information,
+          schedule_id: profile.schedule_id,
           nickname: profile.nickname,
           picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
           date_of_birth: profile.date_of_birth,

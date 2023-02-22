@@ -57,7 +57,7 @@ export function ProfileLayout({ children }) {
   }, [counter]);
   useEffect(() => {
     window.addEventListener('beforeunload', () => {
-      actions.logoutSuccess({
+      actions.requestLogout({
         username: user.login.savePassword ? user.username : '',
         password: user.login.savePassword ? user.password : '',
         login: {

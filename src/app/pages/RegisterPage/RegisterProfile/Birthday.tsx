@@ -78,6 +78,8 @@ export default function Birth() {
           id: user.id,
           isLogin: false,
           profile: {
+            additional_information: profile.additional_information,
+            schedule_id: profile.schedule_id,
             nickname: profile.nickname,
             picture: profile.picture,
             date_of_birth: `${day}/${month}/${year}`,

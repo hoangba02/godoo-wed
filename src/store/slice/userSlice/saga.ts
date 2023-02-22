@@ -1,48 +1,41 @@
 import { usersActions } from '.';
-import Cache from 'contexts/cache';
 import { BaseResponse } from 'utils/http/response';
 import { apiGet, apiPost } from 'utils/http/request';
 import { takeLatest, put, call } from 'redux-saga/effects';
+import { deleteCache, getFormCache, setFormCache } from 'contexts/cache';
 export function* CheckProfile(data) {
   const header = { userId: data.id };
   try {
-    const cachedUserData = Cache.getFormCache('user-info', 'profile');
+    const cachedUserData = yield call(
+      getFormCache,
+      'user-profile',
+      `/${data.id}`,
+    );
     let profileData: any = null;
     if (cachedUserData) {
       profileData = cachedUserData;
     } else {
       const response = yield call(apiGet, '/v1/godoo/profile/get', header);
-      if (response.data !== null) {
-        profileData = response.data;
-        Cache.setFormCache('user-info', 'profile', profileData);
-      } else {
-      }
+      profileData = response.data;
+      yield call(setFormCache, 'user-profile', `/${data.id}`, profileData);
     }
-  } catch {}
-  const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {});
-  if (res.data !== null) {
     yield put(
       usersActions.createProfile({
-        profile: {
-          nickname: res.data.nickname,
-          picture: res.data.picture,
-          date_of_birth: res.data.date_of_birth,
-          zodiac: res.data.zodiac,
-          gender: res.data.gender,
-          introduction: res.data.introduction,
-        },
+        profile: profileData,
       }),
     );
-  } else {
+  } catch {
     yield put(
       usersActions.createProfile({
         profile: {
-          nickname: '',
-          picture: [],
+          additional_information: null,
           date_of_birth: '',
-          zodiac: '',
           gender: [],
           introduction: '',
+          nickname: '',
+          picture: [],
+          zodiac: '',
+          schedule_id: [],
         },
       }),
     );
@@ -50,35 +43,42 @@ export function* CheckProfile(data) {
 }
 export function* SetProfile(action) {
   const data = {
+    userId: action.payload.profile.id,
+    additional_information: action.payload.profile.additional_information,
     nickname: action.payload.profile.nickname,
     picture: action.payload.profile.picture,
     date_of_birth: action.payload.profile.date_of_birth,
     zodiac: action.payload.profile.zodiac,
     gender: action.payload.profile.gender,
     introduction: action.payload.profile.introduction,
-    relationship: action.payload.profile.relationship,
+    schedule_id: action.payload.profile.schedule_id,
   };
   const header = {
     userid: action.payload.id,
     token: action.payload.token,
   };
   const res: BaseResponse = yield apiPost(
-    '/v1/godoo/profile/compulsoryinfo  ',
+    '/v1/godoo/profile/compulsoryinfo',
     data,
     header,
   );
   console.log(res);
   if (res.error === 0) {
+    const newData = {
+      userId: res.data.userId,
+      additional_information: res.data.additional_information,
+      date_of_birth: res.data.date_of_birth,
+      gender: res.data.gender,
+      introduction: res.data.introduction,
+      nickname: res.data.nickname,
+      picture: res.data.picture,
+      zodiac: res.data.zodiac,
+      schedule_id: res.data.schedule_id,
+    };
+    yield call(setFormCache, 'user-profile', `/${action.payload.id}`, newData);
     yield put(
       usersActions.createProfile({
-        profile: {
-          nickname: res.data.nickname,
-          picture: res.data.picture,
-          date_of_birth: res.data.date_of_birth,
-          zodiac: res.data.zodiac,
-          gender: res.data.gender,
-          introduction: res.data.introduction,
-        },
+        profile: newData,
       }),
     );
   }
@@ -152,7 +152,27 @@ export function* Login(action) {
     );
   }
 }
-
+export function* Logout(action) {
+  const header = {
+    userid: action.payload.id,
+    token: action.payload.token,
+  };
+  const res: BaseResponse = yield call(apiPost, '/v1/logout', {}, header);
+  if (res.error === 0) {
+    yield call(deleteCache, 'user-profile', `/${action.payload.id}`);
+    yield put(
+      usersActions.logoutSuccess({
+        username: action.payload.username,
+        password: action.payload.password,
+        login: {
+          savePassword: action.payload.login.savePassword,
+        },
+      }),
+    );
+  } else {
+    yield put(usersActions.logoutFail());
+  }
+}
 export function* CheckMatch(action) {
   const data = {
     user_id_2: action.payload.user_2.userId,
@@ -172,6 +192,7 @@ export function* CheckMatch(action) {
 export function* userSaga() {
   yield takeLatest(usersActions.requestRegister.type, Register);
   yield takeLatest(usersActions.requestLogin.type, Login);
+  yield takeLatest(usersActions.requestLogout.type, Logout);
   yield takeLatest(usersActions.requestProfile.type, SetProfile);
   yield takeLatest(usersActions.requestLikeAction.type, CheckMatch);
 }

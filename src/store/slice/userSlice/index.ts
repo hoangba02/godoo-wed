@@ -36,6 +36,8 @@ export const initialState: UserState = {
     zodiac: '',
     gender: [],
     introduction: '',
+    additional_information: {},
+    schedule_id: [],
   },
   isMatch: false,
   matchList: [],
@@ -103,7 +105,12 @@ const slice = createSlice({
       state.loading = false;
       state.register = action.payload.register;
     },
-
+    requestLogout(state: UserState, action: PayloadAction<UserState>) {
+      state.loading = true;
+    },
+    logoutFail(state: UserState) {
+      state.loading = false;
+    },
     logoutSuccess(state: UserState, action: PayloadAction<any>) {
       state.id = -1;
       state.token = '';
@@ -129,6 +136,8 @@ const slice = createSlice({
         zodiac: '',
         gender: [],
         introduction: '',
+        additional_information: {},
+        schedule_id: [],
       };
       state.isMatch = false;
       state.matchList = [];
@@ -155,6 +164,7 @@ const slice = createSlice({
     },
     // Create Information Profile User
     createProfile(state: UserState, action: PayloadAction<UserState>) {
+      console.log('next');
       state.profile = action.payload.profile;
       state.loading = false;
     },

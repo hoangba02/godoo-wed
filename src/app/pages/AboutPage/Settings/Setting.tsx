@@ -78,7 +78,9 @@ function Setting({ onMotion }: Props) {
         className="aboutBtn"
         onClick={() => {
           dispatch(
-            actions.logoutSuccess({
+            actions.requestLogout({
+              id: user.id,
+              token: user.token,
               username: user.login.savePassword ? user.username : '',
               password: user.login.savePassword ? user.password : '',
               login: {

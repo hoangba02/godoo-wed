@@ -2,58 +2,92 @@ import { LoadingOverlay, Text } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { apiPost } from 'utils/http/request';
 import './Demo.css';
+import axios from 'axios';
 export default function Demo() {
+  const ImgFile = new FormData();
+  const [file, setFile] = useState<File | null>(null);
   const [image, setImage] = useState<string>('');
-  const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<any>(false);
+  const [imageUrl, setImageUrl] = useState('');
+  // useEffect(() => {
+  //   if (file) {
+  //     apiPost('/v1/uploadgeturl', file, {
+  //       'content-type': 'multipart/form-data',
+  //     })
+  //       .then(res => {
+  //         setImage(`https://ttvnapi.com/v1/getfile/${res.data[0].filename}`);
+  //         setLoading(false);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   } else {
+  //     return;
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [image]);
 
-  const handleImageChange = e => {
-    const ImgFile = new FormData();
-    setLoading(true);
-    const file = e.target.files[0];
-    if (!file) {
-      return console.log('Ko có file');
-    }
-    const link = URL.createObjectURL(file);
-    setImage(link);
-    ImgFile.append('file', file);
-    // call api
-    apiPost('/v1/uploadgeturl', ImgFile, {
-      'content-type': 'multipart/form-data',
-    })
-      .then(res => {
-        console.log(res);
-        setTimeout(() => {
-          setImage(
-            res.data[0].filename
-              ? `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`
-              : '',
-          );
-          if (!res.data[0].filename) {
-            setError('Có lỗi');
-          }
-          setLoading(false);
-        }, 5000);
-      })
-      .catch(err => {
-        console.log(err);
-      })
-      .finally(() => {
-        // setLoading(false);
-      });
-  };
+  // const handleImageChange = e => {
+  //   setLoading(true);
+  //   const file = e.target.files[0];
+  //   const link = URL.createObjectURL(file);
+  //   setImage(link);
+  //   setFile(file);
+  // };
 
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   // Send the image to the server
+  // };
   const handleDeleteImage = () => {
     setImage('');
+  };
+  // const handleUpload = async e => {
+  //   // Tạo đối tượng FormData để gửi file lên server
+  //   const file = e.target.files[0];
+  //   ImgFile.append('image', file);
+
+  //   // Gửi request đến server để upload file
+  //   await axios
+  //     .post(
+  //       ` https://api.imgbb.com/1/upload?key=a891c7c14df787f65466375e811c221a`,
+  //       ImgFile,
+  //       {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data',
+  //         },
+  //       },
+  //     )
+  //     .then(res => {
+  //       console.log(res.data);
+  //       setImage(res.data.data.url);
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+  const handleUpload = async e => {
+    // Tạo đối tượng FormData để gửi file lên server
+    const file = e.target.files[0];
+    ImgFile.append('image', file);
+
+    // Gửi request đến server để upload file
+    await axios
+      .post(`http://192.168.1.48:8080/v1/uploadgeturl`, ImgFile, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => {
+        console.log(res.data.data);
+        setImage(
+          `http://192.168.1.48:8080/v1/getfile/${res.data.data[0].filename}`,
+        );
+      })
+      .catch(err => console.log(err));
   };
   return (
     <>
       <label className="label-image">
-        <input
-          type="file"
-          className="hidden-input"
-          onChange={handleImageChange}
-        />
+        <input type="file" className="hidden-input" onChange={handleUpload} />
 
         {!image && (
           <div className="selector-img">
@@ -69,7 +103,7 @@ export default function Demo() {
           <>
             <LoadingOverlay
               visible={loading}
-              overlayBlur={9}
+              overlayBlur={2}
               loaderProps={{ color: '#E46125' }}
             />
             <img src={image} className="img-avatar" alt="" />
@@ -96,8 +130,6 @@ export default function Demo() {
           </>
         )}
       </label>
-
-      <p>{error}</p>
     </>
   );
 }

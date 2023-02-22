@@ -28,6 +28,8 @@ export interface UserState {
     zodiac?: string;
     gender?: string[];
     introduction?: string;
+    additional_information: any;
+    schedule_id: any[];
   };
   isMatch?: boolean;
   matchList?: any[];
