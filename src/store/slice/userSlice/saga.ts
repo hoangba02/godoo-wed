@@ -1,12 +1,25 @@
-import { takeLatest, put } from 'redux-saga/effects';
-import { apiGet, apiPost } from 'utils/http/request';
-import { BaseResponse } from 'utils/http/response';
 import { usersActions } from '.';
-
+import Cache from 'contexts/cache';
+import { BaseResponse } from 'utils/http/response';
+import { apiGet, apiPost } from 'utils/http/request';
+import { takeLatest, put, call } from 'redux-saga/effects';
 export function* CheckProfile(data) {
-  const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {
-    userId: data.id,
-  });
+  const header = { userId: data.id };
+  try {
+    const cachedUserData = Cache.getFormCache('user-info', 'profile');
+    let profileData: any = null;
+    if (cachedUserData) {
+      profileData = cachedUserData;
+    } else {
+      const response = yield call(apiGet, '/v1/godoo/profile/get', header);
+      if (response.data !== null) {
+        profileData = response.data;
+        Cache.setFormCache('user-info', 'profile', profileData);
+      } else {
+      }
+    }
+  } catch {}
+  const res: BaseResponse = yield apiGet('/v1/godoo/profile/get', {});
   if (res.data !== null) {
     yield put(
       usersActions.createProfile({
@@ -75,7 +88,6 @@ export function* Register(action) {
     username: action.payload.username,
     password: action.payload.password,
   };
-
   const res: BaseResponse = yield apiPost('/v1/register', data, {
     'content-type': 'appication/json',
   });
@@ -105,15 +117,14 @@ export function* Register(action) {
   }
 }
 export function* Login(action) {
-  console.log(action);
   const data = {
     username: action.payload.username,
     password: action.payload.password,
   };
-
-  const res: BaseResponse = yield apiPost('/v1/login', data, {
+  const header = {
     'content-type': 'appication/json',
-  });
+  };
+  const res: BaseResponse = yield call(apiPost, '/v1/login', data, header);
   if (res.error === 0) {
     yield CheckProfile(res.data);
     yield put(

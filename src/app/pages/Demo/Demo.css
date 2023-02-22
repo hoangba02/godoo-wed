@@ -1,0 +1,73 @@
+.label-image {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 0;
+  border-color: #333;
+  border-radius: 0.5rem;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+}
+
+.label-image:hover .btn-delete-img {
+  visibility: visible;
+  opacity: 1;
+}
+
+.upload-img {
+  max-width: 80px;
+  margin-bottom: 5px;
+}
+
+.selector-img {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.img-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-delete-img {
+  padding: 10px;
+  display: flex;
+  position: absolute;
+  visibility: hidden;
+  z-index: 10;
+  background-color: #ffffff;
+  color: #ef4444;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.1s linear;
+  border: none;
+}
+.hidden-input {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
