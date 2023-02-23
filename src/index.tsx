@@ -211,6 +211,8 @@ root.render(
                         ? 'var(--primary-2)'
                         : params.variant === 'outline'
                         ? '#FFFFFF'
+                        : params.variant === 'subtle'
+                        ? 'transparent'
                         : '#FFFFFF',
                     backgroundSize: '100% !important',
                   },

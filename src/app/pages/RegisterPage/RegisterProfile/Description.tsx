@@ -34,8 +34,6 @@ export default function Desc() {
         id: user.id,
         isLogin: true,
         profile: {
-          additional_information: profile.additional_information,
-          schedule_id: profile.schedule_id,
           nickname: profile.nickname,
           picture: profile.picture,
           date_of_birth: profile.date_of_birth,

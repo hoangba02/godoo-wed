@@ -36,9 +36,9 @@ export const initialState: UserState = {
     zodiac: '',
     gender: [],
     introduction: '',
-    additional_information: {},
-    schedule_id: [],
   },
+  additional_information: {},
+  schedule_id: [],
   isMatch: false,
   matchList: [],
   isYouLiked: false,
@@ -136,9 +136,9 @@ const slice = createSlice({
         zodiac: '',
         gender: [],
         introduction: '',
-        additional_information: {},
-        schedule_id: [],
       };
+      state.additional_information = {};
+      state.schedule_id = [];
       state.isMatch = false;
       state.matchList = [];
       state.isYouLiked = false;
@@ -164,7 +164,6 @@ const slice = createSlice({
     },
     // Create Information Profile User
     createProfile(state: UserState, action: PayloadAction<UserState>) {
-      console.log('next');
       state.profile = action.payload.profile;
       state.loading = false;
     },

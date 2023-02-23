@@ -58,6 +58,8 @@ export function ProfileLayout({ children }) {
   useEffect(() => {
     window.addEventListener('beforeunload', () => {
       actions.requestLogout({
+        id: user.id,
+        token: user.token,
         username: user.login.savePassword ? user.username : '',
         password: user.login.savePassword ? user.password : '',
         login: {

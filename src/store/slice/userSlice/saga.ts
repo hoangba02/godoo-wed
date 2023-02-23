@@ -15,7 +15,12 @@ export function* CheckProfile(data) {
     if (cachedUserData) {
       profileData = cachedUserData;
     } else {
-      const response = yield call(apiGet, '/v1/godoo/profile/get', header);
+      const response = yield call(
+        apiGet,
+        '/v1/godoo/profile/getcompulsoryinfo',
+        header,
+      );
+      console.log(response);
       profileData = response.data;
       yield call(setFormCache, 'user-profile', `/${data.id}`, profileData);
     }
@@ -28,14 +33,12 @@ export function* CheckProfile(data) {
     yield put(
       usersActions.createProfile({
         profile: {
-          additional_information: null,
           date_of_birth: '',
           gender: [],
           introduction: '',
           nickname: '',
           picture: [],
           zodiac: '',
-          schedule_id: [],
         },
       }),
     );
@@ -66,16 +69,14 @@ export function* SetProfile(action) {
   if (res.error === 0) {
     const newData = {
       userId: res.data.userId,
-      additional_information: res.data.additional_information,
       date_of_birth: res.data.date_of_birth,
       gender: res.data.gender,
       introduction: res.data.introduction,
       nickname: res.data.nickname,
       picture: res.data.picture,
       zodiac: res.data.zodiac,
-      schedule_id: res.data.schedule_id,
     };
-    yield call(setFormCache, 'user-profile', `/${action.payload.id}`, newData);
+    // yield call(setFormCache, 'user-profile', `/${action.payload.id}`, newData);
     yield put(
       usersActions.createProfile({
         profile: newData,
@@ -158,6 +159,7 @@ export function* Logout(action) {
     token: action.payload.token,
   };
   const res: BaseResponse = yield call(apiPost, '/v1/logout', {}, header);
+  console.log(res);
   if (res.error === 0) {
     yield call(deleteCache, 'user-profile', `/${action.payload.id}`);
     yield put(

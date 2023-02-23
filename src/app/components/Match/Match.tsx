@@ -5,7 +5,7 @@ import { useMediaQuery } from '@mantine/hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card, Container, Image, Text } from '@mantine/core';
 
-import Search from './Search';
+import Search from '../Search/Search';
 import NewMatch from './NewMatch';
 import MatchList from './MatchList';
 import MatchHeader from './MatchHeader';
@@ -66,7 +66,7 @@ function Match() {
     <Container fluid className={classes.container}>
       <div className={classes.wrapper}>
         {!phone && <MatchHeader />}
-        <Search />
+        <Search placeholder="Search" />
         {user.matchList.length !== 0 ? (
           <>
             <MatchList matchList={user.matchList} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Center, Flex, Stack, Text } from '@mantine/core';
+import { Center, Stack, Text } from '@mantine/core';
 
 const EDUCATIONS = [
   'Ph.D',
@@ -15,7 +15,7 @@ function EducationLevel() {
   const [edu, setEdu] = useState<string>(EDUCATIONS[0]);
   return (
     <>
-      <Text fz={18} fw={600} lh="25px" align="center" mb={30}>
+      <Text fz={20} fw={600} lh="25px" align="center" mb={18}>
         Education level
       </Text>
       <Stack

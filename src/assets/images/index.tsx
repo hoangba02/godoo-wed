@@ -60,4 +60,19 @@ export const images = {
   // About
   diaBlue: require('assets/images/About/diaBlue.svg').default,
   diaYellow: require('assets/images/About/diamond.svg').default,
+
+  // Favorite
+  Billiards: require('assets/images/Favorite/Billards.svg').default,
+  Bookstores: require('assets/images/Favorite/Bookstores.svg').default,
+  Bowlings: require('assets/images/Favorite/Bowlings.svg').default,
+  Cafe: require('assets/images/Favorite/Cafe.svg').default,
+  Karaoke: require('assets/images/Favorite/Karaoke.svg').default,
+  Lounge: require('assets/images/Favorite/Lounge.svg').default,
+  Malls: require('assets/images/Favorite/Malls.svg').default,
+  Movies: require('assets/images/Favorite/Movies.svg').default,
+  Picnic: require('assets/images/Favorite/Picnic.svg').default,
+  Restaurant: require('assets/images/Favorite/Restaurant.svg').default,
+  StreetFood: require('assets/images/Favorite/StreetFood.svg').default,
+  WalkingStreet: require('assets/images/Favorite/WalkingStreet.svg').default,
+  BarsBub: require('assets/images/Favorite/BarsBub.svg').default,
 };
