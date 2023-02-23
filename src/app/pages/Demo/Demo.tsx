@@ -6,39 +6,9 @@ import axios from 'axios';
 export default function Demo() {
   const ImgFile = new FormData();
   const [file, setFile] = useState<File | null>(null);
-  const [image, setImage] = useState<string>('');
+  const [image, setImage] = useState<any>('');
   const [loading, setLoading] = useState<any>(false);
   const [imageUrl, setImageUrl] = useState('');
-  // useEffect(() => {
-  //   if (file) {
-  //     apiPost('/v1/uploadgeturl', file, {
-  //       'content-type': 'multipart/form-data',
-  //     })
-  //       .then(res => {
-  //         setImage(`https://ttvnapi.com/v1/getfile/${res.data[0].filename}`);
-  //         setLoading(false);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   } else {
-  //     return;
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [image]);
-
-  // const handleImageChange = e => {
-  //   setLoading(true);
-  //   const file = e.target.files[0];
-  //   const link = URL.createObjectURL(file);
-  //   setImage(link);
-  //   setFile(file);
-  // };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   // Send the image to the server
-  // };
   const handleDeleteImage = () => {
     setImage('');
   };
@@ -65,30 +35,34 @@ export default function Demo() {
   //     .catch(err => console.log(err));
   // };
   const handleUpload = async e => {
-    // Tạo đối tượng FormData để gửi file lên server
     const file = e.target.files[0];
-    ImgFile.append('image', file);
+    const reader = new FileReader();
+    reader.onload = async event => {
+      const base64 = event.target?.result;
 
-    // Gửi request đến server để upload file
-    await axios
-      .post(`http://192.168.1.48:8080/v1/uploadgeturl`, ImgFile, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(res => {
-        console.log(res.data.data);
-        setImage(
-          `http://192.168.1.48:8080/v1/getfile/${res.data.data[0].filename}`,
-        );
-      })
-      .catch(err => console.log(err));
+      let newBase: any = event.target?.result?.toString().indexOf(',');
+      let num = newBase + 1;
+      const newString = base64?.toString().slice(num);
+      axios
+        .post(`http://192.168.1.35:8080/v1/upload/base64/uploadgetname`, {
+          file_base64: newString,
+        })
+        .then(res => {
+          console.log(res.data.data.filename);
+
+          setImage(
+            `http://192.168.1.35:8080/v1/getfile/${res.data.data.filename}`,
+          );
+        })
+        .catch(err => console.log(err));
+    };
+    reader.readAsDataURL(file);
   };
+
   return (
     <>
       <label className="label-image">
         <input type="file" className="hidden-input" onChange={handleUpload} />
-
         {!image && (
           <div className="selector-img">
             <img

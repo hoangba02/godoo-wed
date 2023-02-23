@@ -30,15 +30,15 @@ export const initialState: UserState = {
     savePassword: false,
   },
   profile: {
-    nickname: '',
-    picture: [],
     date_of_birth: '',
-    zodiac: '',
     gender: [],
     introduction: '',
+    nickname: '',
+    picture: [],
+    schedule_id: [],
+    zodiac: '',
   },
   additional_information: {},
-  schedule_id: [],
   isMatch: false,
   matchList: [],
   isYouLiked: false,
@@ -129,16 +129,8 @@ const slice = createSlice({
         message: '',
         savePassword: action.payload.login.savePassword,
       };
-      state.profile = {
-        nickname: '',
-        picture: [],
-        date_of_birth: '',
-        zodiac: '',
-        gender: [],
-        introduction: '',
-      };
+      state.profile = {};
       state.additional_information = {};
-      state.schedule_id = [];
       state.isMatch = false;
       state.matchList = [];
       state.isYouLiked = false;
@@ -164,6 +156,7 @@ const slice = createSlice({
     },
     // Create Information Profile User
     createProfile(state: UserState, action: PayloadAction<UserState>) {
+      console.log(action);
       state.profile = action.payload.profile;
       state.loading = false;
     },

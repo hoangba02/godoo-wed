@@ -37,6 +37,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
             navigate('/about/profile');
           } else if (title === 'Gender') {
             navigate('/about/profile');
+          } else if (title === 'Change password') {
+            navigate('/about/setting/account');
           }
 
           if (onMotion) {

@@ -91,6 +91,7 @@ export default function Gender() {
     dispatch(
       actions.requestProfile({
         id: user.id,
+        token: user.token,
         isLogin: false,
         profile: {
           nickname: profile.nickname,

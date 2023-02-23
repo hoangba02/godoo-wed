@@ -26,7 +26,6 @@ function Account() {
   const [loading, setLoading] = useState<boolean>(false);
   const handleLinkTelegram = () => {
     setLoading(true);
-
     apiPost(
       `/v1/tele-link`,
       {},
@@ -105,7 +104,7 @@ function Account() {
         </Stack>
         <Stack className={classes.container}>
           <Text className={classes.part}>Manage account</Text>
-          <Flex className={classes.option}>
+          <Flex className={classes.option} onClick={() => {}}>
             <Mes />
             <Text className={classes.name}>Liên kết Messenger</Text>
           </Flex>

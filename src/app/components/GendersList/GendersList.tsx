@@ -56,11 +56,10 @@ export const genders = [
 interface Props {
   isTitle: boolean;
   profile?: any;
-  label?: string;
   items?: any;
   setItems?: any;
 }
-function GendersList({ profile, label, isTitle, items, setItems }: Props) {
+function GendersList({ profile, isTitle, items, setItems }: Props) {
   const { classes } = useStyles();
   // const [items, setItems] = useState<string[]>([]);
   const genderUser = genders.filter(value =>

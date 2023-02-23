@@ -32,6 +32,7 @@ export default function Desc() {
     dispatch(
       actions.requestProfile({
         id: user.id,
+        token: user.token,
         isLogin: true,
         profile: {
           nickname: profile.nickname,

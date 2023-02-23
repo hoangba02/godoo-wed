@@ -76,6 +76,7 @@ export default function Birth() {
       dispatch(
         actions.requestProfile({
           id: user.id,
+          token: user.token,
           isLogin: false,
           profile: {
             nickname: profile.nickname,

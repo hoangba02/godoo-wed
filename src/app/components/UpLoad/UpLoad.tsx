@@ -10,6 +10,7 @@ import {
   FileButton,
   Group,
   Image,
+  LoadingOverlay,
 } from '@mantine/core';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -30,29 +31,25 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   const ImgFile = new FormData();
   const { t } = useTranslation();
   const { classes } = useStyles();
-  const [zIndex, setZIndex] = useState(() => {
-    if (profile.picture[id]) return 4;
-    return 2;
-  });
   const [file, setFile] = useState<File | null>(null);
-  const handleClearImg = url => {
-    setImg({ ...img, [name]: '' });
-    setZIndex(2);
-  };
+  const [loading, setLoading] = useState<any>(false);
 
+  const handleClearImg = () => {
+    setImg({ ...img, [name]: '' });
+  };
   useEffect(() => {
     if (file) {
+      setLoading(true);
       ImgFile.append('file', file);
       apiPost('/v1/uploadgeturl', ImgFile, {
         'content-type': 'multipart/form-data',
       })
         .then(res => {
-          console.log(res);
+          setLoading(false);
           setImg({
             ...img,
             [name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
           });
-          setZIndex(4);
         })
         .catch(err => {
           console.log(err);
@@ -73,14 +70,15 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
       }}
       className={classes.picCard}
     >
+      <LoadingOverlay
+        radius={30}
+        visible={loading}
+        overlayBlur={5}
+        loaderProps={{ color: '#E46125' }}
+      />
       {img[name] && (
         <>
-          <button
-            className={classes.clearBtn}
-            onClick={() => {
-              handleClearImg(img[name]);
-            }}
-          >
+          <button className={classes.clearBtn} onClick={handleClearImg}>
             <Clear width={20} height={20} />
           </button>
           <Image
@@ -89,7 +87,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
               height: '100%',
               position: 'absolute',
               inset: 0,
-              zIndex: zIndex,
+              zIndex: 99,
               objectFit: 'cover',
             }}
             src={profile.picture[id]}
@@ -223,7 +221,7 @@ const useStyles = createStyles(() => ({
     cursor: 'pointer',
     backgroundColor: 'transparent',
     transition: 'transform 0.5s ease',
-    zIndex: 5,
+    zIndex: 999,
 
     '&:active': {
       transform: 'translateY(3px)',

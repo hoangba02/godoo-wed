@@ -3,6 +3,7 @@ import { BaseResponse } from 'utils/http/response';
 import { apiGet, apiPost } from 'utils/http/request';
 import { takeLatest, put, call } from 'redux-saga/effects';
 import { deleteCache, getFormCache, setFormCache } from 'contexts/cache';
+
 export function* CheckProfile(data) {
   const header = { userId: data.id };
   try {
@@ -38,6 +39,7 @@ export function* CheckProfile(data) {
           introduction: '',
           nickname: '',
           picture: [],
+          schedule_id: [],
           zodiac: '',
         },
       }),
@@ -45,16 +47,14 @@ export function* CheckProfile(data) {
   }
 }
 export function* SetProfile(action) {
+  console.log(action);
   const data = {
-    userId: action.payload.profile.id,
-    additional_information: action.payload.profile.additional_information,
     nickname: action.payload.profile.nickname,
     picture: action.payload.profile.picture,
     date_of_birth: action.payload.profile.date_of_birth,
     zodiac: action.payload.profile.zodiac,
     gender: action.payload.profile.gender,
     introduction: action.payload.profile.introduction,
-    schedule_id: action.payload.profile.schedule_id,
   };
   const header = {
     userid: action.payload.id,
@@ -65,25 +65,20 @@ export function* SetProfile(action) {
     data,
     header,
   );
-  console.log(res);
+
+  console.log('new profile', res);
   if (res.error === 0) {
-    const newData = {
-      userId: res.data.userId,
-      date_of_birth: res.data.date_of_birth,
-      gender: res.data.gender,
-      introduction: res.data.introduction,
-      nickname: res.data.nickname,
-      picture: res.data.picture,
-      zodiac: res.data.zodiac,
-    };
-    // yield call(setFormCache, 'user-profile', `/${action.payload.id}`, newData);
+    console.log(1);
+    const newData = res.data;
     yield put(
       usersActions.createProfile({
         profile: newData,
       }),
     );
+    yield call(setFormCache, 'user-profile', `/${action.payload.id}`, newData);
   }
 }
+
 export function* Register(action) {
   const data = {
     username: action.payload.username,

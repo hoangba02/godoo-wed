@@ -22,15 +22,15 @@ export interface UserState {
     savePassword?: boolean;
   };
   profile?: {
-    nickname?: string;
-    picture?: string[];
     date_of_birth?: string;
-    zodiac?: string;
     gender?: string[];
     introduction?: string;
+    nickname?: string;
+    picture?: string[];
+    schedule_id?: string[] | number[];
+    zodiac?: string;
   };
   additional_information?: any;
-  schedule_id?: any[];
   isMatch?: boolean;
   matchList?: any[];
   isYouLiked?: boolean;
@@ -39,7 +39,6 @@ export interface UserState {
   likedYouList?: any[];
   chatList?: any[];
   comingList?: any[];
-
   point?: any;
 }
 

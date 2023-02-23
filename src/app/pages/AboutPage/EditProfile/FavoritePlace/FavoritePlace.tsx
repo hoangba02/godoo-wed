@@ -1,19 +1,20 @@
 import { Avatar, Center, SimpleGrid, Text } from '@mantine/core';
 import { images } from 'assets/images';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 function FavoritePlace() {
   const [favorites, setFavorites] = useState<string[]>([]);
-
-  const handleOptionsFavorite = favorite => {
-    if (favorites.includes(favorite)) {
-      const newFavorites = favorites.filter(value => value !== favorite);
-      setFavorites(newFavorites);
-    } else {
-      setFavorites([...favorites, favorite]);
-    }
-  };
-
+  const handleOptionsFavorite = useCallback(
+    favorite => {
+      if (favorites.includes(favorite)) {
+        const newFavorites = favorites.filter(value => value !== favorite);
+        setFavorites(newFavorites);
+      } else {
+        setFavorites([...favorites, favorite]);
+      }
+    },
+    [favorites],
+  );
   return (
     <>
       <Text fz={20} fw={600} lh="25px" align="center" mb={18}>

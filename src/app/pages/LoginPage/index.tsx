@@ -77,29 +77,22 @@ export function LoginPage() {
   };
   useEffect(() => {
     if (user.token !== '') {
-      const isImg = profile.picture.filter(img => {
-        if (img) {
-          return img;
-        }
-      });
-      if (profile.nickname === '') {
+      const checkImg = profile.picture.filter(pic => pic !== '');
+      if (!profile.nickname) {
         navigate('/register/nickname');
         dispatch(counterActions.setCounter({ value: 0 }));
-      } else if (profile.picture.length === 0 || isImg.length === 0) {
+      } else if (profile.picture.length === 0 || checkImg.length === 0) {
         navigate('/register/picture');
         dispatch(counterActions.setCounter({ value: 1 }));
-      } else if (profile.date_of_birth === '') {
+      } else if (!profile.date_of_birth) {
         navigate('/register/birthday');
         dispatch(counterActions.setCounter({ value: 2 }));
-      } else if (profile.zodiac === '' || profile.gender.length === 0) {
+      } else if (profile.gender.length === 0) {
         navigate('/register/gender');
         dispatch(counterActions.setCounter({ value: 3 }));
-      } else if (profile.introduction === '') {
+      } else if (!profile.introduction) {
         navigate('/register/description');
         dispatch(counterActions.setCounter({ value: 4 }));
-      } else if (profile.relationship === -1) {
-        navigate('/register/mode');
-        dispatch(counterActions.setCounter({ value: 5 }));
       } else {
         dispatch(
           actions.loginSuccess({

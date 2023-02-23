@@ -26,32 +26,34 @@ export default function Picture() {
   const { t } = useTranslation();
   const { classes } = CreateProfileStyles();
   const [img, setImg] = useState({
-    one: profile.picture[0],
-    two: profile.picture[1],
-    three: profile.picture[2],
-    four: profile.picture[3],
-    fire: profile.picture[4],
-    six: profile.picture[5],
+    one: profile.picture[0] || '',
+    two: profile.picture[1] || '',
+    three: profile.picture[2] || '',
+    four: profile.picture[3] || '',
+    fire: profile.picture[4] || '',
+    six: profile.picture[5] || '',
   });
   const handleCreatePicture = () => {
     dispatch(counterActions.increase());
   };
   useEffect(() => {
-    dispatch(
-      actions.requestProfile({
-        id: user.id,
-        isLogin: false,
-        token: user.token,
-        profile: {
-          nickname: profile.nickname,
-          picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
-          date_of_birth: profile.date_of_birth,
-          zodiac: profile.zodiac,
-          gender: profile.gender,
-          introduction: profile.introduction,
-        },
-      }),
-    );
+    if (profile.picture.length !== 0) {
+      dispatch(
+        actions.requestProfile({
+          id: user.id,
+          isLogin: false,
+          token: user.token,
+          profile: {
+            nickname: profile.nickname,
+            picture: [img.one, img.two, img.three, img.four, img.fire, img.six],
+            date_of_birth: profile.date_of_birth,
+            zodiac: profile.zodiac,
+            gender: profile.gender,
+            introduction: profile.introduction,
+          },
+        }),
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [img]);
   return (

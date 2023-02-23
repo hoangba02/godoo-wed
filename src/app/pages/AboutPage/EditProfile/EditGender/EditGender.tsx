@@ -21,6 +21,7 @@ function EditGender() {
     dispatch(
       actions.requestProfile({
         id: user.id,
+        token: user.token,
         profile: {
           nickname: profile.nickname,
           picture: profile.picture,

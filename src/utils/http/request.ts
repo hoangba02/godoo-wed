@@ -2,7 +2,7 @@ import axios from 'axios';
 import { BaseResponse } from './response';
 
 const baseDomain = 'https://ttvnapi.com';
-// const baseDomain = "http://127.0.0.1:8080";
+// const baseDomain = '192.168.1.35:8080';
 
 export const apiGet = async (url: string, header: any) => {
   try {
