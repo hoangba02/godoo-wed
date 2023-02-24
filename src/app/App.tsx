@@ -31,6 +31,7 @@ import EditProfile from './pages/AboutPage/EditProfile/EditProfile';
 import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 import MoreAbout from './components/Layout/MoreAbout/MoreAbout';
 import Demo from './pages/Demo/Demo';
+import LinkMess from './pages/AboutPage/Settings/LinkMess/LinkMess';
 // import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();
@@ -56,6 +57,7 @@ export function App() {
             element={<Notification />}
           />
           <Route path="/about/setting/account" element={<Account />} />
+          <Route path="/about/setting/link" element={<LinkMess />} />
           <Route
             path="/about/setting/account/changepass"
             element={<ChangePass />}

@@ -14,8 +14,11 @@ import { AboutPage } from '../../Loadable';
 import { useTranslation } from 'react-i18next';
 import ModalLayout from 'app/components/Modals/ModalLayout';
 import { images } from 'assets/images';
+import { useNavigate } from 'react-router-dom';
 
 function ChangePass() {
+  const navigate = useNavigate();
+  // Local
   const { t } = useTranslation();
   const { classes } = useStyles();
   const [openModal, setOpenModal] = useState(false);
@@ -59,7 +62,7 @@ function ChangePass() {
           label="Enter your current password"
           placeholder="Password"
         />
-        <Flex className={classes.forgot}>
+        <Flex className={classes.forgot} onClick={() => navigate('/forgot')}>
           <Text className={classes.forText}>Quên mật khẩu?</Text>
         </Flex>
       </Stack>
@@ -106,6 +109,9 @@ const useStyles = createStyles(() => ({
   },
   input: {
     width: 570,
+    '@media (max-width:575px)': {
+      width: '100%',
+    },
   },
   forgot: {
     gap: 4,
@@ -136,5 +142,9 @@ const useStyles = createStyles(() => ({
     position: 'absolute',
     bottom: '17%',
     background: 'linear-gradient(90deg, #C91A44 -0.01%, #A12FA3 100%)',
+    '@media (max-width:575px)': {
+      width: 'calc(100% - 32px)',
+      bottom: '24px',
+    },
   },
 }));

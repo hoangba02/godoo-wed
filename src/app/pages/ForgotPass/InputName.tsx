@@ -29,30 +29,28 @@ export default function InputName({ setNext }) {
     }),
   });
 
-  const handleNext = () => {
-    apiPost(
-      'https://ttvnapi.com/v1/forgetpasswordsendusername',
+  const handleNext = async () => {
+    await apiPost(
+      '/v1/forgetpasswordsendusername',
+      { username: form.values.name },
       {},
-      {
-        username: form.values.name,
-      },
     )
       .then(res => {
         console.log(res);
-        // if (res.error === 2) {
-        //   form.setErrors({ name: t('LoginPage.username.Username incorrect') });
-        // } else if (res.error === 12) {
-        //   setOpenModal(true);
-        // } else {
-        //   dispatch(
-        //     actions.getUserForgotPass({
-        //       id: res.data.id,
-        //       telegram_fullname: res.data.telegram_fullname,
-        //       messenger_fullname: res.data.messenger_fullname,
-        //     }),
-        //   );
-        //   setNext('method');
-        // }
+        if (res.error === 2 || res.error === 1) {
+          form.setErrors({ name: t('LoginPage.username.Username incorrect') });
+        } else if (res.error === 12) {
+          setOpenModal(true);
+        } else {
+          dispatch(
+            actions.getUserForgotPass({
+              id: res.data.id,
+              telegram_fullname: res.data.telegram_fullname,
+              messenger_fullname: res.data.messenger_fullname,
+            }),
+          );
+          setNext('method');
+        }
       })
       .catch(err => {
         console.log(err);

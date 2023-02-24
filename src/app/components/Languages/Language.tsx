@@ -70,8 +70,6 @@ const useStyles = createStyles({
       backgroundColor: 'var(--white)',
     },
     [`@media (max-width:575px)`]: {
-      right: 30,
-      top: 0,
       height: 28,
       width: 90,
       fontSize: 14,

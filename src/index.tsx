@@ -44,7 +44,7 @@ root.render(
           globalStyles: theme => ({
             ':root': {
               '--fz-40': '40px',
-              '--border-width': '1px',
+              '--border-width': '1.5px',
               '--border-radius': '8px',
               // Color
               '--primary-1': '#E46125',
@@ -170,18 +170,20 @@ root.render(
                   border: params.variant === 'outline' ? 'none' : 'inherit',
                   borderRadius: 'var(--border-radius)',
                   backgroundColor:
-                    params.variant === 'filled'
-                      ? 'var(--primary-2)'
-                      : params.variant === 'default'
+                    params.variant === 'default'
                       ? 'var(--primary-2)'
                       : params.variant === 'outline'
                       ? '#FFFFFF'
+                      : params.variant === 'subtle'
+                      ? 'transparent'
                       : '#FFFFFF',
                   backgroundImage:
                     params.variant === 'outline'
                       ? 'var(--primary-3)'
                       : params.variant === 'gradient'
                       ? 'var(--primary-3)'
+                      : params.variant === 'filled'
+                      ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
                       : 'none',
                   '::before': {
                     content: '""',
@@ -192,13 +194,13 @@ root.render(
                         ? 'block'
                         : 'none',
                     position: 'absolute',
-                    top: 'var(--border-width)',
-                    left: 'var(--border-width)',
+                    top: 'calc(var(--border-width)*1.4)',
+                    left: 'calc(var(--border-width)*1.4)',
                     backgroundColor: 'var(--white)',
                     borderRadius:
                       'calc(var(--border-radius) - var(--border-width))',
-                    height: 'calc(100% - calc(var(--border-width)*2.2))',
-                    width: 'calc(100% - calc(var(--border-width)*2))',
+                    height: 'calc(100% - calc(var(--border-width)*2.5))',
+                    width: 'calc(100% - calc(var(--border-width)*2.5))',
                     zIndex: -1,
                   },
                   ':hover': {

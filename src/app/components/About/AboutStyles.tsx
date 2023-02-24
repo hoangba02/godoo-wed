@@ -6,6 +6,7 @@ export const AboutStyles = createStyles(() => ({
     display: 'flex',
     justifyContent: 'center',
     [`@media (max-width:575px)`]: {
+      minWidth: '100%',
       height: '100vh',
       overflow: 'scroll',
     },

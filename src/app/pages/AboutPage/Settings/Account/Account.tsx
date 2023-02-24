@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createStyles, Flex, LoadingOverlay, Stack, Text } from '@mantine/core';
 import {
@@ -12,18 +12,16 @@ import { ReactComponent as Tele } from 'assets/icons/tele.svg';
 import { ReactComponent as Circle } from 'assets/icons/about/circle.svg';
 import { AboutPage } from '../../Loadable';
 import { apiGet, apiPost } from 'utils/http/request';
-import { UserSlice } from 'store/slice/userSlice';
 function Account() {
   // Global
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const user = useSelector(getUserSelector);
   const profile = useSelector(getProfileSelector);
-  const { actions } = UserSlice();
   // Local
   const { classes } = useStyles();
   const [link, setLink] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+
   const handleLinkTelegram = () => {
     setLoading(true);
     apiPost(
@@ -65,6 +63,7 @@ function Account() {
       .catch(err => {
         console.log(err);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -104,7 +103,10 @@ function Account() {
         </Stack>
         <Stack className={classes.container}>
           <Text className={classes.part}>Manage account</Text>
-          <Flex className={classes.option} onClick={() => {}}>
+          <Flex
+            className={classes.option}
+            onClick={() => navigate('/about/setting/link')}
+          >
             <Mes />
             <Text className={classes.name}>Liên kết Messenger</Text>
           </Flex>

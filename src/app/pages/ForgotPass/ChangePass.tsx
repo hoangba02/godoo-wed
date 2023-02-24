@@ -75,6 +75,9 @@ export default function ChangePass() {
     } else {
       setTimeout(function () {
         setOpenModal(false);
+        if (user.isLogin) {
+          navigate('/about/setting/account');
+        }
         navigate('/');
       }, 2000);
     }

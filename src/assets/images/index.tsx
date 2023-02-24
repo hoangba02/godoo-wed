@@ -60,6 +60,7 @@ export const images = {
   // About
   diaBlue: require('assets/images/About/diaBlue.svg').default,
   diaYellow: require('assets/images/About/diamond.svg').default,
+  logout: require('assets/images/About/logout.svg').default,
 
   // Favorite
   Billiards: require('assets/images/Favorite/Billards.svg').default,

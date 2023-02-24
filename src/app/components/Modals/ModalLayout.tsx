@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, createStyles, Flex, Modal, Stack, Text } from '@mantine/core';
+import React from 'react';
+import { Button, createStyles, Modal, Stack, Text } from '@mantine/core';
 import { images } from 'assets/images';
 import { ReactComponent as XCircle } from 'assets/icons/xCircle.svg';
 
@@ -56,8 +56,8 @@ function ModalLayout({
         </Button>
       )}
       <Stack className={classes.container}>
-        <Text className={classes.name}>{name}</Text>
-        <Text className={classes.content}>{content}</Text>
+        {name && <Text className={classes.name}>{name}</Text>}
+        {content && <Text className={classes.content}>{content}</Text>}
         {children}
       </Stack>
     </Modal>

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { images } from 'assets/images';
 import { Modal, Stack, Text, createStyles, Image } from '@mantine/core';
 

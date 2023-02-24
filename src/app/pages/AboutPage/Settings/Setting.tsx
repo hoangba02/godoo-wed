@@ -1,5 +1,13 @@
-import React from 'react';
-import { Box, Button, createStyles, Flex, Text } from '@mantine/core';
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  createStyles,
+  Flex,
+  Image,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ReactComponent as ChevronRight } from 'assets/icons/setting/chevronRight.svg';
@@ -11,16 +19,16 @@ import { UserSlice } from 'store/slice/userSlice';
 import { AboutPage } from '../Loadable';
 import Languages from 'app/components/Languages/Language';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import ModalLayout from 'app/components/Modals/ModalLayout';
+import { images } from 'assets/images';
 interface Props {
   onMotion?: any;
 }
 function Setting({ onMotion }: Props) {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { actions } = UserSlice();
-  const user = useSelector(getUserSelector);
   // Local
   const { classes } = useStyles();
+  const [logoutModal, setLogoutModal] = useState<boolean>(false);
 
   return (
     <AboutPage title="Setting" isEdit={false}>
@@ -74,30 +82,79 @@ function Setting({ onMotion }: Props) {
           <Languages />
         </Box>
       </Flex>
-      <Button
-        className="aboutBtn"
-        onClick={() => {
-          dispatch(
-            actions.requestLogout({
-              id: user.id,
-              token: user.token,
-              username: user.login.savePassword ? user.username : '',
-              password: user.login.savePassword ? user.password : '',
-              login: {
-                savePassword: user.login.savePassword,
-              },
-            }),
-          );
-        }}
-      >
+      <Button className="aboutBtn" onClick={() => setLogoutModal(true)}>
         Log out
       </Button>
+      <LogoutModal logoutModal={logoutModal} setLogoutModal={setLogoutModal} />
     </AboutPage>
   );
 }
 
 export default Setting;
-
+interface PropsModal {
+  logoutModal: boolean;
+  setLogoutModal: any;
+}
+function LogoutModal({ logoutModal, setLogoutModal }: PropsModal) {
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
+  // Local
+  const { classes } = useStyles();
+  const handleLogout = () => {
+    dispatch(
+      actions.requestLogout({
+        id: user.id,
+        token: user.token,
+        username: user.login.savePassword ? user.username : '',
+        password: user.login.savePassword ? user.password : '',
+        login: {
+          savePassword: user.login.savePassword,
+        },
+      }),
+    );
+  };
+  return (
+    <ModalLayout
+      openModal={logoutModal}
+      setOpenModal={setLogoutModal}
+      close={true}
+    >
+      <Stack align="center">
+        <Image width={126} height={108} src={images.logout} />
+        <Text
+          sx={{
+            fontWeight: 400,
+            fontSize: 24,
+            lineHeight: '30px',
+            [`@media (max-width:575px)`]: {
+              fontSize: 14,
+              fontWeight: 18,
+            },
+          }}
+        >
+          Are you sure you wanna log out?
+        </Text>
+        <Flex gap={24}>
+          <Button
+            className={classes.modalBtn}
+            variant="filled"
+            onClick={handleLogout}
+          >
+            Yes
+          </Button>
+          <Button
+            className={classes.modalBtn}
+            variant="gradient"
+            onClick={() => setLogoutModal(false)}
+          >
+            Cancel
+          </Button>
+        </Flex>
+      </Stack>
+    </ModalLayout>
+  );
+}
 const useStyles = createStyles(() => ({
   setting: {
     height: '100%',
@@ -191,6 +248,14 @@ const useStyles = createStyles(() => ({
     top: '50%',
     [`@media (max-width:575px)`]: {
       transform: 'translateY(4px)',
+    },
+  },
+
+  modalBtn: {
+    width: 251,
+    height: 52,
+    [`@media (max-width:575px)`]: {
+      width: 120,
     },
   },
 }));

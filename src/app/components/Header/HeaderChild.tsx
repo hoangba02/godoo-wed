@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, createStyles, Flex, Text } from '@mantine/core';
+import { Box, createStyles, Flex, Text } from '@mantine/core';
 import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
-import { ReactComponent as Detail } from 'assets/icons/detail.svg';
 
 interface Props {
   title?: string;
@@ -38,6 +37,8 @@ function HeaderChild({ title, children, onMotion }: Props) {
           } else if (title === 'Gender') {
             navigate('/about/profile');
           } else if (title === 'Change password') {
+            navigate('/about/setting/account');
+          } else if (title === 'Link to Messenger') {
             navigate('/about/setting/account');
           }
 
