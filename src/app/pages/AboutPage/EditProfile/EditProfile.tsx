@@ -147,27 +147,25 @@ function EditProfile() {
           <Text className={classes.title}>
             Something that I’m interested in
           </Text>
+          <Flex className={classes.options}></Flex>
+          <Flex
+            className={classes.navigate}
+            onClick={() => navigate('/about/profile/interest')}
+          >
+            <Text className={classes.label}>Add interests</Text>
+            <ArrowRight />
+          </Flex>
         </Stack>
         <Stack className={classes.stack}>
           <Text className={classes.title}>I’m proud to be a/ an ...</Text>
           <Text className={classes.label}>You can have maximum 2 genders</Text>
-
           <Flex className={classes.options}>
             {gendersUser.map((gender, index) => (
               <Option key={index} name={gender.name} icon={gender.icon} />
             ))}
           </Flex>
           <Flex
-            sx={{
-              justifyContent: 'flex-end',
-              alignItems: 'center',
-              color: '#929292',
-              transition: 'all 0.5s linear',
-              cursor: 'pointer',
-              ':hover': {
-                color: 'var(--primary-4)',
-              },
-            }}
+            className={classes.navigate}
             onClick={() => navigate('/about/profile/gender')}
           >
             <Text className={classes.label}>Change gender</Text>

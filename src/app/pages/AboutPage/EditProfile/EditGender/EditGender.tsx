@@ -38,6 +38,7 @@ function EditGender() {
       <Flex
         sx={{
           width: '100%',
+          height: '100%',
           position: 'relative',
           margin: 0,
         }}
@@ -45,17 +46,23 @@ function EditGender() {
         <Container
           sx={{
             maxWidth: 570,
-            paddingTop: 24,
+            padding: '24px 0 0',
           }}
         >
           <Button
             variant="gradient"
             sx={{
-              width: '152px !important',
+              width: '152px',
               height: '45px !important',
               position: 'absolute',
-              right: 0,
-              top: -55,
+              right: 30,
+              top: 35,
+              [`@media (max-width:575px)`]: {
+                top: 'inherit',
+                bottom: 20,
+                right: 0,
+                width: '100%',
+              },
             }}
             onClick={handleUpdateGender}
           >

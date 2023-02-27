@@ -14,6 +14,7 @@ export const AboutLayoutStyles = createStyles(() => ({
     overflow: 'hidden',
     padding: '45px 30px 0',
     borderLeft: '1px solid #BFBFBF',
+    position: 'relative',
     [`@media (max-width:799px)`]: {
       padding: 0,
     },
@@ -21,7 +22,7 @@ export const AboutLayoutStyles = createStyles(() => ({
   child: {
     gap: 10,
     width: '100%',
-    height: 'calc(100vh - 91px)',
+    height: 'calc(100vh - 74px)',
     alignItems: 'center',
     overflowY: 'scroll',
     paddingTop: 24,

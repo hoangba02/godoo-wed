@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Select, Text } from '@mantine/core';
-import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
 import { ReactComponent as ArrowDown } from 'assets/icons/arrowDown.svg';
 
 function Height() {
@@ -49,6 +48,9 @@ function Height() {
             borderRadius: '50%',
             backgroundColor: 'var(--white)',
             transform: 'translateY(-50%)',
+            [`@media (max-width:575px)`]: {
+              right: 6,
+            },
           },
 
           input: {
@@ -57,6 +59,9 @@ function Height() {
             height: 32,
             borderRadius: 32,
             background: 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)',
+            [`@media (max-width:575px)`]: {
+              height: 38,
+            },
           },
           dropdown: {
             '& > div': {

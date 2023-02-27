@@ -1,77 +1,68 @@
-import React, { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
 import { Button, Container, createStyles, Flex } from '@mantine/core';
-import { ReactComponent as Swipe } from 'assets/icons/swipeIcon.svg';
+import { ReactComponent as SwipeIcon } from 'assets/icons/swipeIcon.svg';
 import { ReactComponent as SwipeFriend } from 'assets/icons/swipeFriend.svg';
 import { ReactComponent as SwipeLove } from 'assets/icons/swipeLove.svg';
-import { ReactComponent as Liked } from 'assets/icons/likedIcon.svg';
+import { ReactComponent as LikedIcon } from 'assets/icons/likedIcon.svg';
 import { ReactComponent as LikedFriend } from 'assets/icons/likedFriend.svg';
 import { ReactComponent as LikedLove } from 'assets/icons/likedLove.svg';
-import { ReactComponent as Chat } from 'assets/icons/chatIcon.svg';
+import { ReactComponent as ChatIcon } from 'assets/icons/chatIcon.svg';
 import { ReactComponent as ChatFriend } from 'assets/icons/chatFriend.svg';
 import { ReactComponent as ChatLove } from 'assets/icons/chatLove.svg';
-import { ReactComponent as User } from 'assets/icons/userIcon.svg';
+import { ReactComponent as UserIcon } from 'assets/icons/userIcon.svg';
 import { ReactComponent as UserFriend } from 'assets/icons/userFriend.svg';
 import { ReactComponent as UserLove } from 'assets/icons/userLove.svg';
-import { getProfileSelector } from 'store/slice/userSlice/selectors';
-
+import { useNavigate } from 'react-router-dom';
 const DATA = [
   {
-    basic: <Swipe />,
+    basic: <SwipeIcon />,
     friend: <SwipeFriend />,
     love: <SwipeLove />,
   },
   {
-    basic: <Liked />,
+    basic: <LikedIcon />,
     friend: <LikedFriend />,
     love: <LikedLove />,
+    route: 'liked',
   },
   {
-    basic: <Chat />,
+    basic: <ChatIcon />,
     friend: <ChatFriend />,
     love: <ChatLove />,
+    route: 'chat',
   },
   {
-    basic: <User />,
+    basic: <UserIcon />,
     friend: <UserFriend />,
     love: <UserLove />,
+    route: 'about',
   },
 ];
-interface Props {
-  active?: number;
-  setActive?: any;
-  children?: ReactNode;
-}
-function Header({ active, setActive, children }: Props) {
+function HeaderMobile({ active }) {
+  const navigate = useNavigate();
   const { classes } = useStyles();
-  const profile = useSelector(getProfileSelector);
   return (
-    <Container fluid className={classes.container}>
-      {children}
-      <Container fluid className={classes.header}>
-        <Flex className={classes.wrapper}>
-          {DATA.map((value, index) => {
-            let mode = profile.relationship === 0 ? value.friend : value.love;
-            return (
-              <Button
-                key={index}
-                className={classes.navBtn}
-                onClick={() => {
-                  setActive(index);
-                }}
-              >
-                {active !== index ? value.basic : mode}
-              </Button>
-            );
-          })}
-        </Flex>
-      </Container>
+    <Container fluid className={classes.header}>
+      <Flex className={classes.wrapper}>
+        {DATA.map((value, index) => {
+          return (
+            <Button
+              key={index}
+              className={classes.navBtn}
+              onClick={() => {
+                navigate(`/${value.route}`);
+              }}
+            >
+              {active !== value.route ? value.basic : value.friend}
+            </Button>
+          );
+        })}
+      </Flex>
     </Container>
   );
 }
 
-export default Header;
-
+export default HeaderMobile;
 const useStyles = createStyles(() => ({
   container: {
     minWidth: '100%',

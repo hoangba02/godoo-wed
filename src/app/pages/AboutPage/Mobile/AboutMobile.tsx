@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import HeaderChild from 'app/components/Header/HeaderChild';
+import HeaderProfile from 'app/components/Header/HeaderProfile';
 import { Container, Flex, Stack } from '@mantine/core';
 import { AboutLayoutStyles } from '../AboutLayoutStyles';
 
@@ -12,7 +12,7 @@ function AboutMobile({ children, title }: Props) {
   return (
     <Flex className={classes.container}>
       <Container fluid className={classes.content}>
-        <HeaderChild title={title} />
+        <HeaderProfile title={title} />
         <Stack className={classes.child}>{children}</Stack>
       </Container>
     </Flex>

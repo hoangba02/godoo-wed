@@ -5,6 +5,7 @@ export const EditProfileStyles = createStyles(() => ({
     width: 570,
     height: '100%',
     maxWidth: '100%',
+    padding: 0,
   },
   clearBtn: {
     width: '24px !important',
@@ -20,6 +21,7 @@ export const EditProfileStyles = createStyles(() => ({
     fontSize: 18,
     lineHeight: '22px',
     marginTop: 18,
+    textOverflow: 'ellipsis',
   },
   label: {
     color: 'currentColor',
@@ -49,13 +51,23 @@ export const EditProfileStyles = createStyles(() => ({
   },
   addBtn: {
     color: '#929292',
-    width: 52,
+    width: '52px !important',
     height: '100%',
     border: 'none',
     padding: 0,
     fontWeight: 400,
     fontSize: 14,
     lineHeight: '18px',
+    ':hover': {
+      color: 'var(--primary-4)',
+    },
+  },
+  navigate: {
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    color: '#929292',
+    transition: 'all 0.5s linear',
+    cursor: 'pointer',
     ':hover': {
       color: 'var(--primary-4)',
     },

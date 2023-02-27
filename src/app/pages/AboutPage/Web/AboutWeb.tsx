@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import HeaderChild from 'app/components/Header/HeaderChild';
+import HeaderProfile from 'app/components/Header/HeaderProfile';
 import { Box, Container, Flex, Stack } from '@mantine/core';
 import { AboutLayoutStyles } from '../AboutLayoutStyles';
 import About from 'app/components/About/About';
@@ -21,7 +21,7 @@ function AboutWeb({ children, title, isEdit }: Props) {
         <About isEdit={isEdit} />
       </Box>
       <Container fluid className={classes.content}>
-        <HeaderChild title={title} />
+        <HeaderProfile title={title} />
         <Stack className={classes.child}>{children}</Stack>
       </Container>
     </Flex>

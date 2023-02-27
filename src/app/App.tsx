@@ -32,6 +32,11 @@ import EditGender from './pages/AboutPage/EditProfile/EditGender/EditGender';
 import MoreAbout from './components/Layout/MoreAbout/MoreAbout';
 import Demo from './pages/Demo/Demo';
 import LinkMess from './pages/AboutPage/Settings/LinkMess/LinkMess';
+import Interest from './pages/AboutPage/EditProfile/Interest/Interest';
+import Swipe from './components/Swipe/Swipe';
+import Liked from './components/Liked/Liked';
+import Navbar from 'app/components/Match/Match';
+
 // import Websocket from 'contexts/websocket';
 export function App() {
   const { i18n } = useTranslation();
@@ -48,6 +53,7 @@ export function App() {
       <Routes>
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
+          <Route path="/:active" element={<HomePage />} />
           <Route path="/chat/:userId" element={<ChatPage />} />
           {/* About Page */}
           <Route path="/about" element={<About />} />
@@ -66,6 +72,7 @@ export function App() {
           {/* Edidt Profile */}
           <Route path="/about/profile" element={<EditProfile />} />
           <Route path="/about/profile/gender" element={<EditGender />} />
+          <Route path="/about/profile/interest" element={<Interest />} />
           <Route path="/about/profile/more/:tab" element={<MoreAbout />} />
 
           {/* Register Page*/}

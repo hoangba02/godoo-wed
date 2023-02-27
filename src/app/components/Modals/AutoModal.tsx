@@ -7,16 +7,23 @@ interface Props {
   autoModal?: any;
   setAutoModal?: any;
   notification: string;
+  translateX: number | string;
 }
-function AutoModal({ image, autoModal, setAutoModal, notification }: Props) {
+function AutoModal({
+  image,
+  autoModal,
+  setAutoModal,
+  notification,
+  translateX,
+}: Props) {
   const { classes } = useStyles();
   useEffect(() => {
     if (!autoModal) {
       return;
     } else {
-      // setTimeout(function () {
-      //   setAutoModal(false);
-      // }, 2000);
+      setTimeout(function () {
+        setAutoModal(false);
+      }, 2000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [autoModal]);
@@ -33,15 +40,16 @@ function AutoModal({ image, autoModal, setAutoModal, notification }: Props) {
             zIndex: 99999,
           },
           modal: {
-            width: 295,
-            height: 201,
+            width: 570,
+            height: 300,
             backgroundColor: 'var(--white)',
-            transform: 'translateX(70%) !important',
+            transform: `translateX(${translateX}) !important`,
             [`@media (max-width:575px)`]: {
               transform: 'translateX(0%) !important',
             },
           },
         }}
+        closeOnClickOutside={false}
         centered
         opened={autoModal}
         onClose={() => setAutoModal(false)}
@@ -68,7 +76,7 @@ function AutoModal({ image, autoModal, setAutoModal, notification }: Props) {
           }}
           className={classes.modal}
         >
-          <Image width={80} height={80} src={image} alt="warn" />
+          <Image width={150} height={150} src={image} alt="warn" />
           <Text className={classes.text}>{notification}</Text>
         </Stack>
       </Modal>
@@ -88,7 +96,7 @@ const useStyles = createStyles(() => ({
   text: {
     textAlign: 'center',
     fontWeight: 400,
-    fontSize: 14,
-    lineHeight: '18px',
+    fontSize: 24,
+    lineHeight: '30px',
   },
 }));

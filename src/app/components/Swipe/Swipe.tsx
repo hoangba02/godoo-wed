@@ -43,8 +43,9 @@ function Swipe({ drawer }: Props) {
       token: user.token,
     })
       .then(res => {
-        let newListSwipe = res.data.filter(value => value.picture.length !== 0);
-        setListSwipe(newListSwipe);
+        console.log(res);
+        // let newListSwipe = res.data.filter(value => value.picture.length !== 0);
+        // setListSwipe(newListSwipe);
       })
       .catch(err => {
         console.log(err);

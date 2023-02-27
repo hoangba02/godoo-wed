@@ -8,7 +8,7 @@ interface Props {
   onMotion?: any;
   children?: JSX.Element;
 }
-function HeaderChild({ title, children, onMotion }: Props) {
+function HeaderProfile({ title, children, onMotion }: Props) {
   const navigate = useNavigate();
   const { classes } = useStyles();
   return (
@@ -31,7 +31,7 @@ function HeaderChild({ title, children, onMotion }: Props) {
           } else if (title === 'Setting' || title === 'Edit profile') {
             navigate('/about/');
           } else if (title === 'Delete account') {
-            navigate('/about/setting');
+            navigate('/about/setting/account');
           } else if (title === 'More about me') {
             navigate('/about/profile');
           } else if (title === 'Gender') {
@@ -40,6 +40,9 @@ function HeaderChild({ title, children, onMotion }: Props) {
             navigate('/about/setting/account');
           } else if (title === 'Link to Messenger') {
             navigate('/about/setting/account');
+          } else if (title === 'Interest') {
+            navigate(-1);
+            // navigate('/about/profile');
           }
 
           if (onMotion) {
@@ -55,7 +58,7 @@ function HeaderChild({ title, children, onMotion }: Props) {
   );
 }
 
-export default HeaderChild;
+export default HeaderProfile;
 
 const useStyles = createStyles(() => ({
   header: {

@@ -150,6 +150,9 @@ function CustomerTabs(props: TabsProps, ref) {
           width: '100%',
           overflow: 'hidden',
           marginTop: -24,
+          [`@media (max-width:575px)`]: {
+            width: '100vw',
+          },
         },
       })}
       {...props}

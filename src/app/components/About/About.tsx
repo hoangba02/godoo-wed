@@ -20,9 +20,14 @@ import { ReactComponent as Settings } from 'assets/icons/about/settings.svg';
 import { ReactComponent as Gift } from 'assets/icons/about/gift.svg';
 import { ReactComponent as Wallet } from 'assets/icons/about/wallet.svg';
 import { ReactComponent as ArrowRight } from 'assets/icons/about/chevronRight.svg';
-import { getProfileSelector } from 'store/slice/userSlice/selectors';
+import {
+  getProfileSelector,
+  getUserSelector,
+} from 'store/slice/userSlice/selectors';
 import { useNavigate } from 'react-router-dom';
 import { images } from 'assets/images';
+import HeaderMobile from '../Header/HeaderMobile';
+import { useMediaQuery } from '@mantine/hooks';
 
 interface Props {
   animation?: any;
@@ -30,11 +35,14 @@ interface Props {
   isEdit?: boolean;
 }
 function About({ animation, onAnimationEnd, isEdit }: Props) {
+  const profile = useSelector(getProfileSelector);
+  const user = useSelector(getUserSelector);
+  // Local
   const navigate = useNavigate();
   const { classes } = AboutStyles();
-
-  // Global
-  const profile = useSelector(getProfileSelector);
+  const phone = useMediaQuery('(max-width:575px)', user.device, {
+    getInitialValueInEffect: !user.device,
+  });
 
   return (
     <motion.div
@@ -151,6 +159,7 @@ function About({ animation, onAnimationEnd, isEdit }: Props) {
           />
         </Stack>
       </Container>
+      {phone && <HeaderMobile active="about" />}
     </motion.div>
   );
 }

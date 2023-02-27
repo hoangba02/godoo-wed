@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text } from '@mantine/core';
-import { ChooseItem, habitMap } from '../Smoking/Smoking';
+import { ChooseItem } from '../Smoking/Smoking';
 
 const religionMap = [
   'Christianity',

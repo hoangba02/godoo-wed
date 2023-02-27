@@ -1,14 +1,10 @@
 import { LoadingOverlay, Text } from '@mantine/core';
-import React, { useEffect, useState } from 'react';
-import { apiPost } from 'utils/http/request';
+import React, { useState } from 'react';
 import './Demo.css';
 import axios from 'axios';
 export default function Demo() {
-  const ImgFile = new FormData();
-  const [file, setFile] = useState<File | null>(null);
   const [image, setImage] = useState<any>('');
   const [loading, setLoading] = useState<any>(false);
-  const [imageUrl, setImageUrl] = useState('');
   const handleDeleteImage = () => {
     setImage('');
   };
@@ -44,15 +40,13 @@ export default function Demo() {
       let num = newBase + 1;
       const newString = base64?.toString().slice(num);
       axios
-        .post(`http://192.168.1.35:8080/v1/upload/base64/uploadgetname`, {
+        .post(`https://ttvnapi.com/v1/upload/base64/uploadgetname`, {
           file_base64: newString,
         })
         .then(res => {
           console.log(res.data.data.filename);
 
-          setImage(
-            `http://192.168.1.35:8080/v1/getfile/${res.data.data.filename}`,
-          );
+          setImage(`https://ttvnapi.com/v1/getfile/${res.data.data.filename}`);
         })
         .catch(err => console.log(err));
     };

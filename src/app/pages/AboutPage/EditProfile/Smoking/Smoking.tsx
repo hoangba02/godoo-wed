@@ -38,7 +38,15 @@ interface Props {
 }
 export function ChooseItem({ list, item, onSelect }: Props) {
   return (
-    <Stack spacing={6}>
+    <Stack
+      spacing={6}
+      sx={{
+        [`@media (max-width:575px)`]: {
+          height: 'calc(100vh - 270px)',
+          overflow: 'scroll',
+        },
+      }}
+    >
       {list.map((value, index) => (
         <Center
           key={index}
@@ -49,6 +57,9 @@ export function ChooseItem({ list, item, onSelect }: Props) {
             backgroundColor: value === item ? '#E46125' : '#FFFFFF',
             color: value === item ? '#FFFFFF' : '#000',
             cursor: 'pointer',
+            [`@media (max-width:575px)`]: {
+              minHeight: 45,
+            },
           }}
           onClick={() => onSelect(value)}
         >

@@ -169,6 +169,7 @@ function Profile({
           autoModal={autoModal}
           notification="Our system has recieved your concern. We will keep an eye on this account!"
           setAutoModal={setAutoModal}
+          translateX="70%"
         />
       </>
     </MyOverlay>,

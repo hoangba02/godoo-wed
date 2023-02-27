@@ -21,7 +21,6 @@ export function* CheckProfile(data) {
         '/v1/godoo/profile/getcompulsoryinfo',
         header,
       );
-      console.log(response);
       profileData = response.data;
       yield call(setFormCache, 'user-profile', `/${data.id}`, profileData);
     }
@@ -47,7 +46,6 @@ export function* CheckProfile(data) {
   }
 }
 export function* SetProfile(action) {
-  console.log(action);
   const data = {
     nickname: action.payload.profile.nickname,
     picture: action.payload.profile.picture,
@@ -65,10 +63,7 @@ export function* SetProfile(action) {
     data,
     header,
   );
-
-  console.log('new profile', res);
   if (res.error === 0) {
-    console.log(1);
     const newData = res.data;
     yield put(
       usersActions.createProfile({

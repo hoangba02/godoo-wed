@@ -21,6 +21,10 @@ function EducationLevel() {
       <Stack
         sx={{
           gap: 6,
+          [`@media (max-width:575px)`]: {
+            height: 'calc(100vh - 270px)',
+            overflow: 'scroll',
+          },
         }}
       >
         {EDUCATIONS.map((education, index) => (
@@ -32,6 +36,9 @@ function EducationLevel() {
               border: '1px solid #A9A9A9',
               color: education === edu ? '#FFFFFF' : '#000',
               backgroundColor: education === edu ? '#E46125' : '#FFFFFF',
+              [`@media (max-width:575px)`]: {
+                minHeight: 45,
+              },
             }}
             onClick={() => {
               setEdu(education);

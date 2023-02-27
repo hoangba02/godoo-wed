@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { IconPlus } from '@tabler/icons';
 import { ReactComponent as Blink } from 'assets/icons/register/blink.svg';
 import { ReactComponent as Clear } from 'assets/icons/clear.svg';
@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getProfileSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
+import axios from 'axios';
 
 interface Props {
   id: string;
@@ -28,37 +29,37 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   // Global
   const profile = useSelector(getProfileSelector);
   // Local
-  const ImgFile = new FormData();
   const { t } = useTranslation();
   const { classes } = useStyles();
-  const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<any>(false);
 
   const handleClearImg = () => {
     setImg({ ...img, [name]: '' });
   };
-  useEffect(() => {
-    if (file) {
-      setLoading(true);
-      ImgFile.append('file', file);
-      apiPost('/v1/uploadgeturl', ImgFile, {
-        'content-type': 'multipart/form-data',
-      })
+  const handleUpload = async e => {
+    setLoading(true);
+    const reader = new FileReader();
+    reader.onload = async event => {
+      const base64 = event.target?.result;
+      let newBase: any = event.target?.result?.toString().indexOf(',');
+      let num = newBase + 1;
+      const newString = base64?.toString().slice(num);
+      axios
+        .post(`https://ttvnapi.com/v1/upload/base64/uploadgetname`, {
+          file_base64: newString,
+        })
         .then(res => {
-          setLoading(false);
+          console.log(res.data.data.filename);
           setImg({
             ...img,
-            [name]: `https://ttvnapi.com/v1/getfile/${res.data[0].filename}`,
+            [name]: `https://ttvnapi.com/v1/getfile/${res.data.data.filename}`,
           });
+          setLoading(false);
         })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      return;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [file]);
+        .catch(err => console.log(err));
+    };
+    reader.readAsDataURL(e);
+  };
   return (
     <Card
       sx={{
@@ -118,7 +119,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
             <FileButton
               name={name}
               // resetRef={resetRef}
-              onChange={setFile}
+              onChange={handleUpload}
               accept="image/png,image/jpeg"
             >
               {props => (

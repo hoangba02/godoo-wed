@@ -17,6 +17,10 @@ function StarSign() {
         sx={{
           gap: '8px 12px',
           width: '100%',
+          [`@media (max-width:575px)`]: {
+            height: 'calc(100vh - 270px)',
+            overflow: 'scroll',
+          },
         }}
       >
         {zodiacMap.map((zodiac, index) => (

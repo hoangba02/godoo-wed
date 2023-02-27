@@ -18,6 +18,10 @@ function NextTab({ tab }: Props) {
         width: 570,
         position: 'absolute',
         bottom: '20%',
+        [`@media (max-width:575px)`]: {
+          width: '100%',
+          bottom: 20,
+        },
       }}
     >
       <Checkbox
@@ -39,8 +43,9 @@ function NextTab({ tab }: Props) {
       />
       <Button
         sx={{
-          width: '100%',
+          width: '100% !important',
           height: '45px !important',
+          marginTop: 5,
         }}
         variant="gradient"
         onClick={handleNextTab}

@@ -25,6 +25,10 @@ function FavoritePlace() {
         sx={{
           gap: '8px 12px',
           width: '100%',
+          [`@media (max-width:575px)`]: {
+            height: 'calc(100vh - 270px)',
+            overflow: 'scroll',
+          },
         }}
       >
         {favoriteMap.map((favorite, index) => (
@@ -52,6 +56,7 @@ function FavoritePlace() {
                 fontWeight: 600,
                 lineHeight: '20px',
                 userSelect: 'none',
+                textAlign: 'center',
                 color: favorites.includes(favorite.name) ? '#FFFFFF' : '#000',
               }}
             >

@@ -182,6 +182,7 @@ export default function Gender() {
               return (
                 <Button
                   key={index}
+                  variant="subtle"
                   className={
                     profile.gender.includes(gender.text) ? 'active' : ''
                   }
