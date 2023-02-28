@@ -22,7 +22,7 @@ function Coming({
   color,
   hour,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <Flex className={classes.container}>
       <Text
@@ -79,7 +79,7 @@ function Coming({
 
 export default Coming;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
     margin: '12px 0',

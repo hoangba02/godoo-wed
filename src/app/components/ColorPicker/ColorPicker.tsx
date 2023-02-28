@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, createStyles, Group, Stack } from '@mantine/core';
 
 function ColorPicker({ setGbInput, setColorPicker }) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const colors = [
     {
       top: '#E6C60D',
@@ -75,7 +75,7 @@ function ColorPicker({ setGbInput, setColorPicker }) {
 
 export default ColorPicker;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   group: {
     justifyContent: 'space-bettwen',
     flexWrap: 'nowrap',

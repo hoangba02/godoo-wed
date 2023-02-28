@@ -30,7 +30,7 @@ interface Props {
   drawer?: boolean;
 }
 export const FilterUser = ({ drawer }: Props) => {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [opened, setOpened] = useState(false);
   const phone = useMediaQuery('(max-width:575px)');
 
@@ -187,7 +187,7 @@ export const FilterUser = ({ drawer }: Props) => {
   );
 };
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   btn: {
     width: '32px !important',
     height: '32px !important',

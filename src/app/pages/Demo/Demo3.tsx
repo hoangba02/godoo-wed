@@ -6,7 +6,7 @@ import { createStyles, useMantineTheme } from '@mantine/core';
 import { ReactComponent as Arrow } from 'assets/icons/arrow.svg';
 
 function Demo3() {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = makeStyles();
   const theme = useMantineTheme();
   const [value, setValue] = useState<Date | null>(new Date());
   console.log(value);
@@ -65,7 +65,7 @@ function Demo3() {
 
 export default Demo3;
 
-const useStyles = createStyles(theme => ({
+const makeStyles = createStyles(theme => ({
   outside: {
     opacity: 0,
   },

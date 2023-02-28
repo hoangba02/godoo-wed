@@ -1,27 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Background from 'app/components/Background/Background';
-import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 import {
   Button,
   createStyles,
   Divider,
   Flex,
-  PasswordInput,
   Text,
   TextInput,
 } from '@mantine/core';
-
 import { useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { IconEyeOff, IconEye } from '@tabler/icons';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
 import Social from 'app/components/Social/Social';
 import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
+import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -29,7 +24,7 @@ export function RegisterPage() {
   const { t } = useTranslation();
 
   const { actions } = UserSlice();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const userNameRef = useRef<HTMLInputElement>(null);
   const user = useSelector(getUserSelector);
 
@@ -124,128 +119,164 @@ export function RegisterPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.register]);
   return (
-    <Background>
-      <LoginLayout islogin={false}>
-        <form
-          className={classes.form}
-          onSubmit={form.onSubmit(handleRegisterUser)}
-        >
-          <TextInput
-            maxLength={16}
-            name="username"
-            label={t('LoginPage.username.Username')}
-            placeholder={t('LoginPage.username.Enter your username')}
-            error={form.errors.username}
-            ref={userNameRef}
-            {...form.getInputProps('username')}
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            onFocus={() => {
-              setErrPass(true);
-              setErrName(true);
-              form.setErrors({ username: '' });
-            }}
-            onInput={() => {
-              setErrName(true);
-            }}
-            onKeyUp={e => {
-              handleConvertEng(e);
-            }}
-          />
-          {errName && (
-            <Text className={classes.error}>
-              {t(
-                'LoginPage.username.Contains only lowercase letters and numbers',
-              )}
-            </Text>
-          )}
-
-          <MyPassInput
-            form={form}
-            name="password"
-            label="Password"
-            placeholder="Password"
-            handleKeyDown={handleClearSpace}
-            handleKeyUp={handleConvertEng}
-            handleFocus={handleOnFocusInput}
-            handleInput={handleOnInput}
-          />
-          {errPass && (
-            <Text className={classes.error}>
-              {t('LoginPage.password.At least 8 characters')}
-            </Text>
-          )}
-          <MyPassInput
-            form={form}
-            name="confirmPassword"
-            label="Confirm password"
-            placeholder="Confirm password"
-            handleKeyDown={handleClearSpace}
-            handleKeyUp={handleConvertEng}
-          />
-
-          <Flex align="center">
-            <Text className={classes.rules}>
-              {t('LoginPage.text.By clicking')}{' '}
-              <span style={{ cursor: 'default' }}>
-                {t('LoginPage.button.Sign up')}
-              </span>{' '}
-              {t('LoginPage.text.you agree with')}{' '}
-              <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
-              {t('LoginPage.text.and')}{' '}
-              <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
-              {t('LoginPage.text.of GoDoo')}
-            </Text>
-          </Flex>
-
-          <Flex justify="center">
-            <Button
-              type="submit"
-              variant="gradient"
-              className={classes.registerBtn}
-            >
-              {t('LoginPage.button.Sign up')}
-            </Button>
-          </Flex>
-        </form>
-        <Divider
-          styles={{
-            label: {
-              fontSize: '18px',
-              fontWeight: 600,
-              '&::after': {
-                width: '320px',
-              },
-              [`@media (max-width:575px)`]: {
-                '&::after': {
-                  width: '250px',
-                },
-              },
-            },
+    <LoginLayout>
+      <form
+        className={classes.form}
+        onSubmit={form.onSubmit(handleRegisterUser)}
+      >
+        <TextInput
+          maxLength={16}
+          name="username"
+          label={t('LoginPage.username.Username')}
+          placeholder={t('LoginPage.username.Enter your username')}
+          error={form.errors.username}
+          ref={userNameRef}
+          {...form.getInputProps('username')}
+          onKeyDown={e => {
+            handleClearSpace(e);
           }}
-          sx={{
-            marginTop: '40px',
-            // [`@media (min-width:768px) and (max-width:991px)`]: {
-            //   marginTop: '18px',
-            // },
-            // [`@media (min-width:576px) and (max-width:767px)`]: {
-            //   marginTop: '14px ',
-            // },
-            [`@media (max-width:575px)`]: {
-              marginTop: '18px',
-            },
+          onFocus={() => {
+            setErrPass(true);
+            setErrName(true);
+            form.setErrors({ username: '' });
           }}
-          label={t('LoginPage.or')}
-          labelPosition="center"
+          onInput={() => {
+            setErrName(true);
+          }}
+          onKeyUp={e => {
+            handleConvertEng(e);
+          }}
         />
-        <Social />
-      </LoginLayout>
-    </Background>
+        {errName && (
+          <Text className={classes.error}>
+            {t(
+              'LoginPage.username.Contains only lowercase letters and numbers',
+            )}
+          </Text>
+        )}
+
+        <MyPassInput
+          form={form}
+          name="password"
+          label="Password"
+          placeholder="Password"
+          handleKeyDown={handleClearSpace}
+          handleKeyUp={handleConvertEng}
+          handleFocus={handleOnFocusInput}
+          handleInput={handleOnInput}
+        />
+        {errPass && (
+          <Text className={classes.error}>
+            {t('LoginPage.password.At least 8 characters')}
+          </Text>
+        )}
+        <MyPassInput
+          form={form}
+          name="confirmPassword"
+          label="Confirm password"
+          placeholder="Confirm password"
+          handleKeyDown={handleClearSpace}
+          handleKeyUp={handleConvertEng}
+        />
+
+        <Flex align="center">
+          <Text className={classes.rules}>
+            {t('LoginPage.text.By clicking')}{' '}
+            <span style={{ cursor: 'default' }}>
+              {t('LoginPage.button.Sign up')}
+            </span>{' '}
+            {t('LoginPage.text.you agree with')}{' '}
+            <span>{t('LoginPage.text.Terms of Service')}</span>{' '}
+            {t('LoginPage.text.and')}{' '}
+            <span>{t('LoginPage.text.Privacy Policy')}</span>{' '}
+            {t('LoginPage.text.of GoDoo')}
+          </Text>
+        </Flex>
+
+        <Flex justify="center">
+          <Button
+            type="submit"
+            variant="gradient"
+            className={classes.registerBtn}
+          >
+            {t('LoginPage.button.Sign up')}
+          </Button>
+        </Flex>
+      </form>
+      <Divider
+        styles={{
+          label: {
+            fontSize: '18px',
+            fontWeight: 600,
+            '&::after': {
+              width: '320px',
+            },
+          },
+        }}
+        sx={{
+          marginTop: '2%',
+          [`@media (min-width:1536px)`]: {
+            marginTop: '6%',
+          },
+          [`@media (min-width:1440px) and (max-width:1535px)`]: {
+            marginTop: '4%',
+          },
+          '@media (max-width:575px)': {
+            marginTop: 18,
+          },
+        }}
+        label={t('LoginPage.or')}
+        labelPosition="center"
+      />
+      <Social />
+      <Text
+        sx={{
+          textAlign: 'center',
+          justifySelf: 'flex-end',
+          marginTop: '2%',
+          fontSize: '18px',
+          fontWeight: 400,
+          lineHeight: '22.5px',
+          position: 'relative',
+          zIndex: 2,
+          '& span': {
+            color: 'var(--primary-1 )',
+            fontWeight: 600,
+            textDecoration: 'underline',
+            userSelect: 'none',
+            cursor: 'pointer',
+          },
+          [`@media (min-width:1536px)`]: {
+            marginTop: '8%',
+          },
+          [`@media (min-width:1440px) and (max-width:1535px)`]: {
+            marginTop: '4%',
+          },
+          [`@media (min-width:992px) and (max-width:1199px)`]: {
+            marginTop: '2%',
+          },
+          [`@media (min-width:768px) and (max-width:991px)`]: {
+            marginTop: '3%',
+          },
+          '@media (max-width:575px)': {
+            marginTop: 18,
+          },
+        }}
+      >
+        {t('LoginPage.question.Already had an account?')}{' '}
+        <span
+          onClick={() => {
+            navigate('/login');
+          }}
+        >
+          {t('LoginPage.button.Log in')}
+        </span>
+      </Text>
+    </LoginLayout>
   );
 }
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     maxWidth: '100vw',
     height: '100vh',
@@ -286,29 +317,31 @@ const useStyles = createStyles(() => ({
       fontWeight: 600,
       cursor: 'pointer',
     },
-    [`@media (max-width:575px)`]: {
-      margin: '10px 0 0 0',
-      fontSize: '12px',
-    },
   },
   registerBtn: {
     width: '269px',
     height: '52px',
     fontSize: '18px',
     fontWeight: 500,
-    marginTop: '42px',
+    marginTop: '4%',
     padding: '16px 19px 16px 19px',
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      marginTop: '42px',
+    [`@media (min-width:1536px)`]: {
+      marginTop: '7%',
     },
-    [`@media (min-width:576px) and (max-width:767px)`]: {
-      marginTop: '42px',
-    },
-    [`@media (max-width:575px)`]: {
-      width: '200px',
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '240px',
       height: '45px',
-      fontSize: '20px',
-      marginTop: '26px',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '240px',
+      height: '45px',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '240px',
+      height: '45px',
+    },
+    '@media (max-width:575px)': {
+      marginTop: 18,
     },
   },
 }));

@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 function MatchHeader() {
   const headerRef = useRef<any>(null);
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const { isShowing, toggle } = useModal();
 
   // Global
@@ -63,7 +63,7 @@ function MatchHeader() {
 
 export default MatchHeader;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   user: {
     position: 'relative',
     width: '100%',

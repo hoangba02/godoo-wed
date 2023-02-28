@@ -7,7 +7,7 @@ interface Props {
   setUnpairModal: any;
 }
 function UnpairModal({ unpairModal, setUnpairModal }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <ModalLayout
       position="translateX(35%)"
@@ -43,7 +43,7 @@ function UnpairModal({ unpairModal, setUnpairModal }: Props) {
 }
 
 export default UnpairModal;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   button: {
     height: 45,
     fontSize: 20,

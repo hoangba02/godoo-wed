@@ -6,7 +6,7 @@ interface Props {
   comings?: any;
 }
 function Marked({ children, comings }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
 
   return (
     <Stack
@@ -31,7 +31,7 @@ function Marked({ children, comings }: Props) {
 
 export default Marked;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   dots: {
     position: 'absolute',
     bottom: 0,

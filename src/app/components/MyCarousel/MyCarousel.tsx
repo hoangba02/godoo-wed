@@ -50,7 +50,7 @@ function MyCarousel({
   const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   // Local
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const imgRef = useRef<any>(null);
   const carouselRef = useRef<any>(null);
   const [active, setActive] = useState<number>(0);
@@ -191,7 +191,7 @@ function MyCarousel({
 }
 export default MyCarousel;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   description: {
     gap: 18,
     width: '100%',

@@ -30,7 +30,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   const profile = useSelector(getProfileSelector);
   // Local
   const { t } = useTranslation();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [loading, setLoading] = useState<any>(false);
 
   const handleClearImg = () => {
@@ -186,7 +186,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
 
 export default UpLoad;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   picCard: {
     height: '100%',
     width: '100%',

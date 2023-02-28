@@ -10,7 +10,7 @@ interface Props {
 }
 function HeaderProfile({ title, children, onMotion }: Props) {
   const navigate = useNavigate();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <Flex className={classes.header}>
       <button
@@ -60,7 +60,7 @@ function HeaderProfile({ title, children, onMotion }: Props) {
 
 export default HeaderProfile;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   header: {
     width: '100%',
     justifyContent: 'space-between',

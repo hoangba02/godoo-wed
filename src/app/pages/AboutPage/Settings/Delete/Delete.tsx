@@ -3,7 +3,6 @@ import {
   Box,
   Button,
   Image,
-  Input,
   List,
   Stack,
   Text,

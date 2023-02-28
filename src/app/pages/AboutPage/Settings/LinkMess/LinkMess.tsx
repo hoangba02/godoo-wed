@@ -16,7 +16,7 @@ import { useInterval, useMediaQuery } from '@mantine/hooks';
 import { useTranslation } from 'react-i18next';
 
 function LinkMess() {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const { t } = useTranslation();
   const [seconds, setSeconds] = useState(300);
   const interval = useInterval(() => setSeconds(s => s - 1), 1000);
@@ -106,7 +106,7 @@ function LinkMess() {
 
 export default LinkMess;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     gap: 35,
     width: 570,

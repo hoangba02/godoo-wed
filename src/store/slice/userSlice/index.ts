@@ -19,6 +19,8 @@ export const initialState: UserState = {
   password: '',
   language: 'vi',
   device: false,
+  notification: '',
+  // error: '',
   // Status
   register: {
     error: -1,
@@ -144,7 +146,7 @@ const slice = createSlice({
       state.language = action.payload;
     },
     // Lấy user id và tên tele hoặc tên mess khi quên mật khẩu
-    getUserForgotPass(state: UserState, action: PayloadAction<UserState>) {
+    getUserForgotPass(state: UserState, action: PayloadAction<any>) {
       state.id = action.payload.id;
       state.telegram_fullname = action.payload.telegram_fullname;
       state.messenger_fullname = action.payload.messenger_fullname;
@@ -220,6 +222,12 @@ const slice = createSlice({
     },
     setPoint(state: UserState, action: PayloadAction<any>) {
       state.point = action.payload;
+    },
+    setTelegramFullName(state: UserState, action: PayloadAction<UserState>) {
+      state.telegram_fullname = action.payload.telegram_fullname;
+    },
+    setNotification(state: UserState, action: PayloadAction<UserState>) {
+      state.notification = action.payload.notification;
     },
   },
 });

@@ -20,13 +20,11 @@ import {
 import { useTranslation } from 'react-i18next';
 import { CounterSlice } from 'store/slice/counterSlice';
 import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
-import Background from 'app/components/Background/Background';
-import LoginLayout from 'app/components/Layout/Login/LoginLayout';
 import Social from 'app/components/Social/Social';
 import { useMediaQuery } from '@mantine/hooks';
 import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
-
-export function LoginPage() {
+import LoginLayout from 'app/components/Layout/Login/LoginLayout';
+export const LoginPage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,7 +33,7 @@ export function LoginPage() {
   const user = useSelector(getUserSelector);
   const profile = useSelector(getProfileSelector);
 
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [error, setError] = useState(false);
   const phone = useMediaQuery('(max-width: 575px)');
 
@@ -121,114 +119,135 @@ export function LoginPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.isLogin]);
   return (
-    <Background>
-      <LoginLayout islogin={true}>
-        <form
-          className={classes.form}
-          onSubmit={form.onSubmit(handleSubmitSignIn)}
-        >
-          <TextInput
-            name="username"
-            value={user.username}
-            // defaultValue={user.username}
-            label={t('LoginPage.username.Username')}
-            placeholder={t('LoginPage.username.Enter your username')}
-            {...form.getInputProps('username')}
-            onKeyDown={e => {
-              handleClearSpace(e);
-            }}
-            onKeyUp={e => {
-              handleConvertEng(e);
-            }}
-          />
-          <MyPassInput
-            form={form}
-            name="password"
-            label="Password"
-            placeholder="Password"
-            handleKeyDown={handleClearSpace}
-            handleKeyUp={handleConvertEng}
-          />
-          {error || user.login.error > 0 ? (
-            <Text className={classes.error}>
-              {t('LoginPage.error.Username or password incorrect')}
-            </Text>
-          ) : (
-            <></>
-          )}
-
-          <Flex
-            justify="space-between"
-            align="center"
-            sx={{
-              position: 'relative',
-              zIndex: 2,
-            }}
-          >
-            <Flex align="center">
-              <Checkbox
-                checked={true}
-                mt="md"
-                color="orange.7"
-                {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-              />
-              <Text className={classes.save}>
-                {t('LoginPage.password.Remember me')}
-              </Text>
-            </Flex>
-            <Link to="/forgot">
-              <Text className={clsx(classes.forgot, classes.save)}>
-                {t('LoginPage.password.Forgot password')}
-              </Text>
-            </Link>
-          </Flex>
-
-          <Flex justify="center">
-            <Button
-              type="submit"
-              variant="gradient"
-              className={classes.signinBtn}
-            >
-              {t('LoginPage.button.Log in')}
-            </Button>
-          </Flex>
-        </form>
-        <Divider
-          styles={{
-            label: {
-              fontSize: '18px',
-              fontWeight: 600,
-              '&::after': {
-                width: '320px',
-              },
-              [`@media (max-width:575px)`]: {
-                '&::after': {
-                  width: '250px',
-                },
-              },
-            },
+    <LoginLayout>
+      <form
+        className={classes.form}
+        onSubmit={form.onSubmit(handleSubmitSignIn)}
+      >
+        <TextInput
+          name="username"
+          value={user.username}
+          label={t('LoginPage.username.Username')}
+          placeholder={t('LoginPage.username.Enter your username')}
+          {...form.getInputProps('username')}
+          onKeyDown={e => {
+            handleClearSpace(e);
           }}
-          sx={{
-            marginTop: '40px',
-            [`@media (max-width:575px)`]: {
-              marginTop: '18px',
-            },
+          onKeyUp={e => {
+            handleConvertEng(e);
           }}
-          label={t('LoginPage.or')}
-          labelPosition="center"
         />
-        <Social />
-      </LoginLayout>
-    </Background>
-  );
-}
+        <MyPassInput
+          form={form}
+          name="password"
+          label="Password"
+          placeholder="Password"
+          handleKeyDown={handleClearSpace}
+          handleKeyUp={handleConvertEng}
+        />
+        {error || user.login.error > 0 ? (
+          <Text className={classes.error}>
+            {t('LoginPage.error.Username or password incorrect')}
+          </Text>
+        ) : (
+          <></>
+        )}
 
-const useStyles = createStyles(() => ({
+        <Flex
+          justify="space-between"
+          align="center"
+          sx={{
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
+          <Flex align="center">
+            <Checkbox
+              checked={false}
+              mt="md"
+              color="orange.7"
+              {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+            />
+            <Text className={classes.save}>
+              {t('LoginPage.password.Remember me')}
+            </Text>
+          </Flex>
+          <Link to="/forgot">
+            <Text className={clsx(classes.forgot, classes.save)}>
+              {t('LoginPage.password.Forgot password')}
+            </Text>
+          </Link>
+        </Flex>
+
+        <Flex justify="center">
+          <Button
+            type="submit"
+            variant="gradient"
+            className={classes.signinBtn}
+          >
+            {t('LoginPage.button.Log in')}
+          </Button>
+        </Flex>
+      </form>
+      <Divider
+        styles={{
+          label: {
+            fontSize: '18px',
+            fontWeight: 600,
+            '&::after': {
+              width: '320px',
+            },
+            [`@media (max-width:575px)`]: {
+              '&::after': {
+                width: '250px',
+              },
+            },
+          },
+        }}
+        sx={{
+          marginTop: '4%',
+          [`@media (max-width:575px)`]: {
+            marginTop: '18px',
+          },
+        }}
+        label={t('LoginPage.or')}
+        labelPosition="center"
+      />
+      <Social />
+      <Text
+        sx={{
+          textAlign: 'center',
+          justifySelf: 'flex-end',
+          marginTop: '5%',
+          fontSize: '18px',
+          fontWeight: 400,
+          lineHeight: '22.5px',
+          position: 'relative',
+          '& span': {
+            color: 'var(--primary-1 )',
+            fontWeight: 600,
+            textDecoration: 'underline',
+            userSelect: 'none',
+            cursor: 'pointer',
+          },
+        }}
+      >
+        {t("LoginPage.question.Don't have an account?")}{' '}
+        <span
+          onClick={() => {
+            navigate('/register');
+          }}
+        >
+          {t('LoginPage.button.Sign up')}
+        </span>
+      </Text>
+    </LoginLayout>
+  );
+};
+
+const makeStyles = createStyles(() => ({
   form: {
     width: '100%',
-  },
-  input: {
-    marginTop: '16px',
   },
   error: {
     color: 'var(--red)',
@@ -249,9 +268,20 @@ const useStyles = createStyles(() => ({
     height: '52px',
     fontSize: '18px',
     fontWeight: 500,
-    marginTop: '42px',
+    marginTop: '5%',
     padding: '16px 19px 16px 19px',
-
+    [`@media (min-width:1200px) and (max-width:1439px)`]: {
+      width: '240px',
+      height: '45px',
+    },
+    [`@media (min-width:992px) and (max-width:1199px)`]: {
+      width: '240px',
+      height: '45px',
+    },
+    [`@media (min-width:768px) and (max-width:991px)`]: {
+      width: '240px',
+      height: '45px',
+    },
     [`@media (max-width:575px)`]: {
       width: '200px',
       height: '45px',

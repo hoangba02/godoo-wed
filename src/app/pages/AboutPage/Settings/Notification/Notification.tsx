@@ -16,7 +16,7 @@ function Notification() {
       name: 'Transaction',
     },
   ];
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <AboutPage title="Notification" isEdit={false}>
       {notifications.map((item, index) => (
@@ -42,7 +42,7 @@ function Notification() {
 
 export default Notification;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   content: {
     width: '100%',
     padding: '45px 30px 0',

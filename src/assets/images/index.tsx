@@ -10,6 +10,7 @@ export const images = {
   bgLoginMobile: require('assets/images/bgLoginMobile.svg').default,
   bgLoginTop: require('assets/images/bgLoginTop.svg').default,
   bgLoginTopMobile: require('assets/images/bgLoginTopMobile.svg').default,
+  bgLoginBotMobile: require('assets/images/bgLoginBotMobile.svg').default,
   bgPopUp: require('assets/images/bgPopUp.svg').default,
   warn: require('assets/images/warn.svg').default,
   success: require('assets/images/success.svg').default,

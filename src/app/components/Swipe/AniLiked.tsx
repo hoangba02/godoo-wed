@@ -14,7 +14,7 @@ function AniLiked({ img, setImgLike }: Props) {
   const imgRef = useRef<any>(null);
   const [fly, setFly] = useState({ left: 0, top: 0 });
 
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   useEffect(() => {
     setFly({
       left:
@@ -53,7 +53,7 @@ function AniLiked({ img, setImgLike }: Props) {
 
 export default AniLiked;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   img: {
     position: 'absolute',
     top: '50%',

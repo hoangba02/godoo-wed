@@ -11,6 +11,7 @@ export interface UserState {
   username?: string;
   password?: string | number;
   device?: boolean;
+  notification?: string;
   // Status
   register?: {
     error?: number;

@@ -13,7 +13,7 @@ export default function SwipeCard({ data, image, radius }: Props) {
   const user = useSelector(getUserSelector);
   // Local
   const navigate = useNavigate();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const handleNavigateChatPage = () => {
     if (data) {
       navigate(`/chat/${data.userId}`);
@@ -32,7 +32,7 @@ export default function SwipeCard({ data, image, radius }: Props) {
   );
 }
 
-const useStyles = createStyles(theme => ({
+const makeStyles = createStyles(theme => ({
   card: {
     height: '100%',
     backgroundSize: 'cover',

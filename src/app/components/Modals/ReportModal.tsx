@@ -18,7 +18,7 @@ function ReportModal({
   reportId,
   setAutoModal,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const user = useSelector(getUserSelector);
   const handleReportUser = () => {
     apiPost(
@@ -95,7 +95,7 @@ function ReportModal({
 }
 
 export default ReportModal;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   button: {
     width: '100%',
     height: 52,

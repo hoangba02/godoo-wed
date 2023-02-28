@@ -15,7 +15,7 @@ import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { AboutStyles } from './AboutStyles';
 
-import { ReactComponent as ArrowLeft } from 'assets/icons/arrowLeft.svg';
+import { ReactComponent as Home } from 'assets/icons/about/home.svg';
 import { ReactComponent as Settings } from 'assets/icons/about/settings.svg';
 import { ReactComponent as Gift } from 'assets/icons/about/gift.svg';
 import { ReactComponent as Wallet } from 'assets/icons/about/wallet.svg';
@@ -58,14 +58,19 @@ function About({ animation, onAnimationEnd, isEdit }: Props) {
     >
       <Container className={classes.container}>
         <Flex className={classes.header}>
-          <Button
-            variant="subtle"
-            className={classes.aboutBtn}
-            onClick={() => navigate('/')}
-          >
-            <ArrowLeft />
-          </Button>
-          <Stack align="center" spacing={0}>
+          {!phone && (
+            <Button
+              sx={{
+                left: 0,
+              }}
+              variant="subtle"
+              className={classes.aboutBtn}
+              onClick={() => navigate('/')}
+            >
+              <Home />
+            </Button>
+          )}
+          <Stack align="center" spacing={0} w="100%">
             <Center
               sx={{
                 position: 'relative',

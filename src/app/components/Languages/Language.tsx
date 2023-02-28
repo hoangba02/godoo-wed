@@ -22,6 +22,8 @@ export default function Languages() {
           styles={{
             inner: {
               justifyContent: 'space-around',
+              borderRadius: 8,
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
               [`@media (max-width:575px)`]: {
                 justifyContent: 'center',
               },
@@ -51,15 +53,12 @@ export default function Languages() {
 
 const useStyles = createStyles({
   button: {
-    height: 38,
-    width: 132,
+    height: '100% !important',
+    width: '100% !important',
     padding: 0,
     fontWeight: 600,
     fontSize: 18,
     lineHeight: '22px',
-    position: 'absolute',
-    right: '-50%',
-    top: -18,
     color: 'var(--black)',
     background: 'var(--white)',
     borderRadius: 8,
@@ -70,8 +69,6 @@ const useStyles = createStyles({
       backgroundColor: 'var(--white)',
     },
     [`@media (max-width:575px)`]: {
-      height: 28,
-      width: 90,
       fontSize: 14,
     },
   },

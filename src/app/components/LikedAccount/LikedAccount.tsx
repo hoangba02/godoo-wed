@@ -17,7 +17,7 @@ interface Props {
   isLiked?: string;
 }
 function LikedAccount({ data, isLiked }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const { isShowing, toggle } = useModal();
   const handleGiveGift = (e, receiveUserId) => {
     e.stopPropagation();
@@ -76,7 +76,7 @@ function LikedAccount({ data, isLiked }: Props) {
 
 export default LikedAccount;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   card: {
     minWidth: 147,
     maxWidth: 147,

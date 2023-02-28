@@ -6,7 +6,7 @@ interface Props {
   toggle?: any;
 }
 function Bio({ data, toggle }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <Paper className={classes.paper} onClick={toggle}>
       <Text className={classes.nickname}>{data.nickname}, 24</Text>
@@ -19,7 +19,7 @@ function Bio({ data, toggle }: Props) {
 
 export default Bio;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   paper: {
     color: 'var(--white)',
     background: 'transparent',

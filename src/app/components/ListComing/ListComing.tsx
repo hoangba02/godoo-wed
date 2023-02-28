@@ -5,7 +5,7 @@ import Coming from '../Schedule/Coming/Coming';
 import NoYetGift from 'assets/lotties/Search.json';
 
 function ListComing({ comings }) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -44,7 +44,7 @@ function ListComing({ comings }) {
 
 export default ListComing;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   note: {
     fontWeight: 400,
     fontSize: 16,

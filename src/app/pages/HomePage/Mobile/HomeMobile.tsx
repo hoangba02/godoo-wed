@@ -10,7 +10,7 @@ import HeaderMobile from 'app/components/Header/HeaderMobile';
 function HomeMobile() {
   const { active } = useParams();
   console.log(active);
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   // const [active, setActive] = useState(0);
   return (
     <Container fluid className={classes.container}>
@@ -30,7 +30,7 @@ function HomeMobile() {
 
 export default HomeMobile;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     minWidth: '100%',
     maxHeight: '100vh',

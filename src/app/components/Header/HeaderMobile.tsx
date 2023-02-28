@@ -40,7 +40,7 @@ const DATA = [
 ];
 function HeaderMobile({ active }) {
   const navigate = useNavigate();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <Container fluid className={classes.header}>
       <Flex className={classes.wrapper}>
@@ -63,7 +63,7 @@ function HeaderMobile({ active }) {
 }
 
 export default HeaderMobile;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     minWidth: '100%',
     maxHeight: '100vh',

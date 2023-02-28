@@ -30,7 +30,7 @@ function Modals({
   btnFunc,
   isBtn,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const navigate = useNavigate();
   return (
     <>
@@ -109,7 +109,7 @@ function Modals({
 
 export default Modals;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   modal: {
     alignItems: 'center',
     position: 'absolute',

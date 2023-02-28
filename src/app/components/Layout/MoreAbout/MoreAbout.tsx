@@ -12,7 +12,7 @@ function MoreAbout({ children }: Props) {
   const { tab } = useParams();
   const navigate = useNavigate();
   // local
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const tabsRef = useRef<any>(null);
   const tabList = useRef<any>(null);
   const [startX, setStartX] = useState<number>(0);
@@ -161,7 +161,7 @@ function CustomerTabs(props: TabsProps, ref) {
 }
 const StyledTabs = React.forwardRef(CustomerTabs);
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   tab: {
     position: 'relative',
     width: 570,

@@ -35,275 +35,264 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 root.render(
-  <Provider store={store}>
-    <HelmetProvider>
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          globalStyles: theme => ({
-            ':root': {
-              '--fz-40': '40px',
-              '--border-width': '1.5px',
-              '--border-radius': '8px',
-              // Color
-              '--primary-1': '#E46125',
-              '--primary-2': '#D65473',
-              '--primary-3':
-                'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
-              '--primary-4': '#FF9565',
-              '--primary-5': '#FFE0D2',
-              '--primary-6': '#FFDBEF',
-              '--green': '#36CA68',
-              '--red': '#FF0000',
-              '--brown': '#FFA800',
-              '--dark-blue': '#336CFF',
-              '--purple': '#36CA68',
-              '--blue': '#3FC6FF',
-              '--white': '#FFFFFF',
-              '--white-light': '#F3F3F3',
-              '--light': '#EAEAEA',
-              '--grey': '#A9A9A9',
-              '--grey-light': '#D6D6D6',
-              '--grey-medium': '#BFBFBF',
-              '--grey-dark': '#929292',
-              '--grey-black': '#424242',
-              '--black': '#000000',
-            },
-            '*, *::before, *::after': {
-              margin: 0,
-              padding: 0,
-              boxSizing: 'border-box',
-            },
-            '#root': {
-              height: '100%',
-            },
-            'html *::-webkit-scrollbar': {
-              borderRadius: 0,
-              width: 1,
-            },
-            'html *::-webkit-scrollbar-thumb': {
-              borderRadius: 4,
-              backgroundColor: 'rgba(0, 0, 0, 0.01)',
-            },
-            'html *::-webkit-scrollbar-track': {
-              borderRadius: 0,
-              backgroundColor: 'rgba(0, 0, 0, 0)',
-            },
-            body: {
-              // overflow: 'hidden',
-            },
-            a: {
-              textDecoration: 'none',
-            },
-            button: {
-              cursor: 'pointer',
-              border: 'none',
-              outline: 'none',
-              transition: 'all 0.8s ease-in-out',
-              ':active': {
-                transform: 'scale(0.9)',
+  <React.StrictMode>
+    <Provider store={store}>
+      <HelmetProvider>
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          theme={{
+            globalStyles: theme => ({
+              ':root': {
+                '--fz-40': '40px',
+                '--border-width': '1.5px',
+                '--border-radius': '8px',
+                // Color
+                '--primary-1': '#E46125',
+                '--primary-2': '#D65473',
+                '--primary-3':
+                  'linear-gradient(90deg, #E46125 -0.01%, #C91A44 50%, #A12FA3 100%)',
+                '--primary-4': '#FF9565',
+                '--primary-5': '#FFE0D2',
+                '--primary-6': '#FFDBEF',
+                '--green': '#36CA68',
+                '--red': '#FF0000',
+                '--brown': '#FFA800',
+                '--dark-blue': '#336CFF',
+                '--purple': '#36CA68',
+                '--blue': '#3FC6FF',
+                '--white': '#FFFFFF',
+                '--white-light': '#F3F3F3',
+                '--light': '#EAEAEA',
+                '--grey': '#A9A9A9',
+                '--grey-light': '#D6D6D6',
+                '--grey-medium': '#BFBFBF',
+                '--grey-dark': '#929292',
+                '--grey-black': '#424242',
+                '--black': '#000000',
               },
-            },
-            '.aboutBtn': {
-              width: 570,
-              height: 52,
-              color: '#E46125',
-              fontWeight: 600,
-              fontSize: 20,
-              lineHeight: '25px',
-              background: '#FFFFFF',
-              border: '0.5px solid #E46125',
-              position: 'absolute',
-              bottom: '17%',
-              borderRadius: 8,
-              ':hover': {
+              '*, *::before, *::after': {
+                margin: 0,
+                padding: 0,
+                boxSizing: 'border-box',
+              },
+              '#root': {
+                height: '100%',
+              },
+              'html *::-webkit-scrollbar': {
+                borderRadius: 0,
+                width: 1,
+              },
+              'html *::-webkit-scrollbar-thumb': {
+                borderRadius: 4,
+                backgroundColor: 'rgba(0, 0, 0, 0.01)',
+              },
+              'html *::-webkit-scrollbar-track': {
+                borderRadius: 0,
+                backgroundColor: 'rgba(0, 0, 0, 0)',
+              },
+              body: {
+                // overflow: 'hidden',
+              },
+              a: {
+                textDecoration: 'none',
+              },
+              button: {
+                cursor: 'pointer',
+                border: 'none',
+                outline: 'none',
+                transition: 'all 0.8s ease-in-out',
+                ':active': {
+                  transform: 'scale(0.9)',
+                },
+              },
+              '.aboutBtn': {
+                width: 570,
+                height: 52,
+                color: '#E46125',
+                fontWeight: 600,
+                fontSize: 20,
+                lineHeight: '25px',
                 background: '#FFFFFF',
+                border: '0.5px solid #E46125',
+                position: 'absolute',
+                bottom: '17%',
+                borderRadius: 8,
+                ':hover': {
+                  background: '#FFFFFF',
+                },
+                [`@media (max-width:575px)`]: {
+                  bottom: 24,
+                  width: 'calc(100% - 48px)',
+                },
               },
-              [`@media (max-width:575px)`]: {
-                bottom: 24,
-                width: 'calc(100% - 48px)',
-              },
+            }),
+            fontFamily: 'Lexend, sans-serif',
+            defaultGradient: {
+              from: '#E46125 -0.01%',
+              to: '#A12FA3 100%',
+              deg: 90,
             },
-            // '::file-selector-button': {
-            //   width: '49%',
-            //   height: '100%',
-            //   color: 'var(--white)',
-            //   padding: 0,
-            //   backgroundColor: '#E46125',
-            //   borderRadius: 34,
-            //   fontSize: 14,
-            //   fontWeight: 400,
-            //   lineHeight: '18px',
-            //   '&::before': {
-            //     display: 'none',
-            //   },
-            //   '&:hover': {
-            //     transition: '0.5s',
-            //     backgroundColor: '#E46125 !important',
-            //     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-            //   },
-            // },
-          }),
-          fontFamily: 'Lexend, sans-serif',
-          defaultGradient: {
-            from: '#E46125 -0.01%',
-            to: '#A12FA3 100%',
-            deg: 90,
-          },
-          components: {
-            Button: {
-              styles: (theme, params: ButtonStylesParams) => ({
-                root: {
-                  height: '55px',
-                  width: '269px',
-                  position: 'relative',
-                  padding: '16px 19px 16px 19px',
-                  zIndex: 1,
-                  color:
-                    params.variant === 'outline'
-                      ? '#E46125'
-                      : params.variant === 'filled'
-                      ? '#C91A44'
-                      : '#FFFFFF',
-                  // borderWidth: params.variant === 'outline' ? 'none' : '1px',
-                  border: params.variant === 'outline' ? 'none' : 'inherit',
-                  borderRadius: 'var(--border-radius)',
-                  backgroundColor:
-                    params.variant === 'default'
-                      ? 'var(--primary-2)'
-                      : params.variant === 'outline'
-                      ? '#FFFFFF'
-                      : params.variant === 'subtle'
-                      ? 'transparent'
-                      : '#FFFFFF',
-                  backgroundImage:
-                    params.variant === 'outline'
-                      ? 'var(--primary-3)'
-                      : params.variant === 'gradient'
-                      ? 'var(--primary-3)'
-                      : params.variant === 'filled'
-                      ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
-                      : 'none',
-                  '::before': {
-                    content: '""',
-                    display:
+            components: {
+              Button: {
+                styles: (theme, params: ButtonStylesParams) => ({
+                  root: {
+                    height: '55px',
+                    width: '269px',
+                    position: 'relative',
+                    padding: '16px 19px 16px 19px',
+                    zIndex: 1,
+                    color:
                       params.variant === 'outline'
-                        ? 'block'
+                        ? '#E46125'
                         : params.variant === 'filled'
-                        ? 'block'
-                        : 'none',
-                    position: 'absolute',
-                    top: 'calc(var(--border-width)*1.4)',
-                    left: 'calc(var(--border-width)*1.4)',
-                    backgroundColor: 'var(--white)',
-                    borderRadius:
-                      'calc(var(--border-radius) - var(--border-width))',
-                    height: 'calc(100% - calc(var(--border-width)*2.5))',
-                    width: 'calc(100% - calc(var(--border-width)*2.5))',
-                    zIndex: -1,
-                  },
-                  ':hover': {
+                        ? '#C91A44'
+                        : '#FFFFFF',
+                    // borderWidth: params.variant === 'outline' ? 'none' : '1px',
+                    border: params.variant === 'outline' ? 'none' : 'inherit',
+                    borderRadius: 'var(--border-radius)',
                     backgroundColor:
-                      params.variant === 'gradient'
-                        ? 'var(--primary-3)'
-                        : params.variant === 'filled'
-                        ? 'var(--primary-2)'
-                        : params.variant === 'default'
+                      params.variant === 'default'
                         ? 'var(--primary-2)'
                         : params.variant === 'outline'
                         ? '#FFFFFF'
                         : params.variant === 'subtle'
                         ? 'transparent'
                         : '#FFFFFF',
-                    backgroundSize: '100% !important',
-                  },
-                  ':disabled': {
-                    cursor: 'not-allowed',
-                    pointerEvents: 'unset',
-                  },
-                  ':disabled::before': {
-                    cursor: 'no-drop',
-                    backgroundColor: 'var(--grey-light)',
-                  },
-                  '& span': {
-                    overflow: 'visible',
-                  },
-                  [`@media (max-width:575px)`]: {
-                    width: 200,
-                    height: 45,
-                    fontSize: 20,
-                    lineHeight: 25,
-                  },
-                },
-              }),
-            },
-            InputWrapper: {
-              styles: () => ({
-                error: {
-                  color: 'var(--red)',
-                  marginTop: '4px',
-                },
-                label: {
-                  fontWeight: 600,
-                  fontSize: '18px',
-                  lineHeight: '22.5px',
-                  [`@media (max-width:575px)`]: {
-                    fontWeight: 600,
-                    fontSize: '16px',
-                    lineHeight: '20px',
-                  },
-                },
-              }),
-            },
-
-            Input: {
-              styles: () => ({
-                input: {
-                  height: '55px',
-                  borderRadius: '8px',
-                  marginTop: '8px',
-                  fontSize: '18px',
-                  '[type="password"]': {
-                    width: '100%',
-                    height: '100%',
-                    fontSize: '18px',
-                  },
-                  '[type="text"]': {
-                    height: '100%',
-                    fontSize: '18px',
-                  },
-                  '&:focus, &:focus-within': {
-                    borderColor: 'var(--primary-4)',
-                    backgroundColor: '#FFFFFF',
-                  },
-                  '&:-webkit-autofill,[type="password"]:-webkit-autofill': {
-                    boxShadow: '0 0 0px 1000px #FFFFFF inset',
-                  },
-                  [`@media (max-width:575px)`]: {
-                    marginTop: '4px',
-                    height: '45px',
-                    '[type="text"]': {
-                      height: '100%',
-                      fontSize: '16px',
+                    backgroundImage:
+                      params.variant === 'outline'
+                        ? 'var(--primary-3)'
+                        : params.variant === 'gradient'
+                        ? 'var(--primary-3)'
+                        : params.variant === 'filled'
+                        ? 'linear-gradient(90deg, #E46125 -0.01%, #C91A44 100%)'
+                        : 'none',
+                    '::before': {
+                      content: '""',
+                      display:
+                        params.variant === 'outline'
+                          ? 'block'
+                          : params.variant === 'filled'
+                          ? 'block'
+                          : 'none',
+                      position: 'absolute',
+                      top: 'calc(var(--border-width)*1.4)',
+                      left: 'calc(var(--border-width)*1.4)',
+                      backgroundColor: 'var(--white)',
+                      borderRadius:
+                        'calc(var(--border-radius) - var(--border-width))',
+                      height: 'calc(100% - calc(var(--border-width)*2.5))',
+                      width: 'calc(100% - calc(var(--border-width)*2.5))',
+                      zIndex: -1,
                     },
+                    ':hover': {
+                      backgroundColor:
+                        params.variant === 'gradient'
+                          ? 'var(--primary-3)'
+                          : params.variant === 'filled'
+                          ? 'var(--primary-2)'
+                          : params.variant === 'default'
+                          ? 'var(--primary-2)'
+                          : params.variant === 'outline'
+                          ? '#FFFFFF'
+                          : params.variant === 'subtle'
+                          ? 'transparent'
+                          : '#FFFFFF',
+                      backgroundSize: '100% !important',
+                    },
+                    ':disabled': {
+                      cursor: 'not-allowed',
+                      pointerEvents: 'unset',
+                    },
+                    ':disabled::before': {
+                      cursor: 'no-drop',
+                      backgroundColor: 'var(--grey-light)',
+                    },
+                    '& span': {
+                      overflow: 'visible',
+                    },
+                    [`@media (max-width:575px)`]: {
+                      width: 200,
+                      height: 45,
+                      fontSize: 20,
+                      lineHeight: 25,
+                    },
+                  },
+                }),
+              },
+              InputWrapper: {
+                styles: () => ({
+                  error: {
+                    color: 'var(--red)',
+                    marginTop: '4px',
+                  },
+                  label: {
+                    fontWeight: 600,
+                    fontSize: '18px',
+                    lineHeight: '22.5px',
+                    [`@media (max-width:575px)`]: {
+                      fontWeight: 600,
+                      fontSize: '16px',
+                      lineHeight: '20px',
+                    },
+                  },
+                }),
+              },
+
+              Input: {
+                styles: () => ({
+                  input: {
+                    height: 52,
+                    borderRadius: '8px',
+                    marginTop: '8px',
+                    fontSize: '18px',
                     '[type="password"]': {
                       width: '100%',
                       height: '100%',
-                      fontSize: '16px',
+                      fontSize: '18px',
+                    },
+                    '[type="text"]': {
+                      height: '100%',
+                      fontSize: '18px',
+                    },
+                    '&:focus, &:focus-within': {
+                      borderColor: 'var(--primary-4)',
+                      backgroundColor: '#FFFFFF',
+                    },
+                    '&:-webkit-autofill,[type="password"]:-webkit-autofill': {
+                      boxShadow: '0 0 0px 1000px #FFFFFF inset',
+                    },
+                    [`@media (min-width:1536px)`]: {
+                      height: 50,
+                    },
+                    [`@media (min-width:1440px) and (max-width:1535px)`]: {
+                      height: 52,
+                    },
+                    [`@media (max-width:575px)`]: {
+                      marginTop: '4px',
+                      height: '45px',
+                      '[type="text"]': {
+                        height: '100%',
+                        fontSize: '16px',
+                      },
+                      '[type="password"]': {
+                        width: '100%',
+                        height: '100%',
+                        fontSize: '16px',
+                      },
                     },
                   },
-                },
-                innerInput: {},
-              }),
+                  innerInput: {},
+                }),
+              },
             },
-          },
-        }}
-      >
-        <App />
-      </MantineProvider>
-    </HelmetProvider>
-  </Provider>,
+          }}
+        >
+          <App />
+        </MantineProvider>
+      </HelmetProvider>
+    </Provider>
+  </React.StrictMode>,
 );
 
 // Hot reloadable translation json files

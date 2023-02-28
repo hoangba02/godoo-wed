@@ -9,7 +9,7 @@ import { apiGet } from 'utils/http/request';
 import { LoadingOverlay } from '@mantine/core';
 // import Websocket from 'contexts/websocket';
 import { UserSlice } from 'store/slice/userSlice';
-import Websocket from 'contexts/websocket';
+// import Websocket from 'contexts/websocket';
 
 export function ChatPage() {
   const dispatch = useDispatch();
@@ -23,18 +23,17 @@ export function ChatPage() {
   const phone = useMediaQuery('(max-width:576px)');
 
   const sendMakeConversation = async () => {
-    const hadConversation =
-      await Websocket.checkExistingConversationWithTwoPeople(Number(userId));
-
-    if (hadConversation) {
-      console.log('Tồn tại');
-      Websocket.requestGetMessage(10, 0, 10);
-      return;
-    }
-    //  else {
-    //   Websocket.requestMakeConversation(Number(userId), `${user.id}-${userId}`);
+    // const hadConversation =
+    //   await Websocket.checkExistingConversationWithTwoPeople(Number(userId));
+    // if (hadConversation) {
+    //   console.log('Tồn tại');
+    //   Websocket.requestGetMessage(10, 0, 10);
+    //   return;
     // }
-    console.log('Tồn tại');
+    // //  else {
+    // //   Websocket.requestMakeConversation(Number(userId), `${user.id}-${userId}`);
+    // // }
+    // console.log('Tồn tại');
   };
   useEffect(() => {
     sendMakeConversation();

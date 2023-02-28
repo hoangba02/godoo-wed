@@ -20,7 +20,7 @@ function ChangePass() {
   const navigate = useNavigate();
   // Local
   const { t } = useTranslation();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [openModal, setOpenModal] = useState(false);
 
   const form = useForm({
@@ -100,7 +100,7 @@ function ChangePass() {
 
 export default ChangePass;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   textPop: {
     fontWeight: 400,
     fontSize: 24,

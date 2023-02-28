@@ -16,7 +16,7 @@ function AutoModal({
   notification,
   translateX,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   useEffect(() => {
     if (!autoModal) {
       return;
@@ -86,7 +86,7 @@ function AutoModal({
 
 export default AutoModal;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   modal: {
     alignItems: 'center',
     position: 'absolute',

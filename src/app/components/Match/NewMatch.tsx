@@ -6,7 +6,7 @@ import { images } from 'assets/images';
 import ConversationList from '../Conversation/ConversationList';
 
 function NewMatch() {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [conversations, setConversations] = useState<any[]>([]);
 
   // useEffect(() => {
@@ -50,7 +50,7 @@ function NewMatch() {
 
 export default NewMatch;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     padding: 0,
     margin: '24px 0 0',

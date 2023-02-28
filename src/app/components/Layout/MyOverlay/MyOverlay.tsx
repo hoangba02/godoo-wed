@@ -20,7 +20,7 @@ const MyOverlay = ({
   fullScreen = false,
 }: Props) => {
   const cardRef = React.useRef<HTMLDivElement | null>(null);
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
 
   const handleCloseOverlay = event => {
     const { target } = event;
@@ -62,7 +62,7 @@ const MyOverlay = ({
 
 export default MyOverlay;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     position: 'absolute',
     inset: 0,

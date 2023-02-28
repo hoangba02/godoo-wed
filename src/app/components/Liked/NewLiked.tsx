@@ -15,7 +15,7 @@ function NewLiked({ status }: Props) {
   const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
   // Local
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
 
   useEffect(() => {
     apiPost(
@@ -59,7 +59,7 @@ function NewLiked({ status }: Props) {
   );
 }
 export default NewLiked;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
     marginTop: 12,

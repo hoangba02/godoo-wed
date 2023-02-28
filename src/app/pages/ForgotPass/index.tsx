@@ -11,21 +11,62 @@ import ChangePass from './ChangePass';
 import Logo from 'app/components/Logo/Logo';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import Background from 'app/components/Background/Background';
+import { images } from 'assets/images';
+import { UserSlice } from 'store/slice/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 function ForgotPass() {
   const navigate = useNavigate();
+  const { actions } = UserSlice();
+  const dispatch = useDispatch();
+  const user = useSelector(getUserSelector);
+  // Local
   const { t } = useTranslation();
   const { classes } = ForgotPassStyles();
   const [next, setNext] = useState('');
-  const handleComeBack = () => {
-    navigate(-1);
+  const handleComeBack = async () => {
+    await dispatch(
+      actions.logoutSuccess({
+        username: user.login.savePassword ? user.username : '',
+        password: user.login.savePassword ? user.password : '',
+        login: {
+          savePassword: user.login.savePassword,
+        },
+      }),
+    );
+    navigate('/login');
   };
 
   return (
     <Background>
       <Container>
         <div className={classes.wrapper}>
-          <Box className={classes.card}>
+          <Box
+            className={classes.card}
+            sx={{
+              [`@media (max-width:575px)`]: {
+                width: '100%',
+                height: '72%',
+                margin: ' 0px',
+                padding: '16px 16px 0px ',
+                borderRadius: '20px 20px 0 0',
+                position: 'relative',
+                ':before': {
+                  content: '""',
+                  position: 'absolute',
+                  right: 0,
+                  bottom: 0,
+                  width: 131,
+                  height: 159,
+                  backgroundImage: `url(${images.bgLoginBotMobile})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: 'no-repeat',
+                },
+              },
+            }}
+          >
             <Logo className={classes.logo} isLang={false} />
             <Flex className={classes.header}>
               <button className={classes.back} onClick={handleComeBack}>

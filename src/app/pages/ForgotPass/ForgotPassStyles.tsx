@@ -32,13 +32,6 @@ export const ForgotPassStyles = createStyles(() => ({
     [`@media (min-width:576px) and (max-width:767px)`]: {
       width: '90%',
     },
-    [`@media (max-width:575px)`]: {
-      width: '100%',
-      height: '72%',
-      margin: ' 0px',
-      padding: '16px 16px 0px ',
-      borderRadius: '20px 20px 0 0',
-    },
   },
   logo: {
     [`@media (max-width:575px)`]: {
@@ -71,6 +64,7 @@ export const ForgotPassStyles = createStyles(() => ({
       position: 'absolute',
       top: '-10px',
       left: '5px',
+      zIndex: 5,
     },
   },
   title: {

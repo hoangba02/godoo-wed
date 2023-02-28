@@ -6,7 +6,7 @@ import { IconChevronRight, IconChevronLeft } from '@tabler/icons';
 import Card from '../Swipe/SwipeCard';
 
 function MatchList({ matchList }) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const ipad = useMediaQuery('(min-width:800px) and (max-width:991px)');
 
   useEffect(() => {}, []);
@@ -80,7 +80,7 @@ function MatchList({ matchList }) {
 
 export default MatchList;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     position: 'relative',
     width: '100%',

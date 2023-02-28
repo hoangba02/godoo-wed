@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { BaseResponse } from './response';
-
 const baseDomain = 'https://ttvnapi.com';
 // const baseDomain = '192.168.1.35:8080';
 
@@ -11,7 +10,7 @@ export const apiGet = async (url: string, header: any) => {
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log('error: ', error.message);
+      console.log('error:', error.message);
     } else {
       console.log('error: ', 'undefined');
     }
@@ -33,7 +32,7 @@ export const apiPost = async (url: string, payload: any, header: any) => {
     return data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log('error: ', error.message);
+      console.log('error:', error.message);
     } else {
       console.log('error: ', 'undefined');
     }

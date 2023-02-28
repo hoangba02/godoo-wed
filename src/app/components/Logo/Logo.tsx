@@ -9,7 +9,7 @@ interface Props {
   isLang?: boolean;
 }
 function Logo({ className, isLang }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const navigate = useNavigate();
 
   return (
@@ -18,9 +18,6 @@ function Logo({ className, isLang }: Props) {
         position: 'relative',
         width: '100%',
         justifyContent: 'center',
-        [`@media (max-width:575px)`]: {
-          // position: 'static',
-        },
       }}
       className={className}
     >
@@ -39,7 +36,7 @@ function Logo({ className, isLang }: Props) {
 
 export default Logo;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   logo: {
     width: '150px',
     height: '150px',

@@ -13,7 +13,7 @@ interface Props {
 }
 function Search({ placeholder }: Props) {
   const inputRef = useRef<null | HTMLInputElement>(null);
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const { isShowing, toggle } = useModal();
   const [content, setContent] = useState<string>('');
   const phone = useMediaQuery('(max-width:575px');
@@ -118,7 +118,7 @@ function Search({ placeholder }: Props) {
 
 export default Search;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   wrapper: {
     width: '100%',
     height: 38,

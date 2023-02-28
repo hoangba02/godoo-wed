@@ -7,7 +7,7 @@ interface Props {
   setHideModal: any;
 }
 function HideModal({ hideModal, setHideModal }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   useEffect(() => {
     return () => {
       setHideModal(false);
@@ -42,7 +42,7 @@ function HideModal({ hideModal, setHideModal }: Props) {
 }
 
 export default HideModal;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   button: {
     height: 45,
     fontSize: 20,

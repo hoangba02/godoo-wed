@@ -60,7 +60,7 @@ interface Props {
   setItems?: any;
 }
 function GendersList({ profile, isTitle, items, setItems }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   // const [items, setItems] = useState<string[]>([]);
   const genderUser = genders.filter(value =>
     profile?.gender.includes(value.name),
@@ -105,7 +105,7 @@ function GendersList({ profile, isTitle, items, setItems }: Props) {
 
 export default GendersList;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
   },

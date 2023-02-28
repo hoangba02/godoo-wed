@@ -21,7 +21,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
   const profile = useSelector(getProfileSelector);
   // Local
   const ImgFile = new FormData();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [zIndex, setZIndex] = useState(() => {
     if (profile.picture[id]) return 4;
     return 2;
@@ -123,7 +123,7 @@ function UpLoad({ id, name, setImg, img, isEdit }: Props) {
 
 export default UpLoad;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   picCard: {
     height: '100%',
     width: '100%',

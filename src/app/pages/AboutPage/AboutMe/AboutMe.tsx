@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, createStyles } from '@mantine/core';
 import About from 'app/components/About/About';
 export function AboutMe() {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
 
   return (
     <Container fluid className={classes.container}>
@@ -11,7 +11,7 @@ export function AboutMe() {
   );
 }
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
     height: '100%',

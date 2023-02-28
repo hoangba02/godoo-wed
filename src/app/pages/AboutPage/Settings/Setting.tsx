@@ -25,11 +25,26 @@ interface Props {
   onMotion?: any;
 }
 function Setting({ onMotion }: Props) {
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
+  const user = useSelector(getUserSelector);
   const navigate = useNavigate();
   // Local
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [logoutModal, setLogoutModal] = useState<boolean>(false);
-
+  const handleLogout = () => {
+    dispatch(
+      actions.requestLogout({
+        id: user.id,
+        token: user.token,
+        username: user.login.savePassword ? user.username : '',
+        password: user.login.savePassword ? user.password : '',
+        login: {
+          savePassword: user.login.savePassword,
+        },
+      }),
+    );
+  };
   return (
     <AboutPage title="Setting" isEdit={false}>
       <Flex
@@ -85,7 +100,11 @@ function Setting({ onMotion }: Props) {
       <Button className="aboutBtn" onClick={() => setLogoutModal(true)}>
         Log out
       </Button>
-      <LogoutModal logoutModal={logoutModal} setLogoutModal={setLogoutModal} />
+      <LogoutModal
+        logoutModal={logoutModal}
+        setLogoutModal={setLogoutModal}
+        onLogout={handleLogout}
+      />
     </AboutPage>
   );
 }
@@ -94,26 +113,14 @@ export default Setting;
 interface PropsModal {
   logoutModal: boolean;
   setLogoutModal: any;
+  onLogout?: any;
 }
-function LogoutModal({ logoutModal, setLogoutModal }: PropsModal) {
-  const dispatch = useDispatch();
-  const { actions } = UserSlice();
-  const user = useSelector(getUserSelector);
-  // Local
-  const { classes } = useStyles();
-  const handleLogout = () => {
-    dispatch(
-      actions.requestLogout({
-        id: user.id,
-        token: user.token,
-        username: user.login.savePassword ? user.username : '',
-        password: user.login.savePassword ? user.password : '',
-        login: {
-          savePassword: user.login.savePassword,
-        },
-      }),
-    );
-  };
+export function LogoutModal({
+  logoutModal,
+  setLogoutModal,
+  onLogout,
+}: PropsModal) {
+  const { classes } = makeStyles();
   return (
     <ModalLayout
       openModal={logoutModal}
@@ -139,7 +146,7 @@ function LogoutModal({ logoutModal, setLogoutModal }: PropsModal) {
           <Button
             className={classes.modalBtn}
             variant="filled"
-            onClick={handleLogout}
+            onClick={onLogout}
           >
             Yes
           </Button>
@@ -155,7 +162,7 @@ function LogoutModal({ logoutModal, setLogoutModal }: PropsModal) {
     </ModalLayout>
   );
 }
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   setting: {
     height: '100%',
     padding: '45px 30px 0',

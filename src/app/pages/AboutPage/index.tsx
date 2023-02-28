@@ -1,5 +1,5 @@
+import React from 'react';
 import { useMediaQuery } from '@mantine/hooks';
-import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
 import AboutMobile from './Mobile/AboutMobile';

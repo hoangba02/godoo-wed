@@ -1,10 +1,10 @@
 import { Container } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { images } from 'assets/images';
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 interface Props {
-  children: ReactElement;
+  children?: JSX.Element | JSX.Element[];
 }
 function Background({ children }: Props) {
   const phone = useMediaQuery('(max-width: 575px');

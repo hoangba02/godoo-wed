@@ -3,9 +3,9 @@ import { Button, createStyles, Flex } from '@mantine/core';
 import { images } from 'assets/images';
 
 function Social() {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
-    <Flex mt={38} className={classes.social}>
+    <Flex className={classes.social}>
       <Button variant="subtle" className={classes.socialBtn}>
         <img className={classes.img} src={images.facebook} alt="facebook" />
       </Button>
@@ -20,23 +20,26 @@ function Social() {
 }
 
 export default Social;
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   social: {
     width: '100%',
     justifyContent: 'center',
-    [`@media (min-width:768px) and (max-width:991px)`]: {
-      marginTop: '18px ',
+    marginTop: '2%',
+    [`@media (min-width:1536px)`]: {
+      marginTop: '6%',
+    },
+    [`@media (min-width:1440px) and (max-width:1535px)`]: {
+      marginTop: '4%',
     },
     [`@media (max-width:575px)`]: {
       marginTop: '18px',
     },
   },
   socialBtn: {
-    width: '64px',
-    height: '64px',
+    width: '10%',
+    // height: '64px',
     padding: '0',
     borderRadius: '50%',
-
     [`@media (max-width:575px)`]: {
       width: '50px',
       height: '50px',

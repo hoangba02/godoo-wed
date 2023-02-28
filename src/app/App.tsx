@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { GlobalStyle } from 'styles/global-styles';
-
-import { useTranslation } from 'react-i18next';
 import PrivateRouter from './routes/PrivateRouter';
 
 // import Demo2 from './pages/Demo/Demo2';
@@ -33,23 +30,11 @@ import MoreAbout from './components/Layout/MoreAbout/MoreAbout';
 import Demo from './pages/Demo/Demo';
 import LinkMess from './pages/AboutPage/Settings/LinkMess/LinkMess';
 import Interest from './pages/AboutPage/EditProfile/Interest/Interest';
-import Swipe from './components/Swipe/Swipe';
-import Liked from './components/Liked/Liked';
-import Navbar from 'app/components/Match/Match';
 
 // import Websocket from 'contexts/websocket';
 export function App() {
-  const { i18n } = useTranslation();
   return (
     <BrowserRouter>
-      <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
-        htmlAttributes={{ lang: i18n.language }}
-      >
-        <meta name="description" content="A React Boilerplate application" />
-      </Helmet>
-
       <Routes>
         <Route element={<PrivateRouter />}>
           <Route path="/" element={<HomePage />} />
@@ -90,7 +75,6 @@ export function App() {
         {/* <Route path="/demo2" element={<Demo2 />} /> */}
         <Route path="/demo3" element={<Demo3 />} />
       </Routes>
-
       <GlobalStyle />
     </BrowserRouter>
   );

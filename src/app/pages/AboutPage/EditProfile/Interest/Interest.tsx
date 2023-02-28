@@ -15,7 +15,7 @@ import { ReactComponent as ArrowDown } from 'assets/icons/edit/arrowDown.svg';
 import { INTEREST, INTERESTS } from '../More';
 
 function Interest() {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   const [interestMap, setInterestMap] = useState<string[]>([]);
   const [showProfile, setShowProfile] = useState<boolean>(true);
   return (
@@ -122,7 +122,7 @@ function Interest() {
 
 export default Interest;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
   },

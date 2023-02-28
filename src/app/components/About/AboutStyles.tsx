@@ -23,9 +23,12 @@ export const AboutStyles = createStyles(() => ({
   header: {
     width: '100%',
     justifyContent: 'space-between',
+    position: 'relative',
   },
 
   aboutBtn: {
+    position: 'absolute',
+    right: 0,
     width: '32px !important',
     height: '32px !important',
     ':before': {

@@ -24,7 +24,7 @@ function MyPassInput({
   placeholder,
 }: Props) {
   const { t } = useTranslation();
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
 
   return (
     <PasswordInput
@@ -60,7 +60,7 @@ function MyPassInput({
 
 export default MyPassInput;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   input: {
     marginTop: '16px',
   },

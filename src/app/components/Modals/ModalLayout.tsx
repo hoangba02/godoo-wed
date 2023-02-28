@@ -21,7 +21,7 @@ function ModalLayout({
   position,
   close,
 }: Props) {
-  const { classes } = useStyles();
+  const { classes } = makeStyles();
   return (
     <Modal
       centered
@@ -66,7 +66,7 @@ function ModalLayout({
 
 export default ModalLayout;
 
-const useStyles = createStyles(() => ({
+const makeStyles = createStyles(() => ({
   closeBtn: {
     width: '32px !important',
     height: '32px !important',

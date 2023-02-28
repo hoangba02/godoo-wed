@@ -105,7 +105,7 @@ function MyCalendar({ day, setDay }: Props) {
   // Global
   const user = useSelector(getUserSelector);
   // Local
-  const { classes, cx } = useStyles();
+  const { classes, cx } = makeStyles();
 
   return (
     <Calendar
@@ -188,7 +188,7 @@ function MyCalendar({ day, setDay }: Props) {
 
 export default MyCalendar;
 
-const useStyles = createStyles(theme => ({
+const makeStyles = createStyles(theme => ({
   outside: {
     opacity: 0,
   },
