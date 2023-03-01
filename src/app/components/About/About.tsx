@@ -88,7 +88,7 @@ function About({ animation, onAnimationEnd, isEdit }: Props) {
                 },
               }}
             >
-              <Avatar size={150} radius={9999} src={''} />
+              <Avatar size={150} radius={9999} src={profile.picture[0]} />
             </Center>
             <Text className={classes.nickname}>{profile.nickname}</Text>
             <Button

@@ -117,14 +117,14 @@ export function* Login(action) {
   };
   const res: BaseResponse = yield call(apiPost, '/v1/login', data, header);
   if (res.error === 0) {
-    yield CheckProfile(res.data);
+    yield call(CheckProfile, res.data);
     yield put(
       usersActions.loginSuccess({
         id: res.data.id,
         token: res.data.token,
         username: res.data.username,
         password: action.payload.password,
-        isLogin: false,
+        isLogin: true,
         login: {
           error: res.error,
           message: res.message,
@@ -144,26 +144,26 @@ export function* Login(action) {
   }
 }
 export function* Logout(action) {
-  // const header = {
-  //   userid: action.payload.id,
-  //   token: action.payload.token,
-  // };
-  // const res: BaseResponse = yield call(apiPost, '/v1/logout', {}, header);
-  // console.log(res);
-  // if (res.error === 0) {
-  //   yield call(deleteCache, 'user-profile', `/${action.payload.id}`);
-  //   yield put(
-  //     usersActions.logoutSuccess({
-  //       username: action.payload.username,
-  //       password: action.payload.password,
-  //       login: {
-  //         savePassword: action.payload.login.savePassword,
-  //       },
-  //     }),
-  //   );
-  // } else {
-  //   yield put(usersActions.logoutFail());
-  // }
+  const header = {
+    userid: action.payload.id,
+    token: action.payload.token,
+  };
+  const res: BaseResponse = yield call(apiPost, '/v1/logout', {}, header);
+  console.log(res);
+  if (res.error === 0) {
+    yield call(deleteCache, 'user-profile', `/${action.payload.id}`);
+    yield put(
+      usersActions.logoutSuccess({
+        username: action.payload.username,
+        password: action.payload.password,
+        login: {
+          savePassword: action.payload.login.savePassword,
+        },
+      }),
+    );
+  } else {
+    yield put(usersActions.logoutFail());
+  }
 }
 export function* CheckMatch(action) {
   const data = {

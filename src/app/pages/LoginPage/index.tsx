@@ -92,46 +92,11 @@ export const LoginPage = () => {
         navigate('/register/description');
         dispatch(counterActions.setCounter({ value: 4 }));
       } else {
-        console.log('login');
-
-        dispatch(
-          actions.loginSuccess({
-            id: user.id,
-            token: user.token,
-            isLogin: true,
-            loading: false,
-            username: form.values.username,
-            password: form.values.password,
-            login: { savePassword: form.values.termsOfService },
-          }),
-        );
+        navigate('/');
       }
     }
-    // else {
-    //   // navigate('/login');
-    //   dispatch(
-    //     actions.requestLogout({
-    //       id: user.id,
-    //       token: user.token,
-    //       username: user.login.savePassword ? user.username : '',
-    //       password: user.login.savePassword ? user.password : '',
-    //       login: {
-    //         savePassword: user.login.savePassword,
-    //       },
-    //     }),
-    //   );
-    //   dispatch(counterActions.setCounter({ value: 0 }));
-    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
-  useEffect(() => {
-    if (!user.isLogin) {
-      return;
-    } else {
-      navigate('/');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.isLogin]);
   return (
     <LoginLayout>
       <form
