@@ -49,9 +49,6 @@ function MyPassInput({
       onKeyDown={e => {
         handleKeyDown(e);
       }}
-      onKeyUp={e => {
-        handleKeyUp(e);
-      }}
       onFocus={handleFocus}
       onInput={handleInput}
     />

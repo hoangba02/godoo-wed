@@ -13,7 +13,6 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { UserSlice } from 'store/slice/userSlice';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
-import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
 import Social from 'app/components/Social/Social';
 import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
 import LoginLayout from 'app/components/Layout/Login/LoginLayout';
@@ -32,6 +31,7 @@ export function RegisterPage() {
   const [errPass, setErrPass] = useState(true);
 
   const form = useForm({
+    validateInputOnChange: true,
     initialValues: {
       username: '',
       password: '',
@@ -39,29 +39,45 @@ export function RegisterPage() {
     },
     validate: {
       username: value => {
+        const regex = /^[a-z0-9]+$/;
         if (value.length === 0) {
-          if (userNameRef.current !== null) {
-            userNameRef.current.focus();
-            setErrName(false);
-          }
+          setErrName(false);
           return t('LoginPage.error.Please fill in this field');
+        } else if (!regex.test(value)) {
+          setErrName(false);
+          return t(
+            'LoginPage.username.Contains only lowercase letters and numbers',
+          );
+        } else {
+          setErrName(true);
+          dispatch(
+            actions.registerFail({
+              register: {
+                error: -1,
+                message: '',
+              },
+            }),
+          );
+          return null;
         }
       },
       password: value => {
+        const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{0,8}$/;
         if (value.length === 0) {
           setErrPass(false);
-          return t('LoginPage.error.Please fill in this field');
-        }
-        if (value.length >= 1 && value.length < 8) {
+          return t('LoginPage.password.At least 8 characters');
+        } else if (!regex.test(value)) {
           setErrPass(false);
           return t('LoginPage.password.At least 8 characters');
+        } else {
+          setErrPass(true);
+          return null;
         }
-        return null;
       },
       confirmPassword: (value, values) => {
         if (value.length === 0) {
-          return t('LoginPage.error.Please fill in this field');
-        } else if (value.length >= 1 && value !== values.password) {
+          return t('LoginPage.password.Password incorrect');
+        } else if (value !== values.password) {
           return t('LoginPage.password.Password incorrect');
         } else {
           return null;
@@ -79,27 +95,9 @@ export function RegisterPage() {
     );
   };
   const handleClearSpace = e => {
-    if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
+    if (/ /g.test(e.key)) {
       e.preventDefault();
     }
-  };
-
-  const handleConvertEng = e => {
-    form.setValues({
-      ...form.values,
-      [e.target.name]:
-        e.target.name === 'username'
-          ? handleClearSpecialCharacter(e.target.value.toLowerCase())
-          : handleClearSpecialCharacter(e.target.value),
-    });
-  };
-  const handleOnFocusInput = () => {
-    setErrName(true);
-    setErrPass(true);
-    form.setErrors({ password: '' });
-  };
-  const handleOnInput = () => {
-    setErrPass(true);
   };
   useEffect(() => {
     if (user.register.error === -1) {
@@ -132,20 +130,7 @@ export function RegisterPage() {
           error={form.errors.username}
           ref={userNameRef}
           {...form.getInputProps('username')}
-          onKeyDown={e => {
-            handleClearSpace(e);
-          }}
-          onFocus={() => {
-            setErrPass(true);
-            setErrName(true);
-            form.setErrors({ username: '' });
-          }}
-          onInput={() => {
-            setErrName(true);
-          }}
-          onKeyUp={e => {
-            handleConvertEng(e);
-          }}
+          onKeyDown={handleClearSpace}
         />
         {errName && (
           <Text className={classes.error}>
@@ -161,9 +146,6 @@ export function RegisterPage() {
           label="Password"
           placeholder="Password"
           handleKeyDown={handleClearSpace}
-          handleKeyUp={handleConvertEng}
-          handleFocus={handleOnFocusInput}
-          handleInput={handleOnInput}
         />
         {errPass && (
           <Text className={classes.error}>
@@ -176,7 +158,6 @@ export function RegisterPage() {
           label="Confirm password"
           placeholder="Confirm password"
           handleKeyDown={handleClearSpace}
-          handleKeyUp={handleConvertEng}
         />
 
         <Flex align="center">

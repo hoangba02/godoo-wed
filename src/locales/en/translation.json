@@ -20,7 +20,9 @@
       "Password incorrect": "Password incorrect",
       "Enter your current password": "Enter your current password:",
       "Enter new password": "Enter new password:",
-      "Confirm new password": "Confirm new password:"
+      "Confirm new password": "Confirm new password:",
+      "Incorrect password": "Incorrect password",
+      "The new password is the same as the current one": "The new password is the same as the current one"
     },
     "button": {
       "Sign up": "Sign up",
@@ -52,7 +54,7 @@
       "Reset your password": "Reset your password"
     },
     "please": {
-      "Please enter you Username in order to reset your password": "Please enter you Username in order to reset your password",
+      "Please enter you username in order to reset your password": "Please enter you username in order to reset your password",
       "Please choose one method to receive OTP code": "Please choose one method to receive OTP code.",
       "Please enter OTP code just sent via your Messenger": "Please enter OTP code just sent via your Messenger:",
       "Please enter OTP code just sent via your Telegram": "Please enter OTP code just sent via your Telegram:",

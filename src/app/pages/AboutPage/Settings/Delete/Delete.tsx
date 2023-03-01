@@ -15,15 +15,35 @@ import { getUserSelector } from 'store/slice/userSlice/selectors';
 import { apiPost } from 'utils/http/request';
 import { ReactComponent as X } from 'assets/icons/edit/x.svg';
 import AutoModal from 'app/components/Modals/AutoModal';
+import { useForm } from '@mantine/form';
+import { useTranslation } from 'react-i18next';
 
 function Delete() {
   const user = useSelector(getUserSelector);
   // Local
+  const { t } = useTranslation();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [autoModal, setAutoModal] = useState<boolean>(false);
   const [isContinue, setIsContinue] = useState<boolean>(true);
   const [pass, setPass] = useState<string>('');
   const [error, setErorr] = useState<string>('');
+
+  const form = useForm({
+    initialValues: {
+      password: '',
+    },
+    validate: {
+      password: value => {
+        if (value.length === 0) {
+          return t('LoginPage.error.Please fill in this field');
+        } else if (value !== user.password) {
+          return t('LoginPage.password.Incorrect password');
+        } else {
+          return null;
+        }
+      },
+    },
+  });
 
   const handleClearPassword = () => {
     setPass('');
@@ -36,6 +56,7 @@ function Delete() {
     if (isContinue) {
       setIsContinue(false);
     } else {
+      console.log('first');
       apiPost(
         '/v1/godoo/deleteaccount',
         {
@@ -95,9 +116,12 @@ function Delete() {
               Information of this profile for the next time setting up
             </List.Item>
           </List>
+          <button onClick={() => setIsContinue(false)} className="aboutBtn">
+            Continue
+          </button>
         </>
       ) : (
-        <>
+        <form onSubmit={form.onSubmit(handleDeletePass)}>
           <Text
             sx={{
               fontWeight: 500,
@@ -141,13 +165,18 @@ function Delete() {
               onChange={handleInputPassword}
               placeholder="Password"
               withAsterisk
+              {...form.getInputProps('password')}
             />
           </Box>
-        </>
+          <button
+            style={{ color: '#FF0000' }}
+            type="submit"
+            className="aboutBtn"
+          >
+            Delete now!
+          </button>
+        </form>
       )}
-      <button className="aboutBtn" onClick={handleDeletePass}>
-        Continue
-      </button>
       <AutoModal
         autoModal={autoModal}
         setAutoModal={setAutoModal}

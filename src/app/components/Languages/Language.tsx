@@ -23,7 +23,6 @@ export default function Languages() {
             inner: {
               justifyContent: 'space-around',
               borderRadius: 8,
-              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
               [`@media (max-width:575px)`]: {
                 justifyContent: 'center',
               },

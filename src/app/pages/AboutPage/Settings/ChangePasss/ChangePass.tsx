@@ -15,13 +15,17 @@ import { useTranslation } from 'react-i18next';
 import ModalLayout from 'app/components/Modals/ModalLayout';
 import { images } from 'assets/images';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getUserSelector } from 'store/slice/userSlice/selectors';
 
 function ChangePass() {
   const navigate = useNavigate();
+  const user = useSelector(getUserSelector);
   // Local
   const { t } = useTranslation();
   const { classes } = makeStyles();
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [errPass, setErrPass] = useState<boolean>(false);
 
   const form = useForm({
     initialValues: {
@@ -29,7 +33,42 @@ function ChangePass() {
       newPassword: '',
       confirmNewPassword: '',
     },
+    validateInputOnChange: ['newPassword', 'confirmNewPassword'],
+    validate: {
+      password: value => {
+        if (value.length === 0) {
+          return t('LoginPage.error.Please fill in this field');
+        } else if (value !== user.password) {
+          return t('LoginPage.password.Incorrect password');
+        } else {
+          return null;
+        }
+      },
+      newPassword: value => {
+        const regex = /^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{0,8}$/;
+        if (value.length === 0) {
+          setErrPass(false);
+          return t('LoginPage.password.At least 8 characters');
+        } else if (!regex.test(value)) {
+          setErrPass(false);
+          return t('LoginPage.password.At least 8 characters');
+        } else {
+          setErrPass(true);
+          return null;
+        }
+      },
+      confirmNewPassword: (value, values) => {
+        if (value.length === 0) {
+          return t('LoginPage.password.Password incorrect');
+        } else if (value !== values.password) {
+          return t('LoginPage.password.Password incorrect');
+        } else {
+          return null;
+        }
+      },
+    },
   });
+  const handleSubmitForm = () => {};
   useEffect(() => {
     if (!openModal) {
       return;
@@ -55,45 +94,43 @@ function ChangePass() {
           </Text>
         </Stack>
       </ModalLayout>
-      <Stack className={classes.input}>
-        <MyPassInput
-          form={form}
-          name="password"
-          label="Enter your current password"
-          placeholder="Password"
-        />
-        <Flex className={classes.forgot} onClick={() => navigate('/forgot')}>
-          <Text className={classes.forText}>Quên mật khẩu?</Text>
-        </Flex>
-      </Stack>
-      <Stack spacing={0} className={classes.input}>
-        <Box>
+      <form onSubmit={form.onSubmit(handleSubmitForm)}>
+        <Stack className={classes.input}>
           <MyPassInput
             form={form}
-            name="newPassword"
-            label="Enter new password"
+            name="password"
+            label="Enter your current password"
+            placeholder="Password"
+          />
+          <Flex className={classes.forgot} onClick={() => navigate('/forgot')}>
+            <Text className={classes.forText}>Quên mật khẩu?</Text>
+          </Flex>
+        </Stack>
+        <Stack spacing={0} className={classes.input}>
+          <Box>
+            <MyPassInput
+              form={form}
+              name="newPassword"
+              label="Enter new password"
+              placeholder="Confirm password"
+            />
+            {errPass && (
+              <Text className={classes.error}>
+                {t('LoginPage.password.At least 8 characters')}
+              </Text>
+            )}
+          </Box>
+          <MyPassInput
+            form={form}
+            name="confirmNewPassword"
+            label="Confirm new password"
             placeholder="Confirm password"
           />
-          <Text className={classes.error}>
-            {t('LoginPage.password.At least 8 characters')}
-          </Text>
-        </Box>
-        <MyPassInput
-          form={form}
-          name="confirmNewPassword"
-          label="Confirm new password"
-          placeholder="Confirm password"
-        />
-      </Stack>
-      <Button
-        variant="subtle"
-        className={classes.updateBtn}
-        onClick={() => {
-          setOpenModal(true);
-        }}
-      >
-        Update
-      </Button>
+        </Stack>
+        <Button type="submit" variant="subtle" className={classes.updateBtn}>
+          Update
+        </Button>
+      </form>
     </AboutPage>
   );
 }

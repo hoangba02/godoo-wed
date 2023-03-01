@@ -18,7 +18,6 @@ const MenuLanguage = props => {
   const user = useSelector(getUserSelector);
 
   function handleConvertLanguage(e) {
-    e.defaultPrevent();
     if (props.value !== user.language) {
       i18n.changeLanguage(`${props.value}`);
       dispatch(actions.setLanguage(props.value));

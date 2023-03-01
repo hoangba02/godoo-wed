@@ -19,7 +19,6 @@ import {
 } from 'store/slice/userSlice/selectors';
 import { useTranslation } from 'react-i18next';
 import { CounterSlice } from 'store/slice/counterSlice';
-import { handleClearSpecialCharacter } from 'app/components/ConvertLang/ConvertLang';
 import Social from 'app/components/Social/Social';
 import { useMediaQuery } from '@mantine/hooks';
 import MyPassInput from 'app/components/Customs/MyPassInput/MyPassInput';
@@ -36,7 +35,6 @@ export const LoginPage = () => {
   const { classes } = makeStyles();
   const [error, setError] = useState(false);
   const phone = useMediaQuery('(max-width: 575px)');
-
   const form = useForm({
     initialValues: {
       username: user.login.savePassword ? user.username : '',
@@ -60,18 +58,20 @@ export const LoginPage = () => {
     }
   };
   const handleClearSpace = e => {
-    if (/[ `!@#$%^&*()_+\-=\\[\]{};':"\\|,.<>\\/?~]/g.test(e.key)) {
+    if (/ /g.test(e.key)) {
       e.preventDefault();
     }
   };
-  const handleConvertEng = e => {
-    form.setValues({
-      ...form.values,
-      [e.target.name]:
-        e.target.name === 'username'
-          ? handleClearSpecialCharacter(e.target.value.toLowerCase())
-          : handleClearSpecialCharacter(e.target.value),
-    });
+  const handleFocusInput = () => {
+    dispatch(
+      actions.loginFail({
+        login: {
+          error: -1,
+          message: '',
+          savePassword: form.values.termsOfService,
+        },
+      }),
+    );
   };
   useEffect(() => {
     if (user.token !== '') {
@@ -92,6 +92,8 @@ export const LoginPage = () => {
         navigate('/register/description');
         dispatch(counterActions.setCounter({ value: 4 }));
       } else {
+        console.log('login');
+
         dispatch(
           actions.loginSuccess({
             id: user.id,
@@ -104,10 +106,22 @@ export const LoginPage = () => {
           }),
         );
       }
-    } else {
-      navigate('/login');
-      dispatch(counterActions.setCounter({ value: 0 }));
     }
+    // else {
+    //   // navigate('/login');
+    //   dispatch(
+    //     actions.requestLogout({
+    //       id: user.id,
+    //       token: user.token,
+    //       username: user.login.savePassword ? user.username : '',
+    //       password: user.login.savePassword ? user.password : '',
+    //       login: {
+    //         savePassword: user.login.savePassword,
+    //       },
+    //     }),
+    //   );
+    //   dispatch(counterActions.setCounter({ value: 0 }));
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.token]);
   useEffect(() => {
@@ -133,9 +147,7 @@ export const LoginPage = () => {
           onKeyDown={e => {
             handleClearSpace(e);
           }}
-          onKeyUp={e => {
-            handleConvertEng(e);
-          }}
+          onFocus={handleFocusInput}
         />
         <MyPassInput
           form={form}
@@ -143,7 +155,7 @@ export const LoginPage = () => {
           label="Password"
           placeholder="Password"
           handleKeyDown={handleClearSpace}
-          handleKeyUp={handleConvertEng}
+          handleFocus={handleFocusInput}
         />
         {error || user.login.error > 0 ? (
           <Text className={classes.error}>

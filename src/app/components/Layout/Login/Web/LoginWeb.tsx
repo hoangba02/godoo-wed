@@ -23,8 +23,9 @@ export default function LoginWeb({ children }: Props) {
           backgroundColor: '#FFFFFF',
           padding: '0',
           position: 'relative',
-          [`@media (min-width:1536px)`]: {
-            width: '35%',
+
+          [`@media (min-width:1536px) and (max-width:1720px)`]: {
+            width: '39%',
           },
           [`@media (min-width:1440px) and (max-width:1535px)`]: {
             width: '40%',
@@ -49,6 +50,17 @@ export default function LoginWeb({ children }: Props) {
             top: 0,
             right: -200,
             zIndex: 5,
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
+            [`@media (min-width:768px) and (max-width:991px)`]: {
+              top: -50,
+              right: 0,
+              width: 132,
+              height: 38,
+            },
+            [`@media (min-width:1200px) and (max-width:1439px)`]: {
+              width: 120,
+              height: 30,
+            },
           }}
         >
           <Languages />
@@ -97,8 +109,8 @@ export default function LoginWeb({ children }: Props) {
                   height: '30%',
                 },
                 [`@media (min-width:1536px)`]: {
-                  width: 150,
-                  height: 150,
+                  width: '30%',
+                  height: '30%',
                 },
               }}
               onClick={() => {

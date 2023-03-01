@@ -251,8 +251,9 @@ const makeStyles = createStyles(() => ({
   },
   lang: {
     position: 'absolute',
-    right: 0,
+    right: 9,
     top: '50%',
+    transform: 'translateY(-50%)',
     [`@media (max-width:575px)`]: {
       transform: 'translateY(4px)',
     },

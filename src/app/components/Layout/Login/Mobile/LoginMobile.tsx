@@ -1,8 +1,8 @@
-import { Avatar, Box, Container, Flex, Stack } from '@mantine/core';
-import Languages from 'app/components/Languages/Language';
-import { images } from 'assets/images';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Avatar, Box, Container, Flex, Stack } from '@mantine/core';
+import { images } from 'assets/images';
+import Languages from 'app/components/Languages/Language';
 
 interface Props {
   children?: JSX.Element | JSX.Element[];
@@ -67,6 +67,7 @@ function LoginMobile({ children }: Props) {
               position: 'absolute',
               top: 33,
               right: 20,
+              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
             }}
           >
             <Languages />

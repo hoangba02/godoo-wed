@@ -88,3 +88,13 @@ class StorageService {
 
 const Storage = new StorageService();
 export default Storage;
+
+export const getUserLocal = key => {
+  const data = localStorage.getItem(key);
+  if (data) {
+    const data1 = JSON.parse(data);
+    return JSON.parse(data1.user);
+  } else {
+    return null;
+  }
+};

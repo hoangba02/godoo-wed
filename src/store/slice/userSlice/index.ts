@@ -108,12 +108,14 @@ const slice = createSlice({
       state.register = action.payload.register;
     },
     requestLogout(state: UserState, action: PayloadAction<UserState>) {
-      state.loading = true;
+      // state.loading = true;
+      state.isLogin = false;
     },
     logoutFail(state: UserState) {
       state.loading = false;
     },
     logoutSuccess(state: UserState, action: PayloadAction<any>) {
+      console.log('run');
       state.id = -1;
       state.token = '';
       state.username = action.payload.username;

@@ -40,30 +40,44 @@ function ForgotPass() {
 
   return (
     <Background>
-      <Container>
-        <div className={classes.wrapper}>
-          <Box
-            className={classes.card}
+      <Container fluid className={classes.wrapper}>
+        <Container
+          className={classes.card}
+          sx={{
+            [`@media (max-width:575px)`]: {
+              width: '100%',
+              height: '72%',
+              margin: ' 0px',
+              padding: 0,
+              borderRadius: '20px 20px 0 0',
+              position: 'relative',
+              backgroundColor: '#FFFFFF',
+
+              ':before': {
+                content: '""',
+                position: 'absolute',
+                right: 0,
+                bottom: 0,
+                width: 131,
+                height: 159,
+                backgroundImage: `url(${images.bgLoginBotMobile})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              },
+            },
+          }}
+        >
+          <Container
             sx={{
               [`@media (max-width:575px)`]: {
                 width: '100%',
-                height: '72%',
+                height: '100%',
                 margin: ' 0px',
                 padding: '16px 16px 0px ',
                 borderRadius: '20px 20px 0 0',
-                position: 'relative',
-                ':before': {
-                  content: '""',
-                  position: 'absolute',
-                  right: 0,
-                  bottom: 0,
-                  width: 131,
-                  height: 159,
-                  backgroundImage: `url(${images.bgLoginBotMobile})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: 'no-repeat',
-                },
+                position: 'absolute',
+                backgroundColor: 'transparent',
               },
             }}
           >
@@ -87,8 +101,8 @@ function ForgotPass() {
             ) : (
               <InputName setNext={setNext} />
             )}
-          </Box>
-        </div>
+          </Container>
+        </Container>
       </Container>
     </Background>
   );

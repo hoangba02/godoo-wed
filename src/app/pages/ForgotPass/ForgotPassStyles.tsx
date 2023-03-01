@@ -8,6 +8,7 @@ export const ForgotPassStyles = createStyles(() => ({
     [`@media (max-width:575px)`]: {
       display: 'flex',
       alignItems: 'flex-end',
+      padding: 0,
     },
   },
   card: {
@@ -52,6 +53,7 @@ export const ForgotPassStyles = createStyles(() => ({
     fontWeight: 600,
     fontSize: '20px',
     lineHeight: '25px',
+    marginTop: 20,
   },
   back: {
     width: '44px',
@@ -83,7 +85,7 @@ export const ForgotPassStyles = createStyles(() => ({
     marginTop: '64px',
     marginBottom: '10px',
     [`@media (max-width:575px)`]: {
-      marginTop: '10px',
+      margin: '15px 0 0',
       lineHeight: '20px',
     },
   },

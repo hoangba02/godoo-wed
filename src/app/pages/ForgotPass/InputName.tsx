@@ -9,7 +9,6 @@ import { images } from 'assets/images';
 import Modals from 'app/components/Modals/Modals';
 import { UserSlice } from 'store/slice/userSlice';
 import { ForgotPassStyles } from './ForgotPassStyles';
-import { convertLang } from 'app/components/ConvertLang/ConvertLang';
 import { apiPost } from 'utils/http/request';
 
 export default function InputName({ setNext }) {
@@ -62,12 +61,6 @@ export default function InputName({ setNext }) {
     }
   };
 
-  const handleConvertEng = e => {
-    form.setValues({
-      ...form.values,
-      [e.target.name]: convertLang(e.target.value.toLowerCase()),
-    });
-  };
   return (
     <>
       <Modals
@@ -85,7 +78,7 @@ export default function InputName({ setNext }) {
         {phone && (
           <Text className={classes.desc}>
             {t(
-              'ForgotPage.please.Please enter you Username in order to reset your password',
+              'ForgotPage.please.Please enter you username in order to reset your password',
             )}
           </Text>
         )}
@@ -98,9 +91,6 @@ export default function InputName({ setNext }) {
           {...form.getInputProps('name')}
           onKeyDown={e => {
             handleClearSpace(e);
-          }}
-          onKeyUp={e => {
-            handleConvertEng(e);
           }}
         />
         {!phone && (

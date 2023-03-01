@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useForm } from '@mantine/form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { IconEyeOff, IconEye } from '@tabler/icons';
-import { useSelector } from 'react-redux';
-import { useTimeout } from '@mantine/hooks';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Button, Group, PasswordInput, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
-import Modals from 'app/components/Modals/Modals';
 import { ForgotPassStyles } from './ForgotPassStyles';
 import { getUserSelector } from 'store/slice/userSlice/selectors';
+import AutoModal from 'app/components/Modals/AutoModal';
+import { UserSlice } from 'store/slice/userSlice';
+import { apiPost } from 'utils/http/request';
 
 export default function ChangePass() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { classes } = ForgotPassStyles();
+  const dispatch = useDispatch();
+  const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
-  const [openModal, setOpenModal] = useState(false);
-  const { start } = useTimeout(() => {
-    setOpenModal(false);
-    navigate('/login');
-  }, 2000);
+  // Local
+  const { classes } = ForgotPassStyles();
+  const [autoModal, setAutoModal] = useState(false);
 
   const form = useForm({
     validateInputOnBlur: true,
@@ -40,24 +39,26 @@ export default function ChangePass() {
           : null,
     },
   });
-  const handleSaveNewPass = values => {
-    axios
-      .post(
-        'https://ttvnapi.com/v1/createnewpassword',
-        {
-          new_password: form.values.password,
-        },
-        {
-          headers: {
-            userid: user.id,
-            token: user.token,
-          },
-        },
-      )
+  const handleSaveNewPass = () => {
+    apiPost(
+      '/v1/createnewpassword',
+      {
+        new_password: form.values.password,
+      },
+      {
+        userid: user.id,
+        token: user.token,
+      },
+    )
       .then(res => {
-        if (res.data.error === 0) {
-          setOpenModal(true);
-          start();
+        console.log(res);
+        if (res.error === 0) {
+          setAutoModal(true);
+          console.log(res);
+        } else if (res.error === 3) {
+          form.setErrors({
+            password: t('The new password is the same as the current one'),
+          });
         }
       })
       .catch(err => {
@@ -69,41 +70,48 @@ export default function ChangePass() {
       e.preventDefault();
     }
   };
+  const handleNavigate = async () => {
+    await dispatch(
+      actions.logoutSuccess({
+        username: user.login.savePassword ? user.username : '',
+        password: user.login.savePassword ? user.password : '',
+        login: {
+          savePassword: user.login.savePassword,
+        },
+      }),
+    );
+    navigate('/login');
+  };
   useEffect(() => {
-    if (!openModal) {
-      return;
-    } else {
-      setTimeout(function () {
-        setOpenModal(false);
-        if (user.isLogin) {
-          navigate('/about/setting/account');
-        }
-        navigate('/');
+    let timer;
+    if (autoModal) {
+      timer = setTimeout(() => {
+        handleNavigate();
       }, 2000);
     }
+    return () => {
+      clearTimeout(timer);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [openModal]);
+  }, [autoModal]);
   return (
     <Box>
-      <Modals
-        btnFunc={false}
-        isBtn={false}
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        isDesc={true}
-        desc="Đổi mật khẩu thành công"
-        img={images.success}
-        btnClose={false}
+      <AutoModal
+        image={images.success}
+        autoModal={autoModal}
+        notification="Đổi mật khẩu thành công"
+        setAutoModal={setAutoModal}
+        translateX="0%"
       />
-      <Text mt={48} mb={16}>
+      <Text mt={38} mb={16}>
         {t(
           "ForgotPage.please.Please don't share this password to anyone else.",
         )}
       </Text>
       <form
         className={classes.forgotForm}
-        onSubmit={form.onSubmit(values => {
-          handleSaveNewPass(values);
+        onSubmit={form.onSubmit(() => {
+          handleSaveNewPass();
         })}
       >
         <PasswordInput
@@ -149,7 +157,7 @@ export default function ChangePass() {
           {...form.getInputProps('confirmPassword')}
         />
 
-        <Group position="center" mt={48}>
+        <Group position="center" mt={38}>
           <Button className={classes.next} type="submit" variant="gradient">
             {t('ForgotPage.button.Save')}
           </Button>
