@@ -1,3 +1,16 @@
 {
-  "title": "welcome"
+  "Login": {
+    "Username": "Username",
+    "Enter your username": "Enter your username",
+    "Password": "Password",
+    "Enter your password": "Enter your password",
+    "Confirm password": "Confirm password",
+    "Username or password incorrect": "Username or password incorrect",
+    "Remember me": "Remember me",
+    "Forgot password": "Forgot password?",
+    "Log in": "Log in",
+    "or": "or",
+    "Don't have an account?": "Don't have an account?",
+    "Sign up": "Sign up"
+  }
 }

@@ -1,14 +1,13 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Avatar, Box, Container, Flex, Stack } from '@mantine/core';
+import { Container, Stack } from '@mantine/core';
 import { images } from 'assets/images';
+import Logo from 'app/components/Logo/Logo';
 // import Languages from 'app/components/Languages/Language';
 
 interface Props {
   children?: JSX.Element | JSX.Element[];
 }
-function LoginMobile({ children }: Props) {
-  const navigate = useNavigate();
+function PublicMobile({ children }: Props) {
   return (
     <Container
       fluid
@@ -16,10 +15,7 @@ function LoginMobile({ children }: Props) {
         minWidth: '100vw',
         minHeight: '100vh',
         padding: 0,
-        // backgroundImage: `url(${images.bgLoginMobile})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
+        backgroundColor: '#FFE0D2',
         '::before': {
           content: '""',
           position: 'absolute',
@@ -27,7 +23,7 @@ function LoginMobile({ children }: Props) {
           width: '100%',
           height: '100%',
           backgroundColor: 'transparent',
-          // backgroundImage: `url(${images.bgLoginTopMobile})`,
+          backgroundImage: `url(${images.backgroundMobile})`,
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           zIndex: 2,
@@ -40,39 +36,7 @@ function LoginMobile({ children }: Props) {
           width: '100%',
         }}
       >
-        <Flex
-          sx={{
-            width: '100%',
-            height: 178,
-            paddingBottom: 22,
-            justifyContent: 'center',
-            alignItems: 'end',
-            position: 'relative',
-          }}
-        >
-          <Avatar
-            sx={{
-              width: '100px',
-              height: '100px',
-            }}
-            onClick={() => {
-              navigate('/login');
-            }}
-            src={images.logo}
-          />
-          <Box
-            sx={{
-              width: 84,
-              height: 28,
-              position: 'absolute',
-              top: 33,
-              right: 20,
-              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
-            }}
-          >
-            {/* <Languages /> */}
-          </Box>
-        </Flex>
+        <Logo />
         <Container
           fluid
           sx={{
@@ -80,7 +44,6 @@ function LoginMobile({ children }: Props) {
             height: 'calc(100vh - 178px)',
             borderRadius: '30px 30px 0px 0px',
             backgroundColor: '#FFFFFF',
-
             position: 'relative',
           }}
         >
@@ -89,7 +52,6 @@ function LoginMobile({ children }: Props) {
             sx={{
               width: '100%',
               height: 'max-content',
-              // height: 'calc(100vh - 178px)',
               padding: '27px 16px 50px',
               borderRadius: '30px 30px 0px 0px',
               backgroundColor: 'transparent',
@@ -103,7 +65,7 @@ function LoginMobile({ children }: Props) {
                 bottom: 0,
                 width: 131,
                 height: 159,
-                // backgroundImage: `url(${images.bgLoginBotMobile})`,
+                backgroundImage: `url(${images.backgroundMobile})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -118,4 +80,4 @@ function LoginMobile({ children }: Props) {
   );
 }
 
-export default LoginMobile;
+export default PublicMobile;
