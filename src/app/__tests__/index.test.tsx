@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createRenderer } from 'react-test-renderer/shallow';
 
-import { App } from '../App';
+import { App } from '../index';
 
 const renderer = createRenderer();
 
