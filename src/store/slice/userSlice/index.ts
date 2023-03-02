@@ -12,6 +12,8 @@ export const initialState: UserState = {
   user_2: {},
   token: '',
   isLogin: false,
+  isHasProfile: false,
+  isCreateProfile: false,
   loading: false,
   telegram_fullname: '',
   messenger_fullname: '',

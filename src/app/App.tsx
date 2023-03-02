@@ -2,7 +2,7 @@ import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { GlobalStyle } from 'styles/global-styles';
-import PrivateRouter from './routes/PrivateRouter';
+import { PrivateRouter } from './routes/PrivateRouter';
 
 // import Demo2 from './pages/Demo/Demo2';
 import Demo3 from './pages/Demo/Demo3';
@@ -36,37 +36,33 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<PrivateRouter />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/:active" element={<HomePage />} />
-          <Route path="/chat/:userId" element={<ChatPage />} />
-          {/* About Page */}
-          <Route path="/about" element={<About />} />
-          <Route path="/about/setting" element={<Setting />} />
-          <Route
-            path="/about/setting/notification"
-            element={<Notification />}
-          />
-          <Route path="/about/setting/account" element={<Account />} />
-          <Route path="/about/setting/link" element={<LinkMess />} />
-          <Route
-            path="/about/setting/account/changepass"
-            element={<ChangePass />}
-          />
-          <Route path="/about/setting/account/delete" element={<Delete />} />
-          {/* Edidt Profile */}
-          <Route path="/about/profile" element={<EditProfile />} />
-          <Route path="/about/profile/gender" element={<EditGender />} />
-          <Route path="/about/profile/interest" element={<Interest />} />
-          <Route path="/about/profile/more/:tab" element={<MoreAbout />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/:active" element={<HomePage />} />
+        <Route path="/chat/:userId" element={<ChatPage />} />
+        {/* About Page */}
+        <Route path="/about" element={<About />} />
+        <Route path="/about/setting" element={<Setting />} />
+        <Route path="/about/setting/notification" element={<Notification />} />
+        <Route path="/about/setting/account" element={<Account />} />
+        <Route path="/about/setting/link" element={<LinkMess />} />
+        <Route
+          path="/about/setting/account/changepass"
+          element={<ChangePass />}
+        />
+        <Route path="/about/setting/account/delete" element={<Delete />} />
+        {/* Edidt Profile */}
+        <Route path="/about/profile" element={<EditProfile />} />
+        <Route path="/about/profile/gender" element={<EditGender />} />
+        <Route path="/about/profile/interest" element={<Interest />} />
+        <Route path="/about/profile/more/:tab" element={<MoreAbout />} />
 
-          {/* Register Page*/}
-          <Route path="/register/nickname" element={<NickName />} />
-          <Route path="/register/picture" element={<Picture />} />
-          <Route path="/register/birthday" element={<Birth />} />
-          <Route path="/register/gender" element={<Gender />} />
-          <Route path="/register/description" element={<Desc />} />
-        </Route>
+        {/* Register Page*/}
+        <Route path="/register/nickname" element={<NickName />} />
+        <Route path="/register/picture" element={<Picture />} />
+        <Route path="/register/birthday" element={<Birth />} />
+        <Route path="/register/gender" element={<Gender />} />
+        <Route path="/register/description" element={<Desc />} />
+
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

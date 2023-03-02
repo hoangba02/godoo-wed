@@ -99,23 +99,6 @@ export function RegisterPage() {
       e.preventDefault();
     }
   };
-  useEffect(() => {
-    if (user.register.error === -1) {
-      return;
-    } else if (user.register.error === 10) {
-      setErrName(false);
-      form.setErrors({
-        username: t('LoginPage.username.This username has already existed'),
-      });
-    } else if (user.register.error === 0) {
-      setErrName(false);
-      navigate('/register/nickname');
-    } else {
-      setErrName(true);
-      return;
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.register]);
   return (
     <LoginLayout>
       <form

@@ -26,9 +26,9 @@ interface Props {
 }
 function Setting({ onMotion }: Props) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { actions } = UserSlice();
   const user = useSelector(getUserSelector);
-  const navigate = useNavigate();
   // Local
   const { classes } = makeStyles();
   const [logoutModal, setLogoutModal] = useState<boolean>(false);

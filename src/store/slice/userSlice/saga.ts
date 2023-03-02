@@ -161,6 +161,7 @@ export function* Logout(action) {
         },
       }),
     );
+    window.location.href = '/login';
   } else {
     yield put(usersActions.logoutFail());
   }

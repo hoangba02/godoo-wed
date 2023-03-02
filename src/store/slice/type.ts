@@ -5,6 +5,8 @@ export interface UserState {
   token?: string;
   language?: 'vi' | 'en';
   isLogin?: boolean;
+  isHasProfile?: boolean;
+  isCreateProfile?: boolean;
   loading?: boolean;
   telegram_fullname?: string;
   messenger_fullname?: string;
