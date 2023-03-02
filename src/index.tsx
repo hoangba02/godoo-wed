@@ -26,6 +26,8 @@ import reportWebVitals from 'reportWebVitals';
 
 // Initialize languages
 import './locales/i18n';
+import { MantineProvider } from '@mantine/core';
+import MyGlobalStyles from 'styles/MyGlobalStyles';
 
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
@@ -35,9 +37,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <Provider store={store}>
     <HelmetProvider>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
+      <MantineProvider>
+        <MyGlobalStyles />
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </MantineProvider>
     </HelmetProvider>
   </Provider>,
 );

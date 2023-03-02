@@ -1,27 +1,23 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-  html,
-  body {
-    height: 100%;
-    width: 100%;
+  *,*::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.25s ease-in-out;
   }
-
-  body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  html {
+    scroll-behavior: smooth; 
   }
-
+  body {
+    font-family: 'Lexend', sans-serif;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
   #root {
     min-height: 100%;
     min-width: 100%;
   }
-
-  p,
-  label {
-    font-family: Georgia, Times, 'Times New Roman', serif;
-    line-height: 1.5em;
-  }
-
   input, select {
     font-family: inherit;
     font-size: inherit;
