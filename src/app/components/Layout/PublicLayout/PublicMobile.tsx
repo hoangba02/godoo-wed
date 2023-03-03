@@ -52,6 +52,7 @@ function PublicMobile({ children }: Props) {
             sx={{
               width: '100%',
               height: 'max-content',
+              minHeight: '100%',
               padding: '27px 16px 50px',
               borderRadius: '30px 30px 0px 0px',
               backgroundColor: 'transparent',
@@ -65,7 +66,8 @@ function PublicMobile({ children }: Props) {
                 bottom: 0,
                 width: 131,
                 height: 159,
-                backgroundImage: `url(${images.backgroundMobile})`,
+                zIndex: -1,
+                backgroundImage: `url(${images.backgroundSideMobile})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

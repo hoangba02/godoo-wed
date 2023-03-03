@@ -47,6 +47,7 @@ export default function PublicWeb({ children }: Prop) {
             borderRadius: 30,
             padding: '30px 75px !important',
             backgroundColor: 'rgba(255,255,255,0.9)',
+            overflow: 'overlay',
           }}
         >
           <Logo />

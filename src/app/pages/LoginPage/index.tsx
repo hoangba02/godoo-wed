@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet-async';
 import PublicLayout from 'app/components/Layout/PublicLayout/PublicLayout';
 import {
   Box,
-  Button,
   Center,
   Checkbox,
   Flex,
@@ -16,8 +15,16 @@ import { useTranslation } from 'react-i18next';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
+import { GradientButton } from 'app/components/Customs/Button/GradientButton';
+import Social from 'app/components/Social/Social';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AuthSlice } from 'store/slice/authSlice';
 
 export function LoginPage() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { authActions } = AuthSlice();
   // Local
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
@@ -28,8 +35,37 @@ export function LoginPage() {
       password: '',
       rememberPassword: true,
     },
+    validate: {
+      username: value => {
+        const regex = /^[a-z0-9]+$/;
+        if (value.length === 0) {
+          return 1;
+        } else if (!regex.test(value)) {
+          return t('Login.Username is incorrect');
+        } else {
+          return null;
+        }
+      },
+      password: value => {
+        if (value.length === 0) {
+          return t('Login.Username or password incorrect');
+        }
+      },
+    },
   });
-  const handleSubmitLogin = () => {};
+  const handleClearSpace = e => {
+    if (/ /g.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+  const handleSubmitLogin = () => {
+    dispatch(
+      authActions.requestLogin({
+        username: form.values.username,
+        password: form.values.password,
+      }),
+    );
+  };
   return (
     <>
       <Helmet>
@@ -43,17 +79,19 @@ export function LoginPage() {
               root: classes.root,
               input: classes.input,
               label: classes.inputLabel,
-              error: classes.inputError,
+              error: classes.errorLogin,
             }}
             label={t('Login.Username')}
             placeholder={t('Login.Enter your username')}
             {...form.getInputProps('username')}
+            onKeyDown={handleClearSpace}
           />
           <PasswordInput
             classNames={{
               input: classes.input,
               label: classes.inputLabel,
               error: classes.inputError,
+              visibilityToggle: classes.inputIcon,
             }}
             label={t('Login.Password')}
             placeholder={t('Login.Enter your password')}
@@ -61,10 +99,11 @@ export function LoginPage() {
               reveal ? <IconEye /> : <IconEyeOff />
             }
             {...form.getInputProps('password')}
+            onKeyDown={handleClearSpace}
           />
-          <Text className={classes.inputError}>
+          {/* <Text className={classes.inputError}>
             {t('Login.Username or password incorrect')}
-          </Text>
+          </Text> */}
           <Flex className={classes.save}>
             <Checkbox
               classNames={{ label: classes.forgot }}
@@ -75,21 +114,33 @@ export function LoginPage() {
             <Text
               sx={{ textDecoration: 'underline' }}
               className={classes.forgot}
+              onClick={() => {
+                navigate('/forgot/name');
+              }}
             >
               {t('Login.Forgot password')}
             </Text>
           </Flex>
           <Center>
-            <Button>{t('Login.Log in')}</Button>
+            <GradientButton type="submit" className={classes.loginBtn}>
+              {t('Login.Log in')}
+            </GradientButton>
           </Center>
-          <Flex>
-            <Box />
-            <Text>{t('Login.or')}</Text>
-            <Box />
+          <Flex className={classes.or}>
+            <Box className={classes.line} />
+            <Text className={classes.orText}>{t('Login.or')}</Text>
+            <Box className={classes.line} />
           </Flex>
-          <Text>
+          <Social />
+          <Text className={classes.question}>
             {t("Login.Don't have an account?")}{' '}
-            <span>{t('Login.Sign up')}</span>
+            <span
+              onClick={() => {
+                navigate('/register');
+              }}
+            >
+              {t('Login.Sign up')}
+            </span>
           </Text>
         </form>
       </PublicLayout>

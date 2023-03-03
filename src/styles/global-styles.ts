@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     box-sizing: border-box;
     transition: all 0.25s ease-in-out;
+    font-family: 'Lexend', sans-serif !important;
+
   }
   html {
     scroll-behavior: smooth; 
@@ -18,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     min-width: 100%;
   }
+  
   input, select {
     font-family: inherit;
     font-size: inherit;

@@ -32,6 +32,19 @@ function MyGlobalStyles() {
           '--grey-black': '#424242',
           '--black': '#000000',
         },
+
+        'html *::-webkit-scrollbar': {
+          borderRadius: 0,
+          width: 0.1,
+        },
+        'html *::-webkit-scrollbar-thumb': {
+          borderRadius: 4,
+          backgroundColor: 'transparent',
+        },
+        'html *::-webkit-scrollbar-track': {
+          borderRadius: 0,
+          backgroundColor: 'transparent',
+        },
       })}
     />
   );

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Avatar, Flex } from '@mantine/core';
 import { images } from 'assets/images';
+import { useNavigate } from 'react-router-dom';
 
 function Logo() {
+  const navigate = useNavigate();
   return (
     <Flex
       sx={{
@@ -15,6 +17,7 @@ function Logo() {
           paddingBottom: 22,
         },
       }}
+      onClick={() => navigate('/login')}
     >
       <Avatar
         sx={{
