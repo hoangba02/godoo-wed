@@ -22,13 +22,11 @@ import InputName from './pages/ForgotPage/ForgotScreen/InputName';
 import GetCode from './pages/ForgotPage/ForgotScreen/GetCode';
 import InputOTP from './pages/ForgotPage/ForgotScreen/InputOTP';
 import NewPassword from './pages/ForgotPage/ForgotScreen/NewPassword';
-import { ConnectedRouter } from 'connected-react-router';
-import { history } from 'utils/history';
 
 export function App() {
   const { i18n } = useTranslation();
   return (
-    <ConnectedRouter history={history}>
+    <BrowserRouter>
       <Helmet
         titleTemplate="%s - React Boilerplate"
         defaultTitle="React Boilerplate"
@@ -48,6 +46,6 @@ export function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <GlobalStyle />
-    </ConnectedRouter>
+    </BrowserRouter>
   );
 }

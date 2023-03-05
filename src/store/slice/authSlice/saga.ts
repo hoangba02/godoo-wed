@@ -1,7 +1,7 @@
 import { authActions } from '.';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'connected-react-router';
 import { apiPost } from 'utils/http/requests';
+import customHistory from 'utils/history';
 function* handleLogin(action) {
   const data = {
     username: action.payload.username,
@@ -12,7 +12,8 @@ function* handleLogin(action) {
   };
   const response = yield call(apiPost, '/v1/login', data, header);
   if (response.error === 0) {
-    yield put(push('/'));
+    console.log(response);
+    customHistory.push('/');
   }
 }
 function* handleLogout(action) {}

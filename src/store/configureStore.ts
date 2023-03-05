@@ -2,17 +2,10 @@
  * Create the store with dynamic reducers
  */
 
-import {
-  combineReducers,
-  configureStore,
-  StoreEnhancer,
-} from '@reduxjs/toolkit';
+import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
-import { history } from 'utils/history';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { createReducer } from './reducers';
-import { authReducer } from './slice/authSlice';
 
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
@@ -28,22 +21,28 @@ export function configureAppStore() {
       createReducer,
       runSaga,
     }),
-    connectRouter(history),
   ] as StoreEnhancer[];
-  const rootReducer = combineReducers({
-    router: connectRouter(history),
-    auth: authReducer,
-  });
+
   const store = configureStore({
     reducer: createReducer(),
-    middleware: defaultMiddleware => [
-      ...defaultMiddleware(),
-      routerMiddleware(history),
-      ...middlewares,
-    ],
+    middleware: defaultMiddleware => [...defaultMiddleware(), ...middlewares],
     devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });
 
   return store;
 }
+
+// const { createReduxHistory, routerMiddleware, routerReducer } =
+// createReduxHistoryContext({ history: createBrowserHistory() });
+
+// export const store = configureStore({
+//   reducer: combineReducers({
+//     router: routerReducer,
+//     auth: authReducer,
+//   }),
+//   middleware: getDefaultMiddleware =>
+//     getDefaultMiddleware().concat(routerMiddleware),
+// });
+
+// export const history = createReduxHistory(store);

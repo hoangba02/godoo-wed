@@ -8,6 +8,5 @@ import { AuthState } from 'store/type';
 */
 export interface RootState {
   // [INSERT NEW REDUCER KEY ABOVE] < Needed for generating containers seamlessly
-
   auth?: AuthState;
 }
