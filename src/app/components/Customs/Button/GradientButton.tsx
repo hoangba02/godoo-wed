@@ -9,6 +9,14 @@ const _StyledButton = styled(Button)`
   font-weight: 600;
   line-height: 25px;
   background: linear-gradient(90deg, #e46125 -0.01%, #c91a44 50%, #a12fa3 100%);
+  :hover {
+    background: linear-gradient(
+      90deg,
+      #e46125 -0.01%,
+      #c91a44 50%,
+      #a12fa3 100%
+    ) !important;
+  }
 `;
 export const GradientButton = createPolymorphicComponent<'button', ButtonProps>(
   _StyledButton,

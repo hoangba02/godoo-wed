@@ -10,4 +10,9 @@ export const images = {
   facebook: require('assets/images/loginPage/facebook.svg').default,
   google: require('assets/images/loginPage/google.svg').default,
   apple: require('assets/images/loginPage/apple.svg').default,
+
+  // ProfilePage
+  nickname: require('assets/images/profilePage/nickname.svg').default,
+  slime: require('assets/images/profilePage/slime.svg').default,
+  slimeBig: require('assets/images/profilePage/slimeBig.svg').default,
 };

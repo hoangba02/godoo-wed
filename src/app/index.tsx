@@ -22,7 +22,9 @@ import InputName from './pages/ForgotPage/ForgotScreen/InputName';
 import GetCode from './pages/ForgotPage/ForgotScreen/GetCode';
 import InputOTP from './pages/ForgotPage/ForgotScreen/InputOTP';
 import NewPassword from './pages/ForgotPage/ForgotScreen/NewPassword';
-
+import Nickname from './pages/ProfilePage/ProfileScreen/Nickname';
+import Birthday from './pages/ProfilePage/ProfileScreen/Birthday';
+import Picture from './pages/ProfilePage/ProfileScreen/Picture';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -39,10 +41,17 @@ export function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        {/* Profile Page */}
+        <Route path="/profile/nickname" element={<Nickname />} />
+        <Route path="/profile/picture" element={<Picture />} />
+        <Route path="/profile/birthday" element={<Birthday />} />
+
+        {/* Forgot Page */}
         <Route path="/forgot/name" element={<InputName />} />
         <Route path="/forgot/getcode" element={<GetCode />} />
         <Route path="/forgot/otp/:method" element={<InputOTP />} />
         <Route path="/forgot/newpassword/:method" element={<NewPassword />} />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <GlobalStyle />

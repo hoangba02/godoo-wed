@@ -5,6 +5,7 @@
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
+
 import { createReducer } from './reducers';
 
 export function configureAppStore() {
@@ -32,17 +33,3 @@ export function configureAppStore() {
 
   return store;
 }
-
-// const { createReduxHistory, routerMiddleware, routerReducer } =
-// createReduxHistoryContext({ history: createBrowserHistory() });
-
-// export const store = configureStore({
-//   reducer: combineReducers({
-//     router: routerReducer,
-//     auth: authReducer,
-//   }),
-//   middleware: getDefaultMiddleware =>
-//     getDefaultMiddleware().concat(routerMiddleware),
-// });
-
-// export const history = createReduxHistory(store);

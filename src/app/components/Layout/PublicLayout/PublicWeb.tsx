@@ -4,9 +4,10 @@ import { images } from 'assets/images';
 import Logo from 'app/components/Logo/Logo';
 
 interface Prop {
+  padding?: number | string;
   children?: JSX.Element | JSX.Element[];
 }
-export default function PublicWeb({ children }: Prop) {
+export default function PublicWeb({ children, padding = '30px 75px' }: Prop) {
   return (
     <Container
       fluid
@@ -45,12 +46,11 @@ export default function PublicWeb({ children }: Prop) {
             maxWidth: 720,
             maxHeight: 915,
             borderRadius: 30,
-            padding: '30px 75px !important',
+            padding: ` ${padding} !important`,
             backgroundColor: 'rgba(255,255,255,0.9)',
             overflow: 'overlay',
           }}
         >
-          <Logo />
           {children}
         </Card>
       </Center>
