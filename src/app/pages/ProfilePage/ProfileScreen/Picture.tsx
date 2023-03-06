@@ -25,7 +25,7 @@ function Picture() {
         variant="gradient"
         className={classes.nextBtn}
         onClick={() => {
-          navigate('/profile/picture');
+          navigate('/profile/birthday');
         }}
       >
         <IconChevronRight />

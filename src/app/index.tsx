@@ -25,6 +25,7 @@ import NewPassword from './pages/ForgotPage/ForgotScreen/NewPassword';
 import Nickname from './pages/ProfilePage/ProfileScreen/Nickname';
 import Birthday from './pages/ProfilePage/ProfileScreen/Birthday';
 import Picture from './pages/ProfilePage/ProfileScreen/Picture';
+import Gender from './pages/ProfilePage/ProfileScreen/Gender';
 export function App() {
   const { i18n } = useTranslation();
   return (
@@ -45,6 +46,7 @@ export function App() {
         <Route path="/profile/nickname" element={<Nickname />} />
         <Route path="/profile/picture" element={<Picture />} />
         <Route path="/profile/birthday" element={<Birthday />} />
+        <Route path="/profile/gender" element={<Gender />} />
 
         {/* Forgot Page */}
         <Route path="/forgot/name" element={<InputName />} />

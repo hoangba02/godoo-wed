@@ -13,6 +13,21 @@ export const images = {
 
   // ProfilePage
   nickname: require('assets/images/profilePage/nickname.svg').default,
+  birthday: require('assets/images/profilePage/birthday.svg').default,
+  gender: require('assets/images/profilePage/gender.svg').default,
   slime: require('assets/images/profilePage/slime.svg').default,
   slimeBig: require('assets/images/profilePage/slimeBig.svg').default,
+  Aquarius: require('assets/images/profilePage/Zodiac/Aquarius.svg').default,
+  Aries: require('assets/images/profilePage/Zodiac/Aries.svg').default,
+  Cancer: require('assets/images/profilePage/Zodiac/Cancer.svg').default,
+  Capricorn: require('assets/images/profilePage/Zodiac/Capricorn.svg').default,
+  Gemini: require('assets/images/profilePage/Zodiac/Gemini.svg').default,
+  Leo: require('assets/images/profilePage/Zodiac/Leo.svg').default,
+  Libra: require('assets/images/profilePage/Zodiac/Libra.svg').default,
+  Pisces: require('assets/images/profilePage/Zodiac/Pisces.svg').default,
+  Sagittarius: require('assets/images/profilePage/Zodiac/Sagittarius.svg')
+    .default,
+  Scorpion: require('assets/images/profilePage/Zodiac/Scorpion.svg').default,
+  Taurus: require('assets/images/profilePage/Zodiac/Taurus.svg').default,
+  Virgo: require('assets/images/profilePage/Zodiac/Virgo.svg').default,
 };

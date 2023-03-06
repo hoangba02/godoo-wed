@@ -12,10 +12,8 @@ function ProfileProgress({ progress = 0 }: Props) {
         padding: '12px 0',
         justifyContent: 'space-between',
         '@media (max-width:575px)': {
-          gap: 2,
-          bottom: 24,
           width: '100%',
-          padding: '0 16px',
+          padding: '12px 16px',
         },
       }}
     >
@@ -26,7 +24,7 @@ function ProfileProgress({ progress = 0 }: Props) {
             flex: 1,
             height: 9,
             borderRadius: 41,
-            background: index <= progress ? '#FF9565' : '#EAEAEA',
+            background: index <= progress ? '#FF9565' : '#F3F3F3',
             '@media (max-width:575px)': {
               height: 6,
             },

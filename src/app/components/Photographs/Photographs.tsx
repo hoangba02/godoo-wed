@@ -102,10 +102,11 @@ const makeStyles = createStyles(() => ({
     lineHeight: '20px',
     color: '#929292',
     marginTop: 12,
+    '@media (max-width:575px)': {
+      width: '70%',
+    },
   },
-  '@media (max-width:575px)': {
-    width: '50% !important',
-  },
+
   img: {
     width: '100%',
     height: '100%',
@@ -125,8 +126,13 @@ const makeStyles = createStyles(() => ({
     ':active': {
       transform: 'translateX(-50%)',
     },
+    ':hover': {
+      background: '#E46125',
+      boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+    },
     '@media (max-width:575px)': {
-      width: 70,
+      width: 66,
+      height: 20,
       fontSize: 10,
     },
   },

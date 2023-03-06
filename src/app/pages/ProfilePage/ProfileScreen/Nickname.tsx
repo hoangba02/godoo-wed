@@ -21,49 +21,17 @@ function Nickname() {
           'Profile.As a GoDooer, you are free to give yourself an interesting name.',
         )}
       </Text>
-      <Input.Wrapper
-        sx={{
-          height: '55px !important',
-          marginTop: 24,
-          position: 'relative',
-          backgroundColor: '#FFFFFF',
-          borderRadius: 8,
-        }}
-      >
+      <Input.Wrapper className={classes.inputWrraper}>
         <TextInput
-          styles={{
-            root: {
-              height: '100%',
-            },
-            wrapper: {
-              height: '100%',
-            },
-            input: {
-              fontSize: 24,
-              fontWeight: 500,
-              lineHeight: '30px',
-              textAlign: 'right',
-              border: 'none',
-              borderRadius: 8,
-              backgroundColor: 'transparent',
-              position: 'absolute',
-              width: '100%',
-              height: '100% !important',
-              zIndex: 2,
-            },
+          classNames={{
+            root: classes.rootName,
+            wrapper: classes.rootName,
+            input: classes.inputName,
           }}
           maxLength={15}
           placeholder={t('Profile.Nickname')}
         />
-        <Box
-          sx={{
-            position: 'absolute',
-            left: 10,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            zIndex: 1,
-          }}
-        >
+        <Box className={classes.inputIcon}>
           <Face />
         </Box>
       </Input.Wrapper>
@@ -75,7 +43,7 @@ function Nickname() {
           navigate('/profile/picture');
         }}
       >
-        <IconChevronRight />
+        <IconChevronRight width={34} height={34} />
       </GradientButton>
     </ProfilePage>
   );

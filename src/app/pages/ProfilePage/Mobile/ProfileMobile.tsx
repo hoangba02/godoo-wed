@@ -1,11 +1,13 @@
 import React from 'react';
-import { Container, Image, Box, Stack } from '@mantine/core';
+import { Container, Image, Box, Stack, Avatar } from '@mantine/core';
 import ProfileProgress from 'app/components/Progress/ProfileProgress';
 import { SubtleButton } from 'app/components/Customs/Button/SubtleButton';
 import { ReactComponent as Back } from 'assets/icons/back-arrow-gradient.svg';
 import { ProfilePageProps } from 'types';
+import { useNavigate } from 'react-router-dom';
 
-function ProfileMobile({ children, image, progress }: ProfilePageProps) {
+function ProfileMobile({ children, image, progress, back }: ProfilePageProps) {
+  const navigate = useNavigate();
   return (
     <Stack
       sx={{
@@ -25,6 +27,7 @@ function ProfileMobile({ children, image, progress }: ProfilePageProps) {
             left: 0,
             zIndex: 99,
           }}
+          onClick={() => navigate(`/${back}`)}
         >
           <Back />
         </SubtleButton>
@@ -35,25 +38,44 @@ function ProfileMobile({ children, image, progress }: ProfilePageProps) {
             width: '100%',
             height: 250,
             maxHeight: 250,
-            padding: '0 20px',
           }}
         >
-          <Image src={image} />
+          <Avatar
+            sx={{
+              width: '100%',
+              height: '100%',
+            }}
+            styles={{
+              image: {
+                objectFit: 'contain',
+              },
+            }}
+            src={image}
+          />
         </Box>
       )}
-      <Container
-        fluid
+
+      <Stack
         sx={{
           flex: 1,
+          gap: 0,
           width: '100%',
-          minHeight: '65%',
+          minHeight: 'max-content',
           background: '#FFE0D2',
           borderRadius: '30px 30px 0 0',
         }}
       >
-        {children}
-      </Container>
-      <ProfileProgress progress={progress} />
+        <Container
+          fluid
+          sx={{
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          {children}
+        </Container>
+        <ProfileProgress progress={progress} />
+      </Stack>
     </Stack>
   );
 }
