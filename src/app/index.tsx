@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import * as React from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -26,10 +26,28 @@ import Nickname from './pages/ProfilePage/ProfileScreen/Nickname';
 import Birthday from './pages/ProfilePage/ProfileScreen/Birthday';
 import Picture from './pages/ProfilePage/ProfileScreen/Picture';
 import Gender from './pages/ProfilePage/ProfileScreen/Gender';
+import Description from './pages/ProfilePage/ProfileScreen/Description';
+import { useMediaQuery } from '@mantine/hooks';
+import { AuthSlice } from 'store/slice/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsMobile } from 'store/slice/authSlice/selectors';
+import Navigate from './components/Navigate/Navigate';
+
 export function App() {
   const { i18n } = useTranslation();
+  const { authActions } = AuthSlice();
+  const dispatch = useDispatch();
+  const isMobile = useSelector(selectIsMobile);
+  // Local
+  const mobile = useMediaQuery('(max-width:575px)', isMobile, {
+    getInitialValueInEffect: !isMobile,
+  });
+  useLayoutEffect(() => {
+    dispatch(authActions.setAccessDevice(mobile));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
-    <BrowserRouter>
+    <>
       <Helmet
         titleTemplate="%s - React Boilerplate"
         defaultTitle="React Boilerplate"
@@ -37,26 +55,29 @@ export function App() {
       >
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
+      <BrowserRouter>
+        <Navigate />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          {/* Profile Page */}
+          <Route path="/profile/nickname" element={<Nickname />} />
+          <Route path="/profile/picture" element={<Picture />} />
+          <Route path="/profile/birthday" element={<Birthday />} />
+          <Route path="/profile/gender" element={<Gender />} />
+          <Route path="/profile/description" element={<Description />} />
 
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        {/* Profile Page */}
-        <Route path="/profile/nickname" element={<Nickname />} />
-        <Route path="/profile/picture" element={<Picture />} />
-        <Route path="/profile/birthday" element={<Birthday />} />
-        <Route path="/profile/gender" element={<Gender />} />
+          {/* Forgot Page */}
+          <Route path="/forgot/name" element={<InputName />} />
+          <Route path="/forgot/getcode" element={<GetCode />} />
+          <Route path="/forgot/otp/:method" element={<InputOTP />} />
+          <Route path="/forgot/newpassword/:method" element={<NewPassword />} />
 
-        {/* Forgot Page */}
-        <Route path="/forgot/name" element={<InputName />} />
-        <Route path="/forgot/getcode" element={<GetCode />} />
-        <Route path="/forgot/otp/:method" element={<InputOTP />} />
-        <Route path="/forgot/newpassword/:method" element={<NewPassword />} />
-
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <GlobalStyle />
-    </BrowserRouter>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <GlobalStyle />
+      </BrowserRouter>
+    </>
   );
 }

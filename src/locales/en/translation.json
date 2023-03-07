@@ -49,12 +49,24 @@
     "Nickname": "Nickname",
     "Birthday": "Birthday",
     "Genders": "Genders",
+    "Bio description": "Bio description",
     "Show on my profile": "Show on my profile",
+    "Anything you wanna say about yourself?": "Anything you wanna say about yourself?",
     "Pick maximum 3 genders": "Pick maximum 3 genders",
     "You have to be 15 years old or over to experience our App": "You have to be 15 years old or over to experience our App",
     "Based on the birthday given, we will find you more suitable friends": "Based on the birthday given, we will find you more suitable friends",
     "Some photos so we can get to know you.": "Some photos so we can get to know you.",
     "As a GoDooer, you are free to give yourself an interesting name.": "As a GoDooer, you are free to give yourself an interesting name.",
-    "Upload at least one photo. Hold & drag photos to change the order.": "Upload at least one photo. Hold & drag photos to change the order."
+    "Upload at least one photo. Hold & drag photos to change the order.": "Upload at least one photo. Hold & drag photos to change the order.",
+    "Women": "Women",
+    "Men": "Men",
+    "Transgender": "Transgender",
+    "Asexual": "Asexual",
+    "Nonbinary": "Nonbinary",
+    "Bisexual": "Bisexual",
+    "Gay": "Gay",
+    "Lesbian": "Lesbian",
+    "characters": "characters",
+    "Say something...": "Say something..."
   }
 }

@@ -45,6 +45,9 @@ function MyGlobalStyles() {
           borderRadius: 0,
           backgroundColor: 'transparent',
         },
+        '.mantine-Text-root': {
+          userSelect: 'none',
+        },
       })}
     />
   );

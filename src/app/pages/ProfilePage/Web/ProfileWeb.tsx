@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Stack, Box, Image } from '@mantine/core';
+import { Container, Stack, Box, Image, Avatar } from '@mantine/core';
 import PublicWeb from 'app/components/Layout/PublicLayout/PublicWeb';
 import { ReactComponent as Back } from 'assets/icons/back-arrow-gradient.svg';
 import { SubtleButton } from 'app/components/Customs/Button/SubtleButton';
@@ -42,12 +42,20 @@ function ProfileWeb({ children, image, progress, back }: ProfilePageProps) {
               height: 250,
               maxHeight: 250,
               margin: '0 auto',
-              '@media (max-width:575px)': {
-                width: '100%',
-              },
             }}
           >
-            <Image src={image} />
+            <Avatar
+              sx={{
+                width: '100%',
+                height: '100%',
+              }}
+              styles={{
+                image: {
+                  objectFit: 'contain',
+                },
+              }}
+              src={image}
+            />
           </Box>
         )}
         <Container

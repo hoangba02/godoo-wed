@@ -68,7 +68,6 @@ export function RegisterPage() {
     }
   };
   const handleSubmitRegister = () => {};
-  console.log(form);
   return (
     <>
       <Helmet>

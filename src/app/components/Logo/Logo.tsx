@@ -11,6 +11,8 @@ function Logo() {
         width: '100%',
         height: 150,
         justifyContent: 'center',
+        position: 'relative',
+        zIndex: 99,
         '@media (max-width: 40em)': {
           height: 178,
           alignItems: 'flex-end',

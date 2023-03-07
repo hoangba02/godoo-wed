@@ -119,4 +119,5 @@ export const ProfilePageStyles = createStyles(() => ({
     transform: 'translateY(-50%)',
     zIndex: 1,
   },
+  // Gender
 }));

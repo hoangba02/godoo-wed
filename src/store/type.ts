@@ -8,4 +8,5 @@ export interface AuthState {
   currentUser?: User;
   isLogin?: boolean;
   isLoading?: boolean;
+  isMobile?: boolean;
 }

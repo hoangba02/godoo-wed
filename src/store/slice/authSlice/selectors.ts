@@ -7,3 +7,7 @@ export const selectIsLoading = createSelector(
   [selectDomain],
   auth => auth.isLoading,
 );
+export const selectIsMobile = createSelector(
+  [selectDomain],
+  auth => auth.isMobile,
+);

@@ -1,6 +1,9 @@
 import React from 'react';
 import { useForm } from '@mantine/form';
+import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import PublicLayout from 'app/components/Layout/PublicLayout/PublicLayout';
 import {
   Box,
@@ -11,15 +14,12 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
-import { useTranslation } from 'react-i18next';
-import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
+import { AuthSlice } from 'store/slice/authSlice';
+import Social from 'app/components/Social/Social';
 import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
+import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import Social from 'app/components/Social/Social';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AuthSlice } from 'store/slice/authSlice';
 
 export function LoginPage() {
   const navigate = useNavigate();

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from '@mantine/form';
+import { useSelector } from 'react-redux';
 import { DatePicker } from '@mantine/dates';
 import { useTranslation } from 'react-i18next';
 import { useMediaQuery } from '@mantine/hooks';
@@ -8,19 +9,23 @@ import { Avatar, Center, Checkbox, Input, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
 import { ProfilePage } from '../Loadable';
-import { ADJECTIVE } from 'lib/map/BirthdayMap';
+import { ADJECTIVE } from 'lib/maps/BirthdayMap';
 import { ProfilePageStyles } from '../ProfilePageStyles';
 import { handleZodiac } from 'lib/functions/handleZodiac';
+import { selectIsMobile } from 'store/slice/authSlice/selectors';
 import { ReactComponent as Date } from 'assets/icons/birthday-date.svg';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
 import { ReactComponent as IconChevronRight } from 'assets/icons/chevron-right.svg';
 
 function Birthday() {
   const navigate = useNavigate();
+  const isMobile = useSelector(selectIsMobile);
   // Local
   const { t } = useTranslation();
   const { classes } = ProfilePageStyles();
-  const mobile = useMediaQuery('(max-width:575px)');
+  const mobile = useMediaQuery('(max-width:575px)', isMobile, {
+    getInitialValueInEffect: !isMobile,
+  });
 
   const form = useForm({
     initialValues: {

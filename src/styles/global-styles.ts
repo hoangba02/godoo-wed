@@ -5,9 +5,8 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: all 0.25s ease-in-out;
     font-family: 'Lexend', sans-serif !important;
-
+    
   }
   html {
     scroll-behavior: smooth; 

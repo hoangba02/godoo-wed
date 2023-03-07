@@ -15,6 +15,7 @@ export const images = {
   nickname: require('assets/images/profilePage/nickname.svg').default,
   birthday: require('assets/images/profilePage/birthday.svg').default,
   gender: require('assets/images/profilePage/gender.svg').default,
+  description: require('assets/images/profilePage/description.svg').default,
   slime: require('assets/images/profilePage/slime.svg').default,
   slimeBig: require('assets/images/profilePage/slimeBig.svg').default,
   Aquarius: require('assets/images/profilePage/Zodiac/Aquarius.svg').default,

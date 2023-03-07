@@ -30,7 +30,7 @@ export function ForgotPage({ children, back }: Props) {
         </SubtleButton>
         <Text className={classes.title}>{t('Forgot.Reset your password')}</Text>
       </Flex>
-      <Container fluid sx={{ paddingTop: 38, height: '100%' }}>
+      <Container fluid sx={{ paddingTop: 38 }}>
         {children}
       </Container>
     </PublicLayout>

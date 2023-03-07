@@ -7,9 +7,10 @@ import { authSaga } from './saga';
 export const initialState: AuthState = {
   userId: -1,
   authToken: '',
+  currentUser: undefined,
   isLogin: false,
   isLoading: false,
-  currentUser: undefined,
+  isMobile: false,
 };
 
 const authSlice = createSlice({
@@ -39,6 +40,10 @@ const authSlice = createSlice({
     },
     logoutFailed(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
+    },
+    // Nhận thiết bị truy cập
+    setAccessDevice(state, action: PayloadAction<boolean>) {
+      state.isMobile = action.payload;
     },
   },
 });

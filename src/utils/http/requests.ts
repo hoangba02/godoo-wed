@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { BaseResponse } from './response';
-const baseDomain = 'https://ttvnapi.com';
-// const baseDomain = '192.168.1.35:8080';
+export const BASEDOMAIN = 'https://ttvnapi.com';
+// const BASEDOMAIN = '192.168.1.35:8080';
 
 export const apiGet = async (url: string, header: any) => {
   try {
-    url = baseDomain + url;
+    url = BASEDOMAIN + url;
     const { data } = await axios.get(url, { headers: header });
     return data;
   } catch (error) {
@@ -25,7 +25,7 @@ export const apiGet = async (url: string, header: any) => {
 
 export const apiPost = async (url: string, payload: any, header: any) => {
   try {
-    url = baseDomain + url;
+    url = BASEDOMAIN + url;
     const { data } = await axios.post<BaseResponse>(url, payload, {
       headers: header,
     });

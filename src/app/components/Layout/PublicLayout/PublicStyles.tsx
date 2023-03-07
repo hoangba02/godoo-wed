@@ -57,6 +57,9 @@ export const makePublicStyles = createStyles(() => ({
     fontSize: '12px',
     lineHeight: '15px',
   },
+  rightIcon: {
+    right: 10,
+  },
   errorLogin: {
     display: 'none',
   },
@@ -92,6 +95,7 @@ export const makePublicStyles = createStyles(() => ({
     [`@media (max-width: 575px)`]: {
       width: 200,
       marginTop: 28,
+      height: '45px !important',
     },
   },
   or: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Card, Center, Container } from '@mantine/core';
 import { images } from 'assets/images';
-import Logo from 'app/components/Logo/Logo';
 
 interface Prop {
   padding?: number | string;

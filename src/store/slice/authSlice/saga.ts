@@ -1,16 +1,15 @@
 import { authActions } from '.';
-import { call, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { apiPost } from 'utils/http/requests';
+import { push } from 'connected-react-router';
+import History from 'app/components/History/History';
 function* handleLogin(action) {
-  const data = {
-    username: action.payload.username,
-    password: action.payload.password,
-  };
-  const header = {
-    'content-type': 'appication/json',
-  };
+  const { username, password } = action.payload;
+  const data = { username, password };
+  const header = { 'content-type': 'appication/json' };
   const response = yield call(apiPost, '/v1/login', data, header);
   if (response.error === 0) {
+    History.push('/');
   }
 }
 function* handleLogout(action) {}

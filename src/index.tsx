@@ -16,35 +16,34 @@ import { Provider } from 'react-redux';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
-import { App } from 'app';
-
-import { HelmetProvider } from 'react-helmet-async';
-
-import { configureAppStore } from 'store/configureStore';
-
-import reportWebVitals from 'reportWebVitals';
-
-// Initialize languages
 import './locales/i18n';
+import { App } from 'app';
+import { HelmetProvider } from 'react-helmet-async';
+import { configureAppStore } from 'store/configureStore';
 import { MantineProvider } from '@mantine/core';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import reportWebVitals from 'reportWebVitals';
 import MyGlobalStyles from 'styles/MyGlobalStyles';
 
+const client = new QueryClient();
 const store = configureAppStore();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 root.render(
-  <Provider store={store}>
-    <HelmetProvider>
-      <MantineProvider>
-        <MyGlobalStyles />
-        <React.StrictMode>
-          <App />
-        </React.StrictMode>
-      </MantineProvider>
-    </HelmetProvider>
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <QueryClientProvider client={client}>
+        <HelmetProvider>
+          <MantineProvider>
+            <MyGlobalStyles />
+            <App />
+          </MantineProvider>
+        </HelmetProvider>
+      </QueryClientProvider>
+    </Provider>
+  </React.StrictMode>,
 );
 
 // Hot reloadable translation json files
