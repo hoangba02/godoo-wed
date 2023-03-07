@@ -1,7 +1,6 @@
 import { authActions } from '.';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { apiPost } from 'utils/http/requests';
-import { push } from 'connected-react-router';
 import History from 'app/components/History/History';
 function* handleLogin(action) {
   const { username, password } = action.payload;

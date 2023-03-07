@@ -18,6 +18,8 @@ export const images = {
   description: require('assets/images/profilePage/description.svg').default,
   slime: require('assets/images/profilePage/slime.svg').default,
   slimeBig: require('assets/images/profilePage/slimeBig.svg').default,
+  warnning: require('assets/images/profilePage/warnning.svg').default,
+  // Zodiac
   Aquarius: require('assets/images/profilePage/Zodiac/Aquarius.svg').default,
   Aries: require('assets/images/profilePage/Zodiac/Aries.svg').default,
   Cancer: require('assets/images/profilePage/Zodiac/Cancer.svg').default,
@@ -31,4 +33,7 @@ export const images = {
   Scorpion: require('assets/images/profilePage/Zodiac/Scorpion.svg').default,
   Taurus: require('assets/images/profilePage/Zodiac/Taurus.svg').default,
   Virgo: require('assets/images/profilePage/Zodiac/Virgo.svg').default,
+
+  // All
+  modal: require('assets/images/modal.svg').default,
 };

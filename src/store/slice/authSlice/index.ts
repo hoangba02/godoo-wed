@@ -7,6 +7,8 @@ import { authSaga } from './saga';
 export const initialState: AuthState = {
   userId: -1,
   authToken: '',
+  telegram: '',
+  messenger: '',
   currentUser: undefined,
   isLogin: false,
   isLoading: false,
@@ -44,6 +46,10 @@ const authSlice = createSlice({
     // Nhận thiết bị truy cập
     setAccessDevice(state, action: PayloadAction<boolean>) {
       state.isMobile = action.payload;
+    },
+    setNameSocialNetwork(state, action: PayloadAction<AuthState>) {
+      state.telegram = action.payload.telegram;
+      state.messenger = action.payload.messenger;
     },
   },
 });
