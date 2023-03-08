@@ -5,9 +5,8 @@
 import { configureStore, StoreEnhancer } from '@reduxjs/toolkit';
 import { createInjectorsEnhancer } from 'redux-injectors';
 import createSagaMiddleware from 'redux-saga';
-
 import { createReducer } from './reducers';
-
+import { PERSIST } from 'redux-persist';
 export function configureAppStore() {
   const reduxSagaMonitorOptions = {};
 
@@ -26,10 +25,16 @@ export function configureAppStore() {
 
   const store = configureStore({
     reducer: createReducer(),
-    middleware: defaultMiddleware => [...defaultMiddleware(), ...middlewares],
+    middleware: defaultMiddleware => [
+      ...defaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [PERSIST],
+        },
+      }),
+      ...middlewares,
+    ],
     devTools: process.env.NODE_ENV !== 'production',
     enhancers,
   });
-
   return store;
 }

@@ -165,6 +165,14 @@ export const makePublicStyles = createStyles(() => ({
     },
   },
   inputName: {},
+  buttonDisable: {
+    backgroundColor: '#D6D6D6 !important',
+    backgroundImage: ' none !important',
+    cursor: 'no-drop',
+    ':before': {
+      backgroundColor: '#D6D6D6 !important',
+    },
+  },
   buttonInner: {
     justifyContent: 'flex-start',
   },

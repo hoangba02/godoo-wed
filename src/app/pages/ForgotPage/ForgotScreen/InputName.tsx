@@ -25,7 +25,7 @@ function InputName() {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
-  const [isPopup, setIsPopup] = useState<boolean>(true);
+  const [isPopup, setIsPopup] = useState<boolean>(false);
   const form = useForm<{ name: string }>({
     initialValues: { name: '' },
     validate: {
@@ -40,28 +40,31 @@ function InputName() {
     form.setValues({ name: '' });
     inputRef.current?.focus();
   };
-  const handleInputName = () => {
-    const data = { username: form.values.name };
-    return axios
-      .post(`${BASEDOMAIN}/v1/forgetpasswordsendusername`, data)
-      .then(res => res.data);
+  const handleInputName = async () => {
+    const param = { username: form.values.name };
+    const { data } = await axios.post(
+      `${BASEDOMAIN}/v1/forgetpasswordsendusername`,
+      param,
+    );
+
+    return data;
   };
   const { isFetching, refetch } = useQuery({
-    queryKey: ['forgetpasswordsendusername'],
+    queryKey: ['InputName'],
     queryFn: handleInputName,
     enabled: false,
-    retry: 1,
-    retryDelay: 2000,
-    onSuccess(data) {
-      if (data.error === 2) {
+    onSuccess(result) {
+      const { error, data } = result;
+      if (error === 2) {
         form.setErrors({ name: t('Login.Username is incorrect') });
-      } else if (data.error === 12) {
+      } else if (error === 12) {
         setIsPopup(true);
-      } else if (data.error === 10 || data.error === 10 || data.error === 0) {
+      } else if (error === 10 || error === 10 || error === 0) {
         dispatch(
           authActions.setNameSocialNetwork({
-            telegram: data.data?.telegram_fullname || '',
-            messenger: data.data?.messenger_fullname || '',
+            userId: data.id,
+            telegram: data?.telegram_fullname || '',
+            messenger: data?.messenger_fullname || '',
           }),
         );
         navigate('/forgot/getcode');
@@ -116,7 +119,9 @@ function InputName() {
         show={isPopup}
         toggle={setIsPopup}
         image={images.warnning}
-        content="Rất tiếc bạn không thể lấy lại mật khẩu do chưa liên kết Mesenger hoặc Telegram!"
+        content={t(
+          'Profile.Cannot take back your password as this account has not been linked to Messenger or Telegram!',
+        )}
       >
         <GradientButton
           sx={{
@@ -126,6 +131,7 @@ function InputName() {
               height: '45px !important',
             },
           }}
+          onClick={() => navigate('/register')}
         >
           Đăng ký tài khoản mới
         </GradientButton>

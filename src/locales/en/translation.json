@@ -29,6 +29,7 @@
   },
   "Forgot": {
     "Next": "Next",
+    "Save": "Save",
     "Send back!": "Send back!",
     "The OTP code is not correct": "The OTP code is not correct",
     "OTP code has expired!": "OTP code has expired!",
@@ -37,6 +38,7 @@
     "Receive OTP code via": "Receive OTP code via",
     "Messenger account": "Messenger account",
     "Telegram account": "Telegram account",
+    "Update password successfully!": "Update password successfully!",
     "Please choose one method to receive OTP code": "Please choose one method to receive OTP code",
     "Please enter you username in order to reset your password": "Please enter you username in order to reset your password",
     "Please enter OTP code just sent via your Messenger": "Please enter OTP code just sent via your Messenger",
@@ -67,6 +69,7 @@
     "Gay": "Gay",
     "Lesbian": "Lesbian",
     "characters": "characters",
-    "Say something...": "Say something..."
+    "Say something...": "Say something...",
+    "Cannot take back your password as this account has not been linked to Messenger or Telegram!": "Cannot take back your password as this account has not been linked to Messenger or Telegram!"
   }
 }

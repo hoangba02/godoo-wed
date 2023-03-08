@@ -11,3 +11,8 @@ export const selectIsMobile = createSelector(
   [selectDomain],
   auth => auth.isMobile,
 );
+
+export const selectRegister = createSelector(
+  [selectDomain],
+  auth => auth.register,
+);

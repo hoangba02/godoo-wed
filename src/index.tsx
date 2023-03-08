@@ -18,15 +18,17 @@ import 'sanitize.css/sanitize.css';
 // Import root app
 import './locales/i18n';
 import { App } from 'app';
+import { persistStore } from 'redux-persist';
+import { MantineProvider } from '@mantine/core';
 import { HelmetProvider } from 'react-helmet-async';
 import { configureAppStore } from 'store/configureStore';
-import { MantineProvider } from '@mantine/core';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import reportWebVitals from 'reportWebVitals';
 import MyGlobalStyles from 'styles/MyGlobalStyles';
 
 const client = new QueryClient();
 const store = configureAppStore();
+export let persistor = persistStore(store);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );

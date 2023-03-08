@@ -10,15 +10,22 @@ import {
   Text,
   TextInput,
 } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import Social from 'app/components/Social/Social';
+import { AuthSlice } from 'store/slice/authSlice';
+import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
+import { selectRegister } from 'store/slice/authSlice/selectors';
+import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import PublicLayout from 'app/components/Layout/PublicLayout/PublicLayout';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
-import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
-import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import Social from 'app/components/Social/Social';
-import { useNavigate } from 'react-router-dom';
 
 export function RegisterPage() {
+  const register = useSelector(selectRegister);
+  const { authActions } = AuthSlice();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   // Local
   const { t } = useTranslation();
@@ -67,7 +74,14 @@ export function RegisterPage() {
       e.preventDefault();
     }
   };
-  const handleSubmitRegister = () => {};
+  const handleSubmitRegister = () => {
+    dispatch(
+      authActions.requestRegister({
+        password: form.values.password,
+        username: form.values.password,
+      }),
+    );
+  };
   return (
     <>
       <Helmet>
@@ -88,11 +102,11 @@ export function RegisterPage() {
             {...form.getInputProps('username')}
             onKeyDown={handleClearSpace}
           />
-          {!form.errors.username && (
-            <Text sx={{ color: '#929292' }} className={classes.inputError}>
-              {t('Login.Contains only lowercase letters and numbers')}
-            </Text>
-          )}
+          <Text sx={{ color: '#929292' }} className={classes.inputError}>
+            {!form.errors.username
+              ? t('Login.Contains only lowercase letters and numbers')
+              : ''}
+          </Text>
           <PasswordInput
             classNames={{
               input: classes.input,
@@ -100,6 +114,8 @@ export function RegisterPage() {
               error: classes.inputError,
               visibilityToggle: classes.inputIcon,
             }}
+            maxLength={50}
+            error={form.errors.password}
             label={t('Login.Password')}
             placeholder={t('Login.Enter your password')}
             visibilityToggleIcon={({ reveal }) =>
@@ -108,11 +124,9 @@ export function RegisterPage() {
             {...form.getInputProps('password')}
             onKeyDown={handleClearSpace}
           />
-          {!form.errors.password && (
-            <Text sx={{ color: '#929292' }} className={classes.inputError}>
-              {t('Login.At least 8 characters')}
-            </Text>
-          )}
+          <Text sx={{ color: '#929292' }} className={classes.inputError}>
+            {!form.errors.password ? t('Login.At least 8 characters') : ''}
+          </Text>
           <PasswordInput
             mt="sm"
             classNames={{
@@ -121,6 +135,7 @@ export function RegisterPage() {
               error: classes.inputError,
               visibilityToggle: classes.inputIcon,
             }}
+            maxLength={50}
             label={t('Login.Confirm password')}
             placeholder={t('Login.Confirm password')}
             {...form.getInputProps('confirmPassword')}

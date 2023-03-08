@@ -14,7 +14,7 @@ const _StyledButton = styled(Button)`
     position: absolute;
     background-color: #ffffff;
     top: 1.5px;
-    left: 1.5px;
+    left: 2px;
     border-radius: 8px;
     height: calc(100% - 4px);
     width: calc(100% - 4px);

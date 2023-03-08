@@ -17,4 +17,6 @@ export interface PopupProps {
   children?: JSX.Element | JSX.Element[];
   position?: string | number;
   isClose?: boolean;
+  autoHide?: boolean;
+  afterHide?: any;
 }
