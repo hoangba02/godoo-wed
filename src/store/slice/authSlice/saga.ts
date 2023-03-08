@@ -35,6 +35,7 @@ function* handleRegister(action) {
           },
         }),
       );
+      History.push('/profile/nickname');
     } else if (error === 10) {
       yield put(
         authActions.registerFailed({

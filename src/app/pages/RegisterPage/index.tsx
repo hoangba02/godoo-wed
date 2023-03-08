@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -30,7 +30,7 @@ export function RegisterPage() {
   // Local
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
-
+  // const [exist, setExist] = useState(register);
   const form = useForm({
     validateInputOnChange: ['username', 'password'],
     initialValues: {
@@ -45,6 +45,8 @@ export function RegisterPage() {
           return t('Login.Please fill in this field');
         } else if (!regex.test(value)) {
           return t('Login.Username is incorrect');
+        } else if (register?.error === 10) {
+          return t('Login.Username is incorrects');
         } else {
           return null;
         }
@@ -77,8 +79,8 @@ export function RegisterPage() {
   const handleSubmitRegister = () => {
     dispatch(
       authActions.requestRegister({
+        username: form.values.username,
         password: form.values.password,
-        username: form.values.password,
       }),
     );
   };
