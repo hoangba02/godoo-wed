@@ -1,20 +1,32 @@
-import { PayloadAction } from '@reduxjs/toolkit';
+import { useEffect } from 'react';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from 'store/type';
-import { createSlice } from 'utils/@reduxjs/toolkit';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
 import { authSaga } from './saga';
+import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
+import { persistor } from 'store/configureStore';
 
 export const initialState: AuthState = {
   userId: -1,
   authToken: '',
   telegram: '',
   messenger: '',
-  currentUser: undefined,
-  login: undefined,
-  register: undefined,
   isLogin: false,
   isMobile: false,
   isLoading: false,
+  unKnowError: -1,
+  register: { error: -1, message: '' },
+  currentUser: { username: '', password: '' },
+  login: { error: -1, message: '', remember: false },
+  currentProfile: {
+    nickname: '',
+    picture: [],
+    date_of_birth: '',
+    zodiac: '',
+    gender: [],
+    introduction: '',
+    additional_information: {},
+    schedule_id: [],
+  },
 };
 
 const authSlice = createSlice({
@@ -48,6 +60,14 @@ const authSlice = createSlice({
     },
     registerFailed(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
+      state.register = action.payload.register;
+    },
+    resetRegister(state) {
+      state.isLoading = false;
+      if (state.register != null) {
+        state.register.error = -1;
+        state.register.message = '';
+      }
     },
     // Logout
     requestLogout(state, action: PayloadAction<AuthState>) {
@@ -61,7 +81,14 @@ const authSlice = createSlice({
     },
     logoutFailed(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
-      state.register = action.payload.register;
+    },
+    // Profile
+    requestProfile(state, action: PayloadAction<AuthState>) {
+      state.isLoading = true;
+    },
+    updateProfile(state, action: PayloadAction<AuthState>) {
+      state.isLoading = false;
+      state.currentProfile = action.payload.currentProfile;
     },
     // Nhận thiết bị truy cập
     setAccessDevice(state, action: PayloadAction<boolean>) {
@@ -79,7 +106,9 @@ const authSlice = createSlice({
     // Lỗi hệ thống (system error)
     setSystemError(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
+      state.unKnowError = action.payload.unKnowError;
     },
+    // Đặt lại giá trị mặc định
   },
 });
 
@@ -87,6 +116,9 @@ export const { actions: authActions, reducer } = authSlice;
 export const AuthSlice = () => {
   useInjectReducer({ key: authSlice.name, reducer: authSlice.reducer });
   useInjectSaga({ key: authSlice.name, saga: authSaga });
+  useEffect(() => {
+    persistor.persist();
+  }, []);
   return { authActions: authSlice.actions };
 };
 export const authReducer = authSlice.reducer;

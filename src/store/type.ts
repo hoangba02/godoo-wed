@@ -11,10 +11,19 @@ export interface RegisterState {
   error: number;
   message: string;
 }
+export interface ProfileState {
+  nickname?: string;
+  picture?: string[];
+  date_of_birth?: string;
+  zodiac?: string;
+  gender?: string[];
+  introduction?: string;
+  additional_information?: any;
+  schedule_id?: number[];
+}
 export interface AuthState {
   userId?: number;
   authToken?: string;
-  currentUser?: User;
   telegram?: string;
   messenger?: string;
   isLogin?: boolean;
@@ -22,4 +31,7 @@ export interface AuthState {
   isMobile?: boolean;
   login?: LoginState;
   register?: RegisterState;
+  currentUser?: User;
+  currentProfile?: ProfileState;
+  unKnowError?: number;
 }

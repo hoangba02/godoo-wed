@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '@mantine/form';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
@@ -16,21 +16,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import Social from 'app/components/Social/Social';
 import { AuthSlice } from 'store/slice/authSlice';
 import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
-import { selectRegister } from 'store/slice/authSlice/selectors';
+import {
+  selectIsLoading,
+  selectRegister,
+} from 'store/slice/authSlice/selectors';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import PublicLayout from 'app/components/Layout/PublicLayout/PublicLayout';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
+import OverlayLoading from 'app/components/Customs/OverlayLoading/OverlayLoading';
 
 export function RegisterPage() {
-  const register = useSelector(selectRegister);
+  const { error } = useSelector(selectRegister);
+  const isLoading = useSelector(selectIsLoading);
   const { authActions } = AuthSlice();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   // Local
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
-  // const [exist, setExist] = useState(register);
   const form = useForm({
     validateInputOnChange: ['username', 'password'],
     initialValues: {
@@ -45,8 +49,6 @@ export function RegisterPage() {
           return t('Login.Please fill in this field');
         } else if (!regex.test(value)) {
           return t('Login.Username is incorrect');
-        } else if (register?.error === 10) {
-          return t('Login.Username is incorrects');
         } else {
           return null;
         }
@@ -84,6 +86,15 @@ export function RegisterPage() {
       }),
     );
   };
+  useEffect(() => {
+    if (error === 10) {
+      form.setErrors({ username: t('This account has already existed') });
+    }
+    return () => {
+      dispatch(authActions.resetRegister());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]);
   return (
     <>
       <Helmet>
@@ -91,6 +102,7 @@ export function RegisterPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <PublicLayout>
+        <OverlayLoading isLoading={isLoading} />
         <form onSubmit={form.onSubmit(handleSubmitRegister)}>
           <TextInput
             classNames={{
@@ -105,7 +117,7 @@ export function RegisterPage() {
             onKeyDown={handleClearSpace}
           />
           <Text sx={{ color: '#929292' }} className={classes.inputError}>
-            {!form.errors.username
+            {error !== 10 && !form.errors.username
               ? t('Login.Contains only lowercase letters and numbers')
               : ''}
           </Text>

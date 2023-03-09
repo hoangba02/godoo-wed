@@ -16,7 +16,7 @@ function* handleLogin(action) {
 function* handleRegister(action) {
   try {
     const { username, password } = action.payload;
-    const params = { username, password };
+    const params = { username: username, password: password };
     const header = { 'content-type': 'appication/json' };
     const { error, data, message } = yield call(
       apiPost,
@@ -29,20 +29,15 @@ function* handleRegister(action) {
         authActions.registerSuccess({
           userId: data.id,
           authToken: data.token,
-          currentUser: {
-            username: username,
-            password: password,
-          },
+          register: { error: error, message: message },
+          currentUser: { username: username, password: password },
         }),
       );
       History.push('/profile/nickname');
     } else if (error === 10) {
       yield put(
         authActions.registerFailed({
-          register: {
-            error: error,
-            message: message,
-          },
+          register: { error: error, message: message },
         }),
       );
     } else {
@@ -54,8 +49,47 @@ function* handleRegister(action) {
 }
 function* handleLogout(action) {}
 
+function* handleUpdateProfile(action) {
+  try {
+    const { userId, authToken, currentProfile } = action.payload;
+    const param = { ...currentProfile };
+    const header = { userid: userId, token: authToken };
+    const { error, data } = yield call(
+      apiPost,
+      '/v1/godoo/profile/compulsoryinfo',
+      param,
+      header,
+    );
+    if (error === 0) {
+      yield put(
+        authActions.updateProfile({
+          currentProfile: {
+            nickname: data.nickname || '',
+            picture: data.picture || [],
+            date_of_birth: data.date_of_birth || '',
+            zodiac: data.zodiac || '',
+            gender: data.gender || [],
+            introduction: data.introduction || '',
+            additional_information: data.additional_information || {},
+            schedule_id: data.schedule_id || [],
+          },
+        }),
+      );
+      History.push('/profile/picture');
+    } else {
+      throw new Error('System Error');
+    }
+  } catch {
+    yield put(
+      authActions.setSystemError({
+        unKnowError: 1,
+      }),
+    );
+  }
+}
 export function* authSaga() {
   yield takeLatest(authActions.requestLogin.type, handleLogin);
   yield takeLatest(authActions.requestLogout.type, handleLogout);
   yield takeLatest(authActions.requestRegister.type, handleRegister);
+  yield takeLatest(authActions.requestProfile.type, handleUpdateProfile);
 }

@@ -40,7 +40,7 @@ function Birthday() {
           'Profile.Based on the birthday given, we will find you more suitable friends',
         )}
       </Text>
-      <Input.Wrapper className={classes.inputWrraper}>
+      <Input.Wrapper className={classes.inputWrapper}>
         <DatePicker
           classNames={{
             root: classes.rootPicker,

@@ -17,25 +17,23 @@ import 'sanitize.css/sanitize.css';
 
 // Import root app
 import './locales/i18n';
-import { App } from 'app';
-import { persistStore } from 'redux-persist';
-import { MantineProvider } from '@mantine/core';
-import { HelmetProvider } from 'react-helmet-async';
-import { configureAppStore } from 'store/configureStore';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 import reportWebVitals from 'reportWebVitals';
 import MyGlobalStyles from 'styles/MyGlobalStyles';
 
+import { App } from 'app';
+import { MantineProvider } from '@mantine/core';
+import { HelmetProvider } from 'react-helmet-async';
+import { persistor, store } from 'store/configureStore';
+import { PersistGate } from 'redux-persist/integration/react';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+
 const client = new QueryClient();
-const store = configureAppStore();
-export let persistor = persistStore(store);
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
-
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
       <QueryClientProvider client={client}>
         <HelmetProvider>
           <MantineProvider>
@@ -44,8 +42,8 @@ root.render(
           </MantineProvider>
         </HelmetProvider>
       </QueryClientProvider>
-    </Provider>
-  </React.StrictMode>,
+    </PersistGate>
+  </Provider>,
 );
 
 // Hot reloadable translation json files

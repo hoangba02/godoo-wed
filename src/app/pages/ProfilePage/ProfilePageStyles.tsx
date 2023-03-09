@@ -49,7 +49,7 @@ export const ProfilePageStyles = createStyles(() => ({
       zIndex: 9999,
     },
   },
-  inputWrraper: {
+  inputWrapper: {
     height: '55px !important',
     marginTop: 12,
     position: 'relative',

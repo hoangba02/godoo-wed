@@ -6,7 +6,7 @@
  * contain code that should be seen on all pages. (e.g. navigation bar)
  */
 
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ import { AuthSlice } from 'store/slice/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsMobile } from 'store/slice/authSlice/selectors';
 import Navigate from './components/Navigate/Navigate';
+import DemoPage from './pages/DemoPage/DemoPage';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -42,10 +43,11 @@ export function App() {
   const mobile = useMediaQuery('(max-width:575px)', isMobile, {
     getInitialValueInEffect: !isMobile,
   });
-  useLayoutEffect(() => {
+  useEffect(() => {
     dispatch(authActions.setAccessDevice(mobile));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <>
       <Helmet
@@ -75,6 +77,7 @@ export function App() {
           <Route path="/forgot/newpassword/:method" element={<NewPassword />} />
 
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="/demo" element={<DemoPage />} />
         </Routes>
         <GlobalStyle />
       </BrowserRouter>
