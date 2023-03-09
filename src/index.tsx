@@ -23,9 +23,9 @@ import MyGlobalStyles from 'styles/MyGlobalStyles';
 import { App } from 'app';
 import { MantineProvider } from '@mantine/core';
 import { HelmetProvider } from 'react-helmet-async';
-import { persistor, store } from 'store/configureStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { persistor, store } from 'store/configureStore';
 
 const client = new QueryClient();
 const root = ReactDOM.createRoot(

@@ -1,21 +1,18 @@
+/**
+ * Combine all reducers in this file and export the combined reducers.
+ */
+
 import { combineReducers } from '@reduxjs/toolkit';
 import { authReducer } from './slice/authSlice';
 
+/**
+ * Merges the main reducer with the router state and dynamically injected reducers
+ */
 import { InjectedReducersType } from 'utils/types/injector-typings';
-// const rootReducer = combineReducers({
-//   auth: authReducer,
-// });
-
-// export default rootReducer;
-
 export function createReducer(injectedReducers: InjectedReducersType = {}) {
-  // Initially we don't have any injectedReducers, so returning identity function to avoid the error
-  if (Object.keys(injectedReducers).length === 0) {
-    return state => state;
-  } else {
-    const rootReducer = combineReducers({
-      ...injectedReducers,
-    });
-    return rootReducer;
-  }
+  const rootReducers = combineReducers({
+    auth: authReducer,
+  });
+
+  return rootReducers;
 }

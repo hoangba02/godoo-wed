@@ -1,9 +1,5 @@
-import { useEffect } from 'react';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthState, User } from 'store/type';
-import { authSaga } from './saga';
-import { useInjectReducer, useInjectSaga } from 'utils/redux-injectors';
-import { persistor } from 'store/configureStore';
 
 export const initialState: AuthState = {
   userId: -1,
@@ -114,11 +110,6 @@ const authSlice = createSlice({
 
 export const { actions: authActions, reducer } = authSlice;
 export const AuthSlice = () => {
-  useInjectReducer({ key: authSlice.name, reducer: authSlice.reducer });
-  useInjectSaga({ key: authSlice.name, saga: authSaga });
-  useEffect(() => {
-    persistor.persist();
-  }, []);
   return { authActions: authSlice.actions };
 };
 export const authReducer = authSlice.reducer;
