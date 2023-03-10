@@ -10,28 +10,26 @@ import { ProfilePageStyles } from '../ProfilePageStyles';
 import { ReactComponent as Face } from 'assets/icons/face-nickname.svg';
 import { ReactComponent as IconChevronRight } from 'assets/icons/chevron-right.svg';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import { selectAuth } from 'store/slice/authSlice/selectors';
+import { selectProfile } from 'store/slice/authSlice/selectors';
 
 function Nickname() {
-  console.log('first');
   const dispatch = useDispatch();
   const { authActions } = AuthSlice();
-  const { userId, authToken, currentProfile } = useSelector(selectAuth);
+  const profile = useSelector(selectProfile);
   // Local
   const { t } = useTranslation();
   const { classes } = ProfilePageStyles();
   const form = useForm({
     initialValues: {
-      nickname: currentProfile?.nickname || '',
+      nickname: profile?.nickname || '',
     },
   });
 
   const handleSubmitNickname = async () => {
     await dispatch(
-      authActions.requestProfile({
-        userId: userId,
-        authToken: authToken,
-        currentProfile: {
+      authActions.requestUpdateProfile({
+        navigate: '/profile/picture',
+        profile: {
           nickname: form.values.nickname,
         },
       }),

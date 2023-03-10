@@ -23,7 +23,10 @@ function Photographs() {
     >
       <div className={classes.container}>
         {Array.from({ length: 6 }).map((item, index) => (
-          <Box className={cx(classes.item, index === 0 ? classes.first : null)}>
+          <Box
+            key={index}
+            className={cx(classes.item, index === 0 ? classes.first : null)}
+          >
             <Avatar
               src={index === 0 ? images.slimeBig : images.slime}
               className={classes.img}

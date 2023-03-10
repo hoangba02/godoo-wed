@@ -1,14 +1,16 @@
 import React from 'react';
-import { Container, Stack, Box, Image, Avatar } from '@mantine/core';
-import PublicWeb from 'app/components/Layout/PublicLayout/PublicWeb';
-import { ReactComponent as Back } from 'assets/icons/back-arrow-gradient.svg';
-import { SubtleButton } from 'app/components/Customs/Button/SubtleButton';
-import ProfileProgress from 'app/components/Progress/ProfileProgress';
-import { ProfilePageProps } from 'types';
 import { useNavigate } from 'react-router-dom';
+import { Container, Stack, Box, Avatar } from '@mantine/core';
+
+import { ProfilePageProps } from 'types';
+import PublicWeb from 'app/components/Layout/PublicLayout/PublicWeb';
+import ProfileProgress from 'app/components/Progress/ProfileProgress';
+import { SubtleButton } from 'app/components/Customs/Button/SubtleButton';
+import { ReactComponent as Back } from 'assets/icons/back-arrow-gradient.svg';
 
 function ProfileWeb({ children, image, progress, back }: ProfilePageProps) {
   const navigate = useNavigate();
+
   return (
     <PublicWeb padding="30px 32px 0">
       <Stack
@@ -24,8 +26,8 @@ function ProfileWeb({ children, image, progress, back }: ProfilePageProps) {
           <SubtleButton
             sx={{
               position: 'absolute',
-              top: 20,
-              left: 0,
+              top: 10,
+              left: 10,
               zIndex: 99,
             }}
             onClick={() => {
@@ -38,16 +40,18 @@ function ProfileWeb({ children, image, progress, back }: ProfilePageProps) {
         {image && (
           <Box
             sx={{
-              width: '73%',
+              width: '100%',
               height: 250,
               maxHeight: 250,
-              margin: '0 auto',
+              position: 'relative',
             }}
           >
             <Avatar
               sx={{
+                position: 'absolute',
+                top: -100,
                 width: '100%',
-                height: '100%',
+                height: '150%',
               }}
               styles={{
                 image: {

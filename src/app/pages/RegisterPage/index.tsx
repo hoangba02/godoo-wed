@@ -16,19 +16,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Social from 'app/components/Social/Social';
 import { AuthSlice } from 'store/slice/authSlice';
 import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
-import {
-  selectIsLoading,
-  selectRegister,
-} from 'store/slice/authSlice/selectors';
+import { selectRegister } from 'store/slice/authSlice/selectors';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import PublicLayout from 'app/components/Layout/PublicLayout/PublicLayout';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import OverlayLoading from 'app/components/Customs/OverlayLoading/OverlayLoading';
 
 export function RegisterPage() {
   const { error } = useSelector(selectRegister);
-  const isLoading = useSelector(selectIsLoading);
   const { authActions } = AuthSlice();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -102,7 +97,6 @@ export function RegisterPage() {
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
       <PublicLayout>
-        <OverlayLoading isLoading={isLoading} />
         <form onSubmit={form.onSubmit(handleSubmitRegister)}>
           <TextInput
             classNames={{

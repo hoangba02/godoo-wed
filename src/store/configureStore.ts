@@ -10,23 +10,39 @@ import {
   PERSIST,
   PURGE,
   REGISTER,
+  createTransform,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { createReducer } from './reducers';
-
+import { AuthState } from './type';
 export function configureAppStore() {
+  const passwordTransform = createTransform(
+    (inboundState: AuthState, key) => {
+      return {
+        ...inboundState,
+        currentUser: { ...inboundState.currentUser, password: undefined },
+      };
+    },
+    (outboundState, key) => {
+      return {
+        ...outboundState,
+        currentUser: { ...outboundState.currentUser, password: '***' },
+      };
+    },
+    { whitelist: ['auth'] },
+  );
   const persistConfig = {
     key: 'root',
     version: 1,
     storage: storage,
-    whitelist: ['auth'],
+    // whitelist: ['auth'],
+    transforms: [passwordTransform],
     migrate: state => {
       return Promise.resolve(state);
     },
   };
 
   const persistedReducer = persistReducer(persistConfig, createReducer());
-
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware];
   const store = configureStore({

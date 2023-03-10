@@ -120,4 +120,18 @@ export const ProfilePageStyles = createStyles(() => ({
     zIndex: 1,
   },
   // Gender
+  // Bio
+  inputTextarea: {
+    width: '100%',
+    height: '226px !important',
+    fontWeight: 400,
+    fontSize: 24,
+    lineHeight: '30px',
+    marginTop: 24,
+    borderRadius: 8,
+    [`@media (max-width:575px)`]: {
+      fontSize: 18,
+      lineHeight: '22px',
+    },
+  },
 }));

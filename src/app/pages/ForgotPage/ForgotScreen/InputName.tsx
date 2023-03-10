@@ -118,7 +118,7 @@ function InputName() {
         isClose={true}
         show={isPopup}
         toggle={setIsPopup}
-        image={images.warnning}
+        image={images.warning}
         content={t(
           'Profile.Cannot take back your password as this account has not been linked to Messenger or Telegram!',
         )}

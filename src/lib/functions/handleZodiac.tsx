@@ -4,6 +4,11 @@ export const handleZodiac = (date: any) => {
   var day = new Date(date).getDate();
   var month = new Date(date).getMonth() + 1;
 
+  if (date === '') {
+    day = new Date().getDate();
+    month = new Date().getMonth() + 1;
+  }
+
   switch (month) {
     case 1:
       if (day <= 19 && day > 0) {

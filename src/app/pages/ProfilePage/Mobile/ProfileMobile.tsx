@@ -1,10 +1,11 @@
 import React from 'react';
-import { Container, Image, Box, Stack, Avatar } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import { Container, Box, Stack, Avatar } from '@mantine/core';
+
+import { ProfilePageProps } from 'types';
 import ProfileProgress from 'app/components/Progress/ProfileProgress';
 import { SubtleButton } from 'app/components/Customs/Button/SubtleButton';
 import { ReactComponent as Back } from 'assets/icons/back-arrow-gradient.svg';
-import { ProfilePageProps } from 'types';
-import { useNavigate } from 'react-router-dom';
 
 function ProfileMobile({ children, image, progress, back }: ProfilePageProps) {
   const navigate = useNavigate();

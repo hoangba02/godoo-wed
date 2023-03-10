@@ -30,19 +30,19 @@ import Description from './pages/ProfilePage/ProfileScreen/Description';
 import { useMediaQuery } from '@mantine/hooks';
 import { AuthSlice } from 'store/slice/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsMobile } from 'store/slice/authSlice/selectors';
+import { selectIsLoading } from 'store/slice/authSlice/selectors';
 import Navigate from './components/Navigate/Navigate';
 import DemoPage from './pages/DemoPage/DemoPage';
+import OverlayLoading from './components/Customs/OverlayLoading/OverlayLoading';
+import AuthenError from './components/Modal/AuthenError';
 
 export function App() {
   const { i18n } = useTranslation();
   const { authActions } = AuthSlice();
   const dispatch = useDispatch();
-  const isMobile = useSelector(selectIsMobile);
+  const isLoading = useSelector(selectIsLoading);
   // Local
-  const mobile = useMediaQuery('(max-width:575px)', isMobile, {
-    getInitialValueInEffect: !isMobile,
-  });
+  const mobile = useMediaQuery('(max-width:575px)');
   useEffect(() => {
     dispatch(authActions.setAccessDevice(mobile));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -58,6 +58,8 @@ export function App() {
         <meta name="description" content="A React Boilerplate application" />
       </Helmet>
       <BrowserRouter>
+        <OverlayLoading isLoading={isLoading} />
+        <AuthenError />
         <Navigate />
         <Routes>
           <Route path="/" element={<HomePage />} />

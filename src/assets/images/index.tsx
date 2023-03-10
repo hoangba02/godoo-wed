@@ -18,7 +18,7 @@ export const images = {
   description: require('assets/images/profilePage/description.svg').default,
   slime: require('assets/images/profilePage/slime.svg').default,
   slimeBig: require('assets/images/profilePage/slimeBig.svg').default,
-  warnning: require('assets/images/profilePage/warnning.svg').default,
+  warning: require('assets/images/profilePage/warning.svg').default,
   success: require('assets/images/profilePage/success.svg').default,
   // Zodiac
   Aquarius: require('assets/images/profilePage/Zodiac/Aquarius.svg').default,

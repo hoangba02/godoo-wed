@@ -21,7 +21,7 @@ function Popup({ position = 0, afterHide = () => {}, ...props }: PopupProps) {
       centered
       opened={props.show}
       onClose={() => props.toggle(false)}
-      closeOnClickOutside={false}
+      closeOnClickOutside={true}
       withCloseButton={false}
       classNames={{
         root: classes.rootModal,

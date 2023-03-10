@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, User } from 'store/type';
+import { AuthState, LoginState, User } from 'store/type';
 
 export const initialState: AuthState = {
   userId: -1,
@@ -9,11 +9,11 @@ export const initialState: AuthState = {
   isLogin: false,
   isMobile: false,
   isLoading: false,
-  unKnowError: -1,
+  unKnowError: false,
   register: { error: -1, message: '' },
   currentUser: { username: '', password: '' },
   login: { error: -1, message: '', remember: false },
-  currentProfile: {
+  profile: {
     nickname: '',
     picture: [],
     date_of_birth: '',
@@ -30,11 +30,11 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     // Login
-    requestLogin(state, action: PayloadAction<User>) {
+    requestLogin(state, action: PayloadAction<LoginState | User>) {
       state.isLoading = true;
     },
     loginSuccess(state, action: PayloadAction<AuthState>) {
-      state.isLoading = false;
+      // state.isLoading = false;
       state.userId = action.payload.userId;
       state.authToken = action.payload.authToken;
       state.currentUser = action.payload.currentUser;
@@ -42,6 +42,7 @@ const authSlice = createSlice({
     },
     loginFailed(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
+      state.login = action.payload.login;
     },
     // Register
     requestRegister(state, action: PayloadAction<User>) {
@@ -58,33 +59,40 @@ const authSlice = createSlice({
       state.isLoading = false;
       state.register = action.payload.register;
     },
-    resetRegister(state) {
-      state.isLoading = false;
-      if (state.register != null) {
-        state.register.error = -1;
-        state.register.message = '';
-      }
-    },
+
     // Logout
-    requestLogout(state, action: PayloadAction<AuthState>) {
+    requestLogout(state, action: PayloadAction<AuthState | LoginState | User>) {
       state.isLoading = true;
     },
     logoutSuccess(state, action: PayloadAction<AuthState>) {
-      state.isLoading = false;
-      state.userId = -1;
-      state.authToken = '';
-      state.currentUser = undefined;
+      return {
+        ...initialState,
+        currentUser: action.payload.currentUser,
+        login: action.payload.login,
+        unKnowError: action.payload.unKnowError,
+      };
     },
-    logoutFailed(state, action: PayloadAction<AuthState>) {
-      state.isLoading = false;
+    // Lỗi xác thực ngưởi dùng
+    setAuthentication() {
+      return initialState;
     },
     // Profile
-    requestProfile(state, action: PayloadAction<AuthState>) {
+    requestGetProfile(
+      state,
+      action: PayloadAction<AuthState | User | LoginState>,
+    ) {
+      state.isLoading = true;
+    },
+    getProfile(state, action: PayloadAction<AuthState>) {
+      state.isLoading = false;
+      state.profile = action.payload.profile;
+    },
+    requestUpdateProfile(state, action: PayloadAction<AuthState>) {
       state.isLoading = true;
     },
     updateProfile(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
-      state.currentProfile = action.payload.currentProfile;
+      state.profile = action.payload.profile;
     },
     // Nhận thiết bị truy cập
     setAccessDevice(state, action: PayloadAction<boolean>) {
@@ -105,6 +113,18 @@ const authSlice = createSlice({
       state.unKnowError = action.payload.unKnowError;
     },
     // Đặt lại giá trị mặc định
+    resetRegister(state) {
+      state.isLoading = false;
+      state.register = { error: -1, message: '' };
+    },
+    resetLogin(state) {
+      state.isLoading = false;
+      state.login = {
+        error: -1,
+        message: '',
+        remember: true,
+      };
+    },
   },
 });
 

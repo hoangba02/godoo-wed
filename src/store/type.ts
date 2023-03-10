@@ -1,11 +1,11 @@
 export interface User {
-  username: string | number;
-  password: string | number;
+  username?: string | number;
+  password?: string | number;
 }
 export interface LoginState {
-  error: number;
-  message: string;
-  remember: boolean;
+  error?: number;
+  message?: string;
+  remember?: boolean;
 }
 export interface RegisterState {
   error: number;
@@ -14,7 +14,7 @@ export interface RegisterState {
 export interface ProfileState {
   nickname?: string;
   picture?: string[];
-  date_of_birth?: string;
+  date_of_birth?: string | number;
   zodiac?: string;
   gender?: string[];
   introduction?: string;
@@ -32,6 +32,7 @@ export interface AuthState {
   login?: LoginState;
   register?: RegisterState;
   currentUser?: User;
-  currentProfile?: ProfileState;
-  unKnowError?: number;
+  profile?: ProfileState;
+  unKnowError?: boolean;
+  navigate?: string;
 }

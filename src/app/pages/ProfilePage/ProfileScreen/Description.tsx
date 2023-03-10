@@ -1,19 +1,41 @@
 import { Input, Text, Textarea } from '@mantine/core';
-import { GradientButton } from 'app/components/Customs/Button/GradientButton';
 import { images } from 'assets/images';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { ProfilePage } from '../Loadable';
+import { AuthSlice } from 'store/slice/authSlice';
 import { ProfilePageStyles } from '../ProfilePageStyles';
+import { selectProfile } from 'store/slice/authSlice/selectors';
 import { ReactComponent as Exclude } from 'assets/icons/exclude.svg';
+import { GradientButton } from 'app/components/Customs/Button/GradientButton';
+
 function Description() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { authActions } = AuthSlice();
+  const { introduction } = useSelector(selectProfile);
   // Local
   const { t } = useTranslation();
   const { classes } = ProfilePageStyles();
-  const [intro, setIntro] = useState<string>('');
-  const [counterText, setCounterText] = useState<number>(0);
+  const [intro, setIntro] = useState<string>(introduction);
+
+  const handleSubmitDescription = () => {
+    dispatch(
+      authActions.requestUpdateProfile({
+        navigate: '/',
+        profile: {
+          introduction: intro.trim(),
+        },
+      }),
+    );
+  };
+  const handleChangeIntro = e => {
+    const value = e.currentTarget.value;
+    if (value.length <= 500) {
+      setIntro(value);
+    }
+  };
   return (
     <ProfilePage progress={4} image={images.description} back="profile/gender">
       <Text className={classes.title}>{t('Profile.Bio description')}</Text>
@@ -28,34 +50,13 @@ function Description() {
         }}
       >
         <Textarea
-          styles={{
-            input: {
-              width: '100%',
-              height: '226px !important',
-              fontWeight: 400,
-              fontSize: 24,
-              lineHeight: '30px',
-              marginTop: 24,
-              borderRadius: 8,
-              [`@media (max-width:575px)`]: {
-                fontSize: 18,
-                lineHeight: '22px',
-              },
-            },
+          classNames={{
+            input: classes.inputTextarea,
           }}
           value={intro}
           maxRows={4}
           maxLength={500}
-          onChange={event => setIntro(event.currentTarget.value)}
-          onKeyDown={e => {
-            if (e.key.length === 1) {
-              setCounterText(counterText + 1);
-            } else if (e.key === 'Backspace' || e.key === 'Delete') {
-              setCounterText(counterText - 1);
-            } else if (counterText >= 500) {
-              setCounterText(counterText + 0);
-            }
-          }}
+          onChange={e => handleChangeIntro(e)}
           placeholder={t('Profile.Say something...')}
         />
         <Text
@@ -68,7 +69,7 @@ function Description() {
             lineHeight: '20px',
           }}
         >
-          {`${counterText}`}
+          {`${intro.length}`}
           <span>/500 {t('Profile.characters')}</span>
         </Text>
       </Input.Wrapper>
@@ -76,9 +77,7 @@ function Description() {
         type="submit"
         variant="gradient"
         className={classes.nextBtn}
-        onClick={() => {
-          navigate('/');
-        }}
+        onClick={handleSubmitDescription}
       >
         <Exclude width={34} height={34} />
       </GradientButton>

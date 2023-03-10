@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from '@mantine/form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -20,20 +20,23 @@ import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
+import { selectAuth, selectLogin } from 'store/slice/authSlice/selectors';
 
 export function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { authActions } = AuthSlice();
+  const { currentUser } = useSelector(selectAuth);
+  const { error, remember } = useSelector(selectLogin);
   // Local
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
 
   const form = useForm({
     initialValues: {
-      username: '',
-      password: '',
-      rememberPassword: true,
+      username: currentUser?.username,
+      password: currentUser?.password,
+      rememberPassword: remember,
     },
     validate: {
       username: value => {
@@ -63,9 +66,14 @@ export function LoginPage() {
       authActions.requestLogin({
         username: form.values.username,
         password: form.values.password,
+        remember: form.values.rememberPassword,
       }),
     );
   };
+  useEffect(() => {
+    dispatch(authActions.resetLogin());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <Helmet>
@@ -101,9 +109,9 @@ export function LoginPage() {
             {...form.getInputProps('password')}
             onKeyDown={handleClearSpace}
           />
-          {/* <Text className={classes.inputError}>
-            {t('Login.Username or password incorrect')}
-          </Text> */}
+          <Text className={classes.inputError}>
+            {error > 9 && t('Login.Username or password incorrect')}
+          </Text>
           <Flex className={classes.save}>
             <Checkbox
               classNames={{ label: classes.forgot }}
