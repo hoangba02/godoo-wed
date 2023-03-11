@@ -34,7 +34,6 @@ import { selectIsLoading } from 'store/slice/authSlice/selectors';
 import Navigate from './components/Navigate/Navigate';
 import DemoPage from './pages/DemoPage/DemoPage';
 import OverlayLoading from './components/Customs/OverlayLoading/OverlayLoading';
-import AuthenError from './components/Modal/AuthenError';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -59,7 +58,6 @@ export function App() {
       </Helmet>
       <BrowserRouter>
         <OverlayLoading isLoading={isLoading} />
-        <AuthenError />
         <Navigate />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -48,7 +48,7 @@ function* handleGetProfile(action) {
         username: username,
         password: password,
         remember: remember,
-        unKnowError: true,
+        isError: true,
       }),
     );
   }
@@ -104,7 +104,7 @@ function* handleLogin(action) {
   } catch {
     yield put(
       authActions.setSystemError({
-        unKnowError: true,
+        isError: true,
       }),
     );
   }
@@ -142,7 +142,7 @@ function* handleRegister(action) {
   } catch {
     yield put(
       authActions.setSystemError({
-        unKnowError: true,
+        isError: true,
       }),
     );
   }
@@ -150,13 +150,13 @@ function* handleRegister(action) {
 function* handleLogout(action) {
   try {
     const local = getLocalStorage('persist:root');
-    const { username, password, remember, unKnowError } = action.payload;
+    const { username, password, remember, isError } = action.payload;
     const header = { userid: local.userId, token: local.authToken };
     const { error } = yield call(apiPost, '/v1/logout', {}, header);
     if (error === 0) {
       yield put(
         authActions.logoutSuccess({
-          unKnowError: unKnowError,
+          isError: isError,
           currentUser: {
             username: remember ? username : '',
             password: remember ? password : '',
@@ -175,7 +175,7 @@ function* handleLogout(action) {
   } catch {
     yield put(
       authActions.setSystemError({
-        unKnowError: true,
+        isError: true,
       }),
     );
   }
@@ -217,7 +217,7 @@ function* handleUpdateProfile(action) {
   } catch {
     yield put(
       authActions.setSystemError({
-        unKnowError: true,
+        isError: true,
       }),
     );
   }

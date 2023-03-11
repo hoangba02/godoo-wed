@@ -1,49 +1,49 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Avatar, createStyles, Modal, Stack, Text } from '@mantine/core';
 import { images } from 'assets/images';
 import { ReactComponent as XCircle } from 'assets/icons/x-circle.svg';
 import { PopupProps } from 'types';
 import { SubtleButton } from '../Button/SubtleButton';
 
-function Popup({ position = 0, afterHide = () => {}, ...props }: PopupProps) {
+function Popup({
+  name,
+  image,
+  content,
+  show,
+  toggle,
+  children,
+  position = 0,
+  isClose,
+}: PopupProps) {
   const { classes } = useStyles({ position });
-  useEffect(() => {
-    if (!props.show) return;
-    const timer = setTimeout(() => {
-      props.toggle(false);
-      afterHide();
-    }, 2000);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.show]);
   return (
     <Modal
       centered
-      opened={props.show}
-      onClose={() => props.toggle(false)}
-      closeOnClickOutside={true}
+      opened={show}
+      onClose={() => toggle(false)}
+      closeOnClickOutside={false}
       withCloseButton={false}
       classNames={{
         root: classes.rootModal,
         modal: classes.modal,
       }}
     >
-      {props.isClose && (
+      {isClose && (
         <SubtleButton
           variant="subtle"
           className={classes.closeBtn}
           onClick={() => {
-            props.toggle(false);
+            toggle(false);
           }}
         >
           <XCircle />
         </SubtleButton>
       )}
       <Stack className={classes.container}>
-        {props.name && <Text className={classes.name}>{props.name}</Text>}
-        {props.image && <Avatar src={props.image} className={classes.img} />}
-        <Text className={classes.content}>{props.content}</Text>
-        {props.children}
+        {name && <Text className={classes.name}>{name}</Text>}
+        {image && <Avatar src={image} className={classes.img} />}
+        <Text className={classes.content}>{content}</Text>
+        {children}
       </Stack>
     </Modal>
   );

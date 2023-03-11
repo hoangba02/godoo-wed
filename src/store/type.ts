@@ -33,6 +33,6 @@ export interface AuthState {
   register?: RegisterState;
   currentUser?: User;
   profile?: ProfileState;
-  unKnowError?: boolean;
+  isError?: boolean;
   navigate?: string;
 }

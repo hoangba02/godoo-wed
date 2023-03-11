@@ -26,7 +26,7 @@ export function configureAppStore() {
     (outboundState, key) => {
       return {
         ...outboundState,
-        currentUser: { ...outboundState.currentUser, password: '***' },
+        currentUser: { ...outboundState.currentUser, password: '' },
       };
     },
     { whitelist: ['auth'] },

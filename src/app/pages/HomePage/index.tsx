@@ -22,7 +22,7 @@ export function HomePage() {
               username: currentUser.username,
               password: currentUser.password,
               remember: login.remember,
-              unKnowError: false,
+              isError: false,
             }),
           );
         }}

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AuthState, LoginState, User } from 'store/type';
+import { AuthState, LoginState, ProfileState, User } from 'store/type';
 
 export const initialState: AuthState = {
   userId: -1,
@@ -9,7 +9,7 @@ export const initialState: AuthState = {
   isLogin: false,
   isMobile: false,
   isLoading: false,
-  unKnowError: false,
+  isError: false,
   register: { error: -1, message: '' },
   currentUser: { username: '', password: '' },
   login: { error: -1, message: '', remember: false },
@@ -69,7 +69,7 @@ const authSlice = createSlice({
         ...initialState,
         currentUser: action.payload.currentUser,
         login: action.payload.login,
-        unKnowError: action.payload.unKnowError,
+        isError: action.payload.isError,
       };
     },
     // Lỗi xác thực ngưởi dùng
@@ -91,6 +91,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
     updateProfile(state, action: PayloadAction<AuthState>) {
+      console.log(action);
       state.isLoading = false;
       state.profile = action.payload.profile;
     },
@@ -110,7 +111,7 @@ const authSlice = createSlice({
     // Lỗi hệ thống (system error)
     setSystemError(state, action: PayloadAction<AuthState>) {
       state.isLoading = false;
-      state.unKnowError = action.payload.unKnowError;
+      state.isError = action.payload.isError;
     },
     // Đặt lại giá trị mặc định
     resetRegister(state) {

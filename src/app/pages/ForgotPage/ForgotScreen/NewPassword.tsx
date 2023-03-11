@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
-import { ForgotPage } from '..';
-import { Group, PasswordInput, Text } from '@mantine/core';
+import axios from 'axios';
 import { useForm } from '@mantine/form';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Group, PasswordInput, Text } from '@mantine/core';
+
+import { ForgotPage } from '..';
+import { images } from 'assets/images';
+import { BASEDOMAIN } from 'utils/http/requests';
+import Popup from 'app/components/Customs/Popup/Popup';
+import { selectAuth } from 'store/slice/authSlice/selectors';
 import { ReactComponent as IconEye } from 'assets/icons/eye.svg';
 import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
-import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import axios from 'axios';
-import { BASEDOMAIN } from 'utils/http/requests';
-import { useSelector } from 'react-redux';
-import { selectAuth } from 'store/slice/authSlice/selectors';
-import { useQuery } from '@tanstack/react-query';
+import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import OverlayLoading from 'app/components/Customs/OverlayLoading/OverlayLoading';
-import Popup from 'app/components/Customs/Popup/Popup';
-import { images } from 'assets/images';
 
 function NewPassword() {
   const { method } = useParams();
