@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useForm } from '@mantine/form';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -17,11 +17,14 @@ import { ReactComponent as IconEyeOff } from 'assets/icons/eye-off.svg';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import OverlayLoading from 'app/components/Customs/OverlayLoading/OverlayLoading';
+import { AuthSlice } from 'store/slice/authSlice';
 
 function NewPassword() {
   const { method } = useParams();
+  const { authActions } = AuthSlice();
   const auth = useSelector(selectAuth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   //   Local
   const { t } = useTranslation();
   const { classes } = makePublicStyles();
@@ -71,6 +74,13 @@ function NewPassword() {
       if (error === 0) {
         setOpenPopup(true);
       }
+    },
+    onError() {
+      dispatch(
+        authActions.setSystemError({
+          isError: true,
+        }),
+      );
     },
   });
 

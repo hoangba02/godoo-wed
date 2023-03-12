@@ -30,7 +30,7 @@ import Description from './pages/ProfilePage/ProfileScreen/Description';
 import { useMediaQuery } from '@mantine/hooks';
 import { AuthSlice } from 'store/slice/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoading } from 'store/slice/authSlice/selectors';
+import { selectAuth } from 'store/slice/authSlice/selectors';
 import Navigate from './components/Navigate/Navigate';
 import DemoPage from './pages/DemoPage/DemoPage';
 import OverlayLoading from './components/Customs/OverlayLoading/OverlayLoading';
@@ -39,14 +39,30 @@ export function App() {
   const { i18n } = useTranslation();
   const { authActions } = AuthSlice();
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
+  const { isLoading, isError } = useSelector(selectAuth);
   // Local
   const mobile = useMediaQuery('(max-width:575px)');
   useEffect(() => {
     dispatch(authActions.setAccessDevice(mobile));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, mobile]);
 
+  useEffect(() => {
+    const handleBeforeUnload = event => {
+      if (isError) {
+        dispatch(
+          authActions.setSystemError({
+            isError: false,
+          }),
+        );
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError]);
   return (
     <>
       <Helmet
@@ -60,9 +76,11 @@ export function App() {
         <OverlayLoading isLoading={isLoading} />
         <Navigate />
         <Routes>
-          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          {/* Home Page */}
+          <Route path="/" element={<HomePage />} />
+
           {/* Profile Page */}
           <Route path="/profile/nickname" element={<Nickname />} />
           <Route path="/profile/picture" element={<Picture />} />

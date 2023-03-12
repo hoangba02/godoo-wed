@@ -20,3 +20,8 @@ export interface PopupProps {
   autoHide?: boolean;
   afterHide?: any;
 }
+
+export interface HomePageProps {
+  active?: number;
+  children?: JSX.Element | JSX.Element[];
+}

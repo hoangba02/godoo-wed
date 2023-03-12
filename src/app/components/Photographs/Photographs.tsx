@@ -31,19 +31,19 @@ function Photographs() {
   const [active, setActive] = useState<number>(-1);
 
   const handleUploadImage = (file, i) => {
-    try {
-      setLoading(true);
-      setActive(i);
-      const transientImg = URL.createObjectURL(file);
-      setPictures([...pictures, transientImg]);
-      console.log(transientImg);
-      const reader = new FileReader();
-      reader.onload = async event => {
-        const base64 = event.target?.result;
-        let newBase: any = event.target?.result?.toString().indexOf(',');
-        let num = newBase + 1;
-        const newString = base64?.toString().slice(num);
-        // Request
+    setLoading(true);
+    setActive(i);
+    const transientImg = URL.createObjectURL(file);
+    setPictures([...pictures, transientImg]);
+    console.log(transientImg);
+    const reader = new FileReader();
+    reader.onload = async event => {
+      const base64 = event.target?.result;
+      let newBase: any = event.target?.result?.toString().indexOf(',');
+      let num = newBase + 1;
+      const newString = base64?.toString().slice(num);
+      // Request
+      try {
         const param = { file_base64: newString };
         await axios
           .post(`${BASEDOMAIN}/v1/godoo/profile/uploadimage`, param, {
@@ -53,7 +53,6 @@ function Photographs() {
             const { data } = res;
             setLoading(false);
             if (data.error === 0) {
-              console.log(data.data);
               setPictures([...data.data]);
               dispatch(
                 authActions.updateProfile({
@@ -64,19 +63,19 @@ function Photographs() {
                 }),
               );
             } else {
+              setPictures([...pictures].splice(i, 1));
               throw new Error('System Error');
             }
           });
-      };
-
-      reader.readAsDataURL(file);
-    } catch {
-      dispatch(
-        authActions.setSystemError({
-          isError: true,
-        }),
-      );
-    }
+      } catch {
+        dispatch(
+          authActions.setSystemError({
+            isError: true,
+          }),
+        );
+      }
+    };
+    reader.readAsDataURL(file);
   };
   console.log(pictures);
   return (

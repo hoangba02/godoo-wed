@@ -64,6 +64,13 @@ function InputOTP() {
         setIsError(true);
       }
     },
+    onError() {
+      dispatch(
+        authActions.setSystemError({
+          isError: true,
+        }),
+      );
+    },
   });
 
   const backQuery = useQuery({

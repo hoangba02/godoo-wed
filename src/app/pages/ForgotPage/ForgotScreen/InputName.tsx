@@ -70,6 +70,13 @@ function InputName() {
         navigate('/forgot/getcode');
       }
     },
+    onError() {
+      dispatch(
+        authActions.setSystemError({
+          isError: true,
+        }),
+      );
+    },
   });
 
   return (

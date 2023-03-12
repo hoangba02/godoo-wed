@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Stack, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,9 +14,12 @@ import { ReactComponent as Telegram } from 'assets/icons/logostelegram.svg';
 import { ReactComponent as Messenger } from 'assets/icons/logosmessenger.svg';
 import { makePublicStyles } from 'app/components/Layout/PublicLayout/PublicStyles';
 import OverlayLoading from 'app/components/Customs/OverlayLoading/OverlayLoading';
+import { AuthSlice } from 'store/slice/authSlice';
 
 function GetCode() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { authActions } = AuthSlice();
   const auth = useSelector(selectAuth);
   // Local
   const { t } = useTranslation();
@@ -33,6 +36,13 @@ function GetCode() {
       } else if (selectMethod === 2) {
         navigate('/forgot/otp/Telegram');
       }
+    },
+    onError() {
+      dispatch(
+        authActions.setSystemError({
+          isError: true,
+        }),
+      );
     },
   });
   return (
