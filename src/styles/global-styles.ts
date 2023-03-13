@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
     padding-bottom: env(safe-area-inset-bottom);
   }
   #root {
+    max-width :1920px;
+    margin: 0 auto;
     min-height: 100%;
     min-width: 100%;
   }

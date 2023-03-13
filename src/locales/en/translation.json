@@ -72,5 +72,17 @@
     "characters": "characters",
     "Say something...": "Say something...",
     "Cannot take back your password as this account has not been linked to Messenger or Telegram!": "Cannot take back your password as this account has not been linked to Messenger or Telegram!"
+  },
+  "About": {
+    "edit my profile": "edit my profile"
+  },
+  "Setting": {
+    "Setting": "Setting",
+    "Notification": "Notification",
+    "My account": "My account",
+    "Support": "Support",
+    "Language": "Language",
+    "Log out": "Log out",
+    "Are you sure you wanna log out?": "Are you sure you wanna log out?"
   }
 }

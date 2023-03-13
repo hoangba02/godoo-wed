@@ -7,9 +7,12 @@ import { useNavigate } from 'react-router-dom';
 import { ProfilePage } from '../Loadable';
 import { ProfilePageStyles } from '../ProfilePageStyles';
 import { ReactComponent as IconChevronRight } from 'assets/icons/chevron-right.svg';
+import { useSelector } from 'react-redux';
+import { selectAuth } from 'store/slice/authSlice/selectors';
 
 function Picture() {
   const navigate = useNavigate();
+  const { profile } = useSelector(selectAuth);
   // Local
   const { t } = useTranslation();
   const { classes } = ProfilePageStyles();
@@ -21,7 +24,7 @@ function Picture() {
       </Text>
       <Photographs />
       <GradientButton
-        type="submit"
+        disabled={profile?.picture.length < 1}
         variant="gradient"
         className={classes.nextBtn}
         onClick={() => {

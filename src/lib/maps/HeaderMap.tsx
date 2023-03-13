@@ -12,21 +12,22 @@ export const HEADERS = [
   {
     basic: <HomeBasic />,
     friend: <HomeFriend />,
-    navgigate: '/',
+    navigate: '/',
+  },
+
+  {
+    basic: <MatchBasic />,
+    friend: <MatchFriend />,
+    navigate: '/match',
   },
   {
     basic: <ChatBasic />,
     friend: <ChatFriend />,
-    navgigate: '/chat',
-  },
-  {
-    basic: <MatchBasic />,
-    friend: <MatchFriend />,
-    navgigate: '/match',
+    navigate: '/chat',
   },
   {
     basic: <AboutBasic />,
     friend: <AboutFriend />,
-    navgigate: '/about',
+    navigate: '/about',
   },
 ];

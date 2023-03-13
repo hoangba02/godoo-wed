@@ -9,15 +9,18 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
 import { GlobalStyle } from 'styles/global-styles';
-
 import { useTranslation } from 'react-i18next';
+import { useMediaQuery } from '@mantine/hooks';
+import { AuthSlice } from 'store/slice/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from 'store/slice/authSlice/selectors';
 
 import { LoginPage } from './pages/LoginPage';
 import { HomePage } from './pages/HomePage/Loadable';
 import { NotFoundPage } from './pages/NotFoundPage/Loadable';
 import { RegisterPage } from './pages/RegisterPage/Loadable';
+import { AboutPage } from './pages/AboutPage';
 import InputName from './pages/ForgotPage/ForgotScreen/InputName';
 import GetCode from './pages/ForgotPage/ForgotScreen/GetCode';
 import InputOTP from './pages/ForgotPage/ForgotScreen/InputOTP';
@@ -27,13 +30,12 @@ import Birthday from './pages/ProfilePage/ProfileScreen/Birthday';
 import Picture from './pages/ProfilePage/ProfileScreen/Picture';
 import Gender from './pages/ProfilePage/ProfileScreen/Gender';
 import Description from './pages/ProfilePage/ProfileScreen/Description';
-import { useMediaQuery } from '@mantine/hooks';
-import { AuthSlice } from 'store/slice/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAuth } from 'store/slice/authSlice/selectors';
 import Navigate from './components/Navigate/Navigate';
 import DemoPage from './pages/DemoPage/DemoPage';
 import OverlayLoading from './components/Customs/OverlayLoading/OverlayLoading';
+import Match from './pages/HomePage/HomeScreen/Match';
+import Chat from './pages/HomePage/HomeScreen/Chat';
+import Setting from './pages/SettingPage/SettingScreen/Setting';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -80,6 +82,11 @@ export function App() {
           <Route path="/register" element={<RegisterPage />} />
           {/* Home Page */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/match" element={<Match />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/about" element={<AboutPage />} />
+          {/* Setting Page */}
+          <Route path="/setting" element={<Setting />} />
 
           {/* Profile Page */}
           <Route path="/profile/nickname" element={<Nickname />} />

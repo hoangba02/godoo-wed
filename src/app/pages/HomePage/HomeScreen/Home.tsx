@@ -1,12 +1,12 @@
 import React from 'react';
 import { HomePage } from '..';
 
-function Match() {
+function Home() {
   return (
-    <HomePage active={1}>
-      <>Match</>
+    <HomePage active={0}>
+      <>HomPage</>
     </HomePage>
   );
 }
 
-export default Match;
+export default Home;

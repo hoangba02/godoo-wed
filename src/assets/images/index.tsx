@@ -35,6 +35,9 @@ export const images = {
   Taurus: require('assets/images/profilePage/Zodiac/Taurus.svg').default,
   Virgo: require('assets/images/profilePage/Zodiac/Virgo.svg').default,
 
+  // SettingPage
+  logout: require('assets/images/settingPage/logout.svg').default,
+
   // All
   modal: require('assets/images/modal.svg').default,
 };

@@ -16,14 +16,14 @@ function Header({ active = 0 }: Props) {
         backgroundColor: '#FFE9E0',
         justifyContent: 'space-between',
         borderRadius: '20px 20px 0px 0px',
-        position: 'absolute',
+        position: 'fixed',
         bottom: 0,
         zIndex: 99,
       }}
     >
       {HEADERS.map((header, index) => (
-        <SubtleButton onClick={() => navigate(`${header.navgigate}`)}>
-          ={active === index ? header.friend : header.basic}
+        <SubtleButton onClick={() => navigate(`${header.navigate}`)}>
+          {active === index ? header.friend : header.basic}
         </SubtleButton>
       ))}
     </Flex>

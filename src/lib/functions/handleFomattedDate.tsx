@@ -30,3 +30,21 @@ export function isAgeEnough(date: Date | string | number): boolean | string {
   }
   return age <= 15;
 }
+
+export function Age(data: string): number {
+  // Chuyển đổi ngày tháng năm sang định dạng yyyy-mm-dd
+  const parts: string[] = data.split('/');
+  const birthDate: string = `${parts[2]}-${parts[1]}-${parts[0]}`;
+
+  // Tính số tuổi dựa trên ngày tháng năm sinh
+  const today: Date = new Date();
+  const age: number = today.getFullYear() - new Date(birthDate).getFullYear();
+  const month: number = today.getMonth() - new Date(birthDate).getMonth();
+  if (
+    month < 0 ||
+    (month === 0 && today.getDate() < new Date(birthDate).getDate())
+  ) {
+    return age - 1;
+  }
+  return age;
+}

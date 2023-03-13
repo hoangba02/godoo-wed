@@ -25,3 +25,9 @@ export interface HomePageProps {
   active?: number;
   children?: JSX.Element | JSX.Element[];
 }
+
+export interface SettingPageProps {
+  screen?: string;
+  handleClick?: () => void;
+  children?: JSX.Element | JSX.Element[];
+}

@@ -44,7 +44,7 @@ function Photographs() {
     reader.onload = async event => {
       const image = new Image();
       image.src = reader.result as string;
-      image.onload = async () => {
+      image.onload = () => {
         const canvas = document.createElement('canvas');
         const MAX_WIDTH = 800;
         const MAX_HEIGHT = 600;
@@ -66,43 +66,44 @@ function Photographs() {
         const ctx = canvas.getContext('2d');
         ctx?.drawImage(image, 0, 0, width, height);
         const dataUrl = canvas.toDataURL('image/webp', 0.7);
-        const base64 = dataUrl.split(',')[1];
-        // Request
-        try {
-          const param = { file_base64: base64 };
-          await axios
-            .post(`${BASEDOMAIN}/v1/godoo/profile/uploadimage`, param, {
-              headers: { userid: userId, token: authToken },
-            })
-            .then(res => {
-              console.log(res);
-              const { data } = res;
-              setLoading(false);
-              setActive(-1);
-              if (data.error === 0) {
-                setPictures([...data.data]);
-                dispatch(
-                  authActions.updateProfile({
-                    profile: {
-                      ...profile,
-                      picture: [...data.data],
-                    },
-                  }),
-                );
-              } else {
-                setPictures([...pictures].splice(i, 1));
-                throw new Error('System Error');
-              }
-            });
-        } catch {
-          dispatch(
-            authActions.setSystemError({
-              isError: true,
-            }),
-          );
-        }
+        console.log(dataUrl);
       };
     };
+    // const base64 = (reader.result as string).split(',')[1];
+    // // Request
+    // try {
+    //   const param = { file_base64: base64 };
+    //   await axios
+    //     .post(`${BASEDOMAIN}/v1/godoo/profile/uploadimage`, param, {
+    //       headers: { userid: userId, token: authToken },
+    //     })
+    //     .then(res => {
+    //       console.log(res);
+    //       const { data } = res;
+    //       setLoading(false);
+    //       setActive(-1);
+    //       if (data.error === 0) {
+    //         setPictures([...data.data]);
+    //         dispatch(
+    //           authActions.updateProfile({
+    //             profile: {
+    //               ...profile,
+    //               picture: [...data.data],
+    //             },
+    //           }),
+    //         );
+    //       } else {
+    //         setPictures([...pictures].splice(i, 1));
+    //         throw new Error('System Error');
+    //       }
+    //     });
+    // } catch {
+    //   dispatch(
+    //     authActions.setSystemError({
+    //       isError: true,
+    //     }),
+    //   );
+    // }
   };
   const handleClearImg = (img, i) => {
     try {
