@@ -36,6 +36,7 @@ import OverlayLoading from './components/Customs/OverlayLoading/OverlayLoading';
 import Match from './pages/HomePage/HomeScreen/Match';
 import Chat from './pages/HomePage/HomeScreen/Chat';
 import Setting from './pages/SettingPage/SettingScreen/Setting';
+import Account from './pages/SettingPage/SettingScreen/Account';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -87,6 +88,7 @@ export function App() {
           <Route path="/about" element={<AboutPage />} />
           {/* Setting Page */}
           <Route path="/setting" element={<Setting />} />
+          <Route path="/setting/account" element={<Account />} />
 
           {/* Profile Page */}
           <Route path="/profile/nickname" element={<Nickname />} />

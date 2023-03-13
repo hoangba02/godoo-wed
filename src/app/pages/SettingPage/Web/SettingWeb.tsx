@@ -28,7 +28,7 @@ function SettingWeb({ children, handleClick, screen }: SettingPageProps) {
           fluid
           sx={{
             margin: 0,
-            padding: '0px 0px 0px 135px',
+            padding: '44px 10px 0px 135px',
           }}
         >
           <About />

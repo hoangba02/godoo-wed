@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Flex, Group, Stack, Text } from '@mantine/core';
 
 import { images } from 'assets/images';
 import { SettingPage } from '../Loadable';
 import { SettingStyles } from '../SettingStyles';
-import { Box, Flex, Group, Stack, Text } from '@mantine/core';
+import { AuthSlice } from 'store/slice/authSlice';
 import Popup from 'app/components/Customs/Popup/Popup';
+import { selectAuth } from 'store/slice/authSlice/selectors';
 import { ReactComponent as User } from 'assets/icons/user.svg';
 import { ReactComponent as Notifi } from 'assets/icons/noti.svg';
 import { ReactComponent as Global } from 'assets/icons/global.svg';
@@ -15,8 +17,6 @@ import { ReactComponent as Support } from 'assets/icons/support.svg';
 import { ReactComponent as ChevronRight } from 'assets/icons/chevron-right.svg';
 import { OutlineButton } from 'app/components/Customs/Button/OutlineButton';
 import { GradientButton } from 'app/components/Customs/Button/GradientButton';
-import { AuthSlice } from 'store/slice/authSlice';
-import { selectAuth } from 'store/slice/authSlice/selectors';
 
 function Setting() {
   const dispatch = useDispatch();
@@ -53,7 +53,10 @@ function Setting() {
             <ChevronRight />
           </Box>
         </Flex>
-        <Flex className={classes.option}>
+        <Flex
+          className={classes.option}
+          onClick={() => navigate('/setting/account')}
+        >
           <User />
           <Text className={classes.name}>{t('Setting.My account')}</Text>
           <Box className={classes.icon}>

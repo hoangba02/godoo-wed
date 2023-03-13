@@ -77,12 +77,20 @@
     "edit my profile": "edit my profile"
   },
   "Setting": {
+    "Login method": "Login method",
+    "Delete": "Delete",
     "Setting": "Setting",
-    "Notification": "Notification",
-    "My account": "My account",
     "Support": "Support",
     "Language": "Language",
     "Log out": "Log out",
-    "Are you sure you wanna log out?": "Are you sure you wanna log out?"
+    "My account": "My account",
+    "Change Password": "Change Password",
+    "Notification": "Notification",
+    "Manage account": "Manage account",
+    "Delete account": "Delete account",
+    "Link to Telegram": "Link to Telegram",
+    "Link to  Messenger": "Link to  Messenger",
+    "Are you sure you wanna log out?": "Are you sure you wanna log out?",
+    "Link to Facebook and Telegram to protect your account and never lose access while you forget password": "Link to Facebook and Telegram to protect your account and never lose access while you forget password"
   }
 }

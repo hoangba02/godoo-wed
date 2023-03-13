@@ -48,6 +48,7 @@ export const SettingStyles = createStyles(() => ({
     },
     [`@media (max-width:575px)`]: {
       width: '100%',
+      height: 45,
     },
   },
   name: {
@@ -83,5 +84,42 @@ export const SettingStyles = createStyles(() => ({
     fontWeight: 600,
     fontSize: 20,
     lineHeight: '25px',
+  },
+
+  // Account
+  account: {
+    height: '100%',
+    padding: '24px 16px 0',
+    maxWidth: 570,
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
+  },
+  accountWrapper: {
+    gap: 8,
+    width: '100%',
+    alignItems: 'center',
+  },
+  delBtn: {
+    gap: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+  },
+  info: {
+    fontWeight: 400,
+    fontSize: 14,
+    lineHeight: '17.5px',
+    userSelect: 'none',
+    marginLeft: 6,
+  },
+  part: {
+    width: 570,
+    fontWeight: 500,
+    fontSize: 18,
+    lineHeight: '22px',
+    [`@media (max-width:575px)`]: {
+      width: '100%',
+    },
   },
 }));

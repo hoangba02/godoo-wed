@@ -77,11 +77,10 @@ const makeStyles = createStyles(() => ({
   container: {
     width: '100%',
     minWidth: 348,
-    padding: '44px 10px 0px 0px',
     height: '100%',
+    padding: '0px',
     [`@media (max-width:575px)`]: {
       height: 'calc(100vh - 67px)',
-      padding: ' 0px',
     },
   },
   header: {

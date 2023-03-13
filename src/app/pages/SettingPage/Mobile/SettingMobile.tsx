@@ -14,7 +14,12 @@ function SettingMobile({ children, handleClick, screen }: SettingPageProps) {
         padding: '0px',
       }}
     >
-      <Stack>
+      <Stack
+        sx={{
+          gap: 0,
+          height: '100%',
+        }}
+      >
         <HeaderAbout screen={screen} handleClick={handleClick} />
         {children}
       </Stack>
